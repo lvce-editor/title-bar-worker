@@ -1,10 +1,10 @@
-import * as EditorStrings from '../EditorStrings/EditorStrings.js'
+import * as EditorStrings from '../EditorStrings/EditorStrings.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
 export const id = MenuEntryId.Selection
 
-export const getMenuEntries = () => {
+export const getMenuEntries = (): any => {
   return [
     {
       id: 'selectAll',

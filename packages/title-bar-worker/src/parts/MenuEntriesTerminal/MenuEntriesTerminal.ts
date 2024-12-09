@@ -1,10 +1,10 @@
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-import * as TerminalStrings from '../TerminalStrings/TerminalStrings.js'
+import * as TerminalStrings from '../TerminalStrings/TerminalStrings.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 
 export const id = MenuEntryId.Terminal
 
-export const getMenuEntries = () => {
+export const getMenuEntries = (): any => {
   return [
     {
       id: 'newTerminal',

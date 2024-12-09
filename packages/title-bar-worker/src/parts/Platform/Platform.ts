@@ -1,1 +1,1 @@
-export const platform = 1
+export const platform: number = 1

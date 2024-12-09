@@ -1,13 +1,13 @@
-import * as Command from '../Command/Command.js'
+import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-import * as PathDisplay from '../PathDisplay/PathDisplay.js'
-import * as TitleBarMenuBarStrings from '../TitleBarMenuBarStrings/TitleBarMenuBarStrings.js'
-import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
+import * as ParentRpc from '../ParentRpc/ParentRpc.ts'
+import * as PathDisplay from '../PathDisplay/PathDisplay.ts'
+import * as TitleBarMenuBarStrings from '../TitleBarMenuBarStrings/TitleBarMenuBarStrings.ts'
 
 const MAX_MENU_RECENT_ENTRIES = 10
 
-const toMenuItem = (folder) => {
+const toMenuItem = (folder: any): any => {
   const label = PathDisplay.getTitle(folder)
   return {
     label,
@@ -18,7 +18,7 @@ const toMenuItem = (folder) => {
 }
 
 const getRecentlyOpened = () => {
-  return Command.execute(/* RecentlyOpened.getRecentlyOpened */ 'RecentlyOpened.getRecentlyOpened')
+  return ParentRpc.invoke(/* RecentlyOpened.getRecentlyOpened */ 'RecentlyOpened.getRecentlyOpened')
 }
 
 export const id = MenuEntryId.OpenRecent

@@ -4,18 +4,18 @@ import * as PlatformType from '../PlatformType/PlatformType.ts'
 import * as MenuEntriesTitleBarRemote from './MenuEntriesTitleBarRemote.ts'
 import * as MenuEntriesTitleBarWeb from './MenuEntriesTitleBarWeb.ts'
 
-const getModule = () => {
+const getFn = () => {
   switch (Platform.platform) {
     case PlatformType.Web:
-      return MenuEntriesTitleBarWeb
+      return MenuEntriesTitleBarWeb.getMenuEntries
     default:
-      return MenuEntriesTitleBarRemote
+      return MenuEntriesTitleBarRemote.getMenuEntries
   }
 }
 
 export const id = MenuEntryId.TitleBar
 
 export const getMenuEntries = async () => {
-  const module = await getModule()
-  return module.getMenuEntries()
+  const fn = getFn()
+  return fn()
 }

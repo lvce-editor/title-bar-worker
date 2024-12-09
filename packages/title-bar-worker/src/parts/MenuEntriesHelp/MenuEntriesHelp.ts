@@ -1,5 +1,5 @@
-import * as HelpStrings from '../HelpStrings/HelpStrings.js'
-import * as IsAutoUpdateSupported from '../IsAutoUpdateSupported/IsAutoUpdateSupported.js'
+import * as HelpStrings from '../HelpStrings/HelpStrings.ts'
+import * as IsAutoUpdateSupported from '../IsAutoUpdateSupported/IsAutoUpdateSupported.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'

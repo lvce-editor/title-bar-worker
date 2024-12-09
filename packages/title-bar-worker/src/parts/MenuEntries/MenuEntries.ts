@@ -9,7 +9,7 @@ import * as MenuEntriesOpenRecent from '../MenuEntriesOpenRecent/MenuEntriesOpen
 import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
 import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.ts'
 
-export const menus = [
+const menus = [
   MenuEntriesEdit,
   MenuEntriesFile,
   MenuEntriesGo,

@@ -1,4 +1,4 @@
-import * as FileStrings from '../FileStrings/FileStrings.js'
+import * as FileStrings from '../FileStrings/FileStrings.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
