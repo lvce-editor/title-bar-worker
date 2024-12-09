@@ -1,7 +1,7 @@
 {
   "name": "@lvce-editor/title-bar-worker",
   "version": "0.0.0-dev",
-  "description": "Explorer Worker",
+  "description": "Title Bar Worker",
   "main": "src/titleBarWorkerMain.ts",
   "type": "module",
   "scripts": {
