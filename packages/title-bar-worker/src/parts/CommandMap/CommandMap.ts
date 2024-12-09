@@ -25,6 +25,7 @@ import * as ViewletTitleBarMenuBarHandleClick from '../TitleBarMenuBar/ViewletTi
 import * as ViewletTitleBarMenuBarHandleMouseOut from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOut.ts'
 import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
 import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
+import * as ViewletTitleBarMenuBarHandleFocus from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleFocus.ts'
 
 export const commandMap = {
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
@@ -55,5 +56,5 @@ export const commandMap = {
   'TitleBarMenuBar.toggleIndex': ViewletTitleBarMenuBarToggleIndex.toggleIndex,
   'TitleBarMenuBar.toggleMenu': ViewletTitleBarMenuBarToggleMenu.toggleMenu,
   'TitleBarMenuBar.handleClick': ViewletTitleBarMenuBarHandleClick.handleClick,
-  'TitleBarMenuBar.handleFocus': () => import('./ViewletTitleBarMenuBarHandleFocus.js'),
+  'TitleBarMenuBar.handleFocus': ViewletTitleBarMenuBarHandleFocus.handleFocus,
 }
