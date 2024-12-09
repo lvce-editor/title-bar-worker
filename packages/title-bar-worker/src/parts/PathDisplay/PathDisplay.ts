@@ -1,4 +1,4 @@
-import * as Workspace from '../Workspace/Workspace.js'
+import * as Workspace from '../Workspace/Workspace.ts'
 
 export const getTitle = (uri: string): string => {
   if (!uri) {
