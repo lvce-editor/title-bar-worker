@@ -18,6 +18,10 @@ import * as ViewletTitleBarMenuBarHandleKeyEscape from '../TitleBarMenuBar/Viewl
 import * as ViewletTitleBarMenuBarHandleKeyHome from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyHome.ts'
 import * as ViewletTitleBarMenuBarHandleKeySpace from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpace.ts'
 import * as ViewletTitleBarMenuBarFocusIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocusIndex.ts'
+import * as ViewletTitleBarMenuBarHandleMenuMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
+import * as ViewletTitleBarMenuBarHandleMenuClick from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuClick.ts'
+import * as ViewletTitleBarMenuBarHandleMouseOut from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOut.ts'
+import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
 
 export const commandMap = {
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
@@ -41,10 +45,10 @@ export const commandMap = {
   'TitleBarMenuBar.handleKeyEscape': ViewletTitleBarMenuBarHandleKeyEscape.handleKeyEscape,
   'TitleBarMenuBar.handleKeyHome': ViewletTitleBarMenuBarHandleKeyHome.handleKeyHome,
   'TitleBarMenuBar.handleKeySpace': ViewletTitleBarMenuBarHandleKeySpace.handleKeySpace,
-  'TitleBarMenuBar.handleMenuClick': () => import('./ViewletTitleBarMenuBarHandleMenuClick.js'),
-  'TitleBarMenuBar.handleMenuMouseOver': () => import('./ViewletTitleBarMenuBarHandleMenuMouseOver.js'),
-  'TitleBarMenuBar.handleMouseOver': () => import('./ViewletTitleBarMenuBarHandleMouseOver.js'),
-  'TitleBarMenuBar.handleMouseOut': () => import('./ViewletTitleBarMenuBarHandleMouseOut.js'),
+  'TitleBarMenuBar.handleMenuClick': ViewletTitleBarMenuBarHandleMenuClick.handleMenuClick,
+  'TitleBarMenuBar.handleMenuMouseOver': ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver,
+  'TitleBarMenuBar.handleMouseOver': ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver,
+  'TitleBarMenuBar.handleMouseOut': ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut,
   'TitleBarMenuBar.toggleIndex': () => import('./ViewletTitleBarMenuBarToggleIndex.js'),
   'TitleBarMenuBar.toggleMenu': () => import('./ViewletTitleBarMenuBarToggleMenu.js'),
   'TitleBarMenuBar.handleClick': () => import('./ViewletTitleBarMenuBarHandleClick.js'),
