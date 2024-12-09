@@ -17,13 +17,13 @@ const toMenuItem = (folder: any): any => {
   }
 }
 
-const getRecentlyOpened = () => {
+const getRecentlyOpened = (): any => {
   return ParentRpc.invoke(/* RecentlyOpened.getRecentlyOpened */ 'RecentlyOpened.getRecentlyOpened')
 }
 
 export const id = MenuEntryId.OpenRecent
 
-export const getMenuEntries = async () => {
+export const getMenuEntries = async (): Promise<any> => {
   const allItems = await getRecentlyOpened()
   const itemsToShow = allItems.slice(0, MAX_MENU_RECENT_ENTRIES)
   const items = []

@@ -15,7 +15,7 @@ const getFn = () => {
 
 export const id = MenuEntryId.TitleBar
 
-export const getMenuEntries = async () => {
+export const getMenuEntries = async (): Promise<any> => {
   const fn = getFn()
   return fn()
 }
