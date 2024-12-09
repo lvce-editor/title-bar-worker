@@ -1,4 +1,4 @@
-export const state: any = {
+const state: any = {
   ctx: undefined,
 }
 
