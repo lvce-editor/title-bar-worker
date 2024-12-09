@@ -1,0 +1,5 @@
+export const HandleClick = 'handleClick'
+export const HandleFocusIn = 'handleFocusIn'
+export const HandleFocusOut = 'handleFocusOut'
+export const HandlePointerOut = 'handlePointerOut'
+export const HandlePointerOver = 'handlePointerOver'
