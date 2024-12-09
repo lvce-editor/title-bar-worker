@@ -7,7 +7,7 @@ import * as PlatformType from '../PlatformType/PlatformType.ts'
 
 export const id = MenuEntryId.File
 
-export const getMenuEntries = () => {
+export const getMenuEntries = (): any => {
   const entries = [
     {
       id: 'newFile',

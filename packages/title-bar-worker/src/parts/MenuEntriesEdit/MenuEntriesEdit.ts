@@ -5,7 +5,7 @@ import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 
 export const id = MenuEntryId.Edit
 
-export const getMenuEntries = () => {
+export const getMenuEntries = (): any => {
   return [
     {
       id: 'undo',

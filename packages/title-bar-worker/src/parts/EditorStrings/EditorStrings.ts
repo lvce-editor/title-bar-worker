@@ -52,50 +52,50 @@ const UiStrings = {
   SortImports: 'Sort Imports',
 }
 
-export const cut = () => {
+export const cut = (): string => {
   return I18nString.i18nString(UiStrings.Cut)
 }
 
-export const copy = () => {
+export const copy = (): string => {
   return I18nString.i18nString(UiStrings.Copy)
 }
 
-export const paste = () => {
+export const paste = (): string => {
   return I18nString.i18nString(UiStrings.Paste)
 }
 
-export const undo = () => {
+export const undo = (): string => {
   return I18nString.i18nString(UiStrings.Undo)
 }
 
-export const redo = () => {
+export const redo = (): string => {
   return I18nString.i18nString(UiStrings.Redo)
 }
 
-export const toggleLineComment = () => {
+export const toggleLineComment = (): string => {
   return I18nString.i18nString(UiStrings.ToggleLineComment)
 }
 
-export const toggleBlockComment = () => {
+export const toggleBlockComment = (): string => {
   return I18nString.i18nString(UiStrings.ToggleBlockComment)
 }
 
-export const selectAll = () => {
+export const selectAll = (): string => {
   return I18nString.i18nString(UiStrings.SelectAll)
 }
 
-export const copyLineUp = () => {
+export const copyLineUp = (): string => {
   return I18nString.i18nString(UiStrings.CopyLineUp)
 }
 
-export const copyLineDown = () => {
+export const copyLineDown = (): string => {
   return I18nString.i18nString(UiStrings.CopyLineDown)
 }
 
-export const moveLineUp = () => {
+export const moveLineUp = (): string => {
   return I18nString.i18nString(UiStrings.MoveLineUp)
 }
 
-export const moveLineDown = () => {
+export const moveLineDown = (): string => {
   return I18nString.i18nString(UiStrings.MoveLineDown)
 }

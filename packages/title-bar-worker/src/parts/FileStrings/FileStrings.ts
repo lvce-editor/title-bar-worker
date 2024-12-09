@@ -15,34 +15,34 @@ const UiStrings = {
   SaveAll: 'Save All',
 }
 
-export const newFile = () => {
+export const newFile = (): string => {
   return I18nString.i18nString(UiStrings.NewFile)
 }
 
-export const newWindow = () => {
+export const newWindow = (): string => {
   return I18nString.i18nString(UiStrings.NewWindow)
 }
 
-export const openFile = () => {
+export const openFile = (): string => {
   return I18nString.i18nString(UiStrings.OpenFile)
 }
 
-export const openFolder = () => {
+export const openFolder = (): string => {
   return I18nString.i18nString(UiStrings.OpenFolder)
 }
 
-export const openRecent = () => {
+export const openRecent = (): string => {
   return I18nString.i18nString(UiStrings.OpenRecent)
 }
 
-export const save = () => {
+export const save = (): string => {
   return I18nString.i18nString(UiStrings.Save)
 }
 
-export const saveAll = () => {
+export const saveAll = (): string => {
   return I18nString.i18nString(UiStrings.SaveAll)
 }
 
-export const exit = () => {
+export const exit = (): string => {
   return I18nString.i18nString(UiStrings.Exit)
 }
