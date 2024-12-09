@@ -1,7 +1,7 @@
-import * as AriaRoles from '../AriaRoles/AriaRoles.js'
-import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.js'
+import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetTitleBarMenubarItemsVirtualDom from '../GetTitleBarMenuBarItemsVirtualDom/GetTitleBarMenuBarItemsVirtualDom.ts'
-import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.js'
+import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 
 export const getTitleBarMenuBarVirtualDom = (visibleItems: any): any => {
   return [
