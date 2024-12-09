@@ -9,6 +9,6 @@ const UiStrings = {
   NewTerminal: 'New Terminal',
 }
 
-export const newTerminal = () => {
+export const newTerminal = (): string => {
   return I18NString.i18nString(UiStrings.NewTerminal)
 }

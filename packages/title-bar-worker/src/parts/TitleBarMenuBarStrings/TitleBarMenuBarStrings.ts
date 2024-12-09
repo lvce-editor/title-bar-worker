@@ -9,10 +9,10 @@ const UiStrings = {
   ClearRecentlyOpened: 'Clear Recently Opened',
 }
 
-export const moreDot = () => {
+export const moreDot = (): string => {
   return I18nString.i18nString(UiStrings.MoreDot)
 }
 
-export const clearRecentlyOpened = () => {
+export const clearRecentlyOpened = (): string => {
   return I18nString.i18nString(UiStrings.ClearRecentlyOpened)
 }
