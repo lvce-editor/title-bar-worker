@@ -4,7 +4,7 @@ import * as PlatformType from '../PlatformType/PlatformType.ts'
 import * as MenuEntriesTitleBarRemote from './MenuEntriesTitleBarRemote.ts'
 import * as MenuEntriesTitleBarWeb from './MenuEntriesTitleBarWeb.ts'
 
-const getFn = () => {
+const getFn = (): any => {
   switch (Platform.platform) {
     case PlatformType.Web:
       return MenuEntriesTitleBarWeb.getMenuEntries
