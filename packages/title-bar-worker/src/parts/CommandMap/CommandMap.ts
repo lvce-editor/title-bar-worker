@@ -19,9 +19,12 @@ import * as ViewletTitleBarMenuBarHandleKeyHome from '../TitleBarMenuBar/Viewlet
 import * as ViewletTitleBarMenuBarHandleKeySpace from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpace.ts'
 import * as ViewletTitleBarMenuBarFocusIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocusIndex.ts'
 import * as ViewletTitleBarMenuBarHandleMenuMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
+import * as ViewletTitleBarMenuBarToggleIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 import * as ViewletTitleBarMenuBarHandleMenuClick from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuClick.ts'
+import * as ViewletTitleBarMenuBarHandleClick from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleClick.ts'
 import * as ViewletTitleBarMenuBarHandleMouseOut from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOut.ts'
 import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
+import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
 
 export const commandMap = {
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
@@ -49,8 +52,8 @@ export const commandMap = {
   'TitleBarMenuBar.handleMenuMouseOver': ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver,
   'TitleBarMenuBar.handleMouseOver': ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver,
   'TitleBarMenuBar.handleMouseOut': ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut,
-  'TitleBarMenuBar.toggleIndex': () => import('./ViewletTitleBarMenuBarToggleIndex.js'),
-  'TitleBarMenuBar.toggleMenu': () => import('./ViewletTitleBarMenuBarToggleMenu.js'),
-  'TitleBarMenuBar.handleClick': () => import('./ViewletTitleBarMenuBarHandleClick.js'),
+  'TitleBarMenuBar.toggleIndex': ViewletTitleBarMenuBarToggleIndex.toggleIndex,
+  'TitleBarMenuBar.toggleMenu': ViewletTitleBarMenuBarToggleMenu.toggleMenu,
+  'TitleBarMenuBar.handleClick': ViewletTitleBarMenuBarHandleClick.handleClick,
   'TitleBarMenuBar.handleFocus': () => import('./ViewletTitleBarMenuBarHandleFocus.js'),
 }
