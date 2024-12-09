@@ -8,8 +8,8 @@ import * as PlatformType from '../PlatformType/PlatformType.ts'
 
 export const id = MenuEntryId.Help
 
-export const getMenuEntries = async () => {
-  const autoUpdateSupported = await IsAutoUpdateSupported.isAutoUpdateSupported()
+export const getMenuEntries = async (): Promise<any> => {
+  const autoUpdateSupported = IsAutoUpdateSupported.isAutoUpdateSupported()
   const entries = []
   if (Platform.platform !== PlatformType.Web) {
     entries.push(

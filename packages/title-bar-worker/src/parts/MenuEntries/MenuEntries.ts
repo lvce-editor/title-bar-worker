@@ -22,6 +22,6 @@ const menus = [
   MenuEntriesOpenRecent,
 ]
 
-export const getMenus = () => {
+export const getMenus = (): any => {
   return menus
 }
