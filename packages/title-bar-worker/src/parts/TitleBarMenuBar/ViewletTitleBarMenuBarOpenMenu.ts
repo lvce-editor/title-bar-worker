@@ -1,4 +1,4 @@
-import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.js'
+import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
 
 /**
  * @param {boolean} focus

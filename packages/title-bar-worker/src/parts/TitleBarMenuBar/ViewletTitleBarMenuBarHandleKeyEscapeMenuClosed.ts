@@ -1,1 +1,1 @@
-export { noop as handleKeyEscapeMenuClosed } from './ViewletTitleBarMenuBarNoop.js'
+export { noop as handleKeyEscapeMenuClosed } from './ViewletTitleBarMenuBarNoop.ts'

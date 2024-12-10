@@ -1,1 +1,1 @@
-export { focusLast as handleKeyEndMenuClosed } from './ViewletTitleBarMenuBarFocusLast.js'
+export { focusLast as handleKeyEndMenuClosed } from './ViewletTitleBarMenuBarFocusLast.ts'

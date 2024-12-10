@@ -1,8 +1,8 @@
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-import { selectIndexIgnore } from './ViewletTitleBarMenuBarSelectIndexIgnore.js'
-import { selectIndexNone } from './ViewletTitleBarMenuBarSelectIndexNone.js'
-import { selectIndexRestoreFocus } from './ViewletTitleBarMenuBarSelectIndexRestoreFocus.js'
-import { selectIndexSubMenu } from './ViewletTitleBarMenuBarSelectIndexSubMenu.js'
+import { selectIndexIgnore } from './ViewletTitleBarMenuBarSelectIndexIgnore.ts'
+import { selectIndexNone } from './ViewletTitleBarMenuBarSelectIndexNone.ts'
+import { selectIndexRestoreFocus } from './ViewletTitleBarMenuBarSelectIndexRestoreFocus.ts'
+import { selectIndexSubMenu } from './ViewletTitleBarMenuBarSelectIndexSubMenu.ts'
 
 export const handleMenuClick = (state, level, index) => {
   const { menus } = state

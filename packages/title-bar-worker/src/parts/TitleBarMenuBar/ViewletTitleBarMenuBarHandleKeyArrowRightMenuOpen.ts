@@ -1,8 +1,8 @@
 // TODO menu should not be needed initially, only when item is selected and menu is opened
-import * as Menu from '../Menu/Menu.js'
+import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-import { focusNext } from './ViewletTitleBarMenuBarFocusNext.js'
+import { focusNext } from './ViewletTitleBarMenuBarFocusNext.ts'
 
 export const handleKeyArrowRightMenuOpen = async (state) => {
   const { menus } = state

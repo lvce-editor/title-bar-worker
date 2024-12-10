@@ -1,4 +1,4 @@
-import * as Menu from '../Menu/Menu.js'
+import * as Menu from '../Menu/Menu.ts'
 
 export const handleKeyArrowDownMenuOpen = (state) => {
   const { menus } = state

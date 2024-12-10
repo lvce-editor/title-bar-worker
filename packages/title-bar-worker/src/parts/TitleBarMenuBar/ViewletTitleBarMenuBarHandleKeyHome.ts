@@ -1,5 +1,5 @@
-import { handleKeyHomeMenuClosed } from './ViewletTitleBarMenuBarHandleKeyHomeMenuClosed.js'
-import { handleKeyHomeMenuOpen } from './ViewletTitleBarMenuBarHandleKeyHomeMenuOpen.js'
-import { ifElse } from './ViewletTitleBarMenuBarIfElse.js'
+import { handleKeyHomeMenuClosed } from './ViewletTitleBarMenuBarHandleKeyHomeMenuClosed.ts'
+import { handleKeyHomeMenuOpen } from './ViewletTitleBarMenuBarHandleKeyHomeMenuOpen.ts'
+import { ifElse } from './ViewletTitleBarMenuBarIfElse.ts'
 
 export const handleKeyHome = ifElse(handleKeyHomeMenuOpen, handleKeyHomeMenuClosed)

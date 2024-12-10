@@ -1,1 +1,1 @@
-export { focusNext as handleKeyArrowRightMenuClosed } from './ViewletTitleBarMenuBarFocusNext.js'
+export { focusNext as handleKeyArrowRightMenuClosed } from './ViewletTitleBarMenuBarFocusNext.ts'

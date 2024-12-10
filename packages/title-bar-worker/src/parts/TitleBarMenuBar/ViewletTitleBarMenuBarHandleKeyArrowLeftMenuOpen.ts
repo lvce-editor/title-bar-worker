@@ -1,5 +1,5 @@
 import { closeOneMenu } from './ViewletTitleBarMenuBarCloseOneMenu.ts'
-import { focusPrevious } from './ViewletTitleBarMenuBarFocusPrevious.js'
+import { focusPrevious } from './ViewletTitleBarMenuBarFocusPrevious.ts'
 
 export const handleKeyArrowLeftMenuOpen = (state) => {
   const { menus } = state

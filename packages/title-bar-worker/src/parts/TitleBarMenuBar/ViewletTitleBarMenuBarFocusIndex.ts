@@ -1,5 +1,5 @@
 import * as Assert from '../Assert/Assert.ts'
-import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.js'
+import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
 
 export const focusIndex = (state, index) => {
   Assert.object(state)

@@ -1,4 +1,4 @@
-import * as Menu from '../Menu/Menu.js'
+import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
 const getTotalWidth = (entries) => {

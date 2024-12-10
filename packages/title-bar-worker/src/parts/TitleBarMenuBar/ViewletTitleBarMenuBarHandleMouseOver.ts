@@ -1,5 +1,5 @@
-import { handleMouseOverMenuClosed } from './ViewletTitleBarMenuBarHandleMouseOverMenuClosed.js'
-import { handleMouseOverMenuOpen } from './ViewletTitleBarMenuBarHandleMouseOverMenuOpen.js'
+import { handleMouseOverMenuClosed } from './ViewletTitleBarMenuBarHandleMouseOverMenuClosed.ts'
+import { handleMouseOverMenuOpen } from './ViewletTitleBarMenuBarHandleMouseOverMenuOpen.ts'
 import { ifElse } from './ViewletTitleBarMenuBarIfElse.ts'
 
 export const handleMouseOver = ifElse(handleMouseOverMenuOpen, handleMouseOverMenuClosed)

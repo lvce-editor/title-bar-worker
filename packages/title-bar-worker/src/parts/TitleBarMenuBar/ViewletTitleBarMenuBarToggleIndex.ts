@@ -1,5 +1,5 @@
 import { closeMenu } from './ViewletTitleBarMenuBarCloseMenu.ts'
-import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.js'
+import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
 
 export const toggleIndex = (state, index) => {
   const { isMenuOpen, focusedIndex } = state

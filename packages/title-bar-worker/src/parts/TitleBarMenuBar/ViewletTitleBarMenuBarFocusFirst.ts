@@ -1,5 +1,5 @@
-import * as ListIndex from '../ListIndex/ListIndex.js'
-import { focusIndex } from './ViewletTitleBarMenuBarFocusIndex.js'
+import * as ListIndex from '../ListIndex/ListIndex.ts'
+import { focusIndex } from './ViewletTitleBarMenuBarFocusIndex.ts'
 
 export const focusFirst = (state) => {
   const indexToFocus = ListIndex.first()

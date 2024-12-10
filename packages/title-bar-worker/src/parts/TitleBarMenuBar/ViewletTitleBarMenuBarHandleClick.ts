@@ -1,5 +1,5 @@
-import * as MouseEventType from '../MouseEventType/MouseEventType.js'
-import * as ViewletTitleBarMenuBarToggleIndex from './ViewletTitleBarMenuBarToggleIndex.js'
+import * as MouseEventType from '../MouseEventType/MouseEventType.ts'
+import * as ViewletTitleBarMenuBarToggleIndex from './ViewletTitleBarMenuBarToggleIndex.ts'
 
 export const handleClick = (state, button, index) => {
   if (button !== MouseEventType.LeftClick) {
