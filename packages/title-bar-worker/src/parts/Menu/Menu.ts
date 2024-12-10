@@ -1,5 +1,5 @@
 // TODO lazyload menuEntries and use Command.execute (maybe)
-import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.js'
+import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
 export const MENU_WIDTH = 150
 
