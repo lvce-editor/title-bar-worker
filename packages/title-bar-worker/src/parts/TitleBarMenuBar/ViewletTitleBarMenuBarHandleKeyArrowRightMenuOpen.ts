@@ -4,7 +4,7 @@ import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import { focusNext } from './ViewletTitleBarMenuBarFocusNext.ts'
 
-export const handleKeyArrowRightMenuOpen = async (state: any): any => {
+export const handleKeyArrowRightMenuOpen = async (state: any): Promise<any> => {
   const { menus } = state
   // if menu can open sub menu to the right -> do that
   const menu = menus.at(-1)
