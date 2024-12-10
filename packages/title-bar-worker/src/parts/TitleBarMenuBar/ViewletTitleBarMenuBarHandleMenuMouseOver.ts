@@ -3,7 +3,7 @@ import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
-export const handleMenuMouseOver = async (state: any, level: number, index: number): any => {
+export const handleMenuMouseOver = async (state: any, level: number, index: number): Promise<any> => {
   Assert.object(state)
   Assert.number(level)
   Assert.number(index)
