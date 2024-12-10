@@ -27,7 +27,7 @@ export const getMenus = (): any => {
   return menus
 }
 
-export const getMenuEntries = async (id: any, ...args: any) => {
+export const getMenuEntries = async (id: any, ...args: any): Promise<any> => {
   try {
     const module = menus[0]
     // @ts-ignore

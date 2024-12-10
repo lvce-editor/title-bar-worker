@@ -1,4 +1,4 @@
-export const handleKeySpaceMenuOpen = (state: any) => {
+export const handleKeySpaceMenuOpen = (state: any): any => {
   // TODO
   // await Menu.selectCurrent()
   return state

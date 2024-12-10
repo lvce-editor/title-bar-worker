@@ -16,7 +16,7 @@ export const handleMenuClick = (state: any, level: number, index: number): any =
     case MenuItemFlags.RestoreFocus:
       return selectIndexRestoreFocus(state, item)
     case MenuItemFlags.Ignore:
-      selectIndexIgnore(state, item)
+      return selectIndexIgnore(state, item)
     default:
       return state
   }
