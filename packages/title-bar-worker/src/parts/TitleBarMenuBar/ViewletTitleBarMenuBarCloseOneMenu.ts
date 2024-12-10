@@ -1,4 +1,4 @@
-export const closeOneMenu = (state) => {
+export const closeOneMenu = (state: any): any => {
   const { menus } = state
   const parentMenu = menus.at(-2)
   const newParentMenu = {

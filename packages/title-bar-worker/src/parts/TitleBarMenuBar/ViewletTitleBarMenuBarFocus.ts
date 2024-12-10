@@ -1,5 +1,5 @@
 import { focusFirst } from './ViewletTitleBarMenuBarFocusFirst.ts'
 
-export const focus = (state) => {
+export const focus = (state: any): any => {
   return focusFirst(state)
 }

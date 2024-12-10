@@ -1,4 +1,4 @@
-export const closeMenu = (state, keepFocus) => {
+export const closeMenu = (state: any, keepFocus: boolean): any => {
   const { focusedIndex } = state
   // TODO send to renderer process
   // 1. close menu
