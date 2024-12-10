@@ -1,7 +1,7 @@
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
-const getTotalWidth = (entries) => {
+const getTotalWidth = (entries: any): number => {
   let total = 0
   for (const entry of entries) {
     total += entry.width
@@ -9,11 +9,7 @@ const getTotalWidth = (entries) => {
   return total
 }
 
-/**
- * @param {number} index
- * @param {boolean} shouldBeFocused
- */
-export const openMenuAtIndex = async (state, index, shouldBeFocused) => {
+export const openMenuAtIndex = async (state: any, index: number, shouldBeFocused: boolean): any => {
   const { titleBarEntries, titleBarHeight, x } = state
   // TODO race conditions
   // TODO send renderer process
