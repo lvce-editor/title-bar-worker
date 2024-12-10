@@ -62,12 +62,12 @@ const getIndexToFocusPreviousStartingAt = (items: any, startIndex: any): any => 
   return -1
 }
 
-export const getIndexToFocusPrevious = (menu) => {
+export const getIndexToFocusPrevious = (menu: any): any => {
   const startIndex = menu.focusedIndex === -1 ? menu.items.length - 1 : menu.focusedIndex - 1
   return getIndexToFocusPreviousStartingAt(menu.items, startIndex)
 }
 
-const canBeFocused = (item) => {
+const canBeFocused = (item: any): any => {
   switch (item.flags) {
     case MenuItemFlags.Separator:
     case MenuItemFlags.Disabled:
@@ -77,7 +77,7 @@ const canBeFocused = (item) => {
   }
 }
 
-export const getIndexToFocusNext = (menu) => {
+export const getIndexToFocusNext = (menu: any): any => {
   const startIndex = menu.focusedIndex + 1
   return getIndexToFocusNextStartingAt(menu.items, startIndex)
 }
