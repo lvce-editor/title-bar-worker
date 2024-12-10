@@ -14,34 +14,34 @@ const UiStrings = {
   Help: 'Help',
 }
 
-export const file = () :string=> {
+export const file = (): string => {
   return I18nString.i18nString(UiStrings.File)
 }
 
-export const edit = () :string=> {
+export const edit = (): string => {
   return I18nString.i18nString(UiStrings.Edit)
 }
 
-export const selection = () :string=> {
+export const selection = (): string => {
   return I18nString.i18nString(UiStrings.Selection)
 }
 
-export const view = () :string=> {
+export const view = (): string => {
   return I18nString.i18nString(UiStrings.View)
 }
 
-export const go = () :string=> {
+export const go = (): string => {
   return I18nString.i18nString(UiStrings.Go)
 }
 
-export const run = () :string=> {
+export const run = (): string => {
   return I18nString.i18nString(UiStrings.Run)
 }
 
-export const terminal = () :string=> {
+export const terminal = (): string => {
   return I18nString.i18nString(UiStrings.Terminal)
 }
 
-export const help = () :string=> {
+export const help = (): string => {
   return I18nString.i18nString(UiStrings.Help)
 }
