@@ -1,3 +1,3 @@
-export const handleMouseOutMenuOpen = (state) => {
+export const handleMouseOutMenuOpen = (state: any): any => {
   return state
 }
