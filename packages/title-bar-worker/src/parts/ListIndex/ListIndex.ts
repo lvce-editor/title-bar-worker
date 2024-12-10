@@ -1,26 +1,15 @@
-export const first = () => {
+export const first = (): number => {
   return 0
 }
 
-export const last = (items) => {
+export const last = (items: any): number => {
   return items.length - 1
 }
 
-export const next = (items, index) => {
+export const next = (items: any, index: number): number => {
   return (index + 1) % items.length
 }
 
-const nextNoCycle = (items, index) => {
-  if (index === items.length - 1) {
-    return index
-  }
-  return index + 1
-}
-
-export const previous = (items, index) => {
+export const previous = (items: any, index: number): number => {
   return index === 0 ? items.length - 1 : index - 1
-}
-
-const previousNoCycle = (items, index) => {
-  return index === 0 ? 0 : index - 1
 }
