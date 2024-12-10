@@ -9,7 +9,7 @@ const getTotalWidth = (entries: any): number => {
   return total
 }
 
-export const openMenuAtIndex = async (state: any, index: number, shouldBeFocused: boolean): any => {
+export const openMenuAtIndex = async (state: any, index: number, shouldBeFocused: boolean): Promise<any> => {
   const { titleBarEntries, titleBarHeight, x } = state
   // TODO race conditions
   // TODO send renderer process

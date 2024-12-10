@@ -1,5 +1,5 @@
-export const ifElse = (menuOpenFunction, menuClosedFunction) => {
-  const ifElseFunction = (state, ...args) => {
+export const ifElse = (menuOpenFunction: any, menuClosedFunction: any): any => {
+  const ifElseFunction = (state: any, ...args: any): any => {
     const { isMenuOpen } = state
     if (isMenuOpen) {
       return menuOpenFunction(state, ...args)
