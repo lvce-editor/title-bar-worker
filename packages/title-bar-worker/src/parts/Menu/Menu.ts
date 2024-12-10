@@ -8,7 +8,7 @@ const CONTEXT_MENU_SEPARATOR_HEIGHT = 11
 const CONTEXT_MENU_PADDING = 8
 const CONTEXT_MENU_WIDTH = 250
 
-export const getMenuWidth = () => {
+export const getMenuWidth = (): number => {
   return CONTEXT_MENU_WIDTH
 }
 
