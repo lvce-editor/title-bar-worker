@@ -20,15 +20,15 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
+    "@eslint/js": "^9.20.0",
     "@lerna/legacy-package-management": "^8.1.9",
-    "@lvce-editor/eslint-config": "^1.21.0",
+    "@lvce-editor/eslint-config": "^1.23.0",
     "@types/eslint__js": "^8.42.3",
-    "eslint": "^9.19.0",
+    "eslint": "^9.20.0",
     "lerna": "^8.1.9",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.22.0"
+    "typescript-eslint": "^8.23.0"
   },
   "prettier": {
     "semi": false,
