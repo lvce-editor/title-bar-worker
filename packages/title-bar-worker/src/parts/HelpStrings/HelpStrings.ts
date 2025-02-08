@@ -1,18 +1,5 @@
 import * as I18nString from '../I18NString/I18NString.ts'
-
-/**
- * @enum {string}
- */
-const UiStrings = {
-  About: 'About',
-  CheckForUpdates: 'Check For Updates',
-  ColorTheme: 'Color Theme',
-  CommandPalette: 'Command Palette',
-  KeyboardShortcuts: 'Keyboard Shortcuts',
-  OpenProcessExplorer: 'Open Process Explorer',
-  Settings: 'Settings',
-  ToggleDeveloperTools: 'Toggle Developer Tools',
-}
+import * as UiStrings from '../UiStrings/UiStrings.ts'
 
 export const toggleDeveloperTools = (): string => {
   return I18nString.i18nString(UiStrings.ToggleDeveloperTools)
