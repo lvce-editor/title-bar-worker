@@ -6,7 +6,6 @@ import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as Terminate from '../Terminate/Terminate.ts'
-import * as WrapCommand from '../WrapCommand/WrapCommand.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as CloseMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
 import * as Focus from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocus.ts'
@@ -32,6 +31,7 @@ import * as ViewletTitleBarMenuBarHandleMouseOut from '../TitleBarMenuBar/Viewle
 import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
 import * as ViewletTitleBarMenuBarToggleIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
+import * as WrapCommand from '../WrapCommand/WrapCommand.ts'
 
 export const commandMap = {
   'TitleBarMenuBar.closeMenu': CloseMenu.closeMenu,
