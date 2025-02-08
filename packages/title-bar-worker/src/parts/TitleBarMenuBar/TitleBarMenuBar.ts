@@ -1,4 +1,6 @@
-export const create = (id: any, uri: any, x: any, y: any, width: any, height: any): any => {
+import { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+
+export const create = (id: any, uri: any, x: any, y: any, width: any, height: any): TitleBarMenuBarState => {
   return {
     uid: id,
     titleBarEntries: [],
