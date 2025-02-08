@@ -4,6 +4,7 @@ import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
+import * as Terminate from '../Terminate/Terminate.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as CloseMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
 import * as Focus from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocus.ts'
@@ -62,4 +63,5 @@ export const commandMap = {
   'TitleBarMenuBar.render': DoRender.doRender,
   'TitleBarMenuBar.toggleIndex': ViewletTitleBarMenuBarToggleIndex.toggleIndex,
   'TitleBarMenuBar.toggleMenu': ViewletTitleBarMenuBarToggleMenu.toggleMenu,
+  'TitleBarMenuBar.terminate': Terminate.terminate,
 }
