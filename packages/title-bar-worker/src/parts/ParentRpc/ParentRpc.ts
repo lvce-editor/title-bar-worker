@@ -3,7 +3,7 @@ const state = {
 }
 
 export const invoke = (method: string, ...params: any[]): Promise<any> => {
-  const rpc = state.rpc
+  const { rpc } = state
   // @ts-ignore
   return rpc.invoke(method, ...params)
 }
