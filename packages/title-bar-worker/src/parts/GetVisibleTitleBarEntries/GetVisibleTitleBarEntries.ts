@@ -27,7 +27,7 @@ export const getVisibleTitleBarEntries = (entries: readonly any[], width: number
       visible.pop()
     }
     visible.push({
-      ariaLabel: TitleBarMenuBarStrings.more(),
+      ariaLabel: TitleBarMenuBarStrings.moreDot(),
       icon: Icon.Ellipsis,
       label: '',
       width: moreIconWidth + totalPadding,
