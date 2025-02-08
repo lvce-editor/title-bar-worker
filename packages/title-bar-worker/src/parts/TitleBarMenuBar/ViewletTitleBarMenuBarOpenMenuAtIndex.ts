@@ -1,5 +1,5 @@
-import * as GetTotalWidth from '../GetTotalWidth/GetTotalWidth.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as GetTotalWidth from '../GetTotalWidth/GetTotalWidth.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
