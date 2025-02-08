@@ -1,5 +1,5 @@
 import * as Assert from '../Assert/Assert.ts'
-import { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
 
 export const focusIndex = async (state: TitleBarMenuBarState, index: number): Promise<TitleBarMenuBarState> => {
