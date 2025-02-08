@@ -1,7 +1,7 @@
 import * as GetTotalWidth from '../GetTotalWidth/GetTotalWidth.ts'
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
-import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
 export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number, shouldBeFocused: boolean): Promise<TitleBarMenuBarState> => {
   const { titleBarEntries, titleBarHeight, x } = state
