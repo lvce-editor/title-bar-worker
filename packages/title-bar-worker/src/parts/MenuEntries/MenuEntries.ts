@@ -27,9 +27,18 @@ export const getMenus = (): any => {
   return menus
 }
 
+const getModule = (id: number): any => {
+  for (const module of menus) {
+    if (module.id === id) {
+      return module
+    }
+  }
+  return undefined
+}
+
 export const getMenuEntries = async (id: any, ...args: any): Promise<any> => {
   try {
-    const module = menus[0]
+    const module = getModule(id)
     // @ts-ignore
     const inject = module.inject || []
     // @ts-ignore
