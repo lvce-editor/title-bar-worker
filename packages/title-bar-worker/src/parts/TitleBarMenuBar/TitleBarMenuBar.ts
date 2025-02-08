@@ -1,4 +1,4 @@
-import { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
 export const create = (id: any, uri: any, x: any, y: any, width: any, height: any): TitleBarMenuBarState => {
   return {
