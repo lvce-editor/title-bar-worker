@@ -26,7 +26,7 @@ const renderTitleBarEntries = {
       newState.isMenuOpen,
     )
     const dom = GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(visibleEntries)
-    return ['Viewlet.setDom2', dom]
+    return ['Viewlet.setDom2', newState.uid, dom]
   },
 }
 
@@ -36,6 +36,8 @@ const renderFocusedIndex = {
   },
   apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any {
     return [
+      'Viewlet.send',
+      newState.uid,
       /* method */ RenderMethod.SetFocusedIndex,
       /* oldFocusedIndex */ oldState.focusedIndex,
       /* newfocusedIndex */ newState.focusedIndex,
@@ -74,7 +76,7 @@ const renderMenus = {
     } else if (difference < 0) {
       changes.push(['closeMenus', newLength])
     }
-    return [/* method */ RenderMethod.SetMenus, /* changes */ changes, newState.uid]
+    return ['Viewlet.send', newState.uid, /* method */ RenderMethod.SetMenus, /* changes */ changes, newState.uid]
   },
 }
 
