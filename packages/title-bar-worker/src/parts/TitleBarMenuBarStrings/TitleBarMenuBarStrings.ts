@@ -1,13 +1,5 @@
 import * as I18nString from '../I18NString/I18NString.ts'
-
-/**
- * @enum {string}
- */
-const UiStrings = {
-  More: 'more',
-  MoreDot: 'More ...',
-  ClearRecentlyOpened: 'Clear Recently Opened',
-}
+import * as UiStrings from '../UiStrings/UiStrings.ts'
 
 export const moreDot = (): string => {
   return I18nString.i18nString(UiStrings.MoreDot)
