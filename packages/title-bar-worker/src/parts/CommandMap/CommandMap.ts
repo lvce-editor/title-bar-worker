@@ -1,4 +1,5 @@
 import * as DoRender from '../DoRender/DoRender.ts'
+import * as GetCommands from '../GetCommands/GetCommands.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
@@ -32,13 +33,13 @@ import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTit
 export const commandMap = {
   'TitleBarMenuBar.closeMenu': CloseMenu.closeMenu,
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
-  'TitleBarMenuBar.render': DoRender.doRender,
   'TitleBarMenuBar.focus': Focus.focus,
   'TitleBarMenuBar.focusFirst': ViewletTitleBarMenuBarFocusFirst.focusFirst,
   'TitleBarMenuBar.focusIndex': ViewletTitleBarMenuBarFocusLast.focusLast,
   'TitleBarMenuBar.focusLast': ViewletTitleBarMenuBarFocusIndex.focusIndex,
   'TitleBarMenuBar.focusNext': ViewletTitleBarMenuBarFocusNext.focusNext,
   'TitleBarMenuBar.focusPrevious': ViewletTitleBarMenuBarFocusPrevious.focusPrevious,
+  'TitleBarMenuBar.getCommands': GetCommands.commandsIds,
   'TitleBarMenuBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBarMenuBar.getMenus': MenuEntries.getMenus,
   'TitleBarMenuBar.getVirtualDom': GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom,
@@ -58,6 +59,7 @@ export const commandMap = {
   'TitleBarMenuBar.handleMouseOut': ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut,
   'TitleBarMenuBar.handleMouseOver': ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver,
   'TitleBarMenuBar.loadContent': LoadContent.loadContent,
+  'TitleBarMenuBar.render': DoRender.doRender,
   'TitleBarMenuBar.toggleIndex': ViewletTitleBarMenuBarToggleIndex.toggleIndex,
   'TitleBarMenuBar.toggleMenu': ViewletTitleBarMenuBarToggleMenu.toggleMenu,
 }
