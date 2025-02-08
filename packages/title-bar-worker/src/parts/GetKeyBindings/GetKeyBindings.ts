@@ -1,7 +1,7 @@
 import * as KeyCode from '../KeyCode/KeyCode.ts'
 import * as WhenExpression from '../WhenExpression/WhenExpression.ts'
 
-export const getKeyBindings = () => {
+export const getKeyBindings = (): readonly any[] => {
   return [
     {
       key: KeyCode.DownArrow,
