@@ -2,23 +2,28 @@
   "name": "@lvce-editor/title-bar-worker-monorepo",
   "version": "0.0.0-dev",
   "description": "",
-  "main": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
   "type": "module",
+  "main": "",
   "scripts": {
-    "postinstall": "lerna bootstrap --ci",
-    "lint": "eslint .",
-    "test": "lerna run test",
-    "type-check": "tsc -b",
-    "build:watch": "./packages/build/node_modules/.bin/esbuild --format=esm --bundle --watch packages/title-bar-worker/src/titleBarWorkerMain.ts --outfile=.tmp/dist/dist/titleBarWorkerMain.js",
     "build": "node packages/build/src/build.js",
     "build:static": "node packages/build/src/build-static.js",
+    "build:watch": "./packages/build/node_modules/.bin/esbuild --format=esm --bundle --watch packages/title-bar-worker/src/titleBarWorkerMain.ts --outfile=.tmp/dist/dist/titleBarWorkerMain.js",
     "dev": "node packages/build/src/dev.js",
+    "format": "prettier --write .",
+    "lint": "eslint .",
     "measure": "cd packages/memory && npm run measure",
-    "format": "prettier --write ."
+    "postinstall": "lerna bootstrap --ci",
+    "test": "lerna run test",
+    "type-check": "tsc -b"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 150
+  },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
     "@lerna/legacy-package-management": "^8.1.9",
@@ -29,10 +34,5 @@
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.23.0"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "printWidth": 150
   }
 }
