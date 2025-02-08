@@ -12,6 +12,7 @@ const UiStrings = {
   Run: 'Run',
   Terminal: 'Terminal',
   Help: 'Help',
+  More: 'More',
 }
 
 export const file = (): string => {
@@ -44,4 +45,8 @@ export const terminal = (): string => {
 
 export const help = (): string => {
   return I18nString.i18nString(UiStrings.Help)
+}
+
+export const more = (): string => {
+  return I18nString.i18nString(UiStrings.More)
 }
