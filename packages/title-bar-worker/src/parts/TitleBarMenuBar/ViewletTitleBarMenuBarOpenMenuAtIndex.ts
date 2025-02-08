@@ -1,5 +1,6 @@
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
 const getTotalWidth = (entries: any): number => {
   let total = 0
@@ -9,7 +10,7 @@ const getTotalWidth = (entries: any): number => {
   return total
 }
 
-export const openMenuAtIndex = async (state: any, index: number, shouldBeFocused: boolean): Promise<any> => {
+export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number, shouldBeFocused: boolean): Promise<TitleBarMenuBarState> => {
   const { titleBarEntries, titleBarHeight, x } = state
   // TODO race conditions
   // TODO send renderer process
