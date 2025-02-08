@@ -1,6 +1,13 @@
 import * as MeasureTitleBarEntryWidth from '../MeasureTitleBarEntryWidth/MeasureTitleBarEntryWidth.ts'
 
-export const addWidths = (entries: any, labelPadding: any, fontWeight: any, fontSize: any, fontFamily: any, letterSpacing: any): any => {
+export const addWidths = (
+  entries: any,
+  labelPadding: number,
+  fontWeight: number,
+  fontSize: number,
+  fontFamily: string,
+  letterSpacing: number,
+): readonly any[] => {
   const withWidths = []
   for (const entry of entries) {
     const textWidth = MeasureTitleBarEntryWidth.measureTitleBarEntryWidth(entry.label, fontWeight, fontSize, fontFamily, letterSpacing)
