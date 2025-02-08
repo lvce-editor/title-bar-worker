@@ -10,7 +10,7 @@ export const hasFunctionalRender = true
 export const hasFunctionalRootRender = true
 
 const renderTitleBarEntries = {
-  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState) {
+  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): boolean {
     return (
       oldState.titleBarEntries === newState.titleBarEntries &&
       oldState.width === newState.width &&
@@ -18,7 +18,7 @@ const renderTitleBarEntries = {
       oldState.isMenuOpen === newState.isMenuOpen
     )
   },
-  apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState) {
+  apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any {
     const visibleEntries = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(
       newState.titleBarEntries,
       newState.width,
@@ -31,10 +31,10 @@ const renderTitleBarEntries = {
 }
 
 const renderFocusedIndex = {
-  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState) {
+  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): boolean {
     return oldState.focusedIndex === newState.focusedIndex && oldState.isMenuOpen === newState.isMenuOpen
   },
-  apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState) {
+  apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any {
     return [
       /* method */ RenderMethod.SetFocusedIndex,
       /* oldFocusedIndex */ oldState.focusedIndex,
@@ -46,10 +46,10 @@ const renderFocusedIndex = {
 }
 
 const renderMenus = {
-  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState) {
+  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): boolean {
     return oldState.menus === newState.menus
   },
-  apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState) {
+  apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any {
     const oldMenus = oldState.menus
     const newMenus = newState.menus
     const oldLength = oldMenus.length
