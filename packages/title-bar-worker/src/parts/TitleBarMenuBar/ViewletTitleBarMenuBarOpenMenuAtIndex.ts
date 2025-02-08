@@ -1,14 +1,7 @@
+import * as GetTotalWidth from '../GetTotalWidth/GetTotalWidth.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
-
-const getTotalWidth = (entries: any): number => {
-  let total = 0
-  for (const entry of entries) {
-    total += entry.width
-  }
-  return total
-}
 
 export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number, shouldBeFocused: boolean): Promise<TitleBarMenuBarState> => {
   const { titleBarEntries, titleBarHeight, x } = state
@@ -20,7 +13,7 @@ export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number
   const { id } = titleBarEntry
   const items = await MenuEntries.getMenuEntries(id)
   const relevantEntries = titleBarEntries.slice(0, index)
-  const totalWidths = getTotalWidth(relevantEntries)
+  const totalWidths = GetTotalWidth.getTotalWidth(relevantEntries)
   const offset = totalWidths
   // TODO race condition: another menu might already be open at this point
 
