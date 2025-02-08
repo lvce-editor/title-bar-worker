@@ -62,7 +62,7 @@ export const commandMap = {
   'TitleBarMenuBar.handleMenuMouseOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver),
   'TitleBarMenuBar.handleMouseOut': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut),
   'TitleBarMenuBar.handleMouseOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
-  'TitleBarMenuBar.loadContent': LoadContent.loadContent,
+  'TitleBarMenuBar.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
   'TitleBarMenuBar.render': DoRender.doRender,
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBarMenuBar.toggleMenu': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
