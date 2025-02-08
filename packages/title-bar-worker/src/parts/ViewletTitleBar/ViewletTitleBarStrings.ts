@@ -1,19 +1,5 @@
 import * as I18nString from '../I18NString/I18NString.ts'
-
-/**
- * @enum {string}
- */
-const UiStrings = {
-  File: 'File',
-  Edit: 'Edit',
-  Selection: 'Selection',
-  View: 'View',
-  Go: 'Go',
-  Run: 'Run',
-  Terminal: 'Terminal',
-  Help: 'Help',
-  More: 'More',
-}
+import * as UiStrings from '../UiStrings/UiStrings.ts'
 
 export const file = (): string => {
   return I18nString.i18nString(UiStrings.File)
