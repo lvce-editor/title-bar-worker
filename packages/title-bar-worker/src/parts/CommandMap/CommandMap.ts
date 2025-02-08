@@ -42,7 +42,7 @@ export const commandMap = {
   'TitleBarMenuBar.focusLast': ViewletTitleBarMenuBarFocusIndex.focusIndex,
   'TitleBarMenuBar.focusNext': ViewletTitleBarMenuBarFocusNext.focusNext,
   'TitleBarMenuBar.focusPrevious': ViewletTitleBarMenuBarFocusPrevious.focusPrevious,
-  'TitleBarMenuBar.getCommands': GetCommands.commandsIds,
+  'TitleBarMenuBar.getCommands': GetCommands.getCommandIds,
   'TitleBarMenuBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBarMenuBar.getMenus': MenuEntries.getMenus,
   'TitleBarMenuBar.getVirtualDom': GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom,

@@ -1,4 +1,4 @@
-export const commandsIds = [
+const commandsIds = [
   'closeMenu',
   'focus',
   'focusFirst',
@@ -25,6 +25,6 @@ export const commandsIds = [
   'handleFocus',
 ]
 
-export const getCommanIds = (): readonly string[] => {
+export const getCommandIds = (): readonly string[] => {
   return commandsIds
 }
