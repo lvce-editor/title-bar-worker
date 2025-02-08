@@ -1,6 +1,6 @@
 export const getVisible = (items: readonly any[], focusedIndex: number, expanded: boolean, level: number): readonly any[] => {
   const visibleItems = []
-  const length = items.length
+  const { length } = items
   for (let i = 0; i < length; i++) {
     const item = items[i]
     const { flags, label } = item
