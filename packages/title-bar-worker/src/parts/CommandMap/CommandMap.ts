@@ -40,9 +40,13 @@ import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTit
 import * as WrapCommand from '../WrapCommand/WrapCommand.ts'
 
 export const commandMap = {
-  'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
+  'TitleBar.getButtonsVirtualDom': GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom,
   'TitleBar.getIconVirtualDom': GetTitleBarIconVirtualDom.getTitleBarIconVirtualDom,
+  'TitleBar.getMenuEntries': GetMenuIds.getMenuEntries,
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
+  'TitleBar.getTitleVirtualDom': GetTitleVirtualDom.getTitleVirtualDom,
+  'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
+  'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBarMenuBar.closeMenu': CloseMenu.closeMenu,
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
   'TitleBarMenuBar.focus': WrapCommand.wrapCommand(Focus.focus),
@@ -64,7 +68,6 @@ export const commandMap = {
   'TitleBarMenuBar.handleKeyEnd': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnd.handleKeyEnd),
   'TitleBarMenuBar.handleKeyEnter': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnter.handleKeyEnter),
   'TitleBarMenuBar.handleKeyEscape': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEscape.handleKeyEscape),
-  'TitleBarMenuBar.saveState': SaveState.saveState,
   'TitleBarMenuBar.handleKeyHome': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyHome.handleKeyHome),
   'TitleBarMenuBar.handleKeySpace': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeySpace.handleKeySpace),
   'TitleBarMenuBar.handleMenuClick': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMenuClick.handleMenuClick),
@@ -73,10 +76,8 @@ export const commandMap = {
   'TitleBarMenuBar.handleMouseOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBarMenuBar.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
   'TitleBarMenuBar.render': DoRender.doRender,
+  'TitleBarMenuBar.saveState': SaveState.saveState,
+  'TitleBarMenuBar.terminate': Terminate.terminate,
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBarMenuBar.toggleMenu': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
-  'TitleBarMenuBar.terminate': Terminate.terminate,
-  'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
-  'TitleBar.getButtonsVirtualDom': GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom,
-  'TitleBar.getTitleVirtualDom': GetTitleVirtualDom.getTitleVirtualDom,
 }

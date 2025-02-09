@@ -1,16 +1,35 @@
-import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
+import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.js'
+import * as MenuEntriesFile from '../MenuEntriesFile/MenuEntriesFile.js'
+import * as MenuEntriesGo from '../MenuEntriesGo/MenuEntriesGo.js'
+import * as MenuEntriesHelp from '../MenuEntriesHelp/MenuEntriesHelp.js'
+import * as MenuEntriesOpenRecent from '../MenuEntriesOpenRecent/MenuEntriesOpenRecent.js'
+import * as MenuEntriesRun from '../MenuEntriesRun/MenuEntriesRun.js'
+import * as MenuEntriesSelection from '../MenuEntriesSelection/MenuEntriesSelection.js'
+import * as MenuEntriesTerminal from '../MenuEntriesTerminal/MenuEntriesTerminal.js'
+import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.js'
+import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.js'
+
+export const menus = [
+  MenuEntriesEdit,
+  MenuEntriesFile,
+  MenuEntriesGo,
+  MenuEntriesHelp,
+  MenuEntriesRun,
+  MenuEntriesSelection,
+  MenuEntriesTerminal,
+  MenuEntriesTitleBar,
+  MenuEntriesView,
+  MenuEntriesOpenRecent,
+]
 
 export const getMenuIds = (): readonly number[] => {
-  return [
-    MenuEntryId.Edit,
-    MenuEntryId.File,
-    MenuEntryId.Go,
-    MenuEntryId.Help,
-    MenuEntryId.Run,
-    MenuEntryId.Selection,
-    MenuEntryId.Terminal,
-    MenuEntryId.TitleBar,
-    MenuEntryId.View,
-    MenuEntryId.OpenRecent,
-  ]
+  return menus.map((menu) => menu.id)
+}
+
+export const getMenuEntries = (id: number): readonly any[] => {
+  const menu = menus.find((item) => item.id === id)
+  if (!menu) {
+    return []
+  }
+  return menu.getMenuEntries()
 }
