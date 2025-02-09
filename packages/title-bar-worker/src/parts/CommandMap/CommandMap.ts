@@ -2,6 +2,7 @@ import * as DoRender from '../DoRender/DoRender.ts'
 import * as GetCommands from '../GetCommands/GetCommands.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
+import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
@@ -67,4 +68,5 @@ export const commandMap = {
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBarMenuBar.toggleMenu': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
   'TitleBarMenuBar.terminate': Terminate.terminate,
+  'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
 }
