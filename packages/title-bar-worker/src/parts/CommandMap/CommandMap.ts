@@ -5,6 +5,7 @@ import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/G
 import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
+import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as Terminate from '../Terminate/Terminate.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
@@ -35,6 +36,7 @@ import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTit
 import * as WrapCommand from '../WrapCommand/WrapCommand.ts'
 
 export const commandMap = {
+  'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBarMenuBar.closeMenu': CloseMenu.closeMenu,
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
   'TitleBarMenuBar.focus': WrapCommand.wrapCommand(Focus.focus),
