@@ -20,4 +20,13 @@ await cp(
   join(root, 'dist', commitHash, 'packages', 'title-bar-worker-worker', 'dist', 'titleBarWorkerMain.js'),
 )
 
+const nodeModulesPath = join(root, 'packages', 'server', 'node_modules')
+
+const serverStaticPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'static')
+
+await cp(
+  join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js.original'),
+  join(root, 'dist', commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js'),
+)
+
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })
