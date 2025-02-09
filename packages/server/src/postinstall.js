@@ -1,4 +1,4 @@
-import { readdir } from 'node:fs/promises'
+import { readdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -13,6 +13,8 @@ export const getRemoteUrl = (path) => {
 
 const nodeModulesPath = join(root, 'packages', 'server', 'node_modules')
 
+const workerPath = join(root, '.tmp', 'dist', 'dist', 'titleBarWorkerMain.js')
+
 const serverStaticPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'static')
 
 const RE_COMMIT_HASH = /^[a-z\d]+$/
@@ -22,16 +24,15 @@ const isCommitHash = (dirent) => {
 
 const dirents = await readdir(serverStaticPath)
 const commitHash = dirents.find(isCommitHash) || ''
-// @ts-ignore
 const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
 
-// const content = await readFile(rendererWorkerMainPath, 'utf-8')
-// const remoteUrl = getRemoteUrl(textSearchWorkerPath)
-// if (!content.includes('// const textSearchWorkerUrl = ')) {
-//   const occurrence = `const textSearchWorkerUrl = \`\${assetDir}/packages/text-search-worker/dist/textSearchWorkerMain.js\``
-//   const replacement = `// const textSearchWorkerUrl = \`\${assetDir}/packages/text-search-worker/dist/textSearchWorkerMain.js\`
-//   const textSearchWorkerUrl = \`${remoteUrl}\``
+const content = await readFile(rendererWorkerMainPath, 'utf-8')
+const remoteUrl = getRemoteUrl(workerPath)
+if (!content.includes('// const titleBarWorkerUrl = ')) {
+  const occurrence = `const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\``
+  const replacement = `// const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\`
+  const titleBarWorkerUrl = \`${remoteUrl}\``
 
-//   const newContent = content.replace(occurrence, replacement)
-//   await writeFile(rendererWorkerMainPath, newContent)
-// }
+  const newContent = content.replace(occurrence, replacement)
+  await writeFile(rendererWorkerMainPath, newContent)
+}
