@@ -1,5 +1,5 @@
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
-import { text } from '../VirtualDomHelpers/VirtualDomHelpers.js'
+import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const getTitleVirtualDom = (title: string): readonly VirtualDomNode[] => {
   return [text(title)]
