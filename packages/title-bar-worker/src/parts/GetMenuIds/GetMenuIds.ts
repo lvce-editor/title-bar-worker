@@ -1,13 +1,13 @@
-import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.js'
-import * as MenuEntriesFile from '../MenuEntriesFile/MenuEntriesFile.js'
-import * as MenuEntriesGo from '../MenuEntriesGo/MenuEntriesGo.js'
-import * as MenuEntriesHelp from '../MenuEntriesHelp/MenuEntriesHelp.js'
-import * as MenuEntriesOpenRecent from '../MenuEntriesOpenRecent/MenuEntriesOpenRecent.js'
-import * as MenuEntriesRun from '../MenuEntriesRun/MenuEntriesRun.js'
-import * as MenuEntriesSelection from '../MenuEntriesSelection/MenuEntriesSelection.js'
-import * as MenuEntriesTerminal from '../MenuEntriesTerminal/MenuEntriesTerminal.js'
-import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.js'
-import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.js'
+import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
+import * as MenuEntriesFile from '../MenuEntriesFile/MenuEntriesFile.ts'
+import * as MenuEntriesGo from '../MenuEntriesGo/MenuEntriesGo.ts'
+import * as MenuEntriesHelp from '../MenuEntriesHelp/MenuEntriesHelp.ts'
+import * as MenuEntriesOpenRecent from '../MenuEntriesOpenRecent/MenuEntriesOpenRecent.ts'
+import * as MenuEntriesRun from '../MenuEntriesRun/MenuEntriesRun.ts'
+import * as MenuEntriesSelection from '../MenuEntriesSelection/MenuEntriesSelection.ts'
+import * as MenuEntriesTerminal from '../MenuEntriesTerminal/MenuEntriesTerminal.ts'
+import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
+import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.ts'
 
 export const menus = [
   MenuEntriesEdit,
