@@ -29,6 +29,7 @@ const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'r
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 const remoteUrl = getRemoteUrl(workerPath)
 if (!content.includes('// const titleBarWorkerUrl = ')) {
+  await cp(rendererWorkerMainPath, rendererWorkerMainPath + '.original')
   const occurrence = `const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\``
   const replacement = `// const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\`
   const titleBarWorkerUrl = \`${remoteUrl}\``
