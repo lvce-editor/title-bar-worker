@@ -36,3 +36,15 @@ export const help = (): string => {
 export const more = (): string => {
   return I18nString.i18nString(UiStrings.More)
 }
+
+export const minimize = (): string => {
+  return I18nString.i18nString(UiStrings.Minimize)
+}
+
+export const maximize = (): string => {
+  return I18nString.i18nString(UiStrings.Maximize)
+}
+
+export const close = (): string => {
+  return I18nString.i18nString(UiStrings.Close)
+}
