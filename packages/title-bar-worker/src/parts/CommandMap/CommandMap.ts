@@ -3,6 +3,7 @@ import * as GetCommands from '../GetCommands/GetCommands.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetTitleBarButtonsVirtualDom from '../GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
+import * as GetTitleVirtualDom from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
@@ -73,4 +74,5 @@ export const commandMap = {
   'TitleBarMenuBar.terminate': Terminate.terminate,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
   'TitleBar.getButtonsVirtualDom': GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom,
+  'TitleBar.getTitleVirtualDom': GetTitleVirtualDom.getTitleVirtualDom,
 }
