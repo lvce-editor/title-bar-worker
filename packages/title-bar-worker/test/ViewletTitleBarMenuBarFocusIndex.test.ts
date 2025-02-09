@@ -9,7 +9,7 @@ beforeEach(() => {
 
 jest.unstable_mockModule('../src/parts/RendererProcess/RendererProcess.js', () => {
   return {
-    invoke: () => {
+    invoke: (): any => {
       return {
         x: 0,
         bottom: 0,
@@ -20,7 +20,7 @@ jest.unstable_mockModule('../src/parts/RendererProcess/RendererProcess.js', () =
 
 jest.unstable_mockModule('../src/parts/MeasureTextWidth/MeasureTextWidth.js', () => {
   return {
-    measureTextWidth: () => {
+    measureTextWidth: (): number => {
       return 25
     },
   }
@@ -29,7 +29,7 @@ jest.unstable_mockModule('../src/parts/MeasureTextWidth/MeasureTextWidth.js', ()
 jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
   return {
     // @ts-ignore
-    getMenuEntries: (id) => {
+    getMenuEntries: (id): any => {
       switch (id) {
         case MenuEntryId.File:
           return [
