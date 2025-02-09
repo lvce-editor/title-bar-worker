@@ -3,29 +3,13 @@ import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
 export const MENU_WIDTH = 150
 
-const CONTEXT_MENU_ITEM_HEIGHT = 26
-const CONTEXT_MENU_SEPARATOR_HEIGHT = 11
-const CONTEXT_MENU_PADDING = 8
 const CONTEXT_MENU_WIDTH = 250
 
 export const getMenuWidth = (): number => {
   return CONTEXT_MENU_WIDTH
 }
 
-export const getMenuHeight = (items: any): any => {
-  let height = CONTEXT_MENU_PADDING
-  for (const item of items) {
-    switch (item.flags) {
-      case MenuItemFlags.Separator:
-        height += CONTEXT_MENU_SEPARATOR_HEIGHT
-        break
-      default:
-        height += CONTEXT_MENU_ITEM_HEIGHT
-        break
-    }
-  }
-  return height
-}
+export * from '../GetMenuHeight/GetMenuHeight.ts'
 
 // TODO difference between focusing with mouse or keyboard
 // with mouse -> open submenu
