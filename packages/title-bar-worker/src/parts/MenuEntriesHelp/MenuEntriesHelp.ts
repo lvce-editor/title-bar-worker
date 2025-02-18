@@ -3,15 +3,14 @@ import * as IsAutoUpdateSupported from '../IsAutoUpdateSupported/IsAutoUpdateSup
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-import * as Platform from '../Platform/Platform.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 
 export const id = MenuEntryId.Help
 
-export const getMenuEntries = async (): Promise<any> => {
-  const autoUpdateSupported = IsAutoUpdateSupported.isAutoUpdateSupported()
+export const getMenuEntries = async (platform: number): Promise<any> => {
+  const autoUpdateSupported = IsAutoUpdateSupported.isAutoUpdateSupported(platform)
   const entries = []
-  if (Platform.platform !== PlatformType.Web) {
+  if (platform !== PlatformType.Web) {
     entries.push(
       {
         id: 'toggleDeveloperTools',

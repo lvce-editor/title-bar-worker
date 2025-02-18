@@ -1,11 +1,10 @@
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
-import * as Platform from '../Platform/Platform.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 import * as MenuEntriesTitleBarRemote from './MenuEntriesTitleBarRemote.ts'
 import * as MenuEntriesTitleBarWeb from './MenuEntriesTitleBarWeb.ts'
 
-const getFn = (): any => {
-  switch (Platform.platform) {
+const getFn = (platform: number): any => {
+  switch (platform) {
     case PlatformType.Web:
       return MenuEntriesTitleBarWeb.getMenuEntries
     default:
@@ -15,7 +14,7 @@ const getFn = (): any => {
 
 export const id = MenuEntryId.TitleBar
 
-export const getMenuEntries = async (): Promise<any> => {
-  const fn = getFn()
+export const getMenuEntries = async (platform: number): Promise<any> => {
+  const fn = getFn(platform)
   return fn()
 }

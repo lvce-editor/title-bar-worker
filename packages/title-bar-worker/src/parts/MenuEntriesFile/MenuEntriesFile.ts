@@ -2,12 +2,11 @@ import * as FileStrings from '../FileStrings/FileStrings.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-import * as Platform from '../Platform/Platform.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 
 export const id = MenuEntryId.File
 
-export const getMenuEntries = (): any => {
+export const getMenuEntries = (platform: number): any => {
   const entries = [
     {
       id: 'newFile',
@@ -54,7 +53,7 @@ export const getMenuEntries = (): any => {
       command: 'Main.saveAll',
     },
   ]
-  if (Platform.platform === PlatformType.Electron) {
+  if (platform === PlatformType.Electron) {
     entries.push(MenuEntrySeparator.menuEntrySeparator, {
       id: 'exit',
       label: FileStrings.exit(),
