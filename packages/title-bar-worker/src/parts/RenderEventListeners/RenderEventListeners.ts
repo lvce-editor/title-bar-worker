@@ -1,15 +1,17 @@
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+
 export const renderEventListeners = (): readonly any[] => {
   return [
     {
-      name: 'handleClickMinimize',
+      name: DomEventListenerFunctions.HandleClickMinimize,
       params: ['handleClickMinimize'],
     },
     {
-      name: 'handleClickClose',
+      name: DomEventListenerFunctions.HandleClickToggleClose,
       params: ['handleClickClose'],
     },
     {
-      name: 'handleClickToggleMaximize',
+      name: DomEventListenerFunctions.HandleClickToggleMaximize,
       params: ['handleClickToggleMaximize'],
     },
   ]
