@@ -1,4 +1,6 @@
-export const closeMenu = (state: any, keepFocus: boolean): any => {
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+
+export const closeMenu = (state: TitleBarMenuBarState, keepFocus: boolean): TitleBarMenuBarState => {
   const { focusedIndex } = state
   // TODO send to renderer process
   // 1. close menu
