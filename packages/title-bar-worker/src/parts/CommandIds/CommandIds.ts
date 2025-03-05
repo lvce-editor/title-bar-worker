@@ -22,6 +22,7 @@ export const commandsIds = [
   'handleMouseOut',
   'handleMouseOver',
   'handlePointerOver',
+  'handlePointerOut',
   'toggleIndex',
   'toggleMenu',
 ]
