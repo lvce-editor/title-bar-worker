@@ -1,7 +1,8 @@
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { closeMenu } from './ViewletTitleBarMenuBarCloseMenu.ts'
 import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
 
-export const toggleIndex = (state: any, index: number): any => {
+export const toggleIndex = async (state: TitleBarMenuBarState, index: number): Promise<TitleBarMenuBarState> => {
   const { isMenuOpen, focusedIndex } = state
   if (isMenuOpen && focusedIndex === index) {
     return closeMenu(state, /* keepFocus */ true)
