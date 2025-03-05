@@ -68,7 +68,7 @@ export const commandMap = {
   'TitleBarMenuBar.handleKeyArrowLeft': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowLeft.handleKeyArrowLeft),
   'TitleBarMenuBar.handleKeyArrowRight': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowRight.handleKeyArrowRight),
   'TitleBarMenuBar.handleKeyArrowUp': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowUp.handleKeyArrowUp),
-  'TitleBarMenuBar.handlePointerOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowUp.handleKeyArrowUp),
+  'TitleBarMenuBar.handlePointerOver': WrapCommand.wrapCommand(HandlePointerOver.handlePointerOver),
   'TitleBarMenuBar.handleKeyEnd': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnd.handleKeyEnd),
   'TitleBarMenuBar.handleKeyEnter': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnter.handleKeyEnter),
   'TitleBarMenuBar.handleKeyEscape': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEscape.handleKeyEscape),
