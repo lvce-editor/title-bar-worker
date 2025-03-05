@@ -8,6 +8,7 @@ import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/G
 import * as GetTitleVirtualDom from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
+import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
@@ -67,6 +68,7 @@ export const commandMap = {
   'TitleBarMenuBar.handleKeyArrowLeft': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowLeft.handleKeyArrowLeft),
   'TitleBarMenuBar.handleKeyArrowRight': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowRight.handleKeyArrowRight),
   'TitleBarMenuBar.handleKeyArrowUp': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowUp.handleKeyArrowUp),
+  'TitleBarMenuBar.handlePointerOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowUp.handleKeyArrowUp),
   'TitleBarMenuBar.handleKeyEnd': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnd.handleKeyEnd),
   'TitleBarMenuBar.handleKeyEnter': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnter.handleKeyEnter),
   'TitleBarMenuBar.handleKeyEscape': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEscape.handleKeyEscape),
