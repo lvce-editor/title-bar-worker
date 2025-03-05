@@ -15,31 +15,31 @@ export const renderEventListeners = (): readonly any[] => {
       params: ['handleClickToggleMaximize'],
     },
     {
-      name: 'handleFocusIn',
+      name: DomEventListenerFunctions.HandleFocusIn,
       params: ['handlefocus'],
     },
     {
-      name: 'handleMenuClick',
+      name: DomEventListenerFunctions.HandleMenuClick,
       params: ['handleMenuClick', 'event.clientX', 'event.clientY'],
     },
     {
-      name: 'handleMenuMouseOver',
+      name: DomEventListenerFunctions.HandleMenuMouseOver,
       params: ['handleMenuMouseOver', 'event.clientX', 'event.clientY'],
     },
     {
-      name: 'handleClick',
+      name: DomEventListenerFunctions.HandleClick,
       params: ['handleClick', 'event.button', 'event.clientX', 'event.clientY'],
     },
     {
-      name: 'handlePointerOut',
+      name: DomEventListenerFunctions.HandlePointerOut,
       params: ['handlePointerOut', 'event.clientX', 'event.clientY'],
     },
     {
-      name: 'handlePointerOver',
+      name: DomEventListenerFunctions.HandlePointerOver,
       params: ['handlePointerOver', 'event.clientX', 'event.clientY'],
     },
     {
-      name: 'handleFocusOut',
+      name: DomEventListenerFunctions.HandleFocusOut,
       params: ['handleFocusOut', 'event.clientX', 'event.clientY'], // TODO maybe check relatedTarget
     },
   ]
