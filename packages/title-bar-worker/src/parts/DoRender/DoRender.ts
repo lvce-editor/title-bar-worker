@@ -1,8 +1,9 @@
-import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as ApplyRender from '../ApplyRender/ApplyRender.ts'
 import * as Diff from '../Diff/Diff.ts'
+import * as TitleBarMenuBarStates from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
-export const doRender = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any => {
+export const doRender = (uid: number): any => {
+  const { oldState, newState } = TitleBarMenuBarStates.get(uid)
   const diffResult = Diff.diff(oldState, newState)
   return ApplyRender.applyRender(oldState, newState, diffResult)
 }
