@@ -4,23 +4,16 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
-const checkboxChecked: VirtualDomNode = {
+const disabled: VirtualDomNode = {
   type: VirtualDomElements.Div,
-  className: `${ClassNames.MenuItem} MenuItemCheckMark`,
-  role: AriaRoles.MenuItemCheckBox,
-  ariaChecked: true,
+  className: ClassNames.MenuItem,
+  role: AriaRoles.MenuItem,
   tabIndex: -1,
-  childCount: 2,
+  disabled: true,
+  childCount: 1,
 }
 
-export const getMenuItemCheckedDom = (menuItem: any): readonly VirtualDomNode[] => {
+export const getMenuItemDisabledDom = (menuItem: any): readonly VirtualDomNode[] => {
   const { label } = menuItem
-  return [
-    checkboxChecked,
-    {
-      type: VirtualDomElements.Div,
-      className: 'MenuItemCheckmarkIcon MaskIconCheck',
-    },
-    text(label),
-  ]
+  return [disabled, text(label)]
 }
