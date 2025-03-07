@@ -1,7 +1,7 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as RenderMethod from '../RenderMethod/RenderMethod.ts'
 
-export const renderFocusedIndex = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any => {
+export const renderFocusedIndex = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): readonly any[] => {
   return [
     'Viewlet.send',
     newState.uid,
