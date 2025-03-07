@@ -2,7 +2,7 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
 import * as GetVisibleTitleBarEntries from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 
-export const renderEntries = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any => {
+export const renderEntries = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): readonly any[] => {
   const visibleEntries = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(
     newState.titleBarEntries,
     newState.width,
