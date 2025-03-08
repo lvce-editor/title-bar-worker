@@ -3,9 +3,8 @@ import * as DiffEntries from '../DiffEntries/DiffEntries.ts'
 import * as DiffFocusedIndex from '../DiffFocusedIndex/DiffFocusedIndex.ts'
 import * as DiffMenus from '../DiffMenus/DiffMenus.ts'
 import * as GetMenuVirtualDom from '../GetMenuVirtualDom/GetMenuVirtualDom.ts'
-import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
 import * as GetVisibleMenuItems from '../GetVisibleMenuItems/GetVisibleMenuItems.ts'
-import * as GetVisibleTitleBarEntries from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
+import * as RenderEntries from '../RenderEntries/RenderEntries.ts'
 import * as RenderMethod from '../RenderMethod/RenderMethod.ts'
 
 export const hasFunctionalRender = true
@@ -14,16 +13,7 @@ export const hasFunctionalRootRender = true
 
 const renderTitleBarEntries = {
   isEqual: DiffEntries.isEqual,
-  apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any {
-    const visibleEntries = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(
-      newState.titleBarEntries,
-      newState.width,
-      newState.focusedIndex,
-      newState.isMenuOpen,
-    )
-    const dom = GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(visibleEntries)
-    return ['Viewlet.setDom2', newState.uid, dom]
-  },
+  apply: RenderEntries.renderEntries,
 }
 
 const renderFocusedIndex = {
