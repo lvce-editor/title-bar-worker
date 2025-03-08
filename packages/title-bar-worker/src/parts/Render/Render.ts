@@ -1,4 +1,7 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as DiffEntries from '../DiffEntries/DiffEntries.ts'
+import * as DiffFocusedIndex from '../DiffFocusedIndex/DiffFocusedIndex.ts'
+import * as DiffMenus from '../DiffMenus/DiffMenus.ts'
 import * as GetMenuVirtualDom from '../GetMenuVirtualDom/GetMenuVirtualDom.ts'
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
 import * as GetVisibleMenuItems from '../GetVisibleMenuItems/GetVisibleMenuItems.ts'
@@ -10,14 +13,7 @@ export const hasFunctionalRender = true
 export const hasFunctionalRootRender = true
 
 const renderTitleBarEntries = {
-  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): boolean {
-    return (
-      oldState.titleBarEntries === newState.titleBarEntries &&
-      oldState.width === newState.width &&
-      oldState.focusedIndex === newState.focusedIndex &&
-      oldState.isMenuOpen === newState.isMenuOpen
-    )
-  },
+  isEqual: DiffEntries.isEqual,
   apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any {
     const visibleEntries = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(
       newState.titleBarEntries,
@@ -31,9 +27,7 @@ const renderTitleBarEntries = {
 }
 
 const renderFocusedIndex = {
-  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): boolean {
-    return oldState.focusedIndex === newState.focusedIndex && oldState.isMenuOpen === newState.isMenuOpen
-  },
+  isEqual: DiffFocusedIndex.isEqual,
   apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any {
     return [
       'Viewlet.send',
@@ -48,9 +42,7 @@ const renderFocusedIndex = {
 }
 
 const renderMenus = {
-  isEqual(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): boolean {
-    return oldState.menus === newState.menus
-  },
+  isEqual: DiffMenus.isEqual,
   apply(oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): any {
     const oldMenus = oldState.menus
     const newMenus = newState.menus
