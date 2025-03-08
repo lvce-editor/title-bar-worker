@@ -4,7 +4,9 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import * as GetTitleBarMenubarItemsVirtualDom from '../GetTitleBarMenuBarItemsVirtualDom/GetTitleBarMenuBarItemsVirtualDom.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 
-export const getTitleBarMenuBarVirtualDom = (visibleItems: any): readonly VirtualDomNode[] => {
+const activeId = 'TitleBarEntryActive'
+
+export const getTitleBarMenuBarVirtualDom = (visibleItems: any, focusedIndex: number): readonly VirtualDomNode[] => {
   return [
     {
       type: VirtualDomElements.Div,
@@ -17,6 +19,7 @@ export const getTitleBarMenuBarVirtualDom = (visibleItems: any): readonly Virtua
       onFocusIn: DomEventListenerFunctions.HandleFocusIn,
       onPointerOver: DomEventListenerFunctions.HandlePointerOver,
       onPointerOut: DomEventListenerFunctions.HandlePointerOut,
+      ariaActivedescendant: focusedIndex === -1 ? '' : activeId,
     },
     ...GetTitleBarMenubarItemsVirtualDom.getTitleBarMenuBarItemsVirtualDom(visibleItems),
   ]
