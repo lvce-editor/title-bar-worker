@@ -36,9 +36,9 @@
     "collectCoverage": true,
     "coverageThreshold": {
       "global": {
-        "branches": 1,
-        "functions": 3,
-        "lines": 40
+        "branches": 8,
+        "functions": 15,
+        "lines": 45
       }
     }
   },
@@ -48,6 +48,7 @@
     "@lvce-editor/i18n": "^1.1.0",
     "@lvce-editor/rpc": "^1.22.0",
     "@lvce-editor/verror": "^1.6.0",
+    "@lvce-editor/virtual-dom-worker": "^1.17.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5"
   }
