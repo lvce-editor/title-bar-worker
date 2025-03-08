@@ -9,6 +9,6 @@ export const renderEntries = (oldState: TitleBarMenuBarState, newState: TitleBar
     newState.focusedIndex,
     newState.isMenuOpen,
   )
-  const dom = GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(visibleEntries)
+  const dom = GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(visibleEntries, newState.focusedIndex)
   return ['Viewlet.setDom2', newState.uid, dom]
 }
