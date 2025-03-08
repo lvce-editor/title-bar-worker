@@ -1,3 +1,7 @@
-export const saveState = (uid: number): any => {
-  return {}
+import type { SavedState } from '../SavedState/SavedState.ts'
+
+export const saveState = (uid: number): SavedState => {
+  return {
+    x: 1,
+  }
 }
