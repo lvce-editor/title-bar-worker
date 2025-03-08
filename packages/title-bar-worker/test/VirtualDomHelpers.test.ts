@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
-import * as VirtualDomHelpers from '../src/parts/VirtualDomHelpers/VirtualDomHelpers.ts'
 import * as VirtualDomElements from '../src/parts/VirtualDomElements/VirtualDomElements.ts'
+import * as VirtualDomHelpers from '../src/parts/VirtualDomHelpers/VirtualDomHelpers.ts'
 
 test('text - creates text node with correct properties', () => {
   expect(VirtualDomHelpers.text('Hello World')).toEqual({
