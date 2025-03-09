@@ -25,6 +25,7 @@ import * as ViewletTitleBarMenuBarFocusLast from '../TitleBarMenuBar/ViewletTitl
 import * as ViewletTitleBarMenuBarFocusNext from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocusNext.ts'
 import * as ViewletTitleBarMenuBarFocusPrevious from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocusPrevious.ts'
 import * as ViewletTitleBarMenuBarHandleClick from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleClick.ts'
+import * as ViewletTitleBarMenuBarHandleClickAt from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleClickAt.ts'
 import * as ViewletTitleBarMenuBarHandleFocus from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleFocus.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowDown from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowDown.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowLeft from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowLeft.ts'
@@ -71,6 +72,7 @@ export const commandMap = {
   'TitleBarMenuBar.handleKeyArrowLeft': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowLeft.handleKeyArrowLeft),
   'TitleBarMenuBar.handleKeyArrowRight': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowRight.handleKeyArrowRight),
   'TitleBarMenuBar.handleKeyArrowUp': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowUp.handleKeyArrowUp),
+  'TitleBarMenuBar.handleClickAt': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleClickAt.handleClickAt),
   'TitleBarMenuBar.handlePointerOver': WrapCommand.wrapCommand(HandlePointerOver.handlePointerOver),
   'TitleBarMenuBar.handleKeyEnd': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnd.handleKeyEnd),
   'TitleBarMenuBar.handleKeyEnter': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnter.handleKeyEnter),
