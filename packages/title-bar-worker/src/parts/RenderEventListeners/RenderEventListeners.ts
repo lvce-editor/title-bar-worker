@@ -16,7 +16,7 @@ export const renderEventListeners = (): readonly any[] => {
     },
     {
       name: DomEventListenerFunctions.HandleFocusIn,
-      params: ['handlefocus'],
+      params: ['handleFocus'],
     },
     {
       name: DomEventListenerFunctions.HandleMenuClick,
@@ -28,7 +28,7 @@ export const renderEventListeners = (): readonly any[] => {
     },
     {
       name: DomEventListenerFunctions.HandleClick,
-      params: ['handleClick', 'event.button', 'event.clientX', 'event.clientY'],
+      params: ['handleClickAt', 'event.button', 'event.clientX', 'event.clientY'],
     },
     {
       name: DomEventListenerFunctions.HandlePointerOut,
