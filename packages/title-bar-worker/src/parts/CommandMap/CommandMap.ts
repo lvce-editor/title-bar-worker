@@ -1,3 +1,4 @@
+import * as Diff2 from '../Diff2/Diff2.ts'
 import * as Diff from '../Diff/Diff.ts'
 import * as DoRender from '../DoRender/DoRender.ts'
 import * as GetCommands from '../GetCommands/GetCommands.ts'
@@ -56,6 +57,7 @@ export const commandMap = {
   'TitleBarMenuBar.closeMenu': CloseMenu.closeMenu,
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
   'TitleBarMenuBar.focus': WrapCommand.wrapCommand(Focus.focus),
+  'TitleBarMenuBar.diff2': WrapCommand.wrapCommand(Diff2.diff2),
   'TitleBarMenuBar.focusFirst': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusFirst.focusFirst),
   'TitleBarMenuBar.focusIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusLast.focusLast),
   'TitleBarMenuBar.focusLast': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusIndex.focusIndex),
@@ -64,7 +66,6 @@ export const commandMap = {
   'TitleBarMenuBar.getCommands': GetCommands.getCommandIds,
   'TitleBarMenuBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBarMenuBar.getMenus': MenuEntries.getMenus,
-  'TitleBarMenuBar.diff': Diff.diff,
   'TitleBarMenuBar.getVirtualDom': GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom,
   'TitleBarMenuBar.handleClick': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleClick.handleClick),
   'TitleBarMenuBar.handleFocus': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleFocus.handleFocus),
@@ -90,4 +91,7 @@ export const commandMap = {
   'TitleBarMenuBar.terminate': Terminate.terminate,
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBarMenuBar.toggleMenu': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
+
+  // deprecated
+  'TitleBarMenuBar.diff': Diff.diff,
 }
