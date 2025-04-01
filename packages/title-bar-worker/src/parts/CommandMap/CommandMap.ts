@@ -4,6 +4,7 @@ import * as DoRender from '../DoRender/DoRender.ts'
 import * as GetCommands from '../GetCommands/GetCommands.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
+import * as Render2 from '../Render2/Render2.ts'
 import * as GetTitleBarButtonsVirtualDom from '../GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 import * as GetTitleBarIconVirtualDom from '../GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
@@ -58,6 +59,7 @@ export const commandMap = {
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
   'TitleBarMenuBar.focus': WrapCommand.wrapCommand(Focus.focus),
   'TitleBarMenuBar.diff2': WrapCommand.wrapCommand(Diff2.diff2),
+  'TitleBarMenuBar.render2': WrapCommand.wrapCommand(Render2.render2),
   'TitleBarMenuBar.focusFirst': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusFirst.focusFirst),
   'TitleBarMenuBar.focusIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusLast.focusLast),
   'TitleBarMenuBar.focusLast': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusIndex.focusIndex),
@@ -86,7 +88,6 @@ export const commandMap = {
   'TitleBarMenuBar.handleMouseOut': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut),
   'TitleBarMenuBar.handleMouseOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBarMenuBar.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
-  'TitleBarMenuBar.render': DoRender.doRender,
   'TitleBarMenuBar.saveState': SaveState.saveState,
   'TitleBarMenuBar.terminate': Terminate.terminate,
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
@@ -94,4 +95,5 @@ export const commandMap = {
 
   // deprecated
   'TitleBarMenuBar.diff': Diff.diff,
+  'TitleBarMenuBar.render': DoRender.doRender,
 }
