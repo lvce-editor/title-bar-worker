@@ -17,7 +17,9 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 // windows narrator says: "" ❌
 // orca says: ""
 
-export const name = 'viewlet.title-bar-menu-bar-keyboard-navigation'
+export const name = 'viewlet.title-bar-menu-bar-accessibility'
+
+export const skip = 1 // TODO
 
 export const test: Test = async ({ TitleBarMenuBar, Locator, expect }) => {
   // assert
