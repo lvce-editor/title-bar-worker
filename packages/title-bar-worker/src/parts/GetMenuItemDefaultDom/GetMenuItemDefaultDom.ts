@@ -30,7 +30,7 @@ export const getMenuItemDefaultDom = (menuItem: any): readonly VirtualDomNode[] 
     dom.push(
       {
         type: VirtualDomElements.Span,
-        className: 'MenuItemKeyBinding',
+        className: ClassNames.MenuItemKeyBinding,
         childCount: 1,
       },
       text(keyBindingsString),
