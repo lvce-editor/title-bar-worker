@@ -1,3 +1,4 @@
+import * as Diff2 from '../Diff2/Diff2.ts'
 import * as Diff from '../Diff/Diff.ts'
 import * as DoRender from '../DoRender/DoRender.ts'
 import * as GetCommands from '../GetCommands/GetCommands.ts'
@@ -13,6 +14,7 @@ import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
+import * as Render2 from '../Render2/Render2.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as Terminate from '../Terminate/Terminate.ts'
@@ -56,6 +58,8 @@ export const commandMap = {
   'TitleBarMenuBar.closeMenu': CloseMenu.closeMenu,
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
   'TitleBarMenuBar.focus': WrapCommand.wrapCommand(Focus.focus),
+  'TitleBarMenuBar.diff2': Diff2.diff2,
+  'TitleBarMenuBar.render2': Render2.render2,
   'TitleBarMenuBar.focusFirst': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusFirst.focusFirst),
   'TitleBarMenuBar.focusIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusLast.focusLast),
   'TitleBarMenuBar.focusLast': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusIndex.focusIndex),
@@ -64,7 +68,6 @@ export const commandMap = {
   'TitleBarMenuBar.getCommands': GetCommands.getCommandIds,
   'TitleBarMenuBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBarMenuBar.getMenus': MenuEntries.getMenus,
-  'TitleBarMenuBar.diff': Diff.diff,
   'TitleBarMenuBar.getVirtualDom': GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom,
   'TitleBarMenuBar.handleClick': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleClick.handleClick),
   'TitleBarMenuBar.handleFocus': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleFocus.handleFocus),
@@ -85,9 +88,12 @@ export const commandMap = {
   'TitleBarMenuBar.handleMouseOut': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut),
   'TitleBarMenuBar.handleMouseOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBarMenuBar.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
-  'TitleBarMenuBar.render': DoRender.doRender,
   'TitleBarMenuBar.saveState': SaveState.saveState,
   'TitleBarMenuBar.terminate': Terminate.terminate,
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBarMenuBar.toggleMenu': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
+
+  // deprecated
+  'TitleBarMenuBar.diff': Diff.diff,
+  'TitleBarMenuBar.render': DoRender.doRender,
 }
