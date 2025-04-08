@@ -1,6 +1,4 @@
 import * as Diff2 from '../Diff2/Diff2.ts'
-import * as Diff from '../Diff/Diff.ts'
-import * as DoRender from '../DoRender/DoRender.ts'
 import * as GetCommands from '../GetCommands/GetCommands.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
@@ -92,8 +90,4 @@ export const commandMap = {
   'TitleBarMenuBar.terminate': Terminate.terminate,
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBarMenuBar.toggleMenu': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
-
-  // deprecated
-  'TitleBarMenuBar.diff': Diff.diff,
-  'TitleBarMenuBar.render': DoRender.doRender,
 }
