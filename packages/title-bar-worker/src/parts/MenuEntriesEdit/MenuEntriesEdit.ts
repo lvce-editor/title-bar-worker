@@ -1,3 +1,4 @@
+import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as EditorStrings from '../EditorStrings/EditorStrings.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
@@ -5,19 +6,19 @@ import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
 export const id = MenuEntryId.Edit
 
-export const getMenuEntries = (): any => {
+export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
       id: 'undo',
       label: EditorStrings.undo(),
       flags: MenuItemFlags.Disabled,
-      command: /* TODO */ -1,
+      command: /* TODO */ '-1',
     },
     {
       id: 'redo',
       label: EditorStrings.redo(),
       flags: MenuItemFlags.Disabled,
-      command: /* TODO */ -1,
+      command: /* TODO */ '-1',
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
