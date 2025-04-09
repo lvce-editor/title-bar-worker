@@ -1,8 +1,9 @@
+import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
 
-export const createTitleBarButton = (button: any): readonly VirtualDomNode[] => {
+export const createTitleBarButton = (button: TitleBarButton): readonly VirtualDomNode[] => {
   const { id, icon, label, onClick } = button
   const dom = [
     {

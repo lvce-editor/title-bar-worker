@@ -1,4 +1,8 @@
-const state: any = {
+interface MeasureTextWidthState {
+  ctx: OffscreenCanvasRenderingContext2D | undefined
+}
+
+const state: MeasureTextWidthState = {
   ctx: undefined,
 }
 
