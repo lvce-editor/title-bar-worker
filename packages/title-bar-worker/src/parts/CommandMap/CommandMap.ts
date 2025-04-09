@@ -27,6 +27,7 @@ import * as ViewletTitleBarMenuBarFocusPrevious from '../TitleBarMenuBar/Viewlet
 import * as ViewletTitleBarMenuBarHandleClick from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleClick.ts'
 import * as ViewletTitleBarMenuBarHandleClickAt from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleClickAt.ts'
 import * as ViewletTitleBarMenuBarHandleFocus from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleFocus.ts'
+import * as ViewletTitleBarMenuBarHandleFocusOut from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleFocusOut.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowDown from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowDown.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowLeft from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowLeft.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowRight from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowRight.ts'
@@ -46,18 +47,17 @@ import * as WrapCommand from '../WrapCommand/WrapCommand.ts'
 
 export const commandMap = {
   'TitleBar.getButtonsVirtualDom': GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom,
-  'TitleBar.handleContextMenu': HandleContextMenu.handleContextMenu,
   'TitleBar.getIconVirtualDom': GetTitleBarIconVirtualDom.getTitleBarIconVirtualDom,
   'TitleBar.getMenuEntries': GetMenuIds.getMenuEntries,
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
   'TitleBar.getTitleVirtualDom': GetTitleVirtualDom.getTitleVirtualDom,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
+  'TitleBar.handleContextMenu': HandleContextMenu.handleContextMenu,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBarMenuBar.closeMenu': CloseMenu.closeMenu,
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
-  'TitleBarMenuBar.focus': WrapCommand.wrapCommand(Focus.focus),
   'TitleBarMenuBar.diff2': Diff2.diff2,
-  'TitleBarMenuBar.render2': Render2.render2,
+  'TitleBarMenuBar.focus': WrapCommand.wrapCommand(Focus.focus),
   'TitleBarMenuBar.focusFirst': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusFirst.focusFirst),
   'TitleBarMenuBar.focusIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusLast.focusLast),
   'TitleBarMenuBar.focusLast': WrapCommand.wrapCommand(ViewletTitleBarMenuBarFocusIndex.focusIndex),
@@ -68,16 +68,15 @@ export const commandMap = {
   'TitleBarMenuBar.getMenus': MenuEntries.getMenus,
   'TitleBarMenuBar.getVirtualDom': GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom,
   'TitleBarMenuBar.handleClick': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleClick.handleClick),
+  'TitleBarMenuBar.handleClickAt': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleClickAt.handleClickAt),
   'TitleBarMenuBar.handleFocus': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleFocus.handleFocus),
+  'TitleBarMenuBar.handleFocusOut': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleFocusOut.handleFocusOut),
   'TitleBarMenuBar.handleKeyArrowDown': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowDown.handleKeyArrowDown),
   'TitleBarMenuBar.handleKeyArrowLeft': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowLeft.handleKeyArrowLeft),
   'TitleBarMenuBar.handleKeyArrowRight': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowRight.handleKeyArrowRight),
   'TitleBarMenuBar.handleKeyArrowUp': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowUp.handleKeyArrowUp),
-  'TitleBarMenuBar.handleClickAt': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleClickAt.handleClickAt),
-  'TitleBarMenuBar.handlePointerOver': WrapCommand.wrapCommand(HandlePointerOver.handlePointerOver),
   'TitleBarMenuBar.handleKeyEnd': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnd.handleKeyEnd),
   'TitleBarMenuBar.handleKeyEnter': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEnter.handleKeyEnter),
-  'TitleBarMenuBar.handlePointerOut': WrapCommand.wrapCommand(HandlePointerOut.handlePointerOut),
   'TitleBarMenuBar.handleKeyEscape': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyEscape.handleKeyEscape),
   'TitleBarMenuBar.handleKeyHome': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeyHome.handleKeyHome),
   'TitleBarMenuBar.handleKeySpace': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleKeySpace.handleKeySpace),
@@ -85,7 +84,10 @@ export const commandMap = {
   'TitleBarMenuBar.handleMenuMouseOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver),
   'TitleBarMenuBar.handleMouseOut': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut),
   'TitleBarMenuBar.handleMouseOver': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
+  'TitleBarMenuBar.handlePointerOut': WrapCommand.wrapCommand(HandlePointerOut.handlePointerOut),
+  'TitleBarMenuBar.handlePointerOver': WrapCommand.wrapCommand(HandlePointerOver.handlePointerOver),
   'TitleBarMenuBar.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
+  'TitleBarMenuBar.render2': Render2.render2,
   'TitleBarMenuBar.saveState': SaveState.saveState,
   'TitleBarMenuBar.terminate': Terminate.terminate,
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
