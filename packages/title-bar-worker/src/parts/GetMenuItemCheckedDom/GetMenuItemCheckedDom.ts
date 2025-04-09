@@ -1,4 +1,5 @@
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
+import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
@@ -14,14 +15,12 @@ const checkboxChecked: VirtualDomNode = {
   childCount: 2,
 }
 
-export const getMenuItemCheckedDom = (menuItem: any): readonly VirtualDomNode[] => {
+const checkMark: VirtualDomNode = {
+  type: VirtualDomElements.Div,
+  className: MergeClassNames.mergeClassNames(ClassNames.MenuItemCheckmarkIcon, ClassNames.MaskIconCheck),
+}
+
+export const getMenuItemCheckedDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
   const { label } = menuItem
-  return [
-    checkboxChecked,
-    {
-      type: VirtualDomElements.Div,
-      className: MergeClassNames.mergeClassNames(ClassNames.MenuItemCheckmarkIcon, ClassNames.MaskIconCheck),
-    },
-    text(label),
-  ]
+  return [checkboxChecked, checkMark, text(label)]
 }

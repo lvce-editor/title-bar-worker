@@ -2,14 +2,11 @@ import type { MenuItemRenderer } from '../MenuItemRenderer/MenuItemRenderer.ts'
 import { getMenuItemCheckedDom } from '../GetMenuItemCheckedDom/GetMenuItemCheckedDom.ts'
 import { getMenuItemDefaultDom } from '../GetMenuItemDefaultDom/GetMenuItemDefaultDom.ts'
 import { getMenuItemDisabledDom } from '../GetMenuItemDisabledDom/GetMenuItemDisabledDom.ts'
+import { getMenuItemsNoopDom } from '../GetMenuItemNoopDom/GetMenuItemNoopDom.ts'
 import { getMenuItemSeparatorDom } from '../GetMenuItemSeparatorDom/GetMenuItemSeparatorDom.ts'
 import { getMenuItemSubMenuDom } from '../GetMenuItemSubMenuDom/GetMenuItemSubMenuDom.ts'
 import { getMenuItemUncheckedDom } from '../GetMenuItemUncheckedDom/GetMenuItemUncheckedDom.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-
-const getMenuItemsNoop: MenuItemRenderer = () => {
-  return []
-}
 
 export const getMenuItemRenderer = (flags: number): MenuItemRenderer => {
   switch (flags) {
@@ -28,6 +25,6 @@ export const getMenuItemRenderer = (flags: number): MenuItemRenderer => {
     case MenuItemFlags.SubMenu:
       return getMenuItemSubMenuDom
     default:
-      return getMenuItemsNoop
+      return getMenuItemsNoopDom
   }
 }

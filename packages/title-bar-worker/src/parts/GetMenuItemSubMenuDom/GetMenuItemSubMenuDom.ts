@@ -1,4 +1,5 @@
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
+import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as VirtualDomElements from '../VirtualDomElements/VirtualDomElements.ts'
@@ -10,7 +11,7 @@ const arrowRight: VirtualDomNode = {
   childCount: 0,
 }
 
-export const getMenuItemSubMenuDom = (menuItem: any): readonly VirtualDomNode[] => {
+export const getMenuItemSubMenuDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
   const { label, isFocused, isExpanded, level } = menuItem
   let className = ClassNames.MenuItem
   className += ' ' + ClassNames.MenuItemSubMenu

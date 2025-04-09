@@ -1,5 +1,6 @@
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
+import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 
 export interface MenuItemRenderer {
-  (menuItem: any): readonly VirtualDomNode[]
+  (menuItem: VisibleMenuItem): readonly VirtualDomNode[]
 }
