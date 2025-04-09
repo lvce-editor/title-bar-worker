@@ -1,3 +1,4 @@
+import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as FileStrings from '../FileStrings/FileStrings.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
@@ -6,13 +7,13 @@ import * as PlatformType from '../PlatformType/PlatformType.ts'
 
 export const id = MenuEntryId.File
 
-export const getMenuEntries = (platform: number): any => {
-  const entries = [
+export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
+  const entries: MenuEntry[] = [
     {
       id: 'newFile',
       label: FileStrings.newFile(),
       flags: MenuItemFlags.None,
-      command: -1,
+      command: '-1',
     },
     {
       id: 'newWindow',

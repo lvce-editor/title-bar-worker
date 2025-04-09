@@ -1,3 +1,4 @@
+import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as GetRecentlyOpened from '../GetRecentlyOpened/GetRecentlyOpened.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
@@ -7,7 +8,7 @@ import * as TitleBarMenuBarStrings from '../TitleBarMenuBarStrings/TitleBarMenuB
 
 const MAX_MENU_RECENT_ENTRIES = 10
 
-const toMenuItem = (folder: any): any => {
+const toMenuItem = (folder: any): MenuEntry => {
   const label = PathDisplay.getTitle(folder)
   return {
     label,
@@ -19,7 +20,7 @@ const toMenuItem = (folder: any): any => {
 
 export const id = MenuEntryId.OpenRecent
 
-export const getMenuEntries = async (): Promise<any> => {
+export const getMenuEntries = async (): Promise<readonly MenuEntry[]> => {
   const allItems = await GetRecentlyOpened.getRecentlyOpened()
   const itemsToShow = allItems.slice(0, MAX_MENU_RECENT_ENTRIES)
   const items = []
