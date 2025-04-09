@@ -8,6 +8,7 @@ export const commandsIds = [
   'focusPrevious',
   'handleClick',
   'handleFocus',
+  'handleFocusOut',
   'handleKeyArrowDown',
   'handleKeyArrowLeft',
   'handleKeyArrowRight',
