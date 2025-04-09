@@ -1,6 +1,6 @@
 import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
-import * as PlatformType from '../PlatformType/PlatformType.js'
-import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.js'
+import * as PlatformType from '../PlatformType/PlatformType.ts'
+import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
 const getTitleBarButtonsWeb = (): readonly TitleBarButton[] => {
   return []
