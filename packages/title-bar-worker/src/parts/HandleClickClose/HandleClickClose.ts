@@ -1,6 +1,6 @@
-import * as ParentRpc from '../ParentRpc/ParentRpc.ts'
+import * as ElectronWindow from '../ElectronWindow/ElectronWindow.ts'
 
 export const handleClickClose = async (state: any): Promise<any> => {
-  await ParentRpc.invoke('ElectronWindow.close')
+  await ElectronWindow.close()
   return state
 }
