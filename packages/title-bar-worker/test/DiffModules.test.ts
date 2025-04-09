@@ -5,12 +5,11 @@ import * as DiffMenus from '../src/parts/DiffMenus/DiffMenus.ts'
 import * as DiffModules from '../src/parts/DiffModules/DiffModules.ts'
 
 test('modules - should export array with correct modules', () => {
-  expect(DiffModules.modules).toEqual([DiffEntries, DiffFocusedIndex, DiffMenus])
+  expect(DiffModules.modules).toEqual([DiffEntries.isEqual, DiffFocusedIndex.isEqual, DiffMenus.isEqual])
 })
 
-test('modules - each module should have diffType and isEqual', () => {
+test('modules - each module should have isEqual', () => {
   for (const module of DiffModules.modules) {
-    expect(typeof module.diffType).toBe('number')
-    expect(typeof module.isEqual).toBe('function')
+    expect(typeof module).toBe('function')
   }
 })
