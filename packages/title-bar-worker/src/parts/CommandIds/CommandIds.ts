@@ -1,5 +1,6 @@
 export const commandsIds = [
   'closeMenu',
+  'handleClickAt',
   'focus',
   'focusFirst',
   'focusIndex',
