@@ -3,7 +3,7 @@ import * as GetMenuVirtualDom from '../GetMenuVirtualDom/GetMenuVirtualDom.ts'
 import * as GetVisibleMenuItems from '../GetVisibleMenuItems/GetVisibleMenuItems.ts'
 import * as RenderMethod from '../RenderMethod/RenderMethod.ts'
 
-export const renderMEnus = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): readonly any[] => {
+export const renderMenus = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): readonly any[] => {
   const oldMenus = oldState.menus
   const newMenus = newState.menus
   const oldLength = oldMenus.length

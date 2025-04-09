@@ -11,7 +11,7 @@ export const getRenderer = (diffType: number): Renderer => {
     case DiffType.RenderFocusedIndex:
       return RenderFocusedIndex.renderFocusedIndex
     case DiffType.RenderMenus:
-      return RenderMenus.renderMEnus
+      return RenderMenus.renderMenus
     default:
       throw new Error('unknown renderer')
   }
