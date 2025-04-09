@@ -2,6 +2,7 @@ import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetCommands from '../GetCommands/GetCommands.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
+import * as GetTitleBarButtons from '../GetTitleBarButtons/GetTitleBarButtons.ts'
 import * as GetTitleBarButtonsVirtualDom from '../GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 import * as GetTitleBarIconVirtualDom from '../GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
@@ -68,6 +69,7 @@ export const commandMap = {
   'TitleBarMenuBar.getMenus': MenuEntries.getMenus,
   'TitleBarMenuBar.getVirtualDom': GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom,
   'TitleBarMenuBar.handleClick': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleClick.handleClick),
+  'TitleBarMenuBar.getTitleBarButtons': GetTitleBarButtons.getTitleBarButtons,
   'TitleBarMenuBar.handleClickAt': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleClickAt.handleClickAt),
   'TitleBarMenuBar.handleFocus': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleFocus.handleFocus),
   'TitleBarMenuBar.handleFocusOut': WrapCommand.wrapCommand(ViewletTitleBarMenuBarHandleFocusOut.handleFocusOut),
