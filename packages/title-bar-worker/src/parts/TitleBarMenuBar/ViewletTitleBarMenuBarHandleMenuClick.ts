@@ -8,6 +8,9 @@ export const handleMenuClick = (state: any, level: number, index: number): any =
   const { menus } = state
   const menu = menus[level]
   const item = menu.items[index]
+  if (!item) {
+    return state
+  }
   switch (item.flags) {
     case MenuItemFlags.None:
       return selectIndexNone(state, item)
