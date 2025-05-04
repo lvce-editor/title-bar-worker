@@ -1,21 +1,17 @@
 import * as ParentRpc from '../ParentRpc/ParentRpc.ts'
 
 export const maximize = async (): Promise<void> => {
-  // @ts-ignore todo
   await ParentRpc.invoke('ElectronWindow.maximize')
 }
 
 export const unmaximize = async (): Promise<void> => {
-  // @ts-ignore todo
   await ParentRpc.invoke('ElectronWindow.unmaximize')
 }
 
 export const minimize = async (): Promise<void> => {
-  // @ts-ignore todo
   await ParentRpc.invoke('ElectronWindow.minimize')
 }
 
 export const close = async (): Promise<void> => {
-  // @ts-ignore todo
   await ParentRpc.invoke('ElectronWindow.close')
 }
