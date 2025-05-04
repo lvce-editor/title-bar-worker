@@ -1,13 +1,3 @@
-const state = {
-  rpc: undefined,
-}
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 
-export const invoke = (method: string, ...params: readonly any[]): Promise<any> => {
-  const { rpc } = state
-  // @ts-ignore
-  return rpc.invoke(method, ...params)
-}
-
-export const setRpc = (rpc: any): void => {
-  state.rpc = rpc
-}
+export const { invoke, set } = RendererWorker
