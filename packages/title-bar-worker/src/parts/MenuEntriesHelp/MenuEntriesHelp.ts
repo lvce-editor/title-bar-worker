@@ -41,7 +41,7 @@ export const getMenuEntries = async (platform: number): Promise<readonly MenuEnt
   entries.push({
     id: 'about',
     label: HelpStrings.about(),
-    flags: MenuItemFlags.RestoreFocus,
+    flags: MenuItemFlags.None,
     command: 'About.showAbout',
   })
   return entries
