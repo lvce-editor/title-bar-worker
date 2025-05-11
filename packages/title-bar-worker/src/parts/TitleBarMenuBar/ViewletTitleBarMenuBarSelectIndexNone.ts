@@ -7,5 +7,6 @@ export const selectIndexNone = async (state: TitleBarMenuBarState, item: any): P
     ...state,
     menus: [],
     isMenuOpen: false,
+    focusedIndex: -1,
   }
 }
