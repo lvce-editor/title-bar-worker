@@ -1,13 +1,15 @@
-import * as Workspace from '../Workspace/Workspace.ts'
+import * as Protocol from '../Protocol/Protocol.ts'
 
-export const getTitle = (uri: string): string => {
+export const getTitle = (homeDir: string, uri: string): string => {
   if (!uri) {
     return ''
   }
-  const homeDir = Workspace.getHomeDir()
   // TODO tree shake this out in web
   if (homeDir && uri.startsWith(homeDir)) {
     return `~${uri.slice(homeDir.length)}`
+  }
+  if (uri.startsWith(Protocol.File)) {
+    return uri.slice(Protocol.File.length)
   }
   return uri
 }

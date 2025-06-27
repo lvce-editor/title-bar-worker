@@ -5,11 +5,13 @@ import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as PathDisplay from '../PathDisplay/PathDisplay.ts'
 import * as TitleBarMenuBarStrings from '../TitleBarMenuBarStrings/TitleBarMenuBarStrings.ts'
+import * as Workspace from '../Workspace/Workspace.ts'
 
 const MAX_MENU_RECENT_ENTRIES = 10
 
-const toMenuItem = (folder: any): MenuEntry => {
-  const label = PathDisplay.getTitle(folder)
+const toMenuItem = (folder: string): MenuEntry => {
+  const homeDir = Workspace.getHomeDir()
+  const label = PathDisplay.getTitle(homeDir, folder)
   return {
     label,
     flags: MenuItemFlags.None,
