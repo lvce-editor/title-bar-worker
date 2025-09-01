@@ -10,9 +10,9 @@
     "build:watch": "./packages/build/node_modules/.bin/esbuild --format=esm --bundle --external:node:buffer --external:electron --external:ws --external:node:worker_threads --watch packages/title-bar-worker/src/titleBarWorkerMain.ts --outfile=.tmp/dist/dist/titleBarWorkerMain.js",
     "dev": "node packages/build/src/dev.js",
     "format": "prettier --write .",
+    "postinstall": "lerna bootstrap --ci",
     "lint": "eslint .",
     "measure": "cd packages/memory && npm run measure",
-    "postinstall": "lerna bootstrap --ci",
     "test": "lerna run test",
     "type-check": "tsc -b"
   },
