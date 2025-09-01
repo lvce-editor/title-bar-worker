@@ -7,17 +7,6 @@ beforeEach(() => {
   jest.resetAllMocks()
 })
 
-jest.unstable_mockModule('../src/parts/RendererProcess/RendererProcess.js', () => {
-  return {
-    invoke: (): any => {
-      return {
-        x: 0,
-        bottom: 0,
-      }
-    },
-  }
-})
-
 jest.unstable_mockModule('../src/parts/MeasureTextWidth/MeasureTextWidth.js', () => {
   return {
     measureTextWidth: (): number => {
