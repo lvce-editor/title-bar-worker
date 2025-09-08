@@ -1,5 +1,5 @@
-import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as AddWidths from '../AddWidths/AddWidths.ts'
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
 export const loadContent = async (state: TitleBarMenuBarState, titleBarEntries: readonly any[]): Promise<TitleBarMenuBarState> => {
   const { labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding } = state

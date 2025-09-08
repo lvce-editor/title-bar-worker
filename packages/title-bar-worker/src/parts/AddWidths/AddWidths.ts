@@ -1,4 +1,4 @@
-import * as MeasureTitleBarEntryWidth from '../MeasureTitleBarEntryWidth/MeasureTitleBarEntryWidth.ts'
+import { measureTextWidths } from '../MeasureTextWidths/MeasureTextWidths.ts'
 
 export const addWidths = (
   entries: any,
@@ -8,9 +8,12 @@ export const addWidths = (
   fontFamily: string,
   letterSpacing: number,
 ): readonly any[] => {
+  const labels = entries.map((entry: any) => entry.label)
+  const widths = measureTextWidths(labels, fontWeight, fontSize, fontFamily, letterSpacing)
   const withWidths = []
-  for (const entry of entries) {
-    const textWidth = MeasureTitleBarEntryWidth.measureTitleBarEntryWidth(entry.label, fontWeight, fontSize, fontFamily, letterSpacing)
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i]
+    const textWidth = widths[i]
     const width = textWidth + labelPadding * 2
     withWidths.push({ ...entry, width })
   }

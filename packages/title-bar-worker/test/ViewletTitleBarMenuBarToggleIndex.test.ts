@@ -7,10 +7,10 @@ beforeEach(() => {
   jest.resetAllMocks()
 })
 
-jest.unstable_mockModule('../src/parts/MeasureTextWidth/MeasureTextWidth.js', () => {
+jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.js', () => {
   return {
-    measureTextWidth: (): number => {
-      return 25
+    measureTextWidth: (): readonly number[] => {
+      return [25]
     },
   }
 })
