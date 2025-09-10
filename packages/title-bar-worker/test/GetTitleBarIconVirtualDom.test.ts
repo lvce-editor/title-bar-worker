@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as GetTitleBarIconVirtualDom from '../src/parts/GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
-import * as VirtualDomElements from '../src/parts/VirtualDomElements/VirtualDomElements.ts'
 
 test('getTitleBarIconVirtualDom', () => {
   expect(GetTitleBarIconVirtualDom.getTitleBarIconVirtualDom('test-icon.png')).toEqual([

@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import * as VirtualDomElements from '../src/parts/VirtualDomElements/VirtualDomElements.ts'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as VirtualDomHelpers from '../src/parts/VirtualDomHelpers/VirtualDomHelpers.ts'
 
 test('text - creates text node with correct properties', () => {
