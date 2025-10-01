@@ -2,6 +2,7 @@ import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
+
 export const createTitleBarButton = (button: TitleBarButton): readonly VirtualDomNode[] => {
   const { id, icon, label, onClick } = button
   const dom = [
