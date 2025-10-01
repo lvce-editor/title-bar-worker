@@ -1,4 +1,6 @@
-export const closeOneMenu = (state: any): any => {
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+
+export const closeOneMenu = (state: TitleBarMenuBarState): TitleBarMenuBarState => {
   const { menus } = state
   const parentMenu = menus.at(-2)
   const newParentMenu = {
