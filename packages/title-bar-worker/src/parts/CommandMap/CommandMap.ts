@@ -1,3 +1,4 @@
+import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as GetCommands from '../GetCommands/GetCommands.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
@@ -16,7 +17,6 @@ import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
-import * as Terminate from '../Terminate/Terminate.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as CloseMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
 import * as Focus from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocus.ts'
@@ -91,7 +91,7 @@ export const commandMap = {
   'TitleBarMenuBar.loadContent': WrapCommand.wrapCommand(LoadContent.loadContent),
   'TitleBarMenuBar.render2': Render2.render2,
   'TitleBarMenuBar.saveState': SaveState.saveState,
-  'TitleBarMenuBar.terminate': Terminate.terminate,
+  'TitleBarMenuBar.terminate': terminate,
   'TitleBarMenuBar.toggleIndex': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBarMenuBar.toggleMenu': WrapCommand.wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
 }
