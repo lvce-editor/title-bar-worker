@@ -1,6 +1,7 @@
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as Menu from '../Menu/Menu.ts'
 
-export const handleKeyArrowUpMenuOpen = (state: any): any => {
+export const handleKeyArrowUpMenuOpen = (state: TitleBarMenuBarState): TitleBarMenuBarState => {
   const { menus } = state
   const menu = menus.at(-1)
   const previousIndex = Menu.getIndexToFocusPrevious(menu)
