@@ -38,7 +38,7 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
   return dom
 }
 
-export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: any): readonly VirtualDomNode[] => {
+export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: readonly VisibleMenuItem[]): readonly VirtualDomNode[] => {
   const dom = visibleItems.flatMap(getItemVirtualDom)
   return dom
 }
