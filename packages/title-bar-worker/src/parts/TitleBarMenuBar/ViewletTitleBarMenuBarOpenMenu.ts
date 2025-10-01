@@ -1,9 +1,7 @@
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
 
-/**
- * @param {boolean} focus
- */
-export const openMenu = (state: any, focus: boolean): any => {
+export const openMenu = async (state: TitleBarMenuBarState, focus: boolean): Promise<TitleBarMenuBarState> => {
   const { focusedIndex } = state
   if (focusedIndex === -1) {
     return state
