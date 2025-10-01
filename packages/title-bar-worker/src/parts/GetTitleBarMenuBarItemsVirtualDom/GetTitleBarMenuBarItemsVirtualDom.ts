@@ -5,7 +5,6 @@ import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
-// TODO add proper type
 const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
   // @ts-ignore
   const { keyboardShortCut, label, icon, isOpen, isFocused } = item
