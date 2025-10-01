@@ -1,10 +1,10 @@
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetKeyBindingsString from '../GetKeyBindingsString/GetKeyBindingsString.ts'
 import * as ParseKey from '../ParseKey/ParseKey.ts'
-import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const getMenuItemDefaultDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
