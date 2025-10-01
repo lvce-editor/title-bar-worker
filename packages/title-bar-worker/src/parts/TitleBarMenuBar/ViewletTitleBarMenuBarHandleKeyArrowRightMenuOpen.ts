@@ -1,10 +1,11 @@
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 // TODO menu should not be needed initially, only when item is selected and menu is opened
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import { focusNext } from './ViewletTitleBarMenuBarFocusNext.ts'
 
-export const handleKeyArrowRightMenuOpen = async (state: any): Promise<any> => {
+export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
   const { menus } = state
   // if menu can open sub menu to the right -> do that
   const menu = menus.at(-1)
