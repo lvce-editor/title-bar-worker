@@ -2,7 +2,8 @@ import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as AriaRoles from '../AriaRoles/AriaRoles.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import { VirtualDomElements} from '@lvce-editor/virtual-dom-worker'import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const arrowRight: VirtualDomNode = {
   type: VirtualDomElements.Div,
