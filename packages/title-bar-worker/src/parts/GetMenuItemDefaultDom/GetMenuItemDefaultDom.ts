@@ -1,4 +1,4 @@
-import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
+import { AriaRoles, mergeClassNames, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
@@ -6,12 +6,18 @@ import * as GetKeyBindingsString from '../GetKeyBindingsString/GetKeyBindingsStr
 import * as ParseKey from '../ParseKey/ParseKey.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
+const classNameFocused = mergeClassNames(ClassNames.MenuItem, ClassNames.MenuItemFocused)
+
+const getMenuItemClassName = (isFocused: boolean): string => {
+  if (isFocused) {
+    return classNameFocused
+  }
+  return ClassNames.MenuItem
+}
+
 export const getMenuItemDefaultDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
   const { label, isFocused, key } = menuItem
-  let className = ClassNames.MenuItem
-  if (isFocused) {
-    className += ' ' + ClassNames.MenuItemFocused
-  }
+  const className = getMenuItemClassName(isFocused)
   const dom: any[] = []
   dom.push(
     {

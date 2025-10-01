@@ -1,11 +1,13 @@
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
+import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
-const getItemVirtualDom = (item: any): readonly VirtualDomNode[] => {
+const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
   // @ts-ignore
   const { keyboardShortCut, label, icon, isOpen, isFocused } = item
+  // TODO avoid mutation
   const dom = []
   dom.push({
     type: VirtualDomElements.Div,
@@ -34,7 +36,7 @@ const getItemVirtualDom = (item: any): readonly VirtualDomNode[] => {
   return dom
 }
 
-export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: any): readonly VirtualDomNode[] => {
+export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: readonly VisibleMenuItem[]): readonly VirtualDomNode[] => {
   const dom = visibleItems.flatMap(getItemVirtualDom)
   return dom
 }

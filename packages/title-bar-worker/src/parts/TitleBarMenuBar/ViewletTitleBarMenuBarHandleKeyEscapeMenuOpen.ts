@@ -1,7 +1,8 @@
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { closeMenu } from './ViewletTitleBarMenuBarCloseMenu.ts'
 import { closeOneMenu } from './ViewletTitleBarMenuBarCloseOneMenu.ts'
 
-export const handleKeyEscapeMenuOpen = (state: any): any => {
+export const handleKeyEscapeMenuOpen = (state: TitleBarMenuBarState): TitleBarMenuBarState => {
   const { menus } = state
   if (menus.length > 1) {
     return closeOneMenu(state)

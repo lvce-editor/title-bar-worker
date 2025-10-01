@@ -1,6 +1,7 @@
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as Menu from '../Menu/Menu.ts'
 
-export const handleKeyHomeMenuOpen = (state: any): any => {
+export const handleKeyHomeMenuOpen = (state: TitleBarMenuBarState): TitleBarMenuBarState => {
   const { menus } = state
   const menu = menus[0]
   const newFocusedIndex = Menu.getIndexToFocusFirst(menu.items)

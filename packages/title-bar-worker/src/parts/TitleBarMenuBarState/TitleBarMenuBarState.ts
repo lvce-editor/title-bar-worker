@@ -14,4 +14,5 @@ export interface TitleBarMenuBarState {
   readonly y: number
   readonly width: number
   readonly height: number
+  readonly iconWidth: number
 }
