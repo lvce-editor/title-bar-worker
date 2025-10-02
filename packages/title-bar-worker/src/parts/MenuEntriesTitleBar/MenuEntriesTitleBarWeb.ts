@@ -2,7 +2,7 @@ import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
-export const getMenuEntries = (): any => {
+export const getMenuEntries = (): readonly any[] => {
   return [
     {
       id: MenuEntryId.File,
