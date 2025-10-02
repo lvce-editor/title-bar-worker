@@ -1,3 +1,4 @@
+import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 import * as MenuEntriesTitleBarRemote from './MenuEntriesTitleBarRemote.ts'
@@ -14,7 +15,7 @@ const getFn = (platform: number): any => {
 
 export const id = MenuEntryId.TitleBar
 
-export const getMenuEntries = async (platform: number): Promise<any> => {
+export const getMenuEntries = async (platform: number): Promise<readonly VisibleMenuItem[]> => {
   const fn = getFn(platform)
   return fn()
 }
