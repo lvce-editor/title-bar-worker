@@ -1,3 +1,4 @@
+import { EventExpression } from '@lvce-editor/constants'
 import type { DomEventListener } from '../DomEventListener/DomEventListener.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 
@@ -21,27 +22,27 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenerFunctions.HandleMenuClick,
-      params: ['handleMenuClick', 'event.clientX', 'event.clientY'],
+      params: ['handleMenuClick', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenerFunctions.HandleMenuMouseOver,
-      params: ['handleMenuMouseOver', 'event.clientX', 'event.clientY'],
+      params: ['handleMenuMouseOver', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenerFunctions.HandleClick,
-      params: ['handleClickAt', 'event.button', 'event.clientX', 'event.clientY'],
+      params: ['handleClickAt', EventExpression.Button, EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenerFunctions.HandlePointerOut,
-      params: ['handlePointerOut', 'event.clientX', 'event.clientY'],
+      params: ['handlePointerOut', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenerFunctions.HandlePointerOver,
-      params: ['handlePointerOver', 'event.clientX', 'event.clientY'],
+      params: ['handlePointerOver', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenerFunctions.HandleFocusOut,
-      params: ['handleFocusOut', 'event.clientX', 'event.clientY'], // TODO maybe check relatedTarget
+      params: ['handleFocusOut', EventExpression.ClientX, EventExpression.ClientY], // TODO maybe check relatedTarget
     },
   ]
 }
