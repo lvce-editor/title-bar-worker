@@ -43,6 +43,7 @@
     }
   },
   "dependencies": {
+    "@lvce-editor/constants": "^1.26.0",
     "@lvce-editor/viewlet-registry": "^1.4.0"
   },
   "devDependencies": {
