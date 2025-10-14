@@ -1,19 +1,25 @@
 export interface TitleBarMenuBarState {
-  readonly uid: number
-  readonly titleBarEntries: readonly any[]
+  readonly assetDir: string
   readonly focusedIndex: number
-  readonly isMenuOpen: boolean
-  readonly menus: readonly any[]
-  readonly labelFontWeight: number
-  readonly labelFontFamily: string
-  readonly labelFontSize: number
-  readonly labelPadding: number
-  readonly labelLetterSpacing: number
-  readonly titleBarHeight: number
-  readonly x: number
-  readonly y: number
-  readonly width: number
   readonly height: number
   readonly iconWidth: number
-  readonly assetDir?: string
+  readonly isMenuOpen: boolean
+  readonly itleBarIconEnabled: boolean
+  readonly labelFontFamily: string
+  readonly labelFontSize: number
+  readonly labelFontWeight: number
+  readonly labelLetterSpacing: number
+  readonly labelPadding: number
+  readonly menus: readonly any[]
+  readonly titleBarButtonsEnabled: boolean
+  readonly titleBarButtonsWidth: number
+  readonly titleBarEntries: readonly any[]
+  readonly titleBarHeight: number
+  readonly titleBarIconWidth: number
+  readonly titleBarMenuBarEnabled: boolean
+  readonly titleBarTitleEnabled: boolean
+  readonly uid: number
+  readonly width: number
+  readonly x: number
+  readonly y: number
 }
