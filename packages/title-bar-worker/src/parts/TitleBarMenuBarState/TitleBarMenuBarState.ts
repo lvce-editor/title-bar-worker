@@ -1,4 +1,10 @@
 export interface TitleBarMenuBarState {
+  readonly titleBarIconWidth: number
+  readonly itleBarIconEnabled: boolean
+  readonly titleBarMenuBarEnabled: boolean
+  readonly titleBarButtonsEnabled: boolean
+  readonly titleBarButtonsWidth: number
+  readonly titleBarTitleEnabled: boolean
   readonly uid: number
   readonly titleBarEntries: readonly any[]
   readonly focusedIndex: number

@@ -1,29 +1,11 @@
 import { expect, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as RenderMenus from '../src/parts/RenderMenus/RenderMenus.ts'
 import * as RenderMethod from '../src/parts/RenderMethod/RenderMethod.ts'
 
 const UID = 1
-
-const createEmptyState = (uid: number = UID): TitleBarMenuBarState => ({
-  uid,
-  titleBarEntries: [],
-  focusedIndex: -1,
-  isMenuOpen: false,
-  menus: [],
-  labelFontWeight: 400,
-  labelFontSize: 13,
-  labelFontFamily: 'system-ui, Ubuntu, Droid Sans, sans-serif',
-  labelPadding: 8,
-  labelLetterSpacing: 0,
-  titleBarHeight: 30,
-  x: 0,
-  y: 0,
-  width: 800,
-  height: 30,
-  iconWidth: 30,
-})
 
 const createMenu = (items: readonly any[], focusedIndex: number = -1, expanded: boolean = false, level: number = 0): any => ({
   items,
@@ -39,13 +21,13 @@ const createMenuItem = (label: string, flags: number = MenuItemFlags.None, key: 
 })
 
 const createStateWithMenus = (menus: readonly any[], uid: number = UID): TitleBarMenuBarState => ({
-  ...createEmptyState(uid),
+  ...createDefaultState(uid),
   menus,
 })
 
 test('renderMenus with empty states', () => {
-  const oldState = createEmptyState()
-  const newState = createEmptyState()
+  const oldState = createDefaultState()
+  const newState = createDefaultState()
 
   const result = RenderMenus.renderMenus(oldState, newState)
 
@@ -57,12 +39,12 @@ test('renderMenus with no changes', () => {
     createMenuItem('File'),
     createMenuItem('Edit'),
   ])
-  
+
   const oldState = createStateWithMenus([menu])
   const newState = createStateWithMenus([menu])
-  
+
   const result = RenderMenus.renderMenus(oldState, newState)
-  
+
   expect(result).toEqual(['Viewlet.send', UID, RenderMethod.SetMenus, [], UID])
 })
 
@@ -71,22 +53,22 @@ test('renderMenus with single menu change', () => {
     createMenuItem('File'),
     createMenuItem('Edit'),
   ])
-  
+
   const newMenu = createMenu([
     createMenuItem('File'),
     createMenuItem('View'),
   ])
-  
+
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
-  
+
   const result = RenderMenus.renderMenus(oldState, newState)
-  
+
   expect(result[0]).toBe('Viewlet.send')
   expect(result[1]).toBe(UID)
   expect(result[2]).toBe(RenderMethod.SetMenus)
   expect(result[4]).toBe(UID)
-  
+
   const changes = result[3] as any[]
   expect(changes).toHaveLength(1)
   expect(changes[0][0]).toBe('updateMenu')
@@ -118,12 +100,12 @@ test('renderMenus with multiple menu changes', () => {
 
 test('renderMenus adding new menu', () => {
   const oldState = createStateWithMenus([])
-  
+
   const newMenu = createMenu([
     createMenuItem('File'),
     createMenuItem('Edit'),
   ])
-  
+
   const newState = createStateWithMenus([newMenu])
 
   const result = RenderMenus.renderMenus(oldState, newState)
@@ -136,10 +118,10 @@ test('renderMenus adding new menu', () => {
 
 test('renderMenus adding multiple new menus', () => {
   const oldState = createStateWithMenus([])
-  
+
   const newMenu1 = createMenu([createMenuItem('File')])
   const newMenu2 = createMenu([createMenuItem('Edit')])
-  
+
   const newState = createStateWithMenus([newMenu1, newMenu2])
 
   const result = RenderMenus.renderMenus(oldState, newState)
@@ -152,7 +134,7 @@ test('renderMenus adding multiple new menus', () => {
 
 test('renderMenus removing menu', () => {
   const oldMenu = createMenu([createMenuItem('File')])
-  
+
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([])
 
@@ -167,7 +149,7 @@ test('renderMenus removing menu', () => {
 test('renderMenus removing multiple menus', () => {
   const oldMenu1 = createMenu([createMenuItem('File')])
   const oldMenu2 = createMenu([createMenuItem('Edit')])
-  
+
   const oldState = createStateWithMenus([oldMenu1, oldMenu2])
   const newState = createStateWithMenus([])
 
@@ -395,8 +377,8 @@ test('renderMenus with different UIDs', () => {
   const UID_1 = 1
   const UID_2 = 2
 
-  const oldState = createEmptyState(UID_1)
-  const newState = createEmptyState(UID_2)
+  const oldState = createDefaultState(UID_1)
+  const newState = createDefaultState(UID_2)
 
   const result = RenderMenus.renderMenus(oldState, newState)
 
