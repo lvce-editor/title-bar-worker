@@ -2,8 +2,7 @@ import { AriaRoles, mergeClassNames, VirtualDomElements } from '@lvce-editor/vir
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import * as GetKeyBindingsString from '../GetKeyBindingsString/GetKeyBindingsString.ts'
-import * as ParseKey from '../ParseKey/ParseKey.ts'
+import { getKeyDom } from '../GetKeyDom/GetKeyDom.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const classNameFocused = mergeClassNames(ClassNames.MenuItem, ClassNames.MenuItemFocused)
@@ -31,16 +30,8 @@ export const getMenuItemDefaultDom = (menuItem: VisibleMenuItem): readonly Virtu
   )
   if (key) {
     dom[0].childCount++
-    const parsedKey = ParseKey.parseKey(key)
-    const keyBindingsString = GetKeyBindingsString.getKeyBindingString(parsedKey.key, false, parsedKey.isCtrl, parsedKey.isShift, false)
-    dom.push(
-      {
-        type: VirtualDomElements.Span,
-        className: ClassNames.MenuItemKeyBinding,
-        childCount: 1,
-      },
-      text(keyBindingsString),
-    )
+    const keyDom = getKeyDom(key)
+    dom.push(...keyDom)
   }
   return dom
 }
