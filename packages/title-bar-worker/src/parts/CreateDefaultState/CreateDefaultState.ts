@@ -26,4 +26,5 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   width: 800,
   x: 0,
   y: 0,
+  title: '',
 })

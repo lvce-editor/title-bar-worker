@@ -11,6 +11,7 @@ export interface TitleBarMenuBarState {
   readonly labelLetterSpacing: number
   readonly labelPadding: number
   readonly menus: readonly any[]
+  readonly title: string
   readonly titleBarButtonsEnabled: boolean
   readonly titleBarButtonsWidth: number
   readonly titleBarEntries: readonly any[]
