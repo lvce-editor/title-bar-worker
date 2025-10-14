@@ -1,6 +1,5 @@
 import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Diff2 from '../Diff2/Diff2.ts'
-import * as GetCommands from '../GetCommands/GetCommands.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
 import * as GetTitleBarButtons from '../GetTitleBarButtons/GetTitleBarButtons.ts'
@@ -44,7 +43,7 @@ import * as ViewletTitleBarMenuBarHandleMouseOut from '../TitleBarMenuBar/Viewle
 import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
 import * as ViewletTitleBarMenuBarToggleIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
-import { wrapCommand } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+import { getCommandIds, wrapCommand } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const commandMap = {
   'TitleBar.getButtonsVirtualDom': GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom,
@@ -64,7 +63,7 @@ export const commandMap = {
   'TitleBarMenuBar.focusLast': wrapCommand(ViewletTitleBarMenuBarFocusIndex.focusIndex),
   'TitleBarMenuBar.focusNext': wrapCommand(ViewletTitleBarMenuBarFocusNext.focusNext),
   'TitleBarMenuBar.focusPrevious': wrapCommand(ViewletTitleBarMenuBarFocusPrevious.focusPrevious),
-  'TitleBarMenuBar.getCommands': GetCommands.getCommandIds,
+  'TitleBarMenuBar.getCommands': getCommandIds,
   'TitleBarMenuBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBarMenuBar.getMenus': MenuEntries.getMenus,
   'TitleBarMenuBar.getTitleBarButtons': GetTitleBarButtons.getTitleBarButtons,
