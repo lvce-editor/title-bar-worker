@@ -1,4 +1,4 @@
-import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements, AriaRoles, mergeClassNames } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
@@ -12,11 +12,10 @@ const arrowRight: VirtualDomNode = {
 
 export const getMenuItemSubMenuDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
   const { label, isFocused, isExpanded, level } = menuItem
-  let className = ClassNames.MenuItem
-  className += ' ' + ClassNames.MenuItemSubMenu
-  if (isFocused) {
-    className += ' ' + ClassNames.MenuItemFocused
-  }
+  const baseClassName = mergeClassNames(ClassNames.MenuItem, ClassNames.MenuItemSubMenu)
+  const className = isFocused
+    ? mergeClassNames(baseClassName, ClassNames.MenuItemFocused)
+    : baseClassName
   return [
     {
       type: VirtualDomElements.Div,
