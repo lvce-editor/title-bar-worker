@@ -15,4 +15,5 @@ export interface TitleBarMenuBarState {
   readonly width: number
   readonly height: number
   readonly iconWidth: number
+  readonly assetDir?: string
 }
