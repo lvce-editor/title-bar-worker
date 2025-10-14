@@ -3,7 +3,6 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 const DEFAULT_UID = 1
 
 export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarState => ({
-  // @ts-ignore
   titleBarIconWidth: 30,
   itleBarIconEnabled: true,
   titleBarMenuBarEnabled: true,
