@@ -27,4 +27,5 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   x: 0,
   y: 0,
   title: '',
+  buttons: []
 })
