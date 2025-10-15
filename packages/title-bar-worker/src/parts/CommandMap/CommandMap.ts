@@ -1,5 +1,7 @@
 import { terminate } from '@lvce-editor/viewlet-registry'
+import * as Create3 from '../Create3/Create3.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
+import * as Diff3 from '../Diff3/Diff3.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
 import * as GetTitleBarButtons from '../GetTitleBarButtons/GetTitleBarButtons.ts'
@@ -14,6 +16,7 @@ import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as Render2 from '../Render2/Render2.ts'
+import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
@@ -46,6 +49,8 @@ import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTit
 import { getCommandIds, wrapCommand } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const commandMap = {
+  'TitleBar.create3': Create3.create3,
+  'TitleBar.diff3': Diff3.diff3,
   'TitleBar.getButtonsVirtualDom': GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom,
   'TitleBar.getIconVirtualDom': GetTitleBarIconVirtualDom.getTitleBarIconVirtualDom,
   'TitleBar.getMenuEntries': GetMenuIds.getMenuEntries,
@@ -53,6 +58,7 @@ export const commandMap = {
   'TitleBar.getTitleVirtualDom': GetTitleVirtualDom.getTitleVirtualDom,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
   'TitleBar.handleContextMenu': HandleContextMenu.handleContextMenu,
+  'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBarMenuBar.closeMenu': CloseMenu.closeMenu,
   'TitleBarMenuBar.create': TitleBarMenuBar.create,
