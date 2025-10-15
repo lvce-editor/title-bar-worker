@@ -1,5 +1,8 @@
+import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
+
 export interface TitleBarMenuBarState {
   readonly assetDir: string
+  readonly buttons: readonly TitleBarButton[]
   readonly focusedIndex: number
   readonly height: number
   readonly iconWidth: number
