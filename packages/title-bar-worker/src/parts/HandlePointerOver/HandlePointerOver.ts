@@ -1,4 +1,5 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import { getMenuOffset } from '../GetMenuOffset/GetMenuOffset.ts'
 import * as ViewletTitleBarMenuBarGetTitleBarIndexFromPosition from '../TitleBarMenuBar/ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.ts'
 import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
 
@@ -8,7 +9,8 @@ export const handlePointerOver = (
   clientY: number,
 ): TitleBarMenuBarState | Promise<TitleBarMenuBarState> => {
   const { titleBarEntries, x, iconWidth } = state
-  const index = ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(titleBarEntries, clientX - x - iconWidth, clientY)
+  const menuOffset = getMenuOffset(x, clientX, iconWidth)
+  const index = ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(titleBarEntries, menuOffset, clientY)
   if (index === -1) {
     return state
   }
