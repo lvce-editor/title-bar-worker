@@ -22,6 +22,7 @@ import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as Render2 from '../Render2/Render2.ts'
 import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
+import { resize } from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as CloseMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
@@ -105,6 +106,7 @@ export const commandMap = {
   'TitleBar.render2': Render2.render2,
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
+  'TitleBar.resize': wrapCommand(resize),
   'TitleBar.saveState': SaveState.saveState,
   'TitleBar.terminate': terminate,
   'TitleBar.toggleIndex': wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
