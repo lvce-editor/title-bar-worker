@@ -9,9 +9,11 @@ export const loadContent = async (state: TitleBarMenuBarState, titleBarEntries: 
     labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding } = state
   const withWidths = AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
+  const title = 'test'
   return {
     ...state,
     titleBarEntries: withWidths,
-    buttons
+    buttons,
+    title
   }
 }
