@@ -1,5 +1,4 @@
 import { expect, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import * as GetRecentlyOpened from '../src/parts/GetRecentlyOpened/GetRecentlyOpened.ts'
 
@@ -9,17 +8,13 @@ test('getRecentlyOpened', async () => {
     { path: '/home/user/project2', label: 'project2' },
   ]
 
-  const mockRpc = MockRpc.create({
-    commandMap: {},
-    invoke: (method: string) => {
-      if (method === 'RecentlyOpened.getRecentlyOpened') {
-        return mockData
-      }
-      throw new Error(`unexpected method ${method}`)
+  const mockRpc = RendererWorker.registerMockRpc({
+    'RecentlyOpened.getRecentlyOpened'() {
+      return mockData
     },
   })
-  RendererWorker.set(mockRpc)
 
   const result = await GetRecentlyOpened.getRecentlyOpened()
   expect(result).toEqual(mockData)
+  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
 })

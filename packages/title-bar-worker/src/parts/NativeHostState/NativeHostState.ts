@@ -6,3 +6,7 @@ const state = {
 export const isMaximized = (): boolean => {
   return state.isMaximized
 }
+
+export const setMaximized = (value: boolean): void => {
+  state.isMaximized = value
+}
