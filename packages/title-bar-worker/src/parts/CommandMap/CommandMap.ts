@@ -109,3 +109,12 @@ export const commandMap = {
   'TitleBarMenuBar.toggleIndex': wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBarMenuBar.toggleMenu': wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
 }
+
+for (const [key, value] of Object.entries(commandMap)) {
+  const [prefix, name] = key.split('.')
+  if (prefix === 'TitleBarMenuBar') {
+    const alternate = `TitleBar.${name}`
+    // @ts-ignore
+    commandMap[alternate] = value
+  }
+}
