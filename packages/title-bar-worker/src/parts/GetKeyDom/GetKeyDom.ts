@@ -1,8 +1,8 @@
+import { ParseKey } from '@lvce-editor/constants'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetKeyBindingsString from '../GetKeyBindingsString/GetKeyBindingsString.ts'
-import * as ParseKey from '../ParseKey/ParseKey.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const getKeyDom = (key: number): readonly VirtualDomNode[] => {
