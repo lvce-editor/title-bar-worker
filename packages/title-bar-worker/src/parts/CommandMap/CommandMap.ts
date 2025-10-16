@@ -10,6 +10,9 @@ import * as GetTitleBarIconVirtualDom from '../GetTitleBarIconVirtualDom/GetTitl
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
 import * as GetTitleVirtualDom from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts'
+import { handleClickClose } from '../HandleClickClose/HandleClickClose.ts'
+import { handleClickMinimize } from '../HandleClickMinimize/HandleClickMinimize.ts'
+import { handleClickToggleMaximize } from '../HandleClickToggleMaximize/HandleClickToggleMaximize.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
@@ -57,6 +60,9 @@ export const commandMap = {
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
   'TitleBar.getTitleVirtualDom': GetTitleVirtualDom.getTitleVirtualDom,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
+  'TitleBar.handleClickClose': wrapCommand(handleClickClose),
+  'TitleBar.handleClickMinimize': wrapCommand(handleClickMinimize),
+  'TitleBar.handleClickToggleMaximize': wrapCommand(handleClickToggleMaximize),
   'TitleBar.handleContextMenu': HandleContextMenu.handleContextMenu,
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
