@@ -6,42 +6,42 @@ export const getKeyBindings = (): readonly KeyBinding[] => {
   return [
     {
       key: KeyCode.DownArrow,
-      command: 'TitleBarMenuBar.handleKeyArrowDown',
+      command: 'TitleBar.handleKeyArrowDown',
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
       key: KeyCode.UpArrow,
-      command: 'TitleBarMenuBar.handleKeyArrowUp',
+      command: 'TitleBar.handleKeyArrowUp',
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
       key: KeyCode.RightArrow,
-      command: 'TitleBarMenuBar.handleKeyArrowRight',
+      command: 'TitleBar.handleKeyArrowRight',
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
       key: KeyCode.LeftArrow,
-      command: 'TitleBarMenuBar.handleKeyArrowLeft',
+      command: 'TitleBar.handleKeyArrowLeft',
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
       key: KeyCode.Space,
-      command: 'TitleBarMenuBar.handleKeySpace',
+      command: 'TitleBar.handleKeySpace',
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
       key: KeyCode.Home,
-      command: 'TitleBarMenuBar.handleKeyHome',
+      command: 'TitleBar.handleKeyHome',
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
       key: KeyCode.End,
-      command: 'TitleBarMenuBar.handleKeyEnd',
+      command: 'TitleBar.handleKeyEnd',
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
       key: KeyCode.Escape,
-      command: 'TitleBarMenuBar.handleKeyEscape',
+      command: 'TitleBar.handleKeyEscape',
       when: WhenExpression.FocusTitleBarMenuBar,
     },
   ]
