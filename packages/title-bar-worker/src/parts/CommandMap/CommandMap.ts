@@ -110,7 +110,6 @@ export const commandMap = {
   'TitleBarMenuBar.toggleMenu': wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
 }
 
-
 for (const [key, value] of Object.entries(commandMap)) {
   const [prefix, name] = key.split('.')
   if (prefix === 'TitleBarMenuBar') {
