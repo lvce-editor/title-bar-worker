@@ -1,3 +1,4 @@
+import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
 import * as MenuEntriesFile from '../MenuEntriesFile/MenuEntriesFile.ts'
 import * as MenuEntriesGo from '../MenuEntriesGo/MenuEntriesGo.ts'
@@ -27,7 +28,7 @@ export const getMenus = (): any => {
   return menus
 }
 
-const getModule = (id: number): any => {
+const getModule = (id: string | number): any => {
   for (const module of menus) {
     if (module.id === id) {
       return module
@@ -36,7 +37,7 @@ const getModule = (id: number): any => {
   return undefined
 }
 
-export const getMenuEntries = async (id: any, ...args: any): Promise<any> => {
+export const getMenuEntries = async (id: string | number, ...args: readonly any[]): Promise<readonly VisibleMenuItem[]> => {
   try {
     const module = getModule(id)
     // @ts-ignore
