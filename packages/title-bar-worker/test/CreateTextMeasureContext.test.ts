@@ -5,7 +5,7 @@ import * as CreateTextMeasureContext from '../src/parts/CreateTextMeasureContext
 // Skipped because CreateTextMeasureContext uses OffscreenCanvas which is not available in Node.js test environment
 test.skip('createTextMeasureContext - should create canvas context with correct properties', () => {
   const mockRpc = RendererWorker.registerMockRpc({
-    commandMap: {}
+    commandMap: {},
   })
 
   const letterSpacing = '2px'
@@ -20,7 +20,7 @@ test.skip('createTextMeasureContext - should create canvas context with correct 
 
 test.skip('createTextMeasureContext - should throw error if canvas context creation fails', () => {
   const mockRpc = RendererWorker.registerMockRpc({
-    commandMap: {}
+    commandMap: {},
   })
 
   // This test would verify error handling when getContext('2d') returns null
@@ -31,7 +31,7 @@ test.skip('createTextMeasureContext - should throw error if canvas context creat
 
 test.skip('createTextMeasureContext - should handle different font and spacing values', () => {
   const mockRpc = RendererWorker.registerMockRpc({
-    commandMap: {}
+    commandMap: {},
   })
 
   const letterSpacing = '0.5px'

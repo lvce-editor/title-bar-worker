@@ -7,7 +7,7 @@ import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/Title
 
 test('render3 - should return empty array when diffResult is empty', async () => {
   const mockRpc = RendererWorker.registerMockRpc({
-    commandMap: {}
+    commandMap: {},
   })
 
   const uid = 1
@@ -21,7 +21,7 @@ test('render3 - should return empty array when diffResult is empty', async () =>
 
 test('render3 - should return commands when diffResult has items', async () => {
   const mockRpc = RendererWorker.registerMockRpc({
-    commandMap: {}
+    commandMap: {},
   })
 
   const uid = 2
@@ -37,7 +37,7 @@ test('render3 - should return commands when diffResult has items', async () => {
 
 test('render3 - should update state after rendering', async () => {
   const mockRpc = RendererWorker.registerMockRpc({
-    commandMap: {}
+    commandMap: {},
   })
 
   const uid = 3
