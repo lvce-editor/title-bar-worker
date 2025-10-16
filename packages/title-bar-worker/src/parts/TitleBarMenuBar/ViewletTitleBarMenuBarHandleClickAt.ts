@@ -1,9 +1,12 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import { getMenuOffset } from '../GetMenuOffset/GetMenuOffset.ts'
 import * as ViewletTitleBarMenuBarGetTitleBarIndexFromPosition from '../TitleBarMenuBar/ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.ts'
 import * as ViewletTitleBarMenuBarHandleClick from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleClick.ts'
 
-export const handleClickAt = async (state: TitleBarMenuBarState, button: number, x: number, y: number): Promise<TitleBarMenuBarState> => {
-  const index = ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(state.titleBarEntries, x - state.x, y)
+export const handleClickAt = async (state: TitleBarMenuBarState, button: number, eventX: number, eventY: number): Promise<TitleBarMenuBarState> => {
+  const { titleBarEntries, x, iconWidth } = state
+  const menuOffset = getMenuOffset(x, eventX, iconWidth)
+  const index = ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(titleBarEntries, menuOffset, eventY)
   if (index === -1) {
     return state
   }
