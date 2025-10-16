@@ -35,10 +35,7 @@ test('renderMenus with empty states', () => {
 })
 
 test('renderMenus with no changes', () => {
-  const menu = createMenu([
-    createMenuItem('File'),
-    createMenuItem('Edit'),
-  ])
+  const menu = createMenu([createMenuItem('File'), createMenuItem('Edit')])
 
   const oldState = createStateWithMenus([menu])
   const newState = createStateWithMenus([menu])
@@ -49,15 +46,9 @@ test('renderMenus with no changes', () => {
 })
 
 test('renderMenus with single menu change', () => {
-  const oldMenu = createMenu([
-    createMenuItem('File'),
-    createMenuItem('Edit'),
-  ])
+  const oldMenu = createMenu([createMenuItem('File'), createMenuItem('Edit')])
 
-  const newMenu = createMenu([
-    createMenuItem('File'),
-    createMenuItem('View'),
-  ])
+  const newMenu = createMenu([createMenuItem('File'), createMenuItem('View')])
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
@@ -101,10 +92,7 @@ test('renderMenus with multiple menu changes', () => {
 test('renderMenus adding new menu', () => {
   const oldState = createStateWithMenus([])
 
-  const newMenu = createMenu([
-    createMenuItem('File'),
-    createMenuItem('Edit'),
-  ])
+  const newMenu = createMenu([createMenuItem('File'), createMenuItem('Edit')])
 
   const newState = createStateWithMenus([newMenu])
 
@@ -200,15 +188,9 @@ test('renderMenus with mixed changes - update and remove', () => {
 })
 
 test('renderMenus with menu items having different flags', () => {
-  const oldMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-    createMenuItem('Edit', MenuItemFlags.Separator),
-  ])
+  const oldMenu = createMenu([createMenuItem('File', MenuItemFlags.None), createMenuItem('Edit', MenuItemFlags.Separator)])
 
-  const newMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.Checked),
-    createMenuItem('Edit', MenuItemFlags.Disabled),
-  ])
+  const newMenu = createMenu([createMenuItem('File', MenuItemFlags.Checked), createMenuItem('Edit', MenuItemFlags.Disabled)])
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
@@ -222,15 +204,9 @@ test('renderMenus with menu items having different flags', () => {
 })
 
 test('renderMenus with focused menu items', () => {
-  const oldMenu = createMenu([
-    createMenuItem('File'),
-    createMenuItem('Edit'),
-  ], 0, false, 0)
+  const oldMenu = createMenu([createMenuItem('File'), createMenuItem('Edit')], 0, false, 0)
 
-  const newMenu = createMenu([
-    createMenuItem('File'),
-    createMenuItem('Edit'),
-  ], 1, true, 1)
+  const newMenu = createMenu([createMenuItem('File'), createMenuItem('Edit')], 1, true, 1)
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
@@ -244,15 +220,9 @@ test('renderMenus with focused menu items', () => {
 })
 
 test('renderMenus with submenu items', () => {
-  const oldMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-    createMenuItem('New', MenuItemFlags.SubMenu),
-  ])
+  const oldMenu = createMenu([createMenuItem('File', MenuItemFlags.None), createMenuItem('New', MenuItemFlags.SubMenu)])
 
-  const newMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-    createMenuItem('Open', MenuItemFlags.SubMenu),
-  ])
+  const newMenu = createMenu([createMenuItem('File', MenuItemFlags.None), createMenuItem('Open', MenuItemFlags.SubMenu)])
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
@@ -266,15 +236,9 @@ test('renderMenus with submenu items', () => {
 })
 
 test('renderMenus with checked/unchecked items', () => {
-  const oldMenu = createMenu([
-    createMenuItem('Option 1', MenuItemFlags.Unchecked),
-    createMenuItem('Option 2', MenuItemFlags.Checked),
-  ])
+  const oldMenu = createMenu([createMenuItem('Option 1', MenuItemFlags.Unchecked), createMenuItem('Option 2', MenuItemFlags.Checked)])
 
-  const newMenu = createMenu([
-    createMenuItem('Option 1', MenuItemFlags.Checked),
-    createMenuItem('Option 2', MenuItemFlags.Unchecked),
-  ])
+  const newMenu = createMenu([createMenuItem('Option 1', MenuItemFlags.Checked), createMenuItem('Option 2', MenuItemFlags.Unchecked)])
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
@@ -312,15 +276,9 @@ test('renderMenus with separator items', () => {
 })
 
 test('renderMenus with disabled items', () => {
-  const oldMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-    createMenuItem('Edit', MenuItemFlags.Disabled),
-  ])
+  const oldMenu = createMenu([createMenuItem('File', MenuItemFlags.None), createMenuItem('Edit', MenuItemFlags.Disabled)])
 
-  const newMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-    createMenuItem('Edit', MenuItemFlags.None),
-  ])
+  const newMenu = createMenu([createMenuItem('File', MenuItemFlags.None), createMenuItem('Edit', MenuItemFlags.None)])
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
@@ -334,13 +292,9 @@ test('renderMenus with disabled items', () => {
 })
 
 test('renderMenus with restore focus items', () => {
-  const oldMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.RestoreFocus),
-  ])
+  const oldMenu = createMenu([createMenuItem('File', MenuItemFlags.RestoreFocus)])
 
-  const newMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-  ])
+  const newMenu = createMenu([createMenuItem('File', MenuItemFlags.None)])
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
@@ -354,13 +308,9 @@ test('renderMenus with restore focus items', () => {
 })
 
 test('renderMenus with ignore items', () => {
-  const oldMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.Ignore),
-  ])
+  const oldMenu = createMenu([createMenuItem('File', MenuItemFlags.Ignore)])
 
-  const newMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-  ])
+  const newMenu = createMenu([createMenuItem('File', MenuItemFlags.None)])
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
@@ -387,23 +337,33 @@ test('renderMenus with different UIDs', () => {
 })
 
 test('renderMenus with complex menu structure', () => {
-  const oldMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-    createMenuItem('New', MenuItemFlags.SubMenu),
-    createMenuItem('', MenuItemFlags.Separator),
-    createMenuItem('Open', MenuItemFlags.None),
-    createMenuItem('Save', MenuItemFlags.Checked),
-    createMenuItem('Exit', MenuItemFlags.Disabled),
-  ], 2, true, 0)
+  const oldMenu = createMenu(
+    [
+      createMenuItem('File', MenuItemFlags.None),
+      createMenuItem('New', MenuItemFlags.SubMenu),
+      createMenuItem('', MenuItemFlags.Separator),
+      createMenuItem('Open', MenuItemFlags.None),
+      createMenuItem('Save', MenuItemFlags.Checked),
+      createMenuItem('Exit', MenuItemFlags.Disabled),
+    ],
+    2,
+    true,
+    0,
+  )
 
-  const newMenu = createMenu([
-    createMenuItem('File', MenuItemFlags.None),
-    createMenuItem('New', MenuItemFlags.SubMenu),
-    createMenuItem('', MenuItemFlags.Separator),
-    createMenuItem('Open Recent', MenuItemFlags.None),
-    createMenuItem('Save', MenuItemFlags.Unchecked),
-    createMenuItem('Exit', MenuItemFlags.None),
-  ], 3, false, 1)
+  const newMenu = createMenu(
+    [
+      createMenuItem('File', MenuItemFlags.None),
+      createMenuItem('New', MenuItemFlags.SubMenu),
+      createMenuItem('', MenuItemFlags.Separator),
+      createMenuItem('Open Recent', MenuItemFlags.None),
+      createMenuItem('Save', MenuItemFlags.Unchecked),
+      createMenuItem('Exit', MenuItemFlags.None),
+    ],
+    3,
+    false,
+    1,
+  )
 
   const oldState = createStateWithMenus([oldMenu])
   const newState = createStateWithMenus([newMenu])
