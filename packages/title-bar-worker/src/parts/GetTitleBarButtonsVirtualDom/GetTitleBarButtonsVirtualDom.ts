@@ -6,7 +6,7 @@ import * as GetTitleBarButtonVirtualDom from '../GetTitleBarButtonVirtualDom/Get
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
 export const getTitleBarButtonsVirtualDom = (buttons: readonly TitleBarButton[]): readonly VirtualDomNode[] => {
-  const dom = [
+  return [
     {
       type: VirtualDomElements.Div,
       className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.TitleBarButtons),
@@ -14,5 +14,4 @@ export const getTitleBarButtonsVirtualDom = (buttons: readonly TitleBarButton[])
     },
     ...buttons.flatMap(GetTitleBarButtonVirtualDom.createTitleBarButton),
   ]
-  return dom
 }

@@ -4,7 +4,7 @@ import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
 export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number, shouldBeFocused: boolean): Promise<TitleBarMenuBarState> => {
-  const { titleBarEntries, titleBarHeight, x } = state
+  const { titleBarEntries, titleBarHeight, x, iconWidth } = state
   // TODO race conditions
   // TODO send renderer process
   // 1. open menu, items to show
@@ -17,7 +17,7 @@ export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number
   const offset = totalWidths
   // TODO race condition: another menu might already be open at this point
 
-  const menuX = x + offset
+  const menuX = x + offset + iconWidth
   const menuY = titleBarHeight
   const width = Menu.getMenuWidth()
   const height = Menu.getMenuHeight(items)

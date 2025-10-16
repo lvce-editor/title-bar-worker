@@ -1,5 +1,6 @@
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { openMenu } from './ViewletTitleBarMenuBarOpenMenu.ts'
 
-export const handleKeyEnterMenuClosed = (state: any): any => {
+export const handleKeyEnterMenuClosed = (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
   return openMenu(state, /* focus */ true)
 }

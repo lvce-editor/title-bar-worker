@@ -1,8 +1,10 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import { createDefaultState } from '../CreateDefaultState/CreateDefaultState.ts'
 import * as TitleBarMenuBarStates from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const create = (id: any, uri: string, x: number, y: number, width: number, height: number): TitleBarMenuBarState => {
   const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
     uid: id,
     titleBarEntries: [],
     focusedIndex: -1,

@@ -2,6 +2,7 @@ import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+
 const separator: VirtualDomNode = {
   type: VirtualDomElements.Div,
   className: ClassNames.MenuItemSeparator,

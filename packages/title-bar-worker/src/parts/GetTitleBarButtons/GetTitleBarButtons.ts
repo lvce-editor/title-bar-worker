@@ -1,38 +1,17 @@
 import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
+import * as GetTitleBarButtonsElectron from '../GetTitleBarButtonsElectron/GetTitleBarButtonsElectron.ts'
+import * as GetTitleBarButtonsRemote from '../GetTitleBarButtonsRemote/GetTitleBarButtonsRemote.ts'
+import * as GetTitleBarButtonsWeb from '../GetTitleBarButtonsWeb/GetTitleBarButtonsWeb.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
-import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
-
-const getTitleBarButtonsWeb = (): readonly TitleBarButton[] => {
-  return []
-}
-
-const getTitleBarButtonsRemote = (): readonly TitleBarButton[] => {
-  return []
-}
-
-const getTitleBarButtonsElectron = (controlsOverlayEnabled: boolean, titleBarStyleCustom: boolean): readonly TitleBarButton[] => {
-  if (controlsOverlayEnabled) {
-    return []
-  }
-  if (titleBarStyleCustom) {
-    // TODO don't render title bar buttons on windows when electron window controls overlay is enabled
-    return [
-      { label: TitleBarStrings.minimize(), icon: 'Minimize', id: 'Minimize', onClick: 'handleClickMinimize' },
-      { label: TitleBarStrings.maximize(), icon: 'Maximize', id: 'ToggleMaximize', onClick: 'handleClickToggleMaximize' },
-      { label: TitleBarStrings.close(), icon: 'ChromeClose', id: 'Close', onClick: 'handleClickClose' },
-    ]
-  }
-  return []
-}
 
 export const getTitleBarButtons = (platform: number, controlsOverlayEnabled: boolean, titleBarStyleCustom: boolean): readonly TitleBarButton[] => {
   switch (platform) {
     case PlatformType.Electron:
-      return getTitleBarButtonsElectron(controlsOverlayEnabled, titleBarStyleCustom)
+      return GetTitleBarButtonsElectron.getTitleBarButtonsElectron(controlsOverlayEnabled, titleBarStyleCustom)
     case PlatformType.Web:
-      return getTitleBarButtonsWeb()
+      return GetTitleBarButtonsWeb.getTitleBarButtonsWeb()
     case PlatformType.Remote:
-      return getTitleBarButtonsRemote()
+      return GetTitleBarButtonsRemote.getTitleBarButtonsRemote()
     default:
       return []
   }
