@@ -27,7 +27,7 @@ test('diff - should return all diff numbers when all modules differ', () => {
     ...CreateDefaultState.createDefaultState(),
     focusedIndex: 1,
     entries: [],
-    menus: []
+    menus: [],
   }
 
   const result = Diff.diff(oldState, newState)

@@ -4,9 +4,8 @@ import * as AddWidths from '../AddWidths/AddWidths.ts'
 import { getTitleBarButtons } from '../GetTitleBarButtons/GetTitleBarButtons.ts'
 
 export const loadContent = async (state: TitleBarMenuBarState, titleBarEntries: readonly VisibleMenuItem[]): Promise<TitleBarMenuBarState> => {
-  const {
-    platform, controlsOverlayEnabled, titleBarStyleCustom,
-    labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding } = state
+  const { platform, controlsOverlayEnabled, titleBarStyleCustom, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding } =
+    state
   const withWidths = AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
   const title = 'test'
@@ -14,6 +13,6 @@ export const loadContent = async (state: TitleBarMenuBarState, titleBarEntries: 
     ...state,
     titleBarEntries: withWidths,
     buttons,
-    title
+    title,
   }
 }

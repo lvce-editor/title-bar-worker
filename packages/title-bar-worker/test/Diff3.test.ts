@@ -32,7 +32,7 @@ test('diff3 - should return all diff numbers when all modules differ', () => {
     ...CreateDefaultState.createDefaultState(),
     focusedIndex: 1,
     entries: [],
-    menus: []
+    menus: [],
   }
   TitleBarMenuBarStates.set(uid, oldState, newState)
 
