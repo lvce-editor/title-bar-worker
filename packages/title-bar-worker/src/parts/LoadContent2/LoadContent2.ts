@@ -4,7 +4,7 @@ import * as AddWidths from '../AddWidths/AddWidths.ts'
 import { getTitleBarButtons } from '../GetTitleBarButtons/GetTitleBarButtons.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
-export const loadContent2 = async (state: TitleBarMenuBarState,): Promise<TitleBarMenuBarState> => {
+export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
   const { platform, controlsOverlayEnabled, titleBarStyleCustom, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding } =
     state
   const titleBarEntries = await MenuEntries.getMenuEntries(MenuEntryId.TitleBar)
