@@ -7,8 +7,8 @@ export const handlePointerOver = (
   clientX: number,
   clientY: number,
 ): TitleBarMenuBarState | Promise<TitleBarMenuBarState> => {
-  const { titleBarEntries, x } = state
-  const index = ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(titleBarEntries, clientX - x, clientY)
+  const { titleBarEntries, x, iconWidth } = state
+  const index = ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(titleBarEntries, clientX - x - iconWidth, clientY)
   if (index === -1) {
     return state
   }
