@@ -78,6 +78,7 @@ export const commandMap = {
   'TitleBarMenuBar.focusNext': wrapCommand(ViewletTitleBarMenuBarFocusNext.focusNext),
   'TitleBarMenuBar.focusPrevious': wrapCommand(ViewletTitleBarMenuBarFocusPrevious.focusPrevious),
   'TitleBarMenuBar.getCommands': getCommandIds,
+  'TitleBarMenuBar.getCommandIds': getCommandIds,
   'TitleBarMenuBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBarMenuBar.getMenus': MenuEntries.getMenus,
   'TitleBarMenuBar.getTitleBarButtons': GetTitleBarButtons.getTitleBarButtons,
