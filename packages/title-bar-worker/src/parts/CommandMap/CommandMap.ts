@@ -60,7 +60,7 @@ export const commandMap = {
   'TitleBar.getMenuEntries': GetMenuIds.getMenuEntries,
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
   'TitleBar.getTitleVirtualDom': GetTitleVirtualDom.getTitleVirtualDom,
-  'TitleBar.loadContent2': loadContent2,
+  'TitleBar.loadContent2': wrapCommand(loadContent2),
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
   'TitleBar.handleClickClose': wrapCommand(handleClickClose),
   'TitleBar.handleClickMinimize': wrapCommand(handleClickMinimize),
