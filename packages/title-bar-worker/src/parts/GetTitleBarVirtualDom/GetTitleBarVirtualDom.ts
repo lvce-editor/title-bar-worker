@@ -1,4 +1,4 @@
-import { AriaRoles, VirtualDomElements } from '@lvce-editor/constants'
+import { VirtualDomElements } from '@lvce-editor/constants'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import { getIcon } from '../GetIcon/GetIcon.ts'
