@@ -1,220 +1,36 @@
-import { beforeEach, expect, jest, test } from '@jest/globals'
-import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
-import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-import * as ViewletTitleBarMenuBar from '../src/parts/TitleBarMenuBar/TitleBarMenuBar.ts'
+import { expect, test } from '@jest/globals'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as ViewletTitleBarMenuBarToggleIndex from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 
-beforeEach(() => {
-  jest.resetAllMocks()
-})
-
-jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.js', () => {
-  return {
-    measureTextWidth: (): readonly number[] => {
-      return [25]
-    },
-  }
-})
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
-  return {
-    // @ts-ignore
-    getMenuEntries: (id): any => {
-      switch (id) {
-        case MenuEntryId.File:
-          return [
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'newFile',
-              label: 'New File',
-            },
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'newWindow',
-              label: 'New Window',
-            },
-            {
-              flags: MenuItemFlags.SubMenu,
-              id: MenuEntryId.OpenRecent,
-              label: 'Open Recent',
-            },
-          ]
-        case MenuEntryId.Edit:
-          return [
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'undo',
-              label: 'Undo',
-            },
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'redo',
-              label: 'Redo',
-            },
-          ]
-        case MenuEntryId.Selection:
-          return []
-        case MenuEntryId.OpenRecent:
-          return [
-            {
-              flags: MenuItemFlags.None,
-              label: 'file-1.txt',
-            },
-            {
-              flags: MenuItemFlags.None,
-              label: 'file-2.txt',
-            },
-          ]
-        default:
-          throw new Error(`no menu entries found for ${id}`)
-      }
-    },
-  }
-})
-
-const ViewletTitleBarMenuBarToggleIndex = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts')
-
-test.skip('toggleIndex - when open - when same index', async () => {
+test('toggleIndex with menu closed opens menu at index', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
-    focusedIndex: 0,
-    isMenuOpen: true,
-    titleBarEntries: [
-      {
-        id: MenuEntryId.File,
-        name: 'File',
-      },
-      {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
-      },
-    ],
-  }
-  expect(await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 0)).toMatchObject({
-    focusedIndex: 0,
+    ...createDefaultState(),
     isMenuOpen: false,
-  })
+    titleBarEntries: [{ id: 2 }], // Edit menu ID
+  }
+  const result = await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 0)
+  expect(result.isMenuOpen).toBe(true)
+  expect(result.focusedIndex).toBe(0)
 })
 
-test.skip('toggleIndex - when open - when different index', async () => {
+test('toggleIndex with menu open at same index closes menu', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
-    focusedIndex: 0,
+    ...createDefaultState(),
     isMenuOpen: true,
-    titleBarEntries: [
-      {
-        id: MenuEntryId.File,
-        name: 'File',
-      },
-      {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
-      },
-    ],
+    focusedIndex: 0,
   }
-  expect(await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 1)).toMatchObject({
-    focusedIndex: 1,
-    menus: [
-      {
-        level: 0,
-        items: [
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'undo',
-            label: 'Undo',
-          },
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'redo',
-            label: 'Redo',
-          },
-        ],
-      },
-    ],
-  })
+  const result = await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 0)
+  expect(result.isMenuOpen).toBe(false)
 })
 
-test.skip('toggleIndex - when closed - when same index', async () => {
+test('toggleIndex with menu open at different index opens new menu', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
-    focusedIndex: 0,
-    isMenuOpen: false,
-    titleBarEntries: [
-      {
-        id: MenuEntryId.File,
-        name: 'File',
-      },
-      {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
-      },
-    ],
-  }
-  expect(await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 0)).toMatchObject({
-    focusedIndex: 0,
+    ...createDefaultState(),
     isMenuOpen: true,
-    menus: [
-      {
-        level: 0,
-        items: [
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'newFile',
-            label: 'New File',
-          },
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'newWindow',
-            label: 'New Window',
-          },
-          {
-            flags: MenuItemFlags.SubMenu,
-            id: MenuEntryId.OpenRecent,
-            label: 'Open Recent',
-          },
-        ],
-      },
-    ],
-  })
-})
-
-test.skip('toggleIndex - when closed - when different index', async () => {
-  const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
     focusedIndex: 0,
-    isMenuOpen: false,
-    titleBarEntries: [
-      {
-        id: MenuEntryId.File,
-        label: 'File',
-      },
-      {
-        id: MenuEntryId.Edit,
-        label: 'Edit',
-      },
-    ],
+    titleBarEntries: [{ id: 2 }, { id: 5 }], // Edit and File menu IDs
   }
-  expect(await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 1)).toMatchObject({
-    focusedIndex: 1,
-    menus: [
-      {
-        level: 0,
-        items: [
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'undo',
-            label: 'Undo',
-          },
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'redo',
-            label: 'Redo',
-          },
-        ],
-      },
-    ],
-  })
+  const result = await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 1)
+  expect(result.isMenuOpen).toBe(true)
+  expect(result.focusedIndex).toBe(1)
 })
