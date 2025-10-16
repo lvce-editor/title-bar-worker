@@ -15,7 +15,7 @@ export const create3 = (
   titleBarStyleCustom: boolean,
 ): TitleBarMenuBarState => {
   const titleBarButtons = GetTitleBarButtons.getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
-  
+
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     uid: id,
