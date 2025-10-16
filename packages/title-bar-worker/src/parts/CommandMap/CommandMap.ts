@@ -16,6 +16,7 @@ import { handleClickToggleMaximize } from '../HandleClickToggleMaximize/HandleCl
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
+import { loadContent2 } from '../LoadContent2/LoadContent2.ts'
 import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as Render2 from '../Render2/Render2.ts'
@@ -59,6 +60,7 @@ export const commandMap = {
   'TitleBar.getMenuEntries': GetMenuIds.getMenuEntries,
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
   'TitleBar.getTitleVirtualDom': GetTitleVirtualDom.getTitleVirtualDom,
+  'TitleBar.loadContent2': loadContent2,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
   'TitleBar.handleClickClose': wrapCommand(handleClickClose),
   'TitleBar.handleClickMinimize': wrapCommand(handleClickMinimize),
