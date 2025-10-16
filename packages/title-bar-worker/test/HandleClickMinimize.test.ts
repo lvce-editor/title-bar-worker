@@ -1,26 +1,15 @@
 import { expect, test } from '@jest/globals'
-import { MockRpc } from '@lvce-editor/rpc'
-import * as ParentRpc from '../src/parts/ParentRpc/ParentRpc.ts'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as HandleClickMinimize from '../src/parts/HandleClickMinimize/HandleClickMinimize.ts'
 
 test('handleClickMinimize', async () => {
-  const commandMap = {
-    'ElectronWindow.minimize': () => undefined
-  }
-  const mockRpc = MockRpc.create({
-    commandMap,
-    invoke: (method: string) => {
-      const fn = commandMap[method]
-      if (fn) {
-        return fn()
-      }
-      throw new Error(`unexpected method ${method}`)
-    }
+  const mockRpc = RendererWorker.registerMockRpc({
+    'ElectronWindow.minimize'() {},
   })
-  ParentRpc.set(mockRpc)
 
   const state = { ...createDefaultState(), height: 600 }
   const result = await HandleClickMinimize.handleClickMinimize(state)
   expect(result).toBe(state)
+  expect(mockRpc.invocations).toEqual([['ElectronWindow.minimize']])
 })
