@@ -59,6 +59,7 @@ export const commandMap = {
   'TitleBar.diff2': Diff2.diff2,
   'TitleBar.diff3': Diff3.diff3,
   'TitleBar.focus': wrapCommand(Focus.focus),
+  'TitleBar.focusMenuBar': wrapCommand(Focus.focus),
   'TitleBar.focusFirst': wrapCommand(ViewletTitleBarMenuBarFocusFirst.focusFirst),
   'TitleBar.focusIndex': wrapCommand(ViewletTitleBarMenuBarFocusLast.focusLast),
   'TitleBar.focusLast': wrapCommand(ViewletTitleBarMenuBarFocusIndex.focusIndex),
