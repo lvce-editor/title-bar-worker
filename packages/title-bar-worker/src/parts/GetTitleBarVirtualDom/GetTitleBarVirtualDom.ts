@@ -1,3 +1,4 @@
+import { VirtualDomElements } from '@lvce-editor/constants'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import { getIcon } from '../GetIcon/GetIcon.ts'
@@ -10,6 +11,15 @@ import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisib
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
   const { titleBarEntries, width, focusedIndex, isMenuOpen, assetDir, title, titleBarButtons } = state
   const dom: VirtualDomNode[] = []
+
+  dom.push({
+    type: VirtualDomElements.Div,
+    className: 'Viewlet TitleBar',
+    id: 'TitleBar',
+    role: 'contentinfo',
+    ariaLabel: 'Title Bar',
+    childCount: 4,
+  })
 
   // Add icon if enabled
   if (state.titleBarIconEnabled) {
