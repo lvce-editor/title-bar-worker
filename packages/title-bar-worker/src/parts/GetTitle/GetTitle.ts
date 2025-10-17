@@ -3,6 +3,9 @@ export const getTitle = (workspaceUri: string): string => {
     return ''
   }
   const slashIndex = workspaceUri.lastIndexOf('/')
-  const baseName = workspaceUri.slice(slashIndex)
+  if (slashIndex === -1) {
+    return ''
+  }
+  const baseName = workspaceUri.slice(slashIndex + 1)
   return baseName
 }
