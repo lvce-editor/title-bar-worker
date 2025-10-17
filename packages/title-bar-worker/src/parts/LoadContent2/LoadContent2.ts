@@ -19,6 +19,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   return {
     ...state,
     titleBarEntries: withWidths,
+    titleBarButtons: buttons,
     buttons,
     title,
     iconWidth,
