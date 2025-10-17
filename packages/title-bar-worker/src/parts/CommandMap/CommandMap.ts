@@ -12,7 +12,6 @@ import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
 import { loadContent2 } from '../LoadContent2/LoadContent2.ts'
-import * as LoadContent from '../LoadContent/LoadContent.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
@@ -90,7 +89,6 @@ export const commandMap = {
   'TitleBar.handleMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBar.handlePointerOut': wrapCommand(HandlePointerOut.handlePointerOut),
   'TitleBar.handlePointerOver': wrapCommand(HandlePointerOver.handlePointerOver),
-  'TitleBar.loadContent': wrapCommand(LoadContent.loadContent),
   'TitleBar.loadContent2': wrapCommand(loadContent2),
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
