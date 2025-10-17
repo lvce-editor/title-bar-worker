@@ -13,7 +13,8 @@ export const create3 = (
   platform: number,
   controlsOverlayEnabled: boolean,
   titleBarStyleCustom: boolean,
-): TitleBarMenuBarState => {
+  assetDir: string,
+): void => {
   const titleBarButtons = GetTitleBarButtons.getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
 
   const state: TitleBarMenuBarState = {
@@ -38,7 +39,7 @@ export const create3 = (
     controlsOverlayEnabled,
     titleBarStyleCustom,
     titleBarButtons,
+    assetDir,
   }
   TitleBarMenuBarStates.set(id, state, state)
-  return state
 }
