@@ -10,13 +10,14 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
   // TODO avoid mutation
   const dom = []
   dom.push({
-    type: VirtualDomElements.Div,
+    type: VirtualDomElements.Button,
     className: ClassNames.TitleBarTopLevelEntry,
     ariaHasPopup: true,
     ariaExpanded: isOpen,
     role: AriaRoles.MenuItem,
     childCount: 1,
     ariaKeyShortcuts: keyboardShortCut,
+    name: label, // TODO have separate name attribute
   })
   if (isOpen) {
     // @ts-ignore

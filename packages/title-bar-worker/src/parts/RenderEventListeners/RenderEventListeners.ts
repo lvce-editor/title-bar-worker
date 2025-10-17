@@ -38,7 +38,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenerFunctions.HandlePointerOver,
-      params: ['handlePointerOver', EventExpression.ClientX, EventExpression.ClientY],
+      params: ['handlePointerOver', EventExpression.TargetName],
     },
     {
       name: DomEventListenerFunctions.HandleFocusOut,
