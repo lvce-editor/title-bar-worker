@@ -51,7 +51,7 @@ import * as ViewletTitleBarMenuBarHandleMouseOut from '../TitleBarMenuBar/Viewle
 import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
 import * as ViewletTitleBarMenuBarToggleIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
-import { getCommandIds, wrapCommand } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+import { getCommandIds, wrapCommand, wrapGetter } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const commandMap = {
   'TitleBar.closeMenu': CloseMenu.closeMenu,
@@ -107,7 +107,7 @@ export const commandMap = {
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBar.resize': wrapCommand(resize),
-  'TitleBar.saveState': SaveState.saveState,
+  'TitleBar.saveState': wrapGetter(SaveState.saveState),
   'TitleBar.terminate': terminate,
   'TitleBar.toggleIndex': wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBar.toggleMenu': wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
