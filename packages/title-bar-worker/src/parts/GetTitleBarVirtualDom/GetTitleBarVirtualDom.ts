@@ -10,16 +10,16 @@ import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisib
 
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
   const { titleBarEntries, width, focusedIndex, isMenuOpen, assetDir, title, titleBarButtons } = state
-  const dom: VirtualDomNode[] = []
-
-  dom.push({
-    type: VirtualDomElements.Div,
-    className: 'Viewlet TitleBar',
-    id: 'TitleBar',
-    role: 'contentinfo',
-    ariaLabel: 'Title Bar',
-    childCount: 4,
-  })
+  const dom: VirtualDomNode[] = [
+    {
+      type: VirtualDomElements.Div,
+      className: 'Viewlet TitleBar',
+      id: 'TitleBar',
+      role: 'contentinfo',
+      ariaLabel: 'Title Bar',
+      childCount: 4,
+    },
+  ]
 
   // Add icon if enabled
   if (state.titleBarIconEnabled) {
