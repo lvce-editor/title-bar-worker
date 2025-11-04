@@ -6,8 +6,8 @@ const getTitleBarMenuBarWidth = (width: number, menuBarX: number, titleBarButton
 }
 
 export const resize = async (state: TitleBarMenuBarState, dimensions: any): Promise<TitleBarMenuBarState> => {
-  const { titleBarIconWidth, titleBarButtonsWidth } = state
-  const menuBarX = dimensions.x + titleBarIconWidth
+  const { titleBarButtonsWidth } = state
+  const menuBarX = dimensions.x
   const menuBarY = dimensions.y
   const menuBarWidth = getTitleBarMenuBarWidth(dimensions.width, menuBarX, titleBarButtonsWidth)
   const menuBarHeight = dimensions.height
