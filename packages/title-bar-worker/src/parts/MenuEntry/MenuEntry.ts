@@ -4,4 +4,5 @@ export interface MenuEntry {
   readonly flags: number
   readonly command: string
   readonly args?: readonly any[]
+  readonly keyboardShortCut?: string
 }
