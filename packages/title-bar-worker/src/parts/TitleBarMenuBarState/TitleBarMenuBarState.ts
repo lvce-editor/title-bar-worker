@@ -3,6 +3,7 @@ import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
 export interface TitleBarMenuBarState {
   readonly assetDir: string
   readonly buttons: readonly TitleBarButton[]
+  readonly commandCenterEnabled: boolean
   readonly controlsOverlayEnabled: boolean
   readonly focusedIndex: number
   readonly height: number
@@ -13,6 +14,7 @@ export interface TitleBarMenuBarState {
   readonly labelFontWeight: number
   readonly labelLetterSpacing: number
   readonly labelPadding: number
+  readonly layoutControlsEnabled: boolean
   readonly menus: readonly any[]
   readonly platform: number
   readonly title: string

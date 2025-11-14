@@ -40,6 +40,8 @@ export const create3 = (
     titleBarStyleCustom,
     titleBarButtons,
     assetDir,
+    layoutControlsEnabled: false,
+    commandCenterEnabled: false,
   }
   TitleBarMenuBarStates.set(id, state, state)
 }
