@@ -75,7 +75,7 @@ export const commandMap = {
   'TitleBar.handleClickClose': wrapCommand(handleClickClose),
   'TitleBar.handleClickMinimize': wrapCommand(handleClickMinimize),
   'TitleBar.handleClickToggleMaximize': wrapCommand(handleClickToggleMaximize),
-  'TitleBar.handleContextMenu': HandleContextMenu.handleContextMenu,
+  'TitleBar.handleContextMenu': wrapCommand(HandleContextMenu.handleContextMenu),
   'TitleBar.handleFocus': wrapCommand(ViewletTitleBarMenuBarHandleFocus.handleFocus),
   'TitleBar.handleFocusOut': wrapCommand(ViewletTitleBarMenuBarHandleFocusOut.handleFocusOut),
   'TitleBar.handleKeyArrowDown': wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowDown.handleKeyArrowDown),
