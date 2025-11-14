@@ -48,3 +48,7 @@ export const maximize = (): string => {
 export const close = (): string => {
   return I18nString.i18nString(UiStrings.Close)
 }
+
+export const titleBar = (): string => {
+  return I18nString.i18nString(UiStrings.TitleBar)
+}
