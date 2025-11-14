@@ -4,7 +4,7 @@ import * as GetTitleBarButtons from '../GetTitleBarButtons/GetTitleBarButtons.ts
 import * as TitleBarMenuBarStates from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const create3 = (
-  id: any,
+  id: number,
   uri: string,
   x: number,
   y: number,
