@@ -11,12 +11,14 @@ import { handleClickToggleMaximize } from '../HandleClickToggleMaximize/HandleCl
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
+import { hideMenuBar } from '../HideMenuBar/HideMenuBar.ts'
 import { loadContent2 } from '../LoadContent2/LoadContent2.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import { resize } from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
+import { showMenuBar } from '../ShowMenuBar/ShowMenuBar.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as CloseMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
 import * as Focus from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocus.ts'
@@ -53,10 +55,10 @@ export const commandMap = {
   'TitleBar.diff2': Diff2.diff2,
   'TitleBar.diff3': Diff3.diff3,
   'TitleBar.focus': wrapCommand(Focus.focus),
-  'TitleBar.focusMenuBar': wrapCommand(Focus.focus),
   'TitleBar.focusFirst': wrapCommand(ViewletTitleBarMenuBarFocusFirst.focusFirst),
   'TitleBar.focusIndex': wrapCommand(ViewletTitleBarMenuBarFocusLast.focusLast),
   'TitleBar.focusLast': wrapCommand(ViewletTitleBarMenuBarFocusIndex.focusIndex),
+  'TitleBar.focusMenuBar': wrapCommand(Focus.focus),
   'TitleBar.focusNext': wrapCommand(ViewletTitleBarMenuBarFocusNext.focusNext),
   'TitleBar.focusPrevious': wrapCommand(ViewletTitleBarMenuBarFocusPrevious.focusPrevious),
   'TitleBar.getCommandIds': getCommandIds,
@@ -89,11 +91,13 @@ export const commandMap = {
   'TitleBar.handleMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBar.handlePointerOut': wrapCommand(HandlePointerOut.handlePointerOut),
   'TitleBar.handlePointerOver': wrapCommand(HandlePointerOver.handlePointerOver),
+  'TitleBar.hideMenuBar': wrapCommand(hideMenuBar),
   'TitleBar.loadContent2': wrapCommand(loadContent2),
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBar.resize': wrapCommand(resize),
   'TitleBar.saveState': wrapGetter(SaveState.saveState),
+  'TitleBar.showMenuBar': wrapCommand(showMenuBar),
   'TitleBar.terminate': terminate,
   'TitleBar.toggleIndex': wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBar.toggleMenu': wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
