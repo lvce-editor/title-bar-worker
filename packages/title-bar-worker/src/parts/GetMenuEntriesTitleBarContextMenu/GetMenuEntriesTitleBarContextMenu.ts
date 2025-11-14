@@ -3,12 +3,13 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
 export const getMenuEntriesTitleBarContextMenu = async (state: TitleBarMenuBarState): Promise<readonly MenuEntry[]> => {
+  const { titleBarMenuBarEnabled } = state
   // TODO checked state should be depending on whether or not that feature is currently visible or not
   return [
     {
       id: 'MenuBar',
       label: 'menu bar',
-      flags: MenuItemFlags.Checked,
+      flags: titleBarMenuBarEnabled ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
       command: '',
     },
     {
