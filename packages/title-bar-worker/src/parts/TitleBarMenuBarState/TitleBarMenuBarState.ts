@@ -8,7 +8,6 @@ export interface TitleBarMenuBarState {
   readonly height: number
   readonly iconWidth: number
   readonly isMenuOpen: boolean
-  readonly titleBarIconEnabled: boolean
   readonly labelFontFamily: string
   readonly labelFontSize: number
   readonly labelFontWeight: number
@@ -22,6 +21,7 @@ export interface TitleBarMenuBarState {
   readonly titleBarButtonsWidth: number
   readonly titleBarEntries: readonly any[]
   readonly titleBarHeight: number
+  readonly titleBarIconEnabled: boolean
   readonly titleBarIconWidth: number
   readonly titleBarMenuBarEnabled: boolean
   readonly titleBarStyleCustom: boolean
