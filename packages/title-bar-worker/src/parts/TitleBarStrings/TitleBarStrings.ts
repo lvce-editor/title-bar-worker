@@ -52,3 +52,15 @@ export const close = (): string => {
 export const titleBar = (): string => {
   return I18nString.i18nString(UiStrings.TitleBar)
 }
+
+export const menuBar = (): string => {
+  return I18nString.i18nString(UiStrings.MenuBar)
+}
+
+export const commandCenter = (): string => {
+  return I18nString.i18nString(UiStrings.CommandCenter)
+}
+
+export const layoutControls = (): string => {
+  return I18nString.i18nString(UiStrings.LayoutControls)
+}
