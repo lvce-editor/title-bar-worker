@@ -1,4 +1,4 @@
-import { VirtualDomElements } from '@lvce-editor/constants'
+import { AriaRoles, VirtualDomElements } from '@lvce-editor/constants'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import { getIcon } from '../GetIcon/GetIcon.ts'
@@ -15,7 +15,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
       type: VirtualDomElements.Div,
       className: 'Viewlet TitleBar',
       id: 'TitleBar',
-      role: 'contentinfo',
+      role: AriaRoles.ContentInfo,
       ariaLabel: 'Title Bar',
       childCount: 4,
     },
