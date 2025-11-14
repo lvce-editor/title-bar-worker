@@ -12,6 +12,7 @@ import { handleClickToggleMaximize } from '../HandleClickToggleMaximize/HandleCl
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
+import { hideCommandCenter } from '../HideCommandCenter/HideCommandCenter.ts'
 import { hideMenuBar } from '../HideMenuBar/HideMenuBar.ts'
 import { loadContent2 } from '../LoadContent2/LoadContent2.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
@@ -19,6 +20,7 @@ import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import { resize } from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
+import { showCommandCenter } from '../ShowCommandCenter/ShowCommandCenter.ts'
 import { showMenuBar } from '../ShowMenuBar/ShowMenuBar.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as CloseMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
@@ -93,12 +95,14 @@ export const commandMap = {
   'TitleBar.handleMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBar.handlePointerOut': wrapCommand(HandlePointerOut.handlePointerOut),
   'TitleBar.handlePointerOver': wrapCommand(HandlePointerOver.handlePointerOver),
+  'TitleBar.hideCommandCenter': wrapCommand(hideCommandCenter),
   'TitleBar.hideMenuBar': wrapCommand(hideMenuBar),
   'TitleBar.loadContent2': wrapCommand(loadContent2),
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBar.resize': wrapCommand(resize),
   'TitleBar.saveState': wrapGetter(SaveState.saveState),
+  'TitleBar.showCommandCenter': wrapCommand(showCommandCenter),
   'TitleBar.showMenuBar': wrapCommand(showMenuBar),
   'TitleBar.terminate': terminate,
   'TitleBar.toggleIndex': wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
