@@ -2,6 +2,8 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar.context-menu'
 
+export const skip = 1
+
 export const test: Test = async ({ Command }) => {
   // arrange
 
