@@ -3,6 +3,7 @@ import * as Create3 from '../Create3/Create3.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as Diff3 from '../Diff3/Diff3.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
+import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
 import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts'
 import { handleClickClose } from '../HandleClickClose/HandleClickClose.ts'
@@ -65,6 +66,7 @@ export const commandMap = {
   'TitleBar.getCommands': getCommandIds,
   'TitleBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBar.getMenuEntries': GetMenuIds.getMenuEntries,
+  'TitleBar.getMenuEntries2': getMenuEntries2,
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
   'TitleBar.getMenus': MenuEntries.getMenus,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
