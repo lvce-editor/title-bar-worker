@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create3 from '../Create3/Create3.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
