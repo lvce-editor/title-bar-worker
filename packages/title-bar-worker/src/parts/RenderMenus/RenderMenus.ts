@@ -28,5 +28,6 @@ export const renderMenus = (oldState: TitleBarMenuBarState, newState: TitleBarMe
   } else if (difference < 0) {
     changes.push(['closeMenus', newLength])
   }
-  return ['Viewlet.send', newState.uid, /* method */ RenderMethod.SetMenus, /* changes */ changes, newState.uid]
+  const { uid } = newState
+  return ['Viewlet.send', uid, /* method */ RenderMethod.SetMenus, /* changes */ changes, uid]
 }
