@@ -67,7 +67,6 @@ export const commandMap = {
   'TitleBar.getCommandIds': getCommandIds,
   'TitleBar.getCommands': getCommandIds,
   'TitleBar.getKeyBindings': GetKeyBindings.getKeyBindings,
-  'TitleBar.getMenuEntries': GetMenuIds.getMenuEntries,
   'TitleBar.getMenuEntries2': getMenuEntries2,
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
