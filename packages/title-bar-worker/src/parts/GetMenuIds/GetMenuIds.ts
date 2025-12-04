@@ -4,7 +4,20 @@ import { menus } from '../Menus/Menus.ts'
 export const MenuIdTitleBarContextMenu = 50
 
 export const getMenuIds = (): readonly number[] => {
-  return [...menus.map((menu) => menu.id), MenuIdTitleBarContextMenu, MenuEntryId.TitleBarContextMenu]
+  return [
+    MenuEntryId.Edit,
+    MenuEntryId.File,
+    MenuEntryId.Go,
+    MenuEntryId.Help,
+    MenuEntryId.OpenRecent,
+    MenuEntryId.Run,
+    MenuEntryId.Selection,
+    MenuEntryId.Terminal,
+    MenuEntryId.TitleBar,
+    MenuEntryId.View,
+    MenuIdTitleBarContextMenu,
+    MenuEntryId.TitleBarContextMenu,
+  ]
 }
 
 export const getMenuEntries = async (id: number, platform: number): Promise<readonly any[]> => {
