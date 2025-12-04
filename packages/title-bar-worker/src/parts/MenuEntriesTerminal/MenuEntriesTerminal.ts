@@ -4,8 +4,6 @@ import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as UiStrings from '../UiStrings/UiStrings.ts'
 
-export const id = MenuEntryId.Terminal
-
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {

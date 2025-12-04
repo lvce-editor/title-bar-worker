@@ -6,8 +6,6 @@ import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 
-export const id = MenuEntryId.Help
-
 export const getMenuEntries = async (platform: number): Promise<readonly MenuEntry[]> => {
   const autoUpdateSupported = IsAutoUpdateSupported.isAutoUpdateSupported(platform)
   const entries = []

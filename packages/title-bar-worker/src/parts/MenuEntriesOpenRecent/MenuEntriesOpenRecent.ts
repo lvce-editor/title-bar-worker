@@ -20,8 +20,6 @@ const toMenuItem = (folder: string): MenuEntry => {
   }
 }
 
-export const id = MenuEntryId.OpenRecent
-
 export const getMenuEntries = async (): Promise<readonly MenuEntry[]> => {
   const allItems = await GetRecentlyOpened.getRecentlyOpened()
   const itemsToShow = allItems.slice(0, MAX_MENU_RECENT_ENTRIES)

@@ -13,8 +13,6 @@ const getFn = (platform: number): any => {
   }
 }
 
-export const id = MenuEntryId.TitleBar
-
 export const getMenuEntries = async (platform: number): Promise<readonly VisibleMenuItem[]> => {
   const fn = getFn(platform)
   return fn()

@@ -5,8 +5,6 @@ import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 
-export const id = MenuEntryId.File
-
 export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
   const entries: MenuEntry[] = [
     {
