@@ -16,7 +16,7 @@ export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
       label: FileStrings.newFile(),
     },
     {
-      command: /* Window.openNew */ 'Window.openNew',
+      command: 'Window.openNew',
       flags: MenuItemFlags.None,
       id: 'newWindow',
       label: FileStrings.newWindow(),
