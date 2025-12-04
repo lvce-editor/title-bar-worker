@@ -1,10 +1,7 @@
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as EditorStrings from '../EditorStrings/EditorStrings.ts'
-import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-
-export const id = MenuEntryId.Edit
 
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
