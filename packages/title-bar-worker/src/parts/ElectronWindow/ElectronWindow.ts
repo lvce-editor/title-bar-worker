@@ -1,4 +1,4 @@
-import * as ParentRpc from '../ParentRpc/ParentRpc.ts'
+import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 
 export const maximize = async (): Promise<void> => {
   await ParentRpc.invoke('ElectronWindow.maximize')
