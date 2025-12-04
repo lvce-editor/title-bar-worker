@@ -23,6 +23,7 @@ export interface MenuPropsGo extends MenuPropsBase {
 
 export interface MenuPropsHelp extends MenuPropsBase {
   readonly menuId: typeof MenuEntryId.Help
+  readonly platform: number
 }
 
 export interface MenuPropsOpenRecent extends MenuPropsBase {
@@ -43,6 +44,7 @@ export interface MenuPropsTerminal extends MenuPropsBase {
 
 export interface MenuPropsTitleBar extends MenuPropsBase {
   readonly menuId: typeof MenuEntryId.TitleBar
+  readonly platform: number
 }
 
 export interface MenuPropsView extends MenuPropsBase {
