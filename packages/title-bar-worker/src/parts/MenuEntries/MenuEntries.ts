@@ -1,3 +1,4 @@
+import { MenuEntryId } from '@lvce-editor/constants'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
 import * as MenuEntriesFile from '../MenuEntriesFile/MenuEntriesFile.ts'
@@ -11,39 +12,46 @@ import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar
 import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.ts'
 import { VError } from '../VError/VError.ts'
 
-const menus = [
-  MenuEntriesEdit,
-  MenuEntriesFile,
-  MenuEntriesGo,
-  MenuEntriesHelp,
-  MenuEntriesRun,
-  MenuEntriesSelection,
-  MenuEntriesTerminal,
-  MenuEntriesTitleBar,
-  MenuEntriesView,
-  MenuEntriesOpenRecent,
-]
-
+/**
+ * @deprecated
+ * @returns
+ */
 export const getMenus = (): any => {
-  return menus
+  return []
 }
 
-const getModule = (id: string | number): any => {
-  for (const module of menus) {
-    if (module.id === id) {
-      return module
-    }
+const getFn = (id: string | number): any => {
+  switch (id) {
+    case MenuEntryId.Edit:
+      return MenuEntriesEdit.getMenuEntries
+    case MenuEntryId.File:
+      return MenuEntriesFile.getMenuEntries
+    case MenuEntryId.Go:
+      return MenuEntriesGo.getMenuEntries
+    case MenuEntryId.Help:
+      return MenuEntriesHelp.getMenuEntries
+    case MenuEntryId.OpenRecent:
+      return MenuEntriesOpenRecent.getMenuEntries
+    case MenuEntryId.Run:
+      return MenuEntriesRun.getMenuEntries
+    case MenuEntryId.Selection:
+      return MenuEntriesSelection.getMenuEntries
+    case MenuEntryId.Terminal:
+      return MenuEntriesTerminal.getMenuEntries
+    case MenuEntryId.TitleBar:
+      return MenuEntriesTitleBar.getMenuEntries
+    case MenuEntryId.View:
+      return MenuEntriesView.getMenuEntries
+    default:
+      return undefined
   }
-  return undefined
 }
 
 export const getMenuEntries = async (id: string | number, ...args: readonly any[]): Promise<readonly VisibleMenuItem[]> => {
   try {
-    const module = getModule(id)
+    const fn = getFn(id)
     // @ts-ignore
-    const inject = module.inject || []
-    // @ts-ignore
-    return module.getMenuEntries(...args)
+    return fn(...args)
   } catch (error) {
     throw new VError(error, `Failed to load menu entries for id ${id}`)
   }
