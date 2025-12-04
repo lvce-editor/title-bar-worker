@@ -3,7 +3,7 @@ import * as GetRenderer3 from '../GetRenderer3/GetRenderer3.ts'
 import * as TitleBarMenuBarStates from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const render3 = async (uid: number, diffResult: readonly number[]): Promise<readonly VirtualDomNode[]> => {
-  const { oldState, newState } = TitleBarMenuBarStates.get(uid)
+  const { newState, oldState } = TitleBarMenuBarStates.get(uid)
   TitleBarMenuBarStates.set(uid, newState, newState)
   const commands: any[] = []
   for (const item of diffResult) {

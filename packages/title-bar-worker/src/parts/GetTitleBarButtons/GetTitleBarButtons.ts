@@ -8,10 +8,10 @@ export const getTitleBarButtons = (platform: number, controlsOverlayEnabled: boo
   switch (platform) {
     case PlatformType.Electron:
       return GetTitleBarButtonsElectron.getTitleBarButtonsElectron(controlsOverlayEnabled, titleBarStyleCustom)
-    case PlatformType.Web:
-      return GetTitleBarButtonsWeb.getTitleBarButtonsWeb()
     case PlatformType.Remote:
       return GetTitleBarButtonsRemote.getTitleBarButtonsRemote()
+    case PlatformType.Web:
+      return GetTitleBarButtonsWeb.getTitleBarButtonsWeb()
     default:
       return []
   }

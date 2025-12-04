@@ -17,21 +17,21 @@ test('getTitleBarButtonsElectron - controlsOverlayEnabled false, titleBarStyleCu
   const result = GetTitleBarButtonsElectron.getTitleBarButtonsElectron(false, true)
   expect(result).toHaveLength(3)
   expect(result[0]).toEqual({
-    label: 'Minimize',
     icon: 'Minimize',
     id: 'Minimize',
+    label: 'Minimize',
     onClick: 'handleClickMinimize',
   })
   expect(result[1]).toEqual({
-    label: 'Maximize',
     icon: 'Maximize',
     id: 'ToggleMaximize',
+    label: 'Maximize',
     onClick: 'handleClickToggleMaximize',
   })
   expect(result[2]).toEqual({
-    label: 'Close',
     icon: 'ChromeClose',
     id: 'Close',
+    label: 'Close',
     onClick: 'handleClickClose',
   })
 })

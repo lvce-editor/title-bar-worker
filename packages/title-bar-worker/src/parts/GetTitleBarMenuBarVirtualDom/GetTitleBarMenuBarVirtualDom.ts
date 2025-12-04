@@ -11,17 +11,17 @@ const activeId = 'TitleBarEntryActive'
 export const getTitleBarMenuBarVirtualDom = (visibleItems: readonly VisibleMenuItem[], focusedIndex: number): readonly VirtualDomNode[] => {
   return [
     {
-      type: VirtualDomElements.Div,
+      ariaActivedescendant: focusedIndex === -1 ? '' : activeId,
+      childCount: visibleItems.length,
       className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.TitleBarMenuBar),
+      onFocusIn: DomEventListenerFunctions.HandleFocusIn,
+      onFocusOut: DomEventListenerFunctions.HandleFocusOut,
+      onMouseDown: DomEventListenerFunctions.HandleClick,
+      onPointerOut: DomEventListenerFunctions.HandlePointerOut,
+      onPointerOver: DomEventListenerFunctions.HandlePointerOver,
       role: AriaRoles.MenuBar,
       tabIndex: 0,
-      childCount: visibleItems.length,
-      onMouseDown: DomEventListenerFunctions.HandleClick,
-      onFocusOut: DomEventListenerFunctions.HandleFocusOut,
-      onFocusIn: DomEventListenerFunctions.HandleFocusIn,
-      onPointerOver: DomEventListenerFunctions.HandlePointerOver,
-      onPointerOut: DomEventListenerFunctions.HandlePointerOut,
-      ariaActivedescendant: focusedIndex === -1 ? '' : activeId,
+      type: VirtualDomElements.Div,
     },
     ...GetTitleBarMenubarItemsVirtualDom.getTitleBarMenuBarItemsVirtualDom(visibleItems),
   ]

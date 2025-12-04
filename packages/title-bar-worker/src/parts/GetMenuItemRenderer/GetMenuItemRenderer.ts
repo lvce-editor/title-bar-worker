@@ -10,20 +10,20 @@ import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
 export const getMenuItemRenderer = (flags: number): MenuItemRenderer => {
   switch (flags) {
+    case MenuItemFlags.Checked:
+      return getMenuItemCheckedDom
+    case MenuItemFlags.Disabled:
+      return getMenuItemDisabledDom
+    case MenuItemFlags.Ignore:
     case MenuItemFlags.None:
     case MenuItemFlags.RestoreFocus:
-    case MenuItemFlags.Ignore:
       return getMenuItemDefaultDom
     case MenuItemFlags.Separator:
       return getMenuItemSeparatorDom
-    case MenuItemFlags.Checked:
-      return getMenuItemCheckedDom
-    case MenuItemFlags.Unchecked:
-      return getMenuItemUncheckedDom
-    case MenuItemFlags.Disabled:
-      return getMenuItemDisabledDom
     case MenuItemFlags.SubMenu:
       return getMenuItemSubMenuDom
+    case MenuItemFlags.Unchecked:
+      return getMenuItemUncheckedDom
     default:
       return getMenuItemsNoopDom
   }

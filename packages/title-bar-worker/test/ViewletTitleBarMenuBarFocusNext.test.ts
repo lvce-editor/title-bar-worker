@@ -36,19 +36,19 @@ test.skip('focusNext - with disabled items', () => {
     focusedIndex: 0,
     titleBarEntries: [
       {
+        flags: MenuItemFlags.None,
         id: MenuEntryId.File,
         name: 'File',
-        flags: MenuItemFlags.None,
       },
       {
+        flags: MenuItemFlags.None,
         id: MenuEntryId.Edit,
         name: 'Edit',
-        flags: MenuItemFlags.None,
       },
       {
+        flags: MenuItemFlags.None,
         id: MenuEntryId.Selection,
         name: 'Selection',
-        flags: MenuItemFlags.None,
       },
     ],
   }

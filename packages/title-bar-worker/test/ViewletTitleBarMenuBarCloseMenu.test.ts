@@ -7,6 +7,7 @@ test.skip("closeMenu - don't keep focus", () => {
   const state = {
     // @ts-ignore
     ...ViewletTitleBarMenuBar.create(),
+    focusedIndex: 0,
     titleBarEntries: [
       {
         id: MenuEntryId.File,
@@ -17,7 +18,6 @@ test.skip("closeMenu - don't keep focus", () => {
         name: 'Edit',
       },
     ],
-    focusedIndex: 0,
   }
   expect(ViewletTitleBarMenuBarCloseMenu.closeMenu(state, /* keepFocus */ false)).toMatchObject({
     isMenuOpen: false,
@@ -28,6 +28,7 @@ test.skip('closeMenu - keep focus', () => {
   const state = {
     // @ts-ignore
     ...ViewletTitleBarMenuBar.create(),
+    focusedIndex: 0,
     titleBarEntries: [
       {
         id: MenuEntryId.File,
@@ -38,10 +39,9 @@ test.skip('closeMenu - keep focus', () => {
         name: 'Edit',
       },
     ],
-    focusedIndex: 0,
   }
   expect(ViewletTitleBarMenuBarCloseMenu.closeMenu(state, /* keepFocus */ true)).toMatchObject({
-    isMenuOpen: false,
     focusedIndex: 0,
+    isMenuOpen: false,
   })
 })

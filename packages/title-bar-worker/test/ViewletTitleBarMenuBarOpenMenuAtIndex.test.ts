@@ -6,10 +6,10 @@ import * as ViewletTitleBarMenuBarOpenMenuAtIndex from '../src/parts/TitleBarMen
 test('openMenuAtIndex opens menu at specified index', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    iconWidth: 30,
     titleBarEntries: [{ id: 2 }], // Edit menu ID
     titleBarHeight: 30,
     x: 0,
-    iconWidth: 30,
   }
   const result = await ViewletTitleBarMenuBarOpenMenuAtIndex.openMenuAtIndex(state, 0, true)
   expect(result.isMenuOpen).toBe(true)
@@ -24,10 +24,10 @@ test('openMenuAtIndex opens menu at specified index', async () => {
 test('openMenuAtIndex with shouldBeFocused false sets menuFocusedIndex to -1', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    iconWidth: 30,
     titleBarEntries: [{ id: 2 }], // Edit menu ID
     titleBarHeight: 30,
     x: 0,
-    iconWidth: 30,
   }
   const result = await ViewletTitleBarMenuBarOpenMenuAtIndex.openMenuAtIndex(state, 0, false)
   expect(result.menus[0].focusedIndex).toBe(-1)
@@ -36,10 +36,10 @@ test('openMenuAtIndex with shouldBeFocused false sets menuFocusedIndex to -1', a
 test('openMenuAtIndex with shouldBeFocused true sets menuFocusedIndex to calculated value', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    iconWidth: 30,
     titleBarEntries: [{ id: 2 }], // Edit menu ID
     titleBarHeight: 30,
     x: 0,
-    iconWidth: 30,
   }
   const result = await ViewletTitleBarMenuBarOpenMenuAtIndex.openMenuAtIndex(state, 0, true)
   expect(result.menus[0].focusedIndex).toBeGreaterThanOrEqual(0)

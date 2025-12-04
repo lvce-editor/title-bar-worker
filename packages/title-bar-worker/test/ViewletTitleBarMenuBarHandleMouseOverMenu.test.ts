@@ -12,6 +12,19 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
     // @ts-ignore
     getMenuEntries: (id): any => {
       switch (id) {
+        case MenuEntryId.Edit:
+          return [
+            {
+              flags: MenuItemFlags.Disabled,
+              id: 'undo',
+              label: 'Undo',
+            },
+            {
+              flags: MenuItemFlags.Disabled,
+              id: 'redo',
+              label: 'Redo',
+            },
+          ]
         case MenuEntryId.File:
           return [
             {
@@ -30,21 +43,6 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
               label: 'Open Recent',
             },
           ]
-        case MenuEntryId.Edit:
-          return [
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'undo',
-              label: 'Undo',
-            },
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'redo',
-              label: 'Redo',
-            },
-          ]
-        case MenuEntryId.Selection:
-          return []
         case MenuEntryId.OpenRecent:
           return [
             {
@@ -56,6 +54,8 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
               label: 'file-2.txt',
             },
           ]
+        case MenuEntryId.Selection:
+          return []
         default:
           throw new Error(`no menu entries found for ${id}`)
       }
@@ -73,7 +73,6 @@ test.skip('handleMouseOverMenu - focus item', async () => {
     isMenuOpen: true,
     menus: [
       {
-        level: 0,
         items: [
           {
             flags: MenuItemFlags.Disabled,
@@ -91,6 +90,7 @@ test.skip('handleMouseOverMenu - focus item', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
     ],
   }
@@ -98,7 +98,6 @@ test.skip('handleMouseOverMenu - focus item', async () => {
   expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 1)).toMatchObject({
     menus: [
       {
-        level: 0,
         focusedIndex: 1,
         items: [
           {
@@ -117,6 +116,7 @@ test.skip('handleMouseOverMenu - focus item', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
     ],
   })
@@ -130,10 +130,7 @@ test.skip('handleMouseOverMenu - focus item - already focused', async () => {
     isMenuOpen: true,
     menus: [
       {
-        level: 0,
         focusedIndex: 1,
-        x: 0,
-        y: 0,
         items: [
           {
             flags: MenuItemFlags.Disabled,
@@ -151,6 +148,9 @@ test.skip('handleMouseOverMenu - focus item - already focused', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
+        x: 0,
+        y: 0,
       },
     ],
   }
@@ -166,7 +166,6 @@ test.skip('handleMouseOverMenu - open sub menu', async () => {
     isMenuOpen: true,
     menus: [
       {
-        level: 0,
         items: [
           {
             flags: MenuItemFlags.Disabled,
@@ -184,6 +183,7 @@ test.skip('handleMouseOverMenu - open sub menu', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
     ],
   }
@@ -191,7 +191,6 @@ test.skip('handleMouseOverMenu - open sub menu', async () => {
   expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 2)).toMatchObject({
     menus: [
       {
-        level: 0,
         focusedIndex: 2,
         items: [
           {
@@ -210,9 +209,9 @@ test.skip('handleMouseOverMenu - open sub menu', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
       {
-        level: 1,
         focusedIndex: -1,
         items: [
           {
@@ -224,6 +223,7 @@ test.skip('handleMouseOverMenu - open sub menu', async () => {
             label: 'file-2.txt',
           },
         ],
+        level: 1,
       },
     ],
   })
@@ -237,7 +237,6 @@ test.skip('handleMouseOverMenu - unfocus sub menu', async () => {
     isMenuOpen: true,
     menus: [
       {
-        level: 0,
         focusedIndex: 2,
         items: [
           {
@@ -256,9 +255,9 @@ test.skip('handleMouseOverMenu - unfocus sub menu', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
       {
-        level: 1,
         focusedIndex: 1,
         items: [
           {
@@ -270,6 +269,7 @@ test.skip('handleMouseOverMenu - unfocus sub menu', async () => {
             label: 'file-2.txt',
           },
         ],
+        level: 1,
       },
     ],
   }
@@ -277,7 +277,6 @@ test.skip('handleMouseOverMenu - unfocus sub menu', async () => {
   expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 2)).toMatchObject({
     menus: [
       {
-        level: 0,
         focusedIndex: 2,
         items: [
           {
@@ -296,9 +295,9 @@ test.skip('handleMouseOverMenu - unfocus sub menu', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
       {
-        level: 1,
         focusedIndex: -1,
         items: [
           {
@@ -310,6 +309,7 @@ test.skip('handleMouseOverMenu - unfocus sub menu', async () => {
             label: 'file-2.txt',
           },
         ],
+        level: 1,
       },
     ],
   })
@@ -323,7 +323,6 @@ test.skip('handleMouseOverMenu - unfocus menu and sub menu', async () => {
     isMenuOpen: true,
     menus: [
       {
-        level: 0,
         focusedIndex: 2,
         items: [
           {
@@ -342,9 +341,9 @@ test.skip('handleMouseOverMenu - unfocus menu and sub menu', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
       {
-        level: 1,
         focusedIndex: 1,
         items: [
           {
@@ -356,6 +355,7 @@ test.skip('handleMouseOverMenu - unfocus menu and sub menu', async () => {
             label: 'file-2.txt',
           },
         ],
+        level: 1,
       },
     ],
   }
@@ -363,7 +363,6 @@ test.skip('handleMouseOverMenu - unfocus menu and sub menu', async () => {
   expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, -1)).toMatchObject({
     menus: [
       {
-        level: 0,
         focusedIndex: -1,
         items: [
           {
@@ -382,6 +381,7 @@ test.skip('handleMouseOverMenu - unfocus menu and sub menu', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
     ],
   })

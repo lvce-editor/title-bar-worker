@@ -6,40 +6,40 @@ import * as ViewletTitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
+      command: '',
+      flags: MenuItemFlags.None,
       id: MenuEntryId.File,
       label: ViewletTitleBarStrings.file(),
-      flags: MenuItemFlags.None,
-      command: '',
     },
     {
+      command: '',
+      flags: MenuItemFlags.None,
       id: MenuEntryId.Edit,
       label: ViewletTitleBarStrings.edit(),
-      flags: MenuItemFlags.None,
-      command: '',
     },
     {
+      command: '',
+      flags: MenuItemFlags.None,
       id: MenuEntryId.Selection,
       label: ViewletTitleBarStrings.selection(),
-      flags: MenuItemFlags.None,
-      command: '',
     },
     {
+      command: '',
+      flags: MenuItemFlags.None,
       id: MenuEntryId.View,
       label: ViewletTitleBarStrings.view(),
-      flags: MenuItemFlags.None,
-      command: '',
     },
     {
+      command: '',
+      flags: MenuItemFlags.None,
       id: MenuEntryId.Go,
       label: ViewletTitleBarStrings.go(),
-      flags: MenuItemFlags.None,
-      command: '',
     },
     {
+      command: '',
+      flags: MenuItemFlags.None,
       id: MenuEntryId.Help,
       label: ViewletTitleBarStrings.help(),
-      flags: MenuItemFlags.None,
-      command: '',
     },
   ]
 }

@@ -4,7 +4,7 @@ import * as Diff from '../Diff/Diff.ts'
 import * as TitleBarMenuBarStates from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const doRender = async (uid: number): Promise<readonly VirtualDomNode[]> => {
-  const { oldState, newState } = TitleBarMenuBarStates.get(uid)
+  const { newState, oldState } = TitleBarMenuBarStates.get(uid)
   const diffResult = Diff.diff(oldState, newState)
   const commands = ApplyRender.applyRender(oldState, newState, diffResult)
   return commands

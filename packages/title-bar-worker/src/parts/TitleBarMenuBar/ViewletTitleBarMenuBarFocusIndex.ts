@@ -5,7 +5,7 @@ import { openMenuAtIndex } from './ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
 export const focusIndex = async (state: TitleBarMenuBarState, index: number): Promise<TitleBarMenuBarState> => {
   Assert.object(state)
   Assert.number(index)
-  const { isMenuOpen, focusedIndex } = state
+  const { focusedIndex, isMenuOpen } = state
   if (index === focusedIndex) {
     return state
   }

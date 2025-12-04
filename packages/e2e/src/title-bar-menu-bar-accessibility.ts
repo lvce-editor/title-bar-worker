@@ -21,7 +21,7 @@ export const name = 'viewlet.title-bar-menu-bar-accessibility'
 
 export const skip = 1 // TODO
 
-export const test: Test = async ({ TitleBarMenuBar, Locator, expect }) => {
+export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   // assert
   const titleBarMenuBar = Locator('.TitleBarMenuBar')
   await expect(titleBarMenuBar).toHaveAttribute('role', 'menubar')

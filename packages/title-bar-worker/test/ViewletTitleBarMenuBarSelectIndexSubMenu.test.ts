@@ -7,8 +7,8 @@ test('selectIndexSubMenu creates submenu and updates parent menu', async () => {
     ...createDefaultState(),
     menus: [
       {
-        level: 0,
         items: [{ id: 2 }], // Edit menu ID
+        level: 0,
         x: 100,
         y: 50,
       },

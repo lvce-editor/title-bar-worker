@@ -4,7 +4,7 @@ import * as ViewletTitleBarMenuBarGetTitleBarIndexFromPosition from '../TitleBar
 import * as ViewletTitleBarMenuBarHandleClick from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleClick.ts'
 
 export const handleClickAt = async (state: TitleBarMenuBarState, button: number, eventX: number, eventY: number): Promise<TitleBarMenuBarState> => {
-  const { titleBarEntries, x, iconWidth } = state
+  const { iconWidth, titleBarEntries, x } = state
   const menuOffset = getMenuOffset(x, eventX, iconWidth)
   const index = ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(titleBarEntries, menuOffset, eventY)
   if (index === -1) {

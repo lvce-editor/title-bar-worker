@@ -5,16 +5,16 @@ import * as GetTitleBarIconVirtualDom from '../src/parts/GetTitleBarIconVirtualD
 test('getTitleBarIconVirtualDom', () => {
   expect(GetTitleBarIconVirtualDom.getTitleBarIconVirtualDom('test-icon.png')).toEqual([
     {
-      type: VirtualDomElements.Div,
-      className: 'Viewlet TitleBarIcon',
       childCount: 1,
+      className: 'Viewlet TitleBarIcon',
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Img,
-      className: 'TitleBarIconIcon',
-      src: 'test-icon.png',
       alt: '',
       childCount: 0,
+      className: 'TitleBarIconIcon',
+      src: 'test-icon.png',
+      type: VirtualDomElements.Img,
     },
   ])
 })

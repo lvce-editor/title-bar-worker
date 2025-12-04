@@ -3,12 +3,12 @@ import type { VisibleMenuItem } from '../src/parts/VisibleMenuItem/VisibleMenuIt
 import * as AddWidths from '../src/parts/AddWidths/AddWidths.ts'
 
 const createMockVisibleMenuItem = (label: string): VisibleMenuItem => ({
-  label,
   flags: 0,
-  isFocused: false,
   isExpanded: false,
-  level: 0,
+  isFocused: false,
   key: 0,
+  label,
+  level: 0,
 })
 
 // Skipped because AddWidths depends on MeasureTextWidths which uses OffscreenCanvas

@@ -4,12 +4,12 @@ import * as GetMenuItemNoopDom from '../src/parts/GetMenuItemNoopDom/GetMenuItem
 
 test('getMenuItemsNoopDom - returns empty array', () => {
   const menuItem: VisibleMenuItem = {
-    label: 'Any Item',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 0,
+    label: 'Any Item',
+    level: 0,
   }
 
   const result = GetMenuItemNoopDom.getMenuItemsNoopDom(menuItem)
@@ -19,21 +19,21 @@ test('getMenuItemsNoopDom - returns empty array', () => {
 
 test('getMenuItemsNoopDom - returns empty array regardless of input', () => {
   const menuItem1: VisibleMenuItem = {
-    label: 'Item 1',
     flags: 123,
-    isFocused: true,
     isExpanded: true,
-    level: 5,
+    isFocused: true,
     key: 999,
+    label: 'Item 1',
+    level: 5,
   }
 
   const menuItem2: VisibleMenuItem = {
-    label: '',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 0,
+    label: '',
+    level: 0,
   }
 
   const result1 = GetMenuItemNoopDom.getMenuItemsNoopDom(menuItem1)
@@ -46,12 +46,12 @@ test('getMenuItemsNoopDom - returns empty array regardless of input', () => {
 
 test('getMenuItemsNoopDom - always returns same empty array', () => {
   const menuItem: VisibleMenuItem = {
-    label: 'Test Item',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 0,
+    label: 'Test Item',
+    level: 0,
   }
 
   const result1 = GetMenuItemNoopDom.getMenuItemsNoopDom(menuItem)

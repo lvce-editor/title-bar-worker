@@ -10,56 +10,56 @@ export const id = MenuEntryId.File
 export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
   const entries: MenuEntry[] = [
     {
+      command: '-1',
+      flags: MenuItemFlags.None,
       id: 'newFile',
       label: FileStrings.newFile(),
-      flags: MenuItemFlags.None,
-      command: '-1',
     },
     {
+      command: /* Window.openNew */ 'Window.openNew',
+      flags: MenuItemFlags.None,
       id: 'newWindow',
       label: FileStrings.newWindow(),
-      flags: MenuItemFlags.None,
-      command: /* Window.openNew */ 'Window.openNew',
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
+      command: 'Dialog.openFile',
+      flags: MenuItemFlags.None,
       id: 'openFile',
       label: FileStrings.openFile(),
-      flags: MenuItemFlags.None,
-      command: 'Dialog.openFile',
     },
     {
+      command: 'Dialog.openFolder',
+      flags: MenuItemFlags.RestoreFocus,
       id: 'openFolder',
       label: FileStrings.openFolder(),
-      flags: MenuItemFlags.RestoreFocus,
-      command: 'Dialog.openFolder',
     },
     {
+      command: '',
+      flags: MenuItemFlags.SubMenu,
       id: MenuEntryId.OpenRecent,
       label: FileStrings.openRecent(),
-      flags: MenuItemFlags.SubMenu,
-      command: '',
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
+      command: 'Main.save',
+      flags: MenuItemFlags.None,
       id: 'save',
       label: FileStrings.save(),
-      flags: MenuItemFlags.None,
-      command: 'Main.save',
     },
     {
+      command: 'Main.saveAll',
+      flags: MenuItemFlags.None,
       id: 'saveAll',
       label: FileStrings.saveAll(),
-      flags: MenuItemFlags.None,
-      command: 'Main.saveAll',
     },
   ]
   if (platform === PlatformType.Electron) {
     entries.push(MenuEntrySeparator.menuEntrySeparator, {
+      command: 'Chrome.exit',
+      flags: MenuItemFlags.Ignore,
       id: 'exit',
       label: FileStrings.exit(),
-      flags: MenuItemFlags.Ignore,
-      command: 'Chrome.exit',
     })
   }
   return entries

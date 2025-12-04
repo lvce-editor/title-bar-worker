@@ -6,48 +6,48 @@ import * as GetMenuItemSeparatorDom from '../src/parts/GetMenuItemSeparatorDom/G
 
 test('getMenuItemSeparatorDom', () => {
   const menuItem: VisibleMenuItem = {
-    label: 'Test Item',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 1,
+    label: 'Test Item',
+    level: 0,
   }
 
   const result = GetMenuItemSeparatorDom.getMenuItemSeparatorDom(menuItem)
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.MenuItemSeparator,
       role: AriaRoles.Separator,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Div,
-      className: ClassNames.MenuItemSeparatorLine,
       childCount: 0,
+      className: ClassNames.MenuItemSeparatorLine,
+      type: VirtualDomElements.Div,
     },
   ])
 })
 
 test('getMenuItemSeparatorDom returns same result regardless of menuItem properties', () => {
   const menuItem1: VisibleMenuItem = {
-    label: 'Item 1',
     flags: 1,
-    isFocused: true,
     isExpanded: true,
-    level: 2,
+    isFocused: true,
     key: 10,
+    label: 'Item 1',
+    level: 2,
   }
 
   const menuItem2: VisibleMenuItem = {
-    label: 'Item 2',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 5,
+    label: 'Item 2',
+    level: 0,
   }
 
   const result1 = GetMenuItemSeparatorDom.getMenuItemSeparatorDom(menuItem1)

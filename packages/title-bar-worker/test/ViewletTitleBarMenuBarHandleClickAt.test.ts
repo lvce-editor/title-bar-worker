@@ -12,9 +12,9 @@ test('handleClickAt with invalid position returns same state', async () => {
 test('handleClickAt with valid position calls handleClick', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    iconWidth: 30,
     titleBarEntries: [{ id: 2, width: 100 }], // Edit menu ID with width
     x: 0,
-    iconWidth: 30,
   }
   const result = await ViewletTitleBarMenuBarHandleClickAt.handleClickAt(state, 0, 50, 15) // Click within menu area
   expect(result.isMenuOpen).toBe(true)

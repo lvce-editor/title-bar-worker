@@ -6,137 +6,137 @@ import * as GetMenuItemDisabledDom from '../src/parts/GetMenuItemDisabledDom/Get
 
 test('getMenuItemDisabledDom - basic disabled menu item', () => {
   const menuItem: VisibleMenuItem = {
-    label: 'Disabled Item',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 0,
+    label: 'Disabled Item',
+    level: 0,
   }
 
   const result = GetMenuItemDisabledDom.getMenuItemDisabledDom(menuItem)
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.MenuItem,
+      disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      disabled: true,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: 'Disabled Item',
       childCount: 0,
+      text: 'Disabled Item',
+      type: VirtualDomElements.Text,
     },
   ])
 })
 
 test('getMenuItemDisabledDom - disabled menu item with different label', () => {
   const menuItem: VisibleMenuItem = {
-    label: 'Another Disabled Item',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 0,
+    label: 'Another Disabled Item',
+    level: 0,
   }
 
   const result = GetMenuItemDisabledDom.getMenuItemDisabledDom(menuItem)
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.MenuItem,
+      disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      disabled: true,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: 'Another Disabled Item',
       childCount: 0,
+      text: 'Another Disabled Item',
+      type: VirtualDomElements.Text,
     },
   ])
 })
 
 test('getMenuItemDisabledDom - ignores other menuItem properties', () => {
   const menuItem: VisibleMenuItem = {
-    label: 'Test Item',
     flags: 123,
-    isFocused: true,
     isExpanded: true,
-    level: 5,
+    isFocused: true,
     key: 999,
+    label: 'Test Item',
+    level: 5,
   }
 
   const result = GetMenuItemDisabledDom.getMenuItemDisabledDom(menuItem)
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.MenuItem,
+      disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      disabled: true,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: 'Test Item',
       childCount: 0,
+      text: 'Test Item',
+      type: VirtualDomElements.Text,
     },
   ])
 })
 
 test('getMenuItemDisabledDom - empty label', () => {
   const menuItem: VisibleMenuItem = {
-    label: '',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 0,
+    label: '',
+    level: 0,
   }
 
   const result = GetMenuItemDisabledDom.getMenuItemDisabledDom(menuItem)
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: ClassNames.MenuItem,
+      disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      disabled: true,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: '',
       childCount: 0,
+      text: '',
+      type: VirtualDomElements.Text,
     },
   ])
 })
 
 test('getMenuItemDisabledDom - returns same structure regardless of input', () => {
   const menuItem1: VisibleMenuItem = {
-    label: 'Item 1',
     flags: 1,
-    isFocused: true,
     isExpanded: true,
-    level: 2,
+    isFocused: true,
     key: 10,
+    label: 'Item 1',
+    level: 2,
   }
 
   const menuItem2: VisibleMenuItem = {
-    label: 'Item 2',
     flags: 0,
-    isFocused: false,
     isExpanded: false,
-    level: 0,
+    isFocused: false,
     key: 5,
+    label: 'Item 2',
+    level: 0,
   }
 
   const result1 = GetMenuItemDisabledDom.getMenuItemDisabledDom(menuItem1)

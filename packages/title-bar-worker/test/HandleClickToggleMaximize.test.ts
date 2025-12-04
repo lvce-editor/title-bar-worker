@@ -20,8 +20,8 @@ test('handleClickToggleMaximize - calls maximize when not maximized', async () =
 
 test('handleClickToggleMaximize - calls unmaximize when maximized', async () => {
   const mockRpc = RendererWorker.registerMockRpc({
-    'ElectronWindow.unmaximize'() {},
     'ElectronWindow.maximize'() {},
+    'ElectronWindow.unmaximize'() {},
   })
 
   // Set the maximized state to true

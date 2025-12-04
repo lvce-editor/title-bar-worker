@@ -8,8 +8,8 @@ export const closeMenu = (state: TitleBarMenuBarState, keepFocus: boolean): Titl
   const newFocusedIndex = keepFocus ? focusedIndex : -1
   return {
     ...state,
-    menus: [],
-    isMenuOpen: false,
     focusedIndex: newFocusedIndex,
+    isMenuOpen: false,
+    menus: [],
   }
 }

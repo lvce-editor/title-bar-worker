@@ -10,7 +10,7 @@ export const handleMenuMouseOver = async (state: TitleBarMenuBarState, level: nu
   Assert.number(index)
   const { menus } = state
   const menu = menus[level]
-  const { items, focusedIndex, y, x } = menu
+  const { focusedIndex, items, x, y } = menu
   const item = items[index]
   if (focusedIndex === index) {
     if (index === -1) {
@@ -49,11 +49,11 @@ export const handleMenuMouseOver = async (state: TitleBarMenuBarState, level: nu
     const item = items[index]
     const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
     const subMenu = {
-      level: menus.length,
-      items: subMenuEntries,
       focusedIndex: -1,
-      y: y + index * 25,
+      items: subMenuEntries,
+      level: menus.length,
       x: x + Menu.MENU_WIDTH,
+      y: y + index * 25,
     }
     const newParentMenu = {
       ...menu,

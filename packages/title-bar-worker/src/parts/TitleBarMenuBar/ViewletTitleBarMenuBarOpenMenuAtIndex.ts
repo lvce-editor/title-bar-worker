@@ -4,7 +4,7 @@ import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
 export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number, shouldBeFocused: boolean): Promise<TitleBarMenuBarState> => {
-  const { titleBarEntries, titleBarHeight, x, iconWidth } = state
+  const { iconWidth, titleBarEntries, titleBarHeight, x } = state
   // TODO race conditions
   // TODO send renderer process
   // 1. open menu, items to show
@@ -23,20 +23,20 @@ export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number
   const height = Menu.getMenuHeight(items)
   const menuFocusedIndex = shouldBeFocused ? Menu.getIndexToFocusNextStartingAt(items, 0) : -1
   const menu = {
+    focusedIndex: menuFocusedIndex,
+    height,
     id,
     items,
-    focusedIndex: menuFocusedIndex,
     level: 0,
+    width,
     x: menuX,
     y: menuY,
-    width,
-    height,
   }
   const menus = [menu]
   return {
     ...state,
-    isMenuOpen: true,
     focusedIndex: index,
+    isMenuOpen: true,
     menus,
   }
 }

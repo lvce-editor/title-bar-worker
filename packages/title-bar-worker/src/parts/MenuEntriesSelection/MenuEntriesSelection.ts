@@ -8,34 +8,34 @@ export const id = MenuEntryId.Selection
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
+      command: 'Editor.selectAll',
+      flags: MenuItemFlags.None,
       id: 'selectAll',
       label: EditorStrings.selectAll(),
-      flags: MenuItemFlags.None,
-      command: 'Editor.selectAll',
     },
     {
+      command: 'Editor.copyLineUp',
+      flags: MenuItemFlags.None,
       id: 'copyLineUp',
       label: EditorStrings.copyLineUp(),
-      flags: MenuItemFlags.None,
-      command: 'Editor.copyLineUp',
     },
     {
+      command: 'Editor.copyLineDown',
+      flags: MenuItemFlags.None,
       id: 'copyLineDown',
       label: EditorStrings.copyLineDown(),
-      flags: MenuItemFlags.None,
-      command: 'Editor.copyLineDown',
     },
     {
+      command: 'Editor.moveLineUp',
+      flags: MenuItemFlags.Disabled,
       id: 'moveLineUp',
       label: EditorStrings.moveLineUp(),
-      flags: MenuItemFlags.Disabled,
-      command: 'Editor.moveLineUp',
     },
     {
+      command: 'Editor.moveLineDown',
+      flags: MenuItemFlags.Disabled,
       id: 'moveLineDown',
       label: EditorStrings.moveLineDown(),
-      flags: MenuItemFlags.Disabled,
-      command: 'Editor.moveLineDown',
     },
   ]
 }

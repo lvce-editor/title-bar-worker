@@ -4,14 +4,14 @@ import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as GetIconVirtualDom from '../GetIconVirtualDom/GetIconVirtualDom.ts'
 
 export const createTitleBarButton = (button: TitleBarButton): readonly VirtualDomNode[] => {
-  const { id, icon, label, onClick } = button
+  const { icon, id, label, onClick } = button
   const dom = [
     {
-      type: VirtualDomElements.Button,
-      className: `TitleBarButton TitleBarButton${id}`,
       ariaLabel: label,
       childCount: 1,
+      className: `TitleBarButton TitleBarButton${id}`,
       onClick,
+      type: VirtualDomElements.Button,
     },
     GetIconVirtualDom.getIconVirtualDom(icon, VirtualDomElements.I),
   ]

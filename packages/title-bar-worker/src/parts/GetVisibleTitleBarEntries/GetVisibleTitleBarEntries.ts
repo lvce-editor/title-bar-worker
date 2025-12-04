@@ -15,7 +15,7 @@ export const getVisibleTitleBarEntries = (entries: readonly any[], width: number
     }
     const isOpen = i === focusedIndex && isMenuOpen
     const isFocused = i === focusedIndex
-    visible.push({ ...entry, isOpen, isFocused })
+    visible.push({ ...entry, isFocused, isOpen })
   }
   const hasOverflow = visible.length < entries.length
   if (hasOverflow) {

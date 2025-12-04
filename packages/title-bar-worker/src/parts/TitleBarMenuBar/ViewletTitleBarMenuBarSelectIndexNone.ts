@@ -6,8 +6,8 @@ export const selectIndexNone = async (state: TitleBarMenuBarState, item: Visible
   await ExecuteMenuItemcommand.executeMenuItemCommand(item)
   return {
     ...state,
-    menus: [],
-    isMenuOpen: false,
     focusedIndex: -1,
+    isMenuOpen: false,
+    menus: [],
   }
 }

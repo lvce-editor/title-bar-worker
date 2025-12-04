@@ -1,6 +1,6 @@
 export interface TitleBarButton {
-  readonly label: string
   readonly icon: string
   readonly id: string
+  readonly label: string
   readonly onClick: string
 }

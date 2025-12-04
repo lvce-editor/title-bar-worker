@@ -6,18 +6,18 @@ import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
   // @ts-ignore
-  const { keyboardShortCut, label, icon, isOpen, isFocused } = item
+  const { icon, isFocused, isOpen, keyboardShortCut, label } = item
   // TODO avoid mutation
   const dom: any[] = [
     {
-      type: VirtualDomElements.Button,
-      className: ClassNames.TitleBarTopLevelEntry,
-      ariaHasPopup: true,
       ariaExpanded: isOpen,
-      role: AriaRoles.MenuItem,
-      childCount: 1,
+      ariaHasPopup: true,
       ariaKeyShortcuts: keyboardShortCut,
+      childCount: 1,
+      className: ClassNames.TitleBarTopLevelEntry,
       name: label, // TODO have separate name attribute
+      role: AriaRoles.MenuItem,
+      type: VirtualDomElements.Button,
     },
   ]
   if (isOpen) {
@@ -29,9 +29,9 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
     // @ts-ignore
     dom[0].id = 'TitleBarEntryActive'
     dom.push({
-      type: VirtualDomElements.Div,
-      className: ClassNames.TitleBarTopLevelEntryLabel,
       childCount: 1,
+      className: ClassNames.TitleBarTopLevelEntryLabel,
+      type: VirtualDomElements.Div,
     })
   }
   dom.push(text(label))

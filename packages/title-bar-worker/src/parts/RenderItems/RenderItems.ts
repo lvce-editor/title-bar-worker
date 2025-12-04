@@ -8,7 +8,7 @@ import { getTitleVirtualDom } from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 
 export const renderItems = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
-  const { titleBarEntries, width, focusedIndex, isMenuOpen, assetDir, title, buttons } = state
+  const { assetDir, buttons, focusedIndex, isMenuOpen, title, titleBarEntries, width } = state
   const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
   const iconSrc = getIcon(assetDir)
   const iconDom = getTitleBarIconVirtualDom(iconSrc)

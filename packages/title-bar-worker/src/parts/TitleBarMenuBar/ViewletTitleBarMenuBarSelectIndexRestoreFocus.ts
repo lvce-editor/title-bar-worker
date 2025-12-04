@@ -5,7 +5,7 @@ export const selectIndexRestoreFocus = async (state: TitleBarMenuBarState, item:
   await ExecuteMenuItemCommand.executeMenuItemCommand(item)
   return {
     ...state,
-    menus: [],
     isMenuOpen: false,
+    menus: [],
   }
 }
