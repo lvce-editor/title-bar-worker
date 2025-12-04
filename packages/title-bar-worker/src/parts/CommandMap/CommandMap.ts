@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-deprecated */
 import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create3 from '../Create3/Create3.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
@@ -16,7 +15,6 @@ import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
 import { hideCommandCenter } from '../HideCommandCenter/HideCommandCenter.ts'
 import { hideMenuBar } from '../HideMenuBar/HideMenuBar.ts'
 import { loadContent2 } from '../LoadContent2/LoadContent2.ts'
-import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import { resize } from '../Resize/Resize.ts'
@@ -71,7 +69,6 @@ export const commandMap = {
   'TitleBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBar.getMenuEntries2': getMenuEntries2,
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
-  'TitleBar.getMenus': MenuEntries.getMenus,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
   'TitleBar.handleClick': wrapCommand(ViewletTitleBarMenuBarHandleClick.handleClick),
   'TitleBar.handleClickAt': wrapCommand(ViewletTitleBarMenuBarHandleClickAt.handleClickAt),
