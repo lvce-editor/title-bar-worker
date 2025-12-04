@@ -21,6 +21,7 @@ import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import { resize } from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
+import { setPlatform } from '../SetPlatform/SetPlatform.ts'
 import { showCommandCenter } from '../ShowCommandCenter/ShowCommandCenter.ts'
 import { showMenuBar } from '../ShowMenuBar/ShowMenuBar.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
@@ -103,6 +104,7 @@ export const commandMap = {
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBar.resize': wrapCommand(resize),
   'TitleBar.saveState': wrapGetter(SaveState.saveState),
+  'TitleBar.setPlatform': wrapCommand(setPlatform),
   'TitleBar.showCommandCenter': wrapCommand(showCommandCenter),
   'TitleBar.showMenuBar': wrapCommand(showMenuBar),
   'TitleBar.terminate': terminate,
