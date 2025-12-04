@@ -1,17 +1,20 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as GetMenuEntries2 from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as GetTotalWidth from '../GetTotalWidth/GetTotalWidth.ts'
 import * as Menu from '../Menu/Menu.ts'
-import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
 export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number, shouldBeFocused: boolean): Promise<TitleBarMenuBarState> => {
-  const { iconWidth, titleBarEntries, titleBarHeight, x } = state
+  const { iconWidth, platform, titleBarEntries, titleBarHeight, x } = state
   // TODO race conditions
   // TODO send renderer process
   // 1. open menu, items to show
   // 2. focus menu
   const titleBarEntry = titleBarEntries[index]
   const { id } = titleBarEntry
-  const items = await MenuEntries.getMenuEntries(id)
+  const items = await GetMenuEntries2.getMenuEntries2(state, {
+    menuId: id,
+    platform,
+  })
   const relevantEntries = titleBarEntries.slice(0, index)
   const totalWidths = GetTotalWidth.getTotalWidth(relevantEntries)
   const offset = totalWidths
