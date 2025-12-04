@@ -1,6 +1,5 @@
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as GetRecentlyOpened from '../GetRecentlyOpened/GetRecentlyOpened.ts'
-import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as PathDisplay from '../PathDisplay/PathDisplay.ts'

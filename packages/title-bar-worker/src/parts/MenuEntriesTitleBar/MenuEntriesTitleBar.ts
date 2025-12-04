@@ -1,5 +1,4 @@
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
-import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 import * as MenuEntriesTitleBarRemote from './MenuEntriesTitleBarRemote.ts'
 import * as MenuEntriesTitleBarWeb from './MenuEntriesTitleBarWeb.ts'
