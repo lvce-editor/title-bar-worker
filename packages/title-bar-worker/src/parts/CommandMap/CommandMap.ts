@@ -111,14 +111,3 @@ export const commandMap = {
   'TitleBar.toggleIndex': wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBar.toggleMenu': wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
 }
-
-// deprecated, can be removed in the future.
-// currently enabled for backwards compatability
-for (const [key, value] of Object.entries(commandMap)) {
-  const [prefix, name] = key.split('.')
-  if (prefix === 'TitleBar') {
-    const alternate = `TitleBarMenuBar.${name}`
-    // @ts-ignore
-    commandMap[alternate] = value
-  }
-}
