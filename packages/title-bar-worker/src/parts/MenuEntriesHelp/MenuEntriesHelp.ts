@@ -14,35 +14,35 @@ export const getMenuEntries = async (platform: number): Promise<readonly MenuEnt
   if (platform !== PlatformType.Web) {
     entries.push(
       {
+        command: 'Developer.toggleDeveloperTools',
+        flags: MenuItemFlags.None,
         id: 'toggleDeveloperTools',
         label: HelpStrings.toggleDeveloperTools(),
-        flags: MenuItemFlags.None,
-        command: 'Developer.toggleDeveloperTools',
       },
       {
+        command: 'Developer.openProcessExplorer',
+        flags: MenuItemFlags.RestoreFocus,
         id: 'openProcessExplorer',
         label: HelpStrings.openProcessExplorer(),
-        flags: MenuItemFlags.RestoreFocus,
-        command: 'Developer.openProcessExplorer',
       },
     )
   }
   if (autoUpdateSupported) {
     entries.push(MenuEntrySeparator.menuEntrySeparator, {
+      command: 'AutoUpdater.checkForUpdates',
+      flags: MenuItemFlags.RestoreFocus,
       id: 'checkForUpdates',
       label: HelpStrings.checkForUpdates(),
-      flags: MenuItemFlags.RestoreFocus,
-      command: 'AutoUpdater.checkForUpdates',
     })
   }
   if (entries.length > 0) {
     entries.push(MenuEntrySeparator.menuEntrySeparator)
   }
   entries.push({
+    command: 'About.showAbout',
+    flags: MenuItemFlags.None,
     id: 'about',
     label: HelpStrings.about(),
-    flags: MenuItemFlags.None,
-    command: 'About.showAbout',
   })
   return entries
 }

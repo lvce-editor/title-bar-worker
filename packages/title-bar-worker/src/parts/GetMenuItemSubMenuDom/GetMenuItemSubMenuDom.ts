@@ -5,25 +5,25 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const arrowRight: VirtualDomNode = {
-  type: VirtualDomElements.Div,
-  className: ClassNames.MenuItemSubMenuArrowRight,
   childCount: 0,
+  className: ClassNames.MenuItemSubMenuArrowRight,
+  type: VirtualDomElements.Div,
 }
 
 export const getMenuItemSubMenuDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
-  const { label, isFocused, isExpanded, level } = menuItem
+  const { isExpanded, isFocused, label, level } = menuItem
   const baseClassName = mergeClassNames(ClassNames.MenuItem, ClassNames.MenuItemSubMenu)
   const className = isFocused ? mergeClassNames(baseClassName, ClassNames.MenuItemFocused) : baseClassName
   return [
     {
-      type: VirtualDomElements.Div,
+      ariaExpanded: isExpanded,
+      ariaHasPopup: true,
+      ariaOwns: isExpanded ? `Menu-${level + 1}` : undefined,
+      childCount: 2,
       className,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      ariaHasPopup: true,
-      ariaExpanded: isExpanded,
-      ariaOwns: isExpanded ? `Menu-${level + 1}` : undefined,
-      childCount: 2,
+      type: VirtualDomElements.Div,
     },
     text(label),
     arrowRight,

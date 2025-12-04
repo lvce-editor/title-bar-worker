@@ -9,6 +9,38 @@ test.skip('handleKeyArrowLeft - close sub menu', () => {
     // @ts-ignore
     ...ViewletTitleBarMenuBar.create(),
     focusedIndex: 0,
+    isMenuOpen: true,
+    menus: [
+      {
+        focusedIndex: 1,
+        items: [
+          {
+            flags: MenuItemFlags.None,
+            label: 'New File',
+          },
+          {
+            flags: MenuItemFlags.SubMenu,
+            id: MenuEntryId.OpenRecent,
+            label: 'Open Recent',
+          },
+        ],
+        level: 0,
+      },
+      {
+        focusedIndex: -1,
+        items: [
+          {
+            label: 'file-1.txt',
+          },
+          {
+            label: 'file-2.txt',
+          },
+        ],
+        level: 1,
+        x: 150,
+        y: 25,
+      },
+    ],
     titleBarEntries: [
       {
         id: MenuEntryId.File,
@@ -23,55 +55,23 @@ test.skip('handleKeyArrowLeft - close sub menu', () => {
         name: 'Selection',
       },
     ],
-    isMenuOpen: true,
-    menus: [
-      {
-        level: 0,
-        focusedIndex: 1,
-        items: [
-          {
-            label: 'New File',
-            flags: MenuItemFlags.None,
-          },
-          {
-            label: 'Open Recent',
-            flags: MenuItemFlags.SubMenu,
-            id: MenuEntryId.OpenRecent,
-          },
-        ],
-      },
-      {
-        level: 1,
-        focusedIndex: -1,
-        items: [
-          {
-            label: 'file-1.txt',
-          },
-          {
-            label: 'file-2.txt',
-          },
-        ],
-        x: 150,
-        y: 25,
-      },
-    ],
   }
   expect(ViewletTitleBarMenuBarHandleKeyArrowLeft.handleKeyArrowLeft(state)).toMatchObject({
     menus: [
       {
-        level: 0,
         focusedIndex: 1,
         items: [
           {
-            label: 'New File',
             flags: MenuItemFlags.None,
+            label: 'New File',
           },
           {
-            label: 'Open Recent',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
+            label: 'Open Recent',
           },
         ],
+        level: 0,
       },
     ],
   })

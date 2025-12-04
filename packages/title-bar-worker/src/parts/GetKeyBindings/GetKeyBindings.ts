@@ -5,43 +5,43 @@ import type { KeyBinding } from '../KeyBinding/KeyBinding.ts'
 export const getKeyBindings = (): readonly KeyBinding[] => {
   return [
     {
-      key: KeyCode.DownArrow,
       command: 'TitleBar.handleKeyArrowDown',
+      key: KeyCode.DownArrow,
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
-      key: KeyCode.UpArrow,
       command: 'TitleBar.handleKeyArrowUp',
+      key: KeyCode.UpArrow,
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
-      key: KeyCode.RightArrow,
       command: 'TitleBar.handleKeyArrowRight',
+      key: KeyCode.RightArrow,
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
-      key: KeyCode.LeftArrow,
       command: 'TitleBar.handleKeyArrowLeft',
+      key: KeyCode.LeftArrow,
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
-      key: KeyCode.Space,
       command: 'TitleBar.handleKeySpace',
+      key: KeyCode.Space,
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
-      key: KeyCode.Home,
       command: 'TitleBar.handleKeyHome',
+      key: KeyCode.Home,
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
-      key: KeyCode.End,
       command: 'TitleBar.handleKeyEnd',
+      key: KeyCode.End,
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
-      key: KeyCode.Escape,
       command: 'TitleBar.handleKeyEscape',
+      key: KeyCode.Escape,
       when: WhenExpression.FocusTitleBarMenuBar,
     },
   ]

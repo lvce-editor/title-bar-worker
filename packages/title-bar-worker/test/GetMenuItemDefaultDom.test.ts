@@ -4,12 +4,12 @@ import type { VisibleMenuItem } from '../src/parts/VisibleMenuItem/VisibleMenuIt
 import * as GetMenuItemDefaultDom from '../src/parts/GetMenuItemDefaultDom/GetMenuItemDefaultDom.ts'
 
 const createMenuItem = (overrides: Partial<VisibleMenuItem> = {}): VisibleMenuItem => ({
-  label: 'Test Menu Item',
   flags: 0,
-  isFocused: false,
   isExpanded: false,
-  level: 0,
+  isFocused: false,
   key: 0,
+  label: 'Test Menu Item',
+  level: 0,
   ...overrides,
 })
 
@@ -19,16 +19,16 @@ test('getMenuItemDefaultDom - basic menu item without key binding', () => {
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: 'MenuItem',
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: 'Test Menu Item',
       childCount: 0,
+      text: 'Test Menu Item',
+      type: VirtualDomElements.Text,
     },
   ])
 })
@@ -39,16 +39,16 @@ test('getMenuItemDefaultDom - focused menu item without key binding', () => {
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 1,
       className: 'MenuItem MenuItemFocused',
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      childCount: 1,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
-      text: 'Test Menu Item',
       childCount: 0,
+      text: 'Test Menu Item',
+      type: VirtualDomElements.Text,
     },
   ])
 })
@@ -59,26 +59,26 @@ test('getMenuItemDefaultDom - menu item with key binding', () => {
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 2,
       className: 'MenuItem',
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      childCount: 2,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
+      childCount: 0,
       text: 'Test Menu Item',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Span,
-      className: 'MenuItemKeyBinding',
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Text,
-      text: 'A',
+    },
+    {
+      childCount: 1,
+      className: 'MenuItemKeyBinding',
+      type: VirtualDomElements.Span,
+    },
+    {
       childCount: 0,
+      text: 'A',
+      type: VirtualDomElements.Text,
     },
   ])
 })
@@ -92,26 +92,26 @@ test('getMenuItemDefaultDom - focused menu item with key binding', () => {
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 2,
       className: 'MenuItem MenuItemFocused',
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      childCount: 2,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
+      childCount: 0,
       text: 'Test Menu Item',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Span,
-      className: 'MenuItemKeyBinding',
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Text,
-      text: 'A',
+    },
+    {
+      childCount: 1,
+      className: 'MenuItemKeyBinding',
+      type: VirtualDomElements.Span,
+    },
+    {
       childCount: 0,
+      text: 'A',
+      type: VirtualDomElements.Text,
     },
   ])
 })
@@ -122,26 +122,26 @@ test('getMenuItemDefaultDom - menu item with ctrl key binding', () => {
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 2,
       className: 'MenuItem',
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      childCount: 2,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
+      childCount: 0,
       text: 'Test Menu Item',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Span,
-      className: 'MenuItemKeyBinding',
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Text,
-      text: 'Ctrl+A',
+    },
+    {
+      childCount: 1,
+      className: 'MenuItemKeyBinding',
+      type: VirtualDomElements.Span,
+    },
+    {
       childCount: 0,
+      text: 'Ctrl+A',
+      type: VirtualDomElements.Text,
     },
   ])
 })
@@ -152,26 +152,26 @@ test('getMenuItemDefaultDom - menu item with shift key binding', () => {
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 2,
       className: 'MenuItem',
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      childCount: 2,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
+      childCount: 0,
       text: 'Test Menu Item',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Span,
-      className: 'MenuItemKeyBinding',
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Text,
-      text: 'Shift+A',
+    },
+    {
+      childCount: 1,
+      className: 'MenuItemKeyBinding',
+      type: VirtualDomElements.Span,
+    },
+    {
       childCount: 0,
+      text: 'Shift+A',
+      type: VirtualDomElements.Text,
     },
   ])
 })
@@ -182,26 +182,26 @@ test('getMenuItemDefaultDom - menu item with ctrl+shift key binding', () => {
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 2,
       className: 'MenuItem',
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      childCount: 2,
+      type: VirtualDomElements.Div,
     },
     {
-      type: VirtualDomElements.Text,
+      childCount: 0,
       text: 'Test Menu Item',
-      childCount: 0,
-    },
-    {
-      type: VirtualDomElements.Span,
-      className: 'MenuItemKeyBinding',
-      childCount: 1,
-    },
-    {
       type: VirtualDomElements.Text,
-      text: 'Ctrl+Shift+A',
+    },
+    {
+      childCount: 1,
+      className: 'MenuItemKeyBinding',
+      type: VirtualDomElements.Span,
+    },
+    {
       childCount: 0,
+      text: 'Ctrl+Shift+A',
+      type: VirtualDomElements.Text,
     },
   ])
 })

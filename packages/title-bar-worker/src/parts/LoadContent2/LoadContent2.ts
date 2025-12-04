@@ -7,7 +7,7 @@ import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as RendererWorker from '../ParentRpc/ParentRpc.ts'
 
 export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
-  const { platform, controlsOverlayEnabled, titleBarStyleCustom, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding } =
+  const { controlsOverlayEnabled, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding, platform, titleBarStyleCustom } =
     state
   const titleBarEntries = await MenuEntries.getMenuEntries(MenuEntryId.TitleBar)
   const withWidths = AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
@@ -18,10 +18,10 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const iconWidth = 30
   return {
     ...state,
-    titleBarEntries: withWidths,
-    titleBarButtons: buttons,
     buttons,
-    title,
     iconWidth,
+    title,
+    titleBarButtons: buttons,
+    titleBarEntries: withWidths,
   }
 }

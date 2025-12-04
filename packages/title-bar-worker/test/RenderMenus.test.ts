@@ -8,16 +8,16 @@ import * as RenderMethod from '../src/parts/RenderMethod/RenderMethod.ts'
 const UID = 1
 
 const createMenu = (items: readonly any[], focusedIndex: number = -1, expanded: boolean = false, level: number = 0): any => ({
-  items,
-  focusedIndex,
   expanded,
+  focusedIndex,
+  items,
   level,
 })
 
 const createMenuItem = (label: string, flags: number = MenuItemFlags.None, key: number = 0): any => ({
-  label,
   flags,
   key,
+  label,
 })
 
 const createStateWithMenus = (menus: readonly any[], uid: number = UID): TitleBarMenuBarState => ({

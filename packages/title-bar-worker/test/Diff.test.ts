@@ -25,8 +25,8 @@ test('diff - should return all diff numbers when all modules differ', () => {
   const oldState = CreateDefaultState.createDefaultState()
   const newState = {
     ...CreateDefaultState.createDefaultState(),
-    focusedIndex: 1,
     entries: [],
+    focusedIndex: 1,
     menus: [],
   }
 

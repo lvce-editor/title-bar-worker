@@ -20,6 +20,19 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
     // @ts-ignore
     getMenuEntries: (id): any => {
       switch (id) {
+        case MenuEntryId.Edit:
+          return [
+            {
+              flags: MenuItemFlags.Disabled,
+              id: 'undo',
+              label: 'Undo',
+            },
+            {
+              flags: MenuItemFlags.Disabled,
+              id: 'redo',
+              label: 'Redo',
+            },
+          ]
         case MenuEntryId.File:
           return [
             {
@@ -38,21 +51,6 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
               label: 'Open Recent',
             },
           ]
-        case MenuEntryId.Edit:
-          return [
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'undo',
-              label: 'Undo',
-            },
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'redo',
-              label: 'Redo',
-            },
-          ]
-        case MenuEntryId.Selection:
-          return []
         case MenuEntryId.OpenRecent:
           return [
             {
@@ -64,6 +62,8 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
               label: 'file-2.txt',
             },
           ]
+        case MenuEntryId.Selection:
+          return []
         default:
           throw new Error(`no menu entries found for ${id}`)
       }
@@ -94,7 +94,6 @@ test.skip('focusIndex - when open - when same index', async () => {
     focusedIndex: 0,
     menus: [
       {
-        level: 0,
         items: [
           {
             flags: MenuItemFlags.Disabled,
@@ -112,6 +111,7 @@ test.skip('focusIndex - when open - when same index', async () => {
             label: 'Open Recent',
           },
         ],
+        level: 0,
       },
     ],
   })
@@ -138,7 +138,6 @@ test.skip('focusIndex - when opening different index', async () => {
     focusedIndex: 1,
     menus: [
       {
-        level: 0,
         items: [
           {
             flags: MenuItemFlags.Disabled,
@@ -151,6 +150,7 @@ test.skip('focusIndex - when opening different index', async () => {
             label: 'Redo',
           },
         ],
+        level: 0,
       },
     ],
   })
@@ -177,7 +177,6 @@ test.skip('focusIndex - when open - race condition', async () => {
     focusedIndex: 1,
     menus: [
       {
-        level: 0,
         items: [
           {
             flags: MenuItemFlags.Disabled,
@@ -190,6 +189,7 @@ test.skip('focusIndex - when open - race condition', async () => {
             label: 'Redo',
           },
         ],
+        level: 0,
       },
     ],
   })

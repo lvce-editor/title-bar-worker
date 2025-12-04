@@ -6,17 +6,17 @@ import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const checkboxChecked: VirtualDomNode = {
-  type: VirtualDomElements.Div,
+  ariaChecked: true,
+  childCount: 2,
   className: MergeClassNames.mergeClassNames(ClassNames.MenuItem, ClassNames.MenuItemCheckMark),
   role: AriaRoles.MenuItemCheckBox,
-  ariaChecked: true,
   tabIndex: -1,
-  childCount: 2,
+  type: VirtualDomElements.Div,
 }
 
 const checkMark: VirtualDomNode = {
-  type: VirtualDomElements.Div,
   className: MergeClassNames.mergeClassNames(ClassNames.MenuItemCheckmarkIcon, ClassNames.MaskIconCheck),
+  type: VirtualDomElements.Div,
 }
 
 export const getMenuItemCheckedDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {

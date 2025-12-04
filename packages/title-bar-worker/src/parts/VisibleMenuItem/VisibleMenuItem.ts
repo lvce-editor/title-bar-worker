@@ -1,8 +1,8 @@
 export interface VisibleMenuItem {
-  readonly label: string
   readonly flags: number
-  readonly isFocused: boolean
   readonly isExpanded: boolean
-  readonly level: number
+  readonly isFocused: boolean
   readonly key: number
+  readonly label: string
+  readonly level: number
 }

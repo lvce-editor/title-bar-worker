@@ -37,6 +37,6 @@ test('render3 - should update state after rendering', async () => {
   expect(Array.isArray(result)).toBe(true)
 
   // Verify that the state was updated (oldState should now equal newState)
-  const { oldState: updatedOldState, newState: updatedNewState } = TitleBarMenuBarStates.get(uid)
+  const { newState: updatedNewState, oldState: updatedOldState } = TitleBarMenuBarStates.get(uid)
   expect(updatedOldState).toBe(updatedNewState)
 })

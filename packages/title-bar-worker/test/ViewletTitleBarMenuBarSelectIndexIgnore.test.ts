@@ -11,14 +11,14 @@ test('selectIndexIgnore executes command and returns same state', async () => {
 
   const state: TitleBarMenuBarState = createDefaultState()
   const item = {
-    label: 'Test Item',
-    flags: 0,
-    isFocused: false,
-    isExpanded: false,
-    level: 0,
-    key: 1,
-    command: 'Editor.cut',
     args: [],
+    command: 'Editor.cut',
+    flags: 0,
+    isExpanded: false,
+    isFocused: false,
+    key: 1,
+    label: 'Test Item',
+    level: 0,
   }
   const result = await ViewletTitleBarMenuBarSelectIndexIgnore.selectIndexIgnore(state, item)
   expect(result).toBe(state)

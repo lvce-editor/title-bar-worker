@@ -12,6 +12,19 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
     // @ts-ignore
     getMenuEntries: (id): any => {
       switch (id) {
+        case MenuEntryId.Edit:
+          return [
+            {
+              flags: MenuItemFlags.Disabled,
+              id: 'undo',
+              label: 'Undo',
+            },
+            {
+              flags: MenuItemFlags.Disabled,
+              id: 'redo',
+              label: 'Redo',
+            },
+          ]
         case MenuEntryId.File:
           return [
             {
@@ -30,21 +43,6 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
               label: 'Open Recent',
             },
           ]
-        case MenuEntryId.Edit:
-          return [
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'undo',
-              label: 'Undo',
-            },
-            {
-              flags: MenuItemFlags.Disabled,
-              id: 'redo',
-              label: 'Redo',
-            },
-          ]
-        case MenuEntryId.Selection:
-          return []
         case MenuEntryId.OpenRecent:
           return [
             {
@@ -56,6 +54,8 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
               label: 'file-2.txt',
             },
           ]
+        case MenuEntryId.Selection:
+          return []
         default:
           throw new Error(`no menu entries found for ${id}`)
       }
@@ -70,6 +70,26 @@ test.skip('handleKeyArrowRight - open sub menu', async () => {
     // @ts-ignore
     ...ViewletTitleBarMenuBar.create(),
     focusedIndex: 0,
+    isMenuOpen: true,
+    menus: [
+      {
+        focusedIndex: 1,
+        items: [
+          {
+            flags: MenuItemFlags.None,
+            label: 'New File',
+          },
+          {
+            flags: MenuItemFlags.SubMenu,
+            id: MenuEntryId.OpenRecent,
+            label: 'Open Recent',
+          },
+        ],
+        level: 0,
+        x: 0,
+        y: 0,
+      },
+    ],
     titleBarEntries: [
       {
         id: MenuEntryId.File,
@@ -84,46 +104,25 @@ test.skip('handleKeyArrowRight - open sub menu', async () => {
         name: 'Selection',
       },
     ],
-    isMenuOpen: true,
-    menus: [
-      {
-        level: 0,
-        focusedIndex: 1,
-        items: [
-          {
-            label: 'New File',
-            flags: MenuItemFlags.None,
-          },
-          {
-            label: 'Open Recent',
-            flags: MenuItemFlags.SubMenu,
-            id: MenuEntryId.OpenRecent,
-          },
-        ],
-        x: 0,
-        y: 0,
-      },
-    ],
   }
   expect(await ViewletTitleBarMenuBarHandleKeyArrowRight.handleKeyArrowRight(state)).toMatchObject({
     menus: [
       {
-        level: 0,
         focusedIndex: 1,
         items: [
           {
-            label: 'New File',
             flags: MenuItemFlags.None,
+            label: 'New File',
           },
           {
-            label: 'Open Recent',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
+            label: 'Open Recent',
           },
         ],
+        level: 0,
       },
       {
-        level: 1,
         focusedIndex: 0,
         items: [
           {
@@ -133,6 +132,7 @@ test.skip('handleKeyArrowRight - open sub menu', async () => {
             label: 'file-2.txt',
           },
         ],
+        level: 1,
         x: 150,
         y: 25,
       },

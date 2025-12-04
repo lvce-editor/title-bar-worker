@@ -15,18 +15,18 @@ const getMenuItemClassName = (isFocused: boolean): string => {
 }
 
 export const getMenuItemDefaultDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
-  const { label, isFocused, key } = menuItem
+  const { isFocused, key, label } = menuItem
   const className = getMenuItemClassName(isFocused)
   const keyDom = key ? getKeyDom(key) : []
   const childCount = key ? 2 : 1
 
   return [
     {
-      type: VirtualDomElements.Div,
+      childCount,
       className,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
-      childCount,
+      type: VirtualDomElements.Div,
     },
     text(label),
     ...keyDom,

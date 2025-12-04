@@ -4,15 +4,15 @@ import * as I18nString from '../I18NString/I18NString.ts'
  * @enum {string}
  */
 const UiStrings = {
+  Exit: 'Exit',
   NewFile: 'New File',
   NewWindow: 'New Window',
-  Separator: 'Separator',
   OpenFile: 'Open File',
   OpenFolder: 'Open Folder',
   OpenRecent: 'Open Recent',
-  Exit: 'Exit',
   Save: 'Save',
   SaveAll: 'Save All',
+  Separator: 'Separator',
 }
 
 export const newFile = (): string => {

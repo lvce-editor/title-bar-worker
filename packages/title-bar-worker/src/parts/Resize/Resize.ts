@@ -14,9 +14,9 @@ export const resize = async (state: TitleBarMenuBarState, dimensions: any): Prom
   return {
     ...state,
     ...dimensions,
+    height: menuBarHeight,
+    width: menuBarWidth,
     x: menuBarX,
     y: menuBarY,
-    width: menuBarWidth,
-    height: menuBarHeight,
   }
 }

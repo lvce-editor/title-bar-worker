@@ -10,9 +10,9 @@ export const getKeyDom = (key: number): readonly VirtualDomNode[] => {
   const keyBindingsString = GetKeyBindingsString.getKeyBindingString(parsedKey.key, false, parsedKey.isCtrl, parsedKey.isShift, false)
   return [
     {
-      type: VirtualDomElements.Span,
-      className: ClassNames.MenuItemKeyBinding,
       childCount: 1,
+      className: ClassNames.MenuItemKeyBinding,
+      type: VirtualDomElements.Span,
     },
     text(keyBindingsString),
   ]

@@ -11,11 +11,11 @@ test('getMenuVirtualDom - empty menu items array', () => {
 
   expect(result).toEqual([
     {
-      type: VirtualDomElements.Div,
+      childCount: 0,
       className: ClassNames.Menu,
       role: AriaRoles.Menu,
       tabIndex: -1,
-      childCount: 0,
+      type: VirtualDomElements.Div,
     },
   ])
 })
@@ -23,12 +23,12 @@ test('getMenuVirtualDom - empty menu items array', () => {
 test('getMenuVirtualDom - single menu item', () => {
   const menuItems: readonly VisibleMenuItem[] = [
     {
-      label: 'Single Item',
       flags: 0,
-      isFocused: false,
       isExpanded: false,
-      level: 0,
+      isFocused: false,
       key: 0,
+      label: 'Single Item',
+      level: 0,
     },
   ]
 
@@ -36,11 +36,11 @@ test('getMenuVirtualDom - single menu item', () => {
 
   expect(result).toHaveLength(3) // Menu container + menu item div + text
   expect(result[0]).toEqual({
-    type: VirtualDomElements.Div,
+    childCount: 1,
     className: ClassNames.Menu,
     role: AriaRoles.Menu,
     tabIndex: -1,
-    childCount: 1,
+    type: VirtualDomElements.Div,
   })
   // The second element should be the menu item div
   expect(result[1].type).toBe(VirtualDomElements.Div)
@@ -53,28 +53,28 @@ test('getMenuVirtualDom - single menu item', () => {
 test('getMenuVirtualDom - multiple menu items', () => {
   const menuItems: readonly VisibleMenuItem[] = [
     {
-      label: 'Item 1',
       flags: 0,
-      isFocused: false,
       isExpanded: false,
-      level: 0,
+      isFocused: false,
       key: 0,
+      label: 'Item 1',
+      level: 0,
     },
     {
-      label: 'Item 2',
       flags: 0,
-      isFocused: true,
       isExpanded: false,
-      level: 0,
+      isFocused: true,
       key: 1,
+      label: 'Item 2',
+      level: 0,
     },
     {
-      label: 'Item 3',
       flags: 0,
-      isFocused: false,
       isExpanded: true,
-      level: 0,
+      isFocused: false,
       key: 2,
+      label: 'Item 3',
+      level: 0,
     },
   ]
 
@@ -82,20 +82,20 @@ test('getMenuVirtualDom - multiple menu items', () => {
 
   expect(result.length).toBeGreaterThan(4) // Menu container + multiple DOM nodes for each menu item
   expect(result[0]).toEqual({
-    type: VirtualDomElements.Div,
+    childCount: 3,
     className: ClassNames.Menu,
     role: AriaRoles.Menu,
     tabIndex: -1,
-    childCount: 3,
+    type: VirtualDomElements.Div,
   })
 })
 
 test('getMenuVirtualDom - childCount matches menu items length', () => {
-  const menuItems1: readonly VisibleMenuItem[] = [{ label: 'Item 1', flags: 0, isFocused: false, isExpanded: false, level: 0, key: 0 }]
+  const menuItems1: readonly VisibleMenuItem[] = [{ flags: 0, isExpanded: false, isFocused: false, key: 0, label: 'Item 1', level: 0 }]
   const menuItems2: readonly VisibleMenuItem[] = [
-    { label: 'Item 1', flags: 0, isFocused: false, isExpanded: false, level: 0, key: 0 },
-    { label: 'Item 2', flags: 0, isFocused: false, isExpanded: false, level: 0, key: 1 },
-    { label: 'Item 3', flags: 0, isFocused: false, isExpanded: false, level: 0, key: 2 },
+    { flags: 0, isExpanded: false, isFocused: false, key: 0, label: 'Item 1', level: 0 },
+    { flags: 0, isExpanded: false, isFocused: false, key: 1, label: 'Item 2', level: 0 },
+    { flags: 0, isExpanded: false, isFocused: false, key: 2, label: 'Item 3', level: 0 },
   ]
 
   const result1 = GetMenuVirtualDom.getMenuVirtualDom(menuItems1)
@@ -106,24 +106,24 @@ test('getMenuVirtualDom - childCount matches menu items length', () => {
 })
 
 test('getMenuVirtualDom - menu container always has correct structure', () => {
-  const menuItems: readonly VisibleMenuItem[] = [{ label: 'Test Item', flags: 0, isFocused: false, isExpanded: false, level: 0, key: 0 }]
+  const menuItems: readonly VisibleMenuItem[] = [{ flags: 0, isExpanded: false, isFocused: false, key: 0, label: 'Test Item', level: 0 }]
 
   const result = GetMenuVirtualDom.getMenuVirtualDom(menuItems)
 
   expect(result[0]).toEqual({
-    type: VirtualDomElements.Div,
+    childCount: 1,
     className: ClassNames.Menu,
     role: AriaRoles.Menu,
     tabIndex: -1,
-    childCount: 1,
+    type: VirtualDomElements.Div,
   })
 })
 
 test('getMenuVirtualDom - handles different menu item types', () => {
   const menuItems: readonly VisibleMenuItem[] = [
-    { label: 'Default Item', flags: 0, isFocused: false, isExpanded: false, level: 0, key: 0 },
-    { label: 'Separator Item', flags: 2, isFocused: false, isExpanded: false, level: 0, key: 0 }, // Separator flag
-    { label: 'Checked Item', flags: 4, isFocused: false, isExpanded: false, level: 0, key: 0 }, // Checked flag
+    { flags: 0, isExpanded: false, isFocused: false, key: 0, label: 'Default Item', level: 0 },
+    { flags: 2, isExpanded: false, isFocused: false, key: 0, label: 'Separator Item', level: 0 }, // Separator flag
+    { flags: 4, isExpanded: false, isFocused: false, key: 0, label: 'Checked Item', level: 0 }, // Checked flag
   ]
 
   const result = GetMenuVirtualDom.getMenuVirtualDom(menuItems)

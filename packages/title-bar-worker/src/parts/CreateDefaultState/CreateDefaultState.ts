@@ -6,6 +6,7 @@ const DEFAULT_UID = 1
 export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarState => ({
   assetDir: '',
   buttons: [],
+  commandCenterEnabled: false,
   controlsOverlayEnabled: false,
   focusedIndex: -1,
   height: 30,
@@ -16,6 +17,7 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   labelFontWeight: 400,
   labelLetterSpacing: 0,
   labelPadding: 8,
+  layoutControlsEnabled: false,
   menus: [],
   platform: PlatformType.Electron,
   title: '',
@@ -33,6 +35,4 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   width: 800,
   x: 0,
   y: 0,
-  layoutControlsEnabled: false,
-  commandCenterEnabled: false,
 })

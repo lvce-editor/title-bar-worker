@@ -54,8 +54,8 @@ export const getIndexToFocusPrevious = (menu: any): number => {
 
 const canBeFocused = (item: VisibleMenuItem): boolean => {
   switch (item.flags) {
-    case MenuItemFlags.Separator:
     case MenuItemFlags.Disabled:
+    case MenuItemFlags.Separator:
       return false
     default:
       return true

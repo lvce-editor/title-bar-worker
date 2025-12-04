@@ -8,9 +8,9 @@ export const getTitleBarButtonsElectron = (controlsOverlayEnabled: boolean, titl
   if (titleBarStyleCustom) {
     // TODO don't render title bar buttons on windows when electron window controls overlay is enabled
     return [
-      { label: TitleBarStrings.minimize(), icon: 'Minimize', id: 'Minimize', onClick: 'handleClickMinimize' },
-      { label: TitleBarStrings.maximize(), icon: 'Maximize', id: 'ToggleMaximize', onClick: 'handleClickToggleMaximize' },
-      { label: TitleBarStrings.close(), icon: 'ChromeClose', id: 'Close', onClick: 'handleClickClose' },
+      { icon: 'Minimize', id: 'Minimize', label: TitleBarStrings.minimize(), onClick: 'handleClickMinimize' },
+      { icon: 'Maximize', id: 'ToggleMaximize', label: TitleBarStrings.maximize(), onClick: 'handleClickToggleMaximize' },
+      { icon: 'ChromeClose', id: 'Close', label: TitleBarStrings.close(), onClick: 'handleClickClose' },
     ]
   }
   return []

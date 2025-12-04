@@ -7,11 +7,11 @@ import { getMenuItemVirtualDom } from '../GetMenuItemVirtualDom/GetMenuItemVirtu
 export const getMenuVirtualDom = (menuItems: readonly VisibleMenuItem[]): readonly VirtualDomNode[] => {
   const dom: readonly VirtualDomNode[] = [
     {
-      type: VirtualDomElements.Div,
+      childCount: menuItems.length,
       className: ClassNames.Menu,
       role: AriaRoles.Menu,
       tabIndex: -1,
-      childCount: menuItems.length,
+      type: VirtualDomElements.Div,
     },
     ...menuItems.flatMap(getMenuItemVirtualDom),
   ]

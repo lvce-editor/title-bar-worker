@@ -5,8 +5,8 @@ import * as ViewletTitleBarMenuBarToggleMenu from '../src/parts/TitleBarMenuBar/
 test('toggleMenu with menu closed opens menu', async () => {
   const state = {
     ...createDefaultState(),
-    isMenuOpen: false,
     focusedIndex: 0,
+    isMenuOpen: false,
     titleBarEntries: [{ id: 2 }], // Edit menu ID
   }
   const result = await ViewletTitleBarMenuBarToggleMenu.toggleMenu(state)

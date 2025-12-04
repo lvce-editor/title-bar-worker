@@ -9,15 +9,15 @@ import { getTitleVirtualDom } from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
-  const { titleBarEntries, width, focusedIndex, isMenuOpen, assetDir, title, titleBarButtons } = state
+  const { assetDir, focusedIndex, isMenuOpen, title, titleBarButtons, titleBarEntries, width } = state
   const dom: VirtualDomNode[] = [
     {
-      type: VirtualDomElements.Div,
+      ariaLabel: 'Title Bar',
+      childCount: 4,
       className: 'Viewlet TitleBar',
       id: 'TitleBar',
       role: AriaRoles.ContentInfo,
-      ariaLabel: 'Title Bar',
-      childCount: 4,
+      type: VirtualDomElements.Div,
     },
   ]
 

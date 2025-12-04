@@ -4,8 +4,8 @@ import * as GetRecentlyOpened from '../src/parts/GetRecentlyOpened/GetRecentlyOp
 
 test('getRecentlyOpened', async () => {
   const mockData = [
-    { path: '/home/user/project1', label: 'project1' },
-    { path: '/home/user/project2', label: 'project2' },
+    { label: 'project1', path: '/home/user/project1' },
+    { label: 'project2', path: '/home/user/project2' },
   ]
 
   const mockRpc = RendererWorker.registerMockRpc({

@@ -9,48 +9,48 @@ export const id = MenuEntryId.Edit
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
+      command: /* TODO */ '-1',
+      flags: MenuItemFlags.Disabled,
       id: 'undo',
       label: EditorStrings.undo(),
-      flags: MenuItemFlags.Disabled,
-      command: /* TODO */ '-1',
     },
     {
+      command: /* TODO */ '-1',
+      flags: MenuItemFlags.Disabled,
       id: 'redo',
       label: EditorStrings.redo(),
-      flags: MenuItemFlags.Disabled,
-      command: /* TODO */ '-1',
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
+      command: /* Editor.cut */ 'Editor.cut',
+      flags: MenuItemFlags.None,
       id: 'cut',
       label: EditorStrings.cut(),
-      flags: MenuItemFlags.None,
-      command: /* Editor.cut */ 'Editor.cut',
     },
     {
+      command: /* Editor.copy */ 'Editor.copy',
+      flags: MenuItemFlags.None,
       id: 'copy',
       label: EditorStrings.copy(),
-      flags: MenuItemFlags.None,
-      command: /* Editor.copy */ 'Editor.copy',
     },
     {
+      command: /* Editor.paste */ 'Editor.paste',
+      flags: MenuItemFlags.None,
       id: 'paste',
       label: EditorStrings.paste(),
-      flags: MenuItemFlags.None,
-      command: /* Editor.paste */ 'Editor.paste',
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
+      command: /* Editor.toggleLineComment */ 'Editor.toggleLineComment',
+      flags: MenuItemFlags.None,
       id: 'toggle-line-comment',
       label: EditorStrings.toggleLineComment(),
-      flags: MenuItemFlags.None,
-      command: /* Editor.toggleLineComment */ 'Editor.toggleLineComment',
     },
     {
+      command: /* Editor.toggleBlockComment */ 'Editor.toggleBlockComment',
+      flags: MenuItemFlags.None,
       id: 'toggle-block-comment',
       label: EditorStrings.toggleBlockComment(),
-      flags: MenuItemFlags.None,
-      command: /* Editor.toggleBlockComment */ 'Editor.toggleBlockComment',
     },
   ]
 }

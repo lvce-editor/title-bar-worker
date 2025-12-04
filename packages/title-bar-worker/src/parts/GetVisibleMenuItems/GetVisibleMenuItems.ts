@@ -6,12 +6,12 @@ export const getVisible = (items: readonly any[], focusedIndex: number, expanded
     const item = items[i]
     const { flags, label } = item
     visibleItems.push({
-      label,
       flags,
-      isFocused: i === focusedIndex,
       isExpanded: i === focusedIndex && expanded,
-      level,
+      isFocused: i === focusedIndex,
       key: item.key,
+      label,
+      level,
     })
   }
   return visibleItems

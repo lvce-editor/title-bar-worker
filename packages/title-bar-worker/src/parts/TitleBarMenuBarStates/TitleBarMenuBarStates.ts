@@ -1,4 +1,4 @@
 import * as ViewletRegistry from '@lvce-editor/viewlet-registry'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
-export const { get, set, getCommandIds, registerCommands, wrapCommand, wrapGetter } = ViewletRegistry.create<TitleBarMenuBarState>()
+export const { get, getCommandIds, registerCommands, set, wrapCommand, wrapGetter } = ViewletRegistry.create<TitleBarMenuBarState>()

@@ -8,6 +8,21 @@ test.skip('handleKeyArrowUp - with menu open', async () => {
     // @ts-ignore
     ...ViewletTitleBarMenuBar.create(),
     focusedIndex: 0,
+    isMenuOpen: true,
+    menus: [
+      {
+        focusedIndex: 1,
+        items: [
+          {
+            label: '1',
+          },
+          {
+            label: '2',
+          },
+        ],
+        level: 0,
+      },
+    ],
     titleBarEntries: [
       {
         id: MenuEntryId.File,
@@ -22,26 +37,10 @@ test.skip('handleKeyArrowUp - with menu open', async () => {
         name: 'Selection',
       },
     ],
-    isMenuOpen: true,
-    menus: [
-      {
-        level: 0,
-        focusedIndex: 1,
-        items: [
-          {
-            label: '1',
-          },
-          {
-            label: '2',
-          },
-        ],
-      },
-    ],
   }
   expect(await ViewletTitleBarMenuBarHandleKeyArrowUp.handleKeyArrowUp(state)).toMatchObject({
     menus: [
       {
-        level: 0,
         focusedIndex: 0,
         items: [
           {
@@ -51,6 +50,7 @@ test.skip('handleKeyArrowUp - with menu open', async () => {
             label: '2',
           },
         ],
+        level: 0,
       },
     ],
   })

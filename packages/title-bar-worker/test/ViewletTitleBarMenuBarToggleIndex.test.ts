@@ -16,8 +16,8 @@ test('toggleIndex with menu closed opens menu at index', async () => {
 test('toggleIndex with menu open at same index closes menu', async () => {
   const state = {
     ...createDefaultState(),
-    isMenuOpen: true,
     focusedIndex: 0,
+    isMenuOpen: true,
   }
   const result = await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 0)
   expect(result.isMenuOpen).toBe(false)
@@ -26,8 +26,8 @@ test('toggleIndex with menu open at same index closes menu', async () => {
 test('toggleIndex with menu open at different index opens new menu', async () => {
   const state = {
     ...createDefaultState(),
-    isMenuOpen: true,
     focusedIndex: 0,
+    isMenuOpen: true,
     titleBarEntries: [{ id: 2 }, { id: 5 }], // Edit and File menu IDs
   }
   const result = await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, 1)

@@ -3,9 +3,9 @@ import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const parentNode: VirtualDomNode = {
-  type: VirtualDomElements.Div,
-  className: 'TitleBarTitle',
   childCount: 1,
+  className: 'TitleBarTitle',
+  type: VirtualDomElements.Div,
 }
 
 export const getTitleVirtualDom = (title: string): readonly VirtualDomNode[] => {

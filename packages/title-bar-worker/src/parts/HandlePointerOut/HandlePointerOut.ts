@@ -8,7 +8,7 @@ export const handlePointerOut = (
   clientX: number,
   clientY: number,
 ): TitleBarMenuBarState | Promise<TitleBarMenuBarState> => {
-  const { x, iconWidth, titleBarEntries } = state
+  const { iconWidth, titleBarEntries, x } = state
   const menuX = getMenuOffset(x, clientX, iconWidth)
   const index = ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(titleBarEntries, menuX, clientY)
   if (index === -1) {

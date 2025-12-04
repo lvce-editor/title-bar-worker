@@ -9,11 +9,11 @@ export const id = MenuEntryId.Terminal
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
+      args: ['Terminal'],
+      command: 'Layout.togglePanel',
+      flags: MenuItemFlags.None,
       id: 'newTerminal',
       label: I18NString.i18nString(UiStrings.NewTerminal),
-      flags: MenuItemFlags.None,
-      command: 'Layout.togglePanel',
-      args: ['Terminal'],
     },
   ]
 }

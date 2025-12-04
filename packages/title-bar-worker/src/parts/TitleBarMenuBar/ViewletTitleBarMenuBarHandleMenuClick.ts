@@ -13,14 +13,14 @@ export const handleMenuClick = async (state: TitleBarMenuBarState, level: number
     return state
   }
   switch (item.flags) {
-    case MenuItemFlags.None:
-      return selectIndexNone(state, item)
-    case MenuItemFlags.SubMenu:
-      return selectIndexSubMenu(state, menu, index)
-    case MenuItemFlags.RestoreFocus:
-      return selectIndexRestoreFocus(state, item)
     case MenuItemFlags.Ignore:
       return selectIndexIgnore(state, item)
+    case MenuItemFlags.None:
+      return selectIndexNone(state, item)
+    case MenuItemFlags.RestoreFocus:
+      return selectIndexRestoreFocus(state, item)
+    case MenuItemFlags.SubMenu:
+      return selectIndexSubMenu(state, menu, index)
     default:
       return state
   }
