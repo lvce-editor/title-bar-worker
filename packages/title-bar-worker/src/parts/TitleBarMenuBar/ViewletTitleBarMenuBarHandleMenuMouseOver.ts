@@ -10,6 +10,9 @@ export const handleMenuMouseOver = async (state: TitleBarMenuBarState, level: nu
   Assert.number(index)
   const { menus } = state
   const menu = menus[level]
+  if (!menu) {
+    return state
+  }
   const { focusedIndex, items, x, y } = menu
   const item = items[index]
   if (focusedIndex === index) {
