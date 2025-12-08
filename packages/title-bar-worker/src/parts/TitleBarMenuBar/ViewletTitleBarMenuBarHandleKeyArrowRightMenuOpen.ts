@@ -9,6 +9,9 @@ export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): 
   const { menus } = state
   // if menu can open sub menu to the right -> do that
   const menu = menus.at(-1)
+  if (!menu) {
+    return state
+  }
   const { focusedIndex, items, x, y } = menu
   if (focusedIndex === -1) {
     return focusNext(state)
