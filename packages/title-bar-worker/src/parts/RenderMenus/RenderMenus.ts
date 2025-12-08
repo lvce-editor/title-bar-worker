@@ -14,7 +14,8 @@ export const renderMenus = (oldState: TitleBarMenuBarState, newState: TitleBarMe
     const oldMenu = oldMenus[i]
     const newMenu = newMenus[i]
     if (oldMenu !== newMenu) {
-      const visible = GetVisibleMenuItems.getVisible(newMenu.items, newMenu.focusedIndex, newMenu.expanded, newMenu.level)
+      const expanded = newMenu.expanded ?? false
+      const visible = GetVisibleMenuItems.getVisible(newMenu.items, newMenu.focusedIndex, expanded, newMenu.level)
       const dom = GetMenuVirtualDom.getMenuVirtualDom(visible).slice(1)
       changes.push([/* method */ 'updateMenu', newMenu, /* newLength */ newLength, dom])
     }
@@ -22,9 +23,12 @@ export const renderMenus = (oldState: TitleBarMenuBarState, newState: TitleBarMe
   const difference = newLength - oldLength
   if (difference > 0) {
     const newMenu = newMenus.at(-1)
-    const visible = GetVisibleMenuItems.getVisible(newMenu.items, newMenu.focusedIndex, newMenu.expanded, newMenu.level)
-    const dom = GetMenuVirtualDom.getMenuVirtualDom(visible).slice(1)
-    changes.push(['addMenu', newMenu, dom])
+    if (newMenu) {
+      const expanded = newMenu.expanded ?? false
+      const visible = GetVisibleMenuItems.getVisible(newMenu.items, newMenu.focusedIndex, expanded, newMenu.level)
+      const dom = GetMenuVirtualDom.getMenuVirtualDom(visible).slice(1)
+      changes.push(['addMenu', newMenu, dom])
+    }
   } else if (difference < 0) {
     changes.push(['closeMenus', newLength])
   }
