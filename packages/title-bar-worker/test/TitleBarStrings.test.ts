@@ -48,3 +48,19 @@ test('maximize', () => {
 test('close', () => {
   expect(TitleBarStrings.close()).toBe('Close')
 })
+
+test('titleBar', () => {
+  expect(TitleBarStrings.titleBar()).toBe('Title Bar')
+})
+
+test('menuBar', () => {
+  expect(TitleBarStrings.menuBar()).toBe('Menu Bar')
+})
+
+test('commandCenter', () => {
+  expect(TitleBarStrings.commandCenter()).toBe('Command Center')
+})
+
+test('layoutControls', () => {
+  expect(TitleBarStrings.layoutControls()).toBe('Layout Controls')
+})
