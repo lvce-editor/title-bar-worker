@@ -1,4 +1,4 @@
-import { AriaRoles, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
@@ -23,7 +23,8 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
       role: AriaRoles.MenuItem,
       type: VirtualDomElements.Button,
     },
-    { childCount: 1, className: ClassNames.TitleBarTopLevelEntryLabel, type: VirtualDomElements.Div },
+    ...(isFocused ? [{ childCount: 1, className: ClassNames.TitleBarTopLevelEntryLabel, type: VirtualDomElements.Div }] : []),
+    text(label),
   ]
 }
 
