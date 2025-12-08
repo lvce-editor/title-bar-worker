@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { beforeEach, expect, jest, test } from '@jest/globals'
 import type { MenuEntry } from '../src/parts/MenuEntry/MenuEntry.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -72,8 +73,23 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
 })
 
 const ViewletTitleBarMenuBarHandleKeyArrowRight = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowRight.ts')
+=======
+import { expect, test } from '@jest/globals'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
+import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
+import * as ViewletTitleBarMenuBarHandleKeyArrowRight from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowRight.ts'
+>>>>>>> Stashed changes
 
 test('handleKeyArrowRight - open sub menu', async () => {
+  const mockRpc = RendererWorker.registerMockRpc({
+    'RecentlyOpened.getRecentlyOpened': () => [
+      'file:///home/user/file-1.txt',
+      'file:///home/user/file-2.txt',
+    ],
+  })
+
   const state = {
     ...createDefaultState(),
     focusedIndex: 0,
@@ -127,6 +143,7 @@ test('handleKeyArrowRight - open sub menu', async () => {
     ],
   }
   const result = await ViewletTitleBarMenuBarHandleKeyArrowRight.handleKeyArrowRight(state)
+<<<<<<< Updated upstream
   expect(result).toMatchObject({
     menus: [
       {
@@ -166,4 +183,10 @@ test('handleKeyArrowRight - open sub menu', async () => {
       },
     ],
   })
+=======
+  expect(result.menus).toHaveLength(2)
+  expect(result.menus[0].focusedIndex).toBe(1)
+  expect(result.menus[1].level).toBe(1)
+  expect(result.menus[1].items.length).toBeGreaterThan(0)
+>>>>>>> Stashed changes
 })

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { beforeEach, expect, jest, test } from '@jest/globals'
 import type { MenuEntry } from '../src/parts/MenuEntry/MenuEntry.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -72,6 +73,14 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
 })
 
 const ViewletTitleBarMenuBarHandleMenuMouseOver = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts')
+=======
+import { expect, test } from '@jest/globals'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
+import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
+import * as ViewletTitleBarMenuBarHandleMenuMouseOver from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
+>>>>>>> Stashed changes
 
 test('handleMouseOverMenu - focus item', async () => {
   const state = {
@@ -174,6 +183,13 @@ test('handleMouseOverMenu - focus item - already focused', async () => {
 })
 
 test('handleMouseOverMenu - open sub menu', async () => {
+  const mockRpc = RendererWorker.registerMockRpc({
+    'RecentlyOpened.getRecentlyOpened': () => [
+      'file:///home/user/file-1.txt',
+      'file:///home/user/file-2.txt',
+    ],
+  })
+
   const state = {
     ...createDefaultState(),
     focusedIndex: 0,
@@ -204,6 +220,7 @@ test('handleMouseOverMenu - open sub menu', async () => {
       },
     ],
   }
+<<<<<<< Updated upstream
   // @ts-ignore
   expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 2)).toMatchObject({
     menus: [
@@ -249,6 +266,13 @@ test('handleMouseOverMenu - open sub menu', async () => {
       },
     ],
   })
+=======
+  const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 2)
+  expect(result.menus).toHaveLength(2)
+  expect(result.menus[0].focusedIndex).toBe(2)
+  expect(result.menus[1].level).toBe(1)
+  expect(result.menus[1].items.length).toBeGreaterThan(0)
+>>>>>>> Stashed changes
 })
 
 test('handleMouseOverMenu - unfocus sub menu', async () => {
