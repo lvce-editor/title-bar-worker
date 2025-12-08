@@ -17,7 +17,7 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
       ariaKeyShortcuts: keyboardShortCut,
       ariaOwns: isOpen ? 'Menu-0' : undefined,
       childCount: 1,
-      className: ClassNames.TitleBarTopLevelEntry,
+      className,
       id: isFocused ? 'TitleBarEntryActive' : undefined,
       name: label, // TODO have separate name attribute
       role: AriaRoles.MenuItem,
