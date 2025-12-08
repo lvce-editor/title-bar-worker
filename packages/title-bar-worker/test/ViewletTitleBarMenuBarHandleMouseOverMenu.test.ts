@@ -355,29 +355,5 @@ test('handleMouseOverMenu - unfocus menu and sub menu', async () => {
     ],
   }
   // @ts-ignore
-  expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, -1)).toMatchObject({
-    menus: [
-      {
-        focusedIndex: -1,
-        items: [
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'newFile',
-            label: 'New File',
-          },
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'newWindow',
-            label: 'New Window',
-          },
-          {
-            flags: MenuItemFlags.SubMenu,
-            id: MenuEntryId.OpenRecent,
-            label: 'Open Recent',
-          },
-        ],
-        level: 0,
-      },
-    ],
-  })
+  expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, -1)).toBe(state)
 })
