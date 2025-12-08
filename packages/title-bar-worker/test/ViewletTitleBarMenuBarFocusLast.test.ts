@@ -1,29 +1,40 @@
 import { expect, test } from '@jest/globals'
-import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
-import * as ViewletTitleBarMenuBar from '../src/parts/TitleBarMenuBar/TitleBarMenuBar.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarFocusLast from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarFocusLast.ts'
 
-test.skip('focusLast - at end', () => {
+test('focusLast - at end', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 2,
     titleBarEntries: [
       {
-        id: MenuEntryId.File,
-        name: 'File',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 0,
+        label: 'File',
+        level: 0,
       },
       {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 1,
+        label: 'Edit',
+        level: 0,
       },
       {
-        id: MenuEntryId.Selection,
-        name: 'Selection',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 2,
+        label: 'Selection',
+        level: 0,
       },
     ],
   }
-  expect(ViewletTitleBarMenuBarFocusLast.focusLast(state)).toMatchObject({
+  const result = await ViewletTitleBarMenuBarFocusLast.focusLast(state)
+  expect(result).toMatchObject({
     focusedIndex: 2,
   })
 })
