@@ -5,7 +5,10 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetTitleBarButtonVirtualDom from '../GetTitleBarButtonVirtualDom/GetTitleBarButtonVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
-export const getTitleBarButtonsVirtualDom = (buttons: readonly TitleBarButton[]): readonly VirtualDomNode[] => {
+export const getTitleBarButtonsVirtualDom = (buttonsEnabled: boolean, buttons: readonly TitleBarButton[]): readonly VirtualDomNode[] => {
+  if (!buttonsEnabled) {
+    return []
+  }
   return [
     {
       childCount: buttons.length,

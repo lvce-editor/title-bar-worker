@@ -8,6 +8,9 @@ const parentNode: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
-export const getTitleVirtualDom = (title: string): readonly VirtualDomNode[] => {
+export const getTitleVirtualDom = (titleBarTitleEnabled: boolean, title: string): readonly VirtualDomNode[] => {
+  if (!titleBarTitleEnabled) {
+    return []
+  }
   return [parentNode, text(title)]
 }

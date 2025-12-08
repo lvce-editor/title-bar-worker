@@ -8,7 +8,14 @@ import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
 const activeId = 'TitleBarEntryActive'
 
-export const getTitleBarMenuBarVirtualDom = (visibleItems: readonly VisibleMenuItem[], focusedIndex: number): readonly VirtualDomNode[] => {
+export const getTitleBarMenuBarVirtualDom = (
+  menuBarEnabled: boolean,
+  visibleItems: readonly VisibleMenuItem[],
+  focusedIndex: number,
+): readonly VirtualDomNode[] => {
+  if (!menuBarEnabled) {
+    return []
+  }
   return [
     {
       ariaActivedescendant: focusedIndex === -1 ? '' : activeId,
