@@ -8,13 +8,25 @@ import { getTitleVirtualDom } from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 
 export const renderItems = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
-  const { assetDir, buttons, focusedIndex, isMenuOpen, title, titleBarEntries, width } = state
+  const {
+    assetDir,
+    focusedIndex,
+    isMenuOpen,
+    title,
+    titleBarButtons,
+    titleBarButtonsEnabled,
+    titleBarEntries,
+    titleBarIconEnabled,
+    titleBarMenuBarEnabled,
+    titleBarTitleEnabled,
+    width,
+  } = state
   const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
   const iconSrc = getIcon(assetDir)
-  const iconDom = getTitleBarIconVirtualDom(iconSrc)
-  const menuBarDom = GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(visibleEntries, focusedIndex)
-  const titleDom = getTitleVirtualDom(title)
-  const buttonsDom = getTitleBarButtonsVirtualDom(buttons)
+  const iconDom = getTitleBarIconVirtualDom(titleBarIconEnabled, iconSrc)
+  const menuBarDom = GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(titleBarMenuBarEnabled, visibleEntries, focusedIndex)
+  const titleDom = getTitleVirtualDom(titleBarTitleEnabled, title)
+  const buttonsDom = getTitleBarButtonsVirtualDom(titleBarButtonsEnabled, titleBarButtons)
   const dom = [...iconDom, ...menuBarDom, ...titleDom, ...buttonsDom]
   return dom
 }
