@@ -1,8 +1,9 @@
+import type { IMenu } from '../IMenu/IMenu.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
-export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: any, index: number): Promise<TitleBarMenuBarState> => {
+export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMenu, index: number): Promise<TitleBarMenuBarState> => {
   const { menus } = state
   const { items, level, x, y } = menu
   const item = items[index]
