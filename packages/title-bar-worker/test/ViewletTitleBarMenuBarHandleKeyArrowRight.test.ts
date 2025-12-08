@@ -1,4 +1,5 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
+import type { MenuEntry } from '../src/parts/MenuEntry/MenuEntry.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
@@ -10,7 +11,7 @@ beforeEach(() => {
 jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
   return {
     // @ts-ignore
-    getMenuEntries: (id): any => {
+    getMenuEntries: (id): readonly MenuEntry[] => {
       switch (id) {
         case MenuEntryId.Edit:
           return [

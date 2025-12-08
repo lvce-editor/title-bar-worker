@@ -1,3 +1,4 @@
+import type { IMenu } from '../IMenu/IMenu.ts'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 // TODO lazyload menuEntries and use Command.execute (maybe)
@@ -48,7 +49,7 @@ const getIndexToFocusPreviousStartingAt = (items: readonly (VisibleMenuItem | Me
   return -1
 }
 
-export const getIndexToFocusPrevious = (menu: any): number => {
+export const getIndexToFocusPrevious = (menu: IMenu): number => {
   const startIndex = menu.focusedIndex === -1 ? menu.items.length - 1 : menu.focusedIndex - 1
   return getIndexToFocusPreviousStartingAt(menu.items, startIndex)
 }
@@ -63,7 +64,7 @@ const canBeFocused = (item: MenuEntry | VisibleMenuItem): boolean => {
   }
 }
 
-export const getIndexToFocusNext = (menu: any): number => {
+export const getIndexToFocusNext = (menu: IMenu): number => {
   const startIndex = menu.focusedIndex + 1
   return getIndexToFocusNextStartingAt(menu.items, startIndex)
 }

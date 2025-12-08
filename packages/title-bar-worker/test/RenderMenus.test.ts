@@ -1,4 +1,6 @@
 import { expect, test } from '@jest/globals'
+import type { IMenu } from '../src/parts/IMenu/IMenu.ts'
+import type { MenuEntry } from '../src/parts/MenuEntry/MenuEntry.ts'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
@@ -7,14 +9,14 @@ import * as RenderMethod from '../src/parts/RenderMethod/RenderMethod.ts'
 
 const UID = 1
 
-const createMenu = (items: readonly any[], focusedIndex: number = -1, expanded: boolean = false, level: number = 0): any => ({
+const createMenu = (items: readonly any[], focusedIndex: number = -1, expanded: boolean = false, level: number = 0): IMenu => ({
   expanded,
   focusedIndex,
   items,
   level,
 })
 
-const createMenuItem = (label: string, flags: number = MenuItemFlags.None, key: number = 0): any => ({
+const createMenuItem = (label: string, flags: number = MenuItemFlags.None, key: number = 0): MenuEntry => ({
   flags,
   key,
   label,
