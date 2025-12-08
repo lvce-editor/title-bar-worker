@@ -1,5 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowUp from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowUp.ts'
 
 test('handleKeyArrowUp - with menu open', async () => {
@@ -12,9 +13,13 @@ test('handleKeyArrowUp - with menu open', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: 'Test.command1',
+            flags: MenuItemFlags.None,
             label: '1',
           },
           {
+            command: 'Test.command2',
+            flags: MenuItemFlags.None,
             label: '2',
           },
         ],
@@ -57,9 +62,13 @@ test('handleKeyArrowUp - with menu open', async () => {
         focusedIndex: 0,
         items: [
           {
+            command: 'Test.command1',
+            flags: MenuItemFlags.None,
             label: '1',
           },
           {
+            command: 'Test.command2',
+            flags: MenuItemFlags.None,
             label: '2',
           },
         ],

@@ -15,10 +15,12 @@ test('handleKeyArrowLeft - close sub menu', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: 'File.new',
             flags: MenuItemFlags.None,
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -32,9 +34,13 @@ test('handleKeyArrowLeft - close sub menu', async () => {
         focusedIndex: -1,
         items: [
           {
+            command: 'File.openRecent',
+            flags: MenuItemFlags.None,
             label: 'file-1.txt',
           },
           {
+            command: 'File.openRecent',
+            flags: MenuItemFlags.None,
             label: 'file-2.txt',
           },
         ],
@@ -77,10 +83,12 @@ test('handleKeyArrowLeft - close sub menu', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: 'File.new',
             flags: MenuItemFlags.None,
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
