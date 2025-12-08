@@ -1,10 +1,11 @@
+import type { IMenu } from '../IMenu/IMenu.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as Assert from '../Assert/Assert.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
-const getNewMenus = async (menus: readonly any[], level: number, index: number, flags: number): Promise<readonly any[]> => {
+const getNewMenus = async (menus: readonly IMenu[], level: number, index: number, flags: number): Promise<readonly any[]> => {
   const menu = menus[level]
   if (!menu) {
     return menus
@@ -41,7 +42,7 @@ const getNewMenus = async (menus: readonly any[], level: number, index: number, 
   if (item.flags === MenuItemFlags.SubMenu) {
     const item = items[index]
     const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
-    const subMenu = {
+    const subMenu: IMenu = {
       focusedIndex: -1,
       items: subMenuEntries,
       level: menus.length,
