@@ -4,6 +4,11 @@ import * as I18nString from '../I18NString/I18NString.ts'
  * @enum {string}
  */
 const UiStrings = {
+  AddCursorAbove: 'Add Cursor Above',
+  AddCursorBelow: 'Add Cursor Below',
+  AddCursorsToLineEnds: 'Add Cursors to Line ends',
+  AddNextOccurrence: 'Add Next Occurrence',
+  AddPreviousOccurrence: 'Add Previous Occurrence',
   Copy: 'Copy',
   CopyLineDown: 'Copy Line Down',
   CopyLineUp: 'Copy Line Up',
@@ -27,6 +32,7 @@ const UiStrings = {
   EditorToggleBlockComment: 'Editor: Toggle Block Comment',
   EditorToggleComment: 'Editor: Toggle Comment',
   EditorUnindent: 'Editor: Unindent',
+  ExpandSelection: 'Expand Selection',
   FindAllImplementations: 'Find All Implementations',
   FindAllReferences: 'Find All References',
   FormatDocument: 'Format Document',
@@ -44,7 +50,9 @@ const UiStrings = {
   Redo: 'Redo',
   Replace: 'replace',
   SelectAll: 'Select All',
+  SelectAllOccurrences: 'Select All Occurrences',
   Separator: 'Separator',
+  ShrinkSelection: 'Shrink Selection',
   SortImports: 'Sort Imports',
   SourceActions: 'Source Actions',
   ToggleBlockComment: 'Toggle Block Comment',
@@ -84,6 +92,14 @@ export const selectAll = (): string => {
   return I18nString.i18nString(UiStrings.SelectAll)
 }
 
+export const expandSelection = (): string => {
+  return I18nString.i18nString(UiStrings.SelectAll)
+}
+
+export const shrinkSelection = (): string => {
+  return I18nString.i18nString(UiStrings.ShrinkSelection)
+}
+
 export const copyLineUp = (): string => {
   return I18nString.i18nString(UiStrings.CopyLineUp)
 }
@@ -98,4 +114,32 @@ export const moveLineUp = (): string => {
 
 export const moveLineDown = (): string => {
   return I18nString.i18nString(UiStrings.MoveLineDown)
+}
+
+export const duplicateSelection = (): string => {
+  return I18nString.i18nString(UiStrings.MoveLineDown)
+}
+
+export const addCursorAbove = (): string => {
+  return I18nString.i18nString(UiStrings.AddCursorAbove)
+}
+
+export const addCursorBelow = (): string => {
+  return I18nString.i18nString(UiStrings.AddCursorAbove)
+}
+
+export const addCursorsToLineEnds = (): string => {
+  return I18nString.i18nString(UiStrings.AddCursorAbove)
+}
+
+export const addNextOccurrence = (): string => {
+  return I18nString.i18nString(UiStrings.AddNextOccurrence)
+}
+
+export const addPreviousOccurrence = (): string => {
+  return I18nString.i18nString(UiStrings.AddPreviousOccurrence)
+}
+
+export const selectAllOccurrences = (): string => {
+  return I18nString.i18nString(UiStrings.SelectAllOccurrences)
 }
