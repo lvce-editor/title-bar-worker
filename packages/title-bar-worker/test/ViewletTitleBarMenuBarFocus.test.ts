@@ -1,25 +1,32 @@
 import { expect, test } from '@jest/globals'
-import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
-import * as ViewletTitleBarMenuBar from '../src/parts/TitleBarMenuBar/TitleBarMenuBar.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarFocus from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarFocus.ts'
 
-test.skip('focus', () => {
+test('focus', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 42,
     titleBarEntries: [
       {
-        id: MenuEntryId.File,
-        name: 'File',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 0,
+        label: 'File',
+        level: 0,
       },
       {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 1,
+        label: 'Edit',
+        level: 0,
       },
     ],
   }
-  expect(ViewletTitleBarMenuBarFocus.focus(state)).toMatchObject({
+  const result = await ViewletTitleBarMenuBarFocus.focus(state)
+  expect(result).toMatchObject({
     focusedIndex: 0,
   })
 })

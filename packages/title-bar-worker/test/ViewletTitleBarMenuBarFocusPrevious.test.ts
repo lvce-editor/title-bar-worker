@@ -1,54 +1,77 @@
 import { expect, test } from '@jest/globals'
-import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
-import * as ViewletTitleBarMenuBar from '../src/parts/TitleBarMenuBar/TitleBarMenuBar.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarFocusPrevious from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarFocusPrevious.ts'
 
-test.skip('focusPrevious', () => {
+test('focusPrevious', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 1,
     titleBarEntries: [
       {
-        id: MenuEntryId.File,
-        name: 'File',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 0,
+        label: 'File',
+        level: 0,
       },
       {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 1,
+        label: 'Edit',
+        level: 0,
       },
       {
-        id: MenuEntryId.Selection,
-        name: 'Selection',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 2,
+        label: 'Selection',
+        level: 0,
       },
     ],
   }
-  expect(ViewletTitleBarMenuBarFocusPrevious.focusPrevious(state)).toMatchObject({
+  const result = await ViewletTitleBarMenuBarFocusPrevious.focusPrevious(state)
+  expect(result).toMatchObject({
     focusedIndex: 0,
   })
 })
 
-test.skip('focusPrevious - at start', () => {
+test('focusPrevious - at start', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
     titleBarEntries: [
       {
-        id: MenuEntryId.File,
-        name: 'File',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 0,
+        label: 'File',
+        level: 0,
       },
       {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 1,
+        label: 'Edit',
+        level: 0,
       },
       {
-        id: MenuEntryId.Selection,
-        name: 'Selection',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 2,
+        label: 'Selection',
+        level: 0,
       },
     ],
   }
-  expect(ViewletTitleBarMenuBarFocusPrevious.focusPrevious(state)).toMatchObject({
+  const result = await ViewletTitleBarMenuBarFocusPrevious.focusPrevious(state)
+  expect(result).toMatchObject({
     focusedIndex: 2,
   })
 })

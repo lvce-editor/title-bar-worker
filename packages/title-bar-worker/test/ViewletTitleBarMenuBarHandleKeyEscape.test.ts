@@ -1,13 +1,12 @@
 import { expect, test } from '@jest/globals'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-import * as ViewletTitleBarMenuBar from '../src/parts/TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as ViewletTitleBarMenuBarHandleKeyEscape from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEscape.ts'
 
-test.skip('handleKeyEscape - close sub menu', () => {
+test('handleKeyEscape - close sub menu', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
     menus: [
@@ -43,20 +42,33 @@ test.skip('handleKeyEscape - close sub menu', () => {
     ],
     titleBarEntries: [
       {
-        id: MenuEntryId.File,
-        name: 'File',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 0,
+        label: 'File',
+        level: 0,
       },
       {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 1,
+        label: 'Edit',
+        level: 0,
       },
       {
-        id: MenuEntryId.Selection,
-        name: 'Selection',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 2,
+        label: 'Selection',
+        level: 0,
       },
     ],
   }
-  expect(ViewletTitleBarMenuBarHandleKeyEscape.handleKeyEscape(state)).toMatchObject({
+  const result = await ViewletTitleBarMenuBarHandleKeyEscape.handleKeyEscape(state)
+  expect(result).toMatchObject({
     menus: [
       {
         focusedIndex: 1,

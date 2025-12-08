@@ -1,7 +1,7 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-import * as ViewletTitleBarMenuBar from '../src/parts/TitleBarMenuBar/TitleBarMenuBar.ts'
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -65,10 +65,9 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
 
 const ViewletTitleBarMenuBarHandleKeyArrowRight = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowRight.ts')
 
-test.skip('handleKeyArrowRight - open sub menu', async () => {
+test('handleKeyArrowRight - open sub menu', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
     menus: [
@@ -92,20 +91,33 @@ test.skip('handleKeyArrowRight - open sub menu', async () => {
     ],
     titleBarEntries: [
       {
-        id: MenuEntryId.File,
-        name: 'File',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 0,
+        label: 'File',
+        level: 0,
       },
       {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 1,
+        label: 'Edit',
+        level: 0,
       },
       {
-        id: MenuEntryId.Selection,
-        name: 'Selection',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 2,
+        label: 'Selection',
+        level: 0,
       },
     ],
   }
-  expect(await ViewletTitleBarMenuBarHandleKeyArrowRight.handleKeyArrowRight(state)).toMatchObject({
+  const result = await ViewletTitleBarMenuBarHandleKeyArrowRight.handleKeyArrowRight(state)
+  expect(result).toMatchObject({
     menus: [
       {
         focusedIndex: 1,

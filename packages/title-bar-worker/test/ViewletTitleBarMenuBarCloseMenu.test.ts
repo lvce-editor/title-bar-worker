@@ -1,46 +1,64 @@
 import { expect, test } from '@jest/globals'
-import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
-import * as ViewletTitleBarMenuBar from '../src/parts/TitleBarMenuBar/TitleBarMenuBar.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarCloseMenu from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
 
-test.skip("closeMenu - don't keep focus", () => {
+test("closeMenu - don't keep focus", () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
+    isMenuOpen: true,
     titleBarEntries: [
       {
-        id: MenuEntryId.File,
-        name: 'File',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 0,
+        label: 'File',
+        level: 0,
       },
       {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 1,
+        label: 'Edit',
+        level: 0,
       },
     ],
   }
-  expect(ViewletTitleBarMenuBarCloseMenu.closeMenu(state, /* keepFocus */ false)).toMatchObject({
+  const result = ViewletTitleBarMenuBarCloseMenu.closeMenu(state, /* keepFocus */ false)
+  expect(result).toMatchObject({
+    focusedIndex: -1,
     isMenuOpen: false,
   })
 })
 
-test.skip('closeMenu - keep focus', () => {
+test('closeMenu - keep focus', () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
+    isMenuOpen: true,
     titleBarEntries: [
       {
-        id: MenuEntryId.File,
-        name: 'File',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 0,
+        label: 'File',
+        level: 0,
       },
       {
-        id: MenuEntryId.Edit,
-        name: 'Edit',
+        flags: 0,
+        isExpanded: false,
+        isFocused: false,
+        key: 1,
+        label: 'Edit',
+        level: 0,
       },
     ],
   }
-  expect(ViewletTitleBarMenuBarCloseMenu.closeMenu(state, /* keepFocus */ true)).toMatchObject({
+  const result = ViewletTitleBarMenuBarCloseMenu.closeMenu(state, /* keepFocus */ true)
+  expect(result).toMatchObject({
     focusedIndex: 0,
     isMenuOpen: false,
   })

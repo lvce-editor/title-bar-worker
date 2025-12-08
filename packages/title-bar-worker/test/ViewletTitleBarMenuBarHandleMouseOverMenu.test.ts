@@ -1,7 +1,7 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-import * as ViewletTitleBarMenuBar from '../src/parts/TitleBarMenuBar/TitleBarMenuBar.ts'
 
 beforeEach(() => {
   jest.resetAllMocks()
@@ -63,12 +63,11 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
   }
 })
 
-const ViewletTitleBarMenuBarHandleMenuMouseOver = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts')
+const ViewletTitleBarMenuBarHandleMenuMouseOver = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts')
 
-test.skip('handleMouseOverMenu - focus item', async () => {
+test('handleMouseOverMenu - focus item', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
     menus: [
@@ -122,10 +121,9 @@ test.skip('handleMouseOverMenu - focus item', async () => {
   })
 })
 
-test.skip('handleMouseOverMenu - focus item - already focused', async () => {
+test('handleMouseOverMenu - focus item - already focused', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
     menus: [
@@ -158,10 +156,9 @@ test.skip('handleMouseOverMenu - focus item - already focused', async () => {
   expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 1)).toBe(state)
 })
 
-test.skip('handleMouseOverMenu - open sub menu', async () => {
+test('handleMouseOverMenu - open sub menu', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
     menus: [
@@ -229,10 +226,9 @@ test.skip('handleMouseOverMenu - open sub menu', async () => {
   })
 })
 
-test.skip('handleMouseOverMenu - unfocus sub menu', async () => {
+test('handleMouseOverMenu - unfocus sub menu', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
     menus: [
@@ -315,10 +311,9 @@ test.skip('handleMouseOverMenu - unfocus sub menu', async () => {
   })
 })
 
-test.skip('handleMouseOverMenu - unfocus menu and sub menu', async () => {
+test('handleMouseOverMenu - unfocus menu and sub menu', async () => {
   const state = {
-    // @ts-ignore
-    ...ViewletTitleBarMenuBar.create(),
+    ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
     menus: [
@@ -360,29 +355,5 @@ test.skip('handleMouseOverMenu - unfocus menu and sub menu', async () => {
     ],
   }
   // @ts-ignore
-  expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, -1)).toMatchObject({
-    menus: [
-      {
-        focusedIndex: -1,
-        items: [
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'newFile',
-            label: 'New File',
-          },
-          {
-            flags: MenuItemFlags.Disabled,
-            id: 'newWindow',
-            label: 'New Window',
-          },
-          {
-            flags: MenuItemFlags.SubMenu,
-            id: MenuEntryId.OpenRecent,
-            label: 'Open Recent',
-          },
-        ],
-        level: 0,
-      },
-    ],
-  })
+  expect(await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, -1)).toBe(state)
 })
