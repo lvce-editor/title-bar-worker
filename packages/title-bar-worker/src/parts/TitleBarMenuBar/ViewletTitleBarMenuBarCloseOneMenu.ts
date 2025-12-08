@@ -3,6 +3,9 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 export const closeOneMenu = (state: TitleBarMenuBarState): TitleBarMenuBarState => {
   const { menus } = state
   const parentMenu = menus.at(-2)
+  if (!parentMenu) {
+    return state
+  }
   const newParentMenu = {
     ...parentMenu,
     expanded: false,
