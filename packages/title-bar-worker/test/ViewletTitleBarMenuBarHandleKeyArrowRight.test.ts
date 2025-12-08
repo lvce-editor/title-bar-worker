@@ -1,4 +1,5 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
+import type { MenuEntry } from '../src/parts/MenuEntry/MenuEntry.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
@@ -10,16 +11,18 @@ beforeEach(() => {
 jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
   return {
     // @ts-ignore
-    getMenuEntries: (id): any => {
+    getMenuEntries: (id): readonly MenuEntry[] => {
       switch (id) {
         case MenuEntryId.Edit:
           return [
             {
+              command: '',
               flags: MenuItemFlags.Disabled,
               id: 'undo',
               label: 'Undo',
             },
             {
+              command: '',
               flags: MenuItemFlags.Disabled,
               id: 'redo',
               label: 'Redo',
@@ -28,16 +31,19 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
         case MenuEntryId.File:
           return [
             {
+              command: '',
               flags: MenuItemFlags.Disabled,
               id: 'newFile',
               label: 'New File',
             },
             {
+              command: '',
               flags: MenuItemFlags.Disabled,
               id: 'newWindow',
               label: 'New Window',
             },
             {
+              command: '',
               flags: MenuItemFlags.SubMenu,
               id: MenuEntryId.OpenRecent,
               label: 'Open Recent',
@@ -46,10 +52,12 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
         case MenuEntryId.OpenRecent:
           return [
             {
+              command: '',
               flags: MenuItemFlags.None,
               label: 'file-1.txt',
             },
             {
+              command: '',
               flags: MenuItemFlags.None,
               label: 'file-2.txt',
             },
@@ -75,10 +83,12 @@ test('handleKeyArrowRight - open sub menu', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -123,10 +133,12 @@ test('handleKeyArrowRight - open sub menu', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -138,9 +150,13 @@ test('handleKeyArrowRight - open sub menu', async () => {
         focusedIndex: 0,
         items: [
           {
+            command: '',
+            flags: MenuItemFlags.None,
             label: 'file-1.txt',
           },
           {
+            command: '',
+            flags: MenuItemFlags.None,
             label: 'file-2.txt',
           },
         ],

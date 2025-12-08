@@ -1,12 +1,15 @@
-import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import { measureTextWidths } from '../MeasureTextWidths/MeasureTextWidths.ts'
 
-const getLabel = (entry: VisibleMenuItem): string => {
+interface EntryWithLabel {
+  readonly label: string
+}
+
+const getLabel = (entry: EntryWithLabel): string => {
   return entry.label
 }
 
 export const addWidths = (
-  entries: readonly VisibleMenuItem[],
+  entries: readonly EntryWithLabel[],
   labelPadding: number,
   fontWeight: number,
   fontSize: number,

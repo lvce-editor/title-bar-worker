@@ -1,5 +1,5 @@
 import { MenuEntryId } from '@lvce-editor/constants'
-import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
+import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
 import * as MenuEntriesFile from '../MenuEntriesFile/MenuEntriesFile.ts'
 import * as MenuEntriesGo from '../MenuEntriesGo/MenuEntriesGo.ts'
@@ -47,7 +47,7 @@ const getFn = (id: string | number): any => {
   }
 }
 
-export const getMenuEntries = async (id: string | number, ...args: readonly unknown[]): Promise<readonly VisibleMenuItem[]> => {
+export const getMenuEntries = async (id: string | number, ...args: readonly unknown[]): Promise<readonly MenuEntry[]> => {
   try {
     const fn = getFn(id)
     // @ts-ignore

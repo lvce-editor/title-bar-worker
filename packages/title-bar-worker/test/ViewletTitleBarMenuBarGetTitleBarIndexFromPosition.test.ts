@@ -38,6 +38,6 @@ test('getTitleBarIndexFromPosition - no match', () => {
 })
 
 test('getTitleBarIndexFromPosition - empty entries', () => {
-  const titleBarEntries: any[] = []
+  const titleBarEntries: readonly any[] = []
   expect(ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.getTitleBarIndexFromPosition(titleBarEntries, 50, 10)).toBe(-1)
 })

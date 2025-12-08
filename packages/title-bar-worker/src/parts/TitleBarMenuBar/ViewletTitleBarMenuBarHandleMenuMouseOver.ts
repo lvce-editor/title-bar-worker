@@ -41,6 +41,9 @@ const getNewMenus = async (menus: readonly IMenu[], level: number, index: number
   }
   if (item.flags === MenuItemFlags.SubMenu) {
     const item = items[index]
+    if (!item.id) {
+      return menus
+    }
     const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
     const subMenu: IMenu = {
       focusedIndex: -1,

@@ -7,6 +7,9 @@ export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMen
   const { menus } = state
   const { items, level, x, y } = menu
   const item = items[index]
+  if (!item.id) {
+    return state
+  }
   const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
   const subMenu = {
     focusedIndex: -1,
