@@ -1,4 +1,9 @@
-const state = {
+interface NativeHostState {
+  isMaximized: boolean
+  isMinimized: boolean
+}
+
+const state: NativeHostState = {
   isMaximized: false,
   isMinimized: false,
 }

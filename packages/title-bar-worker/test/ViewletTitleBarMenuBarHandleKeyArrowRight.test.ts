@@ -1,5 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
@@ -7,13 +8,10 @@ import * as ViewletTitleBarMenuBarHandleKeyArrowRight from '../src/parts/TitleBa
 
 test('handleKeyArrowRight - open sub menu', async () => {
   const mockRpc = RendererWorker.registerMockRpc({
-    'RecentlyOpened.getRecentlyOpened': () => [
-      'file:///home/user/file-1.txt',
-      'file:///home/user/file-2.txt',
-    ],
+    'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt', 'file:///home/user/file-2.txt'],
   })
 
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,

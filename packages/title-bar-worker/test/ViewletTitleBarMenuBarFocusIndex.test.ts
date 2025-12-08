@@ -1,12 +1,13 @@
 import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarFocusIndex from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarFocusIndex.ts'
 
 test('focusIndex - when open - when same index', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
@@ -97,7 +98,7 @@ test('focusIndex - when opening different index', async () => {
     'RecentlyOpened.getRecentlyOpened': () => [],
   })
 
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
@@ -135,7 +136,7 @@ test('focusIndex - when open - race condition', async () => {
     'RecentlyOpened.getRecentlyOpened': () => [],
   })
 
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
@@ -169,7 +170,7 @@ test('focusIndex - when open - race condition', async () => {
 })
 
 test('focusIndex - when closed - when same index', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: false,
@@ -200,7 +201,7 @@ test('focusIndex - when closed - when same index', async () => {
 })
 
 test('focusIndex - when closed - when different index', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: false,
