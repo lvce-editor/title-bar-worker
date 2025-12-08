@@ -19,6 +19,8 @@ test('handleKeyArrowUp - with menu open', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
     ],
     titleBarEntries: [
@@ -62,6 +64,8 @@ test('handleKeyArrowUp - with menu open', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
     ],
   })

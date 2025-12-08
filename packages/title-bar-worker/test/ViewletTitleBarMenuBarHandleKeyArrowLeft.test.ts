@@ -25,6 +25,8 @@ test('handleKeyArrowLeft - close sub menu', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
       {
         focusedIndex: -1,
@@ -85,6 +87,8 @@ test('handleKeyArrowLeft - close sub menu', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
     ],
   })

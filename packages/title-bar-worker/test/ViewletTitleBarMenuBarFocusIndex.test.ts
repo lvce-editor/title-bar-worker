@@ -99,6 +99,8 @@ test('focusIndex - when open - when same index', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
     ],
     titleBarEntries: [
@@ -126,6 +128,7 @@ test('focusIndex - when open - when same index', async () => {
     focusedIndex: 0,
     menus: [
       {
+        focusedIndex: -1,
         items: [
           {
             flags: MenuItemFlags.Disabled,
@@ -144,6 +147,8 @@ test('focusIndex - when open - when same index', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
     ],
   })
@@ -179,6 +184,7 @@ test('focusIndex - when opening different index', async () => {
     focusedIndex: 1,
     menus: [
       {
+        focusedIndex: -1,
         items: [
           {
             flags: MenuItemFlags.Disabled,
@@ -227,6 +233,7 @@ test('focusIndex - when open - race condition', async () => {
     focusedIndex: 1,
     menus: [
       {
+        focusedIndex: -1,
         items: [
           {
             flags: MenuItemFlags.Disabled,
