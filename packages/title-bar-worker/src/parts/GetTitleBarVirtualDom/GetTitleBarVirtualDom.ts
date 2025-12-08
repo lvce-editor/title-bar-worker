@@ -22,30 +22,21 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     titleBarTitleEnabled,
     width,
   } = state
-  const dom: VirtualDomNode[] = [
+  const iconSrc = getIcon(assetDir)
+  const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
+
+  return [
     {
-      ariaLabel: 'Title Bar',
+      ariaLabel: 'Title Bar', // TODO i18n string
       childCount: 4,
       className: 'Viewlet TitleBar',
       id: 'TitleBar',
       role: AriaRoles.ContentInfo,
       type: VirtualDomElements.Div,
     },
+    ...getTitleBarIconVirtualDom(titleBarIconEnabled, iconSrc),
+    ...GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(titleBarMenuBarEnabled, visibleEntries, focusedIndex),
+    ...getTitleVirtualDom(titleBarTitleEnabled, title),
+    ...GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(titleBarButtonsEnabled, titleBarButtons),
   ]
-
-  const iconSrc = getIcon(assetDir)
-  const iconDom = getTitleBarIconVirtualDom(titleBarIconEnabled, iconSrc)
-  dom.push(...iconDom)
-
-  const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
-  const menuBarDom = GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(titleBarMenuBarEnabled, visibleEntries, focusedIndex)
-  dom.push(...menuBarDom)
-
-  const titleDom = getTitleVirtualDom(titleBarTitleEnabled, title)
-  dom.push(...titleDom)
-
-  const buttonsDom = GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(titleBarButtonsEnabled, titleBarButtons)
-  dom.push(...buttonsDom)
-
-  return dom
 }
