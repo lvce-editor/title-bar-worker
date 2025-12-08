@@ -1,41 +1,30 @@
-import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
+import { AriaRoles, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
   // @ts-ignore
   const { icon, isFocused, isOpen, keyboardShortCut, label } = item
-  // TODO avoid mutation
-  const dom: any[] = [
+  let className = ClassNames.TitleBarTopLevelEntry
+  if (isFocused) {
+    className += ' ' + ClassNames.TitleBarEntryActive
+  }
+  return [
     {
       ariaExpanded: isOpen,
       ariaHasPopup: true,
       ariaKeyShortcuts: keyboardShortCut,
+      ariaOwns: isOpen ? 'Menu-0' : undefined,
       childCount: 1,
       className: ClassNames.TitleBarTopLevelEntry,
+      id: isFocused ? 'TitleBarEntryActive' : undefined,
       name: label, // TODO have separate name attribute
       role: AriaRoles.MenuItem,
       type: VirtualDomElements.Button,
     },
+    { childCount: 1, className: ClassNames.TitleBarTopLevelEntryLabel, type: VirtualDomElements.Div },
   ]
-  if (isOpen) {
-    // @ts-ignore
-    dom[0].ariaOwns = 'Menu-0'
-  }
-  if (isFocused) {
-    dom[0].className += ' ' + ClassNames.TitleBarEntryActive
-    // @ts-ignore
-    dom[0].id = 'TitleBarEntryActive'
-    dom.push({
-      childCount: 1,
-      className: ClassNames.TitleBarTopLevelEntryLabel,
-      type: VirtualDomElements.Div,
-    })
-  }
-  dom.push(text(label))
-  return dom
 }
 
 export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: readonly VisibleMenuItem[]): readonly VirtualDomNode[] => {
