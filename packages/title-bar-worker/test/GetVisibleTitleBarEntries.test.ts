@@ -202,9 +202,8 @@ test('getVisibleTitleBarEntries - should calculate more icon width correctly', (
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 60, 0, false)
 
   const moreIcon = result[result.length - 1]
-  if (moreIcon.icon === Icon.Ellipsis) {
-    expect(moreIcon.width).toBe(38)
-  }
+  expect(moreIcon.icon).toBe(Icon.Ellipsis)
+  expect(moreIcon.width).toBe(38)
 })
 
 test('getVisibleTitleBarEntries - should handle multiple entries with overflow', () => {
