@@ -23,11 +23,13 @@ jest.unstable_mockModule('../src/parts/GetMenuEntries2/GetMenuEntries2.js', () =
         case MenuEntryId.Edit:
           return [
             {
+              command: 'Edit.undo',
               flags: MenuItemFlags.Disabled,
               id: 'undo',
               label: 'Undo',
             },
             {
+              command: 'Edit.redo',
               flags: MenuItemFlags.Disabled,
               id: 'redo',
               label: 'Redo',
@@ -36,16 +38,19 @@ jest.unstable_mockModule('../src/parts/GetMenuEntries2/GetMenuEntries2.js', () =
         case MenuEntryId.File:
           return [
             {
+              command: 'File.new',
               flags: MenuItemFlags.Disabled,
               id: 'newFile',
               label: 'New File',
             },
             {
+              command: 'Window.new',
               flags: MenuItemFlags.Disabled,
               id: 'newWindow',
               label: 'New Window',
             },
             {
+              command: '',
               flags: MenuItemFlags.SubMenu,
               id: MenuEntryId.OpenRecent,
               label: 'Open Recent',
@@ -54,10 +59,12 @@ jest.unstable_mockModule('../src/parts/GetMenuEntries2/GetMenuEntries2.js', () =
         case MenuEntryId.OpenRecent:
           return [
             {
+              command: 'File.openRecent',
               flags: MenuItemFlags.None,
               label: 'file-1.txt',
             },
             {
+              command: 'File.openRecent',
               flags: MenuItemFlags.None,
               label: 'file-2.txt',
             },
@@ -83,16 +90,19 @@ test('focusIndex - when open - when same index', async () => {
         focusedIndex: -1,
         items: [
           {
+            command: 'File.new',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: 'Window.new',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -131,16 +141,19 @@ test('focusIndex - when open - when same index', async () => {
         focusedIndex: -1,
         items: [
           {
+            command: 'File.new',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: 'Window.new',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -187,11 +200,13 @@ test('focusIndex - when opening different index', async () => {
         focusedIndex: -1,
         items: [
           {
+            command: 'Edit.undo',
             flags: MenuItemFlags.Disabled,
             id: 'undo',
             label: 'Undo',
           },
           {
+            command: 'Edit.redo',
             flags: MenuItemFlags.Disabled,
             id: 'redo',
             label: 'Redo',
@@ -236,11 +251,13 @@ test('focusIndex - when open - race condition', async () => {
         focusedIndex: -1,
         items: [
           {
+            command: 'Edit.undo',
             flags: MenuItemFlags.Disabled,
             id: 'undo',
             label: 'Undo',
           },
           {
+            command: 'Edit.redo',
             flags: MenuItemFlags.Disabled,
             id: 'redo',
             label: 'Redo',

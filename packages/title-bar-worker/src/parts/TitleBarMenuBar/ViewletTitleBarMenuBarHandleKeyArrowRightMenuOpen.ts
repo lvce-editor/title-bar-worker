@@ -17,7 +17,7 @@ export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): 
     return focusNext(state)
   }
   const item = items[focusedIndex]
-  if (item.flags === MenuItemFlags.SubMenu) {
+  if (item.flags === MenuItemFlags.SubMenu && item.id !== undefined) {
     const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
     const subMenu = {
       focusedIndex: 0,

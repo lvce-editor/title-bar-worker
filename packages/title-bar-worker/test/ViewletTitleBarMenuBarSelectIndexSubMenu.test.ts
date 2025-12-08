@@ -9,7 +9,14 @@ test('selectIndexSubMenu creates submenu and updates parent menu', async () => {
     menus: [
       {
         focusedIndex: -1,
-        items: [{ id: 2 }], // Edit menu ID
+        items: [
+          {
+            command: '',
+            flags: 0,
+            id: 2,
+            label: 'Edit',
+          },
+        ],
         level: 0,
         x: 100,
         y: 50,
