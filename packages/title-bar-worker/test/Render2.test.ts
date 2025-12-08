@@ -19,7 +19,7 @@ test('render2 - should return commands when diffResult has items', async () => {
   const oldState = CreateDefaultState.createDefaultState()
   const newState = { ...CreateDefaultState.createDefaultState(), focusedIndex: 1 }
   TitleBarMenuBarStates.set(uid, oldState, newState)
-  const diffResult = [DiffType.RenderEntries, DiffType.RenderFocusedIndex]
+  const diffResult = [DiffType.RenderFocusedIndex]
 
   const result = await Render2.render2(uid, diffResult)
   expect(Array.isArray(result)).toBe(true)

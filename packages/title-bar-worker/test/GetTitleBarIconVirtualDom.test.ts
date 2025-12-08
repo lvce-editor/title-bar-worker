@@ -3,7 +3,7 @@ import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as GetTitleBarIconVirtualDom from '../src/parts/GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
 
 test('getTitleBarIconVirtualDom', () => {
-  expect(GetTitleBarIconVirtualDom.getTitleBarIconVirtualDom('test-icon.png')).toEqual([
+  expect(GetTitleBarIconVirtualDom.getTitleBarIconVirtualDom(true, 'test-icon.png')).toEqual([
     {
       childCount: 1,
       className: 'Viewlet TitleBarIcon',

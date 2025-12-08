@@ -14,8 +14,8 @@ test('applyRender - should return empty array when diffResult is empty', () => {
 
 test('applyRender - should return commands when diffResult has items', () => {
   const oldState = CreateDefaultState.createDefaultState()
-  const newState = CreateDefaultState.createDefaultState()
-  const diffResult = [DiffType.RenderEntries, DiffType.RenderFocusedIndex]
+  const newState = { ...CreateDefaultState.createDefaultState(), focusedIndex: 1 }
+  const diffResult = [DiffType.RenderFocusedIndex]
 
   const result = ApplyRender.applyRender(oldState, newState, diffResult)
   expect(Array.isArray(result)).toBe(true)
