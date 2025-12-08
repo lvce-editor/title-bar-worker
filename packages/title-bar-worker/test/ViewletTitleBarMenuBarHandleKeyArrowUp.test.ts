@@ -1,10 +1,11 @@
 import { expect, test } from '@jest/globals'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowUp from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowUp.ts'
 
 test('handleKeyArrowUp - with menu open', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,

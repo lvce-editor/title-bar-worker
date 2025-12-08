@@ -1,11 +1,12 @@
 import { expect, test } from '@jest/globals'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { getMenuEntriesTitleBarContextMenu } from '../src/parts/GetMenuEntriesTitleBarContextMenu/GetMenuEntriesTitleBarContextMenu.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as TitleBarStrings from '../src/parts/TitleBarStrings/TitleBarStrings.ts'
 
 test('getMenuEntriesTitleBarContextMenu - both enabled', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     commandCenterEnabled: true,
     titleBarMenuBarEnabled: true,
@@ -34,7 +35,7 @@ test('getMenuEntriesTitleBarContextMenu - both enabled', async () => {
 })
 
 test('getMenuEntriesTitleBarContextMenu - both disabled', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     commandCenterEnabled: false,
     titleBarMenuBarEnabled: false,
@@ -63,7 +64,7 @@ test('getMenuEntriesTitleBarContextMenu - both disabled', async () => {
 })
 
 test('getMenuEntriesTitleBarContextMenu - menuBar enabled, commandCenter disabled', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     commandCenterEnabled: false,
     titleBarMenuBarEnabled: true,
@@ -92,7 +93,7 @@ test('getMenuEntriesTitleBarContextMenu - menuBar enabled, commandCenter disable
 })
 
 test('getMenuEntriesTitleBarContextMenu - menuBar disabled, commandCenter enabled', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     commandCenterEnabled: true,
     titleBarMenuBarEnabled: false,

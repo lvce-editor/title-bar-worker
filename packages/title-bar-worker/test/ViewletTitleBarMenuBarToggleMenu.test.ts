@@ -1,9 +1,10 @@
 import { expect, test } from '@jest/globals'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarToggleMenu from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
 
 test('toggleMenu with menu closed opens menu', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: false,
@@ -14,7 +15,7 @@ test('toggleMenu with menu closed opens menu', async () => {
 })
 
 test('toggleMenu with menu open closes menu', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     isMenuOpen: true,
   }

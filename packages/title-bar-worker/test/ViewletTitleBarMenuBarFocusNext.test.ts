@@ -1,9 +1,10 @@
 import { expect, test } from '@jest/globals'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarFocusNext from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarFocusNext.ts'
 
 test('focusNext', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     titleBarEntries: [
@@ -40,7 +41,7 @@ test('focusNext', async () => {
 })
 
 test('focusNext - with disabled items', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
     titleBarEntries: [
@@ -77,7 +78,7 @@ test('focusNext - with disabled items', async () => {
 })
 
 test('focusNext - at end', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 2,
     titleBarEntries: [

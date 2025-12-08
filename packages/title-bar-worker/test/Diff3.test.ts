@@ -1,11 +1,12 @@
 import { expect, test } from '@jest/globals'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as Diff3 from '../src/parts/Diff3/Diff3.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 test('diff3 - should return array of diff numbers when states are equal', () => {
   const uid = 1
-  const state = CreateDefaultState.createDefaultState()
+  const state: TitleBarMenuBarState = CreateDefaultState.createDefaultState()
   TitleBarMenuBarStates.set(uid, state, state)
 
   const result = Diff3.diff3(uid)
@@ -27,12 +28,12 @@ test('diff3 - should return diff numbers when states differ', () => {
 
 test('diff3 - should return all diff numbers when all modules differ', () => {
   const uid = 3
-  const oldState = CreateDefaultState.createDefaultState()
-  const newState = {
+  const oldState: TitleBarMenuBarState = CreateDefaultState.createDefaultState()
+  const newState: TitleBarMenuBarState = {
     ...CreateDefaultState.createDefaultState(),
-    entries: [],
     focusedIndex: 1,
     menus: [],
+    titleBarEntries: [],
   }
   TitleBarMenuBarStates.set(uid, oldState, newState)
 
