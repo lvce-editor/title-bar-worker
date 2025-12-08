@@ -9,43 +9,34 @@ import { getTitleVirtualDom } from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
-  const { assetDir, focusedIndex, isMenuOpen, title, titleBarButtons, titleBarEntries, width } = state
-  const dom: VirtualDomNode[] = [
+  const {
+    assetDir,
+    focusedIndex,
+    isMenuOpen,
+    title,
+    titleBarButtons,
+    titleBarButtonsEnabled,
+    titleBarEntries,
+    titleBarIconEnabled,
+    titleBarMenuBarEnabled,
+    titleBarTitleEnabled,
+    width,
+  } = state
+  const iconSrc = getIcon(assetDir)
+  const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
+
+  return [
     {
-      ariaLabel: 'Title Bar',
+      ariaLabel: 'Title Bar', // TODO i18n string
       childCount: 4,
       className: 'Viewlet TitleBar',
       id: 'TitleBar',
       role: AriaRoles.ContentInfo,
       type: VirtualDomElements.Div,
     },
+    ...getTitleBarIconVirtualDom(titleBarIconEnabled, iconSrc),
+    ...GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(titleBarMenuBarEnabled, visibleEntries, focusedIndex),
+    ...getTitleVirtualDom(titleBarTitleEnabled, title),
+    ...GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(titleBarButtonsEnabled, titleBarButtons),
   ]
-
-  // Add icon if enabled
-  if (state.titleBarIconEnabled) {
-    const iconSrc = getIcon(assetDir)
-    const iconDom = getTitleBarIconVirtualDom(iconSrc)
-    dom.push(...iconDom)
-  }
-
-  // Add menu bar if enabled
-  if (state.titleBarMenuBarEnabled) {
-    const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
-    const menuBarDom = GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(visibleEntries, focusedIndex)
-    dom.push(...menuBarDom)
-  }
-
-  // Add title if enabled
-  if (state.titleBarTitleEnabled) {
-    const titleDom = getTitleVirtualDom(title)
-    dom.push(...titleDom)
-  }
-
-  // Add buttons if enabled
-  if (state.titleBarButtonsEnabled) {
-    const buttonsDom = GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(titleBarButtons)
-    dom.push(...buttonsDom)
-  }
-
-  return dom
 }

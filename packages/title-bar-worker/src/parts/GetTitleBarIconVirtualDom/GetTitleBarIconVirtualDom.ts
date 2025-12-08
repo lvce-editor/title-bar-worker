@@ -9,7 +9,10 @@ const parentNode: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
-export const getTitleBarIconVirtualDom = (iconSrc: string): readonly VirtualDomNode[] => {
+export const getTitleBarIconVirtualDom = (titleBarIconEnabled: boolean, iconSrc: string): readonly VirtualDomNode[] => {
+  if (!titleBarIconEnabled) {
+    return []
+  }
   return [
     parentNode,
     {
