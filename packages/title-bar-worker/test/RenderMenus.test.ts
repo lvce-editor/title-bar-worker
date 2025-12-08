@@ -9,7 +9,14 @@ import * as RenderMethod from '../src/parts/RenderMethod/RenderMethod.ts'
 
 const UID = 1
 
-const createMenu = (items: readonly any[], focusedIndex: number = -1, expanded: boolean = false, level: number = 0, x: number = 0, y: number = 0): IMenu => ({
+const createMenu = (
+  items: readonly any[],
+  focusedIndex: number = -1,
+  expanded: boolean = false,
+  level: number = 0,
+  x: number = 0,
+  y: number = 0,
+): IMenu => ({
   expanded,
   focusedIndex,
   items,
