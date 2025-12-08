@@ -25,7 +25,7 @@ test('handlePointerOver - should focus entry when name matches', async () => {
   expect(result).not.toBe(state)
 })
 
-test('handlePointerOver - should return state unchanged when name does not match', () => {
+test('handlePointerOver - should return state unchanged when name does not match', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: -1,
@@ -41,7 +41,8 @@ test('handlePointerOver - should return state unchanged when name does not match
   }
   const result = HandlePointerOver.handlePointerOver(state, 'NonExistent')
   expect(result).toBe(state)
-  expect(result.focusedIndex).toBe(-1)
+  const finalResult = result === state ? result : await result
+  expect(finalResult.focusedIndex).toBe(-1)
 })
 
 test('handlePointerOver - should work when menu is open', async () => {

@@ -31,9 +31,9 @@ test('diff3 - should return all diff numbers when all modules differ', () => {
   const oldState: TitleBarMenuBarState = CreateDefaultState.createDefaultState()
   const newState: TitleBarMenuBarState = {
     ...CreateDefaultState.createDefaultState(),
-    entries: [],
     focusedIndex: 1,
     menus: [],
+    titleBarEntries: [],
   }
   TitleBarMenuBarStates.set(uid, oldState, newState)
 

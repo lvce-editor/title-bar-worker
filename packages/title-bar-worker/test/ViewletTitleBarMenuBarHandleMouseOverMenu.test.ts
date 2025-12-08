@@ -689,7 +689,7 @@ test('handleMouseOverMenu - hover over submenu item when not last menu', async (
 })
 
 test('handleMouseOverMenu - hover over submenu item when level is not second to last', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
@@ -845,7 +845,7 @@ test('handleMouseOverMenu - multiple level submenu navigation', async () => {
 })
 
 test('handleMouseOverMenu - submenu position calculation', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 

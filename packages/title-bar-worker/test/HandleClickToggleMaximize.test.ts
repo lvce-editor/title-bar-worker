@@ -28,7 +28,7 @@ test('handleClickToggleMaximize - calls unmaximize when maximized', async () => 
   // Set the maximized state to true
   NativeHostState.setMaximized(true)
 
-  const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600, isMaximized: true }
+  const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
   const result = await HandleClickToggleMaximize.handleClickToggleMaximize(state)
   expect(result).toBe(state)
   expect(mockRpc.invocations).toEqual([['ElectronWindow.unmaximize']])
