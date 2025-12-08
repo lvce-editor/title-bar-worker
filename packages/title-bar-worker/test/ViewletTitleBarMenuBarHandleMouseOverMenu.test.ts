@@ -16,11 +16,13 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
         case MenuEntryId.Edit:
           return [
             {
+              command: '',
               flags: MenuItemFlags.Disabled,
               id: 'undo',
               label: 'Undo',
             },
             {
+              command: '',
               flags: MenuItemFlags.Disabled,
               id: 'redo',
               label: 'Redo',
@@ -29,16 +31,19 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
         case MenuEntryId.File:
           return [
             {
+              command: '',
               flags: MenuItemFlags.Disabled,
               id: 'newFile',
               label: 'New File',
             },
             {
+              command: '',
               flags: MenuItemFlags.Disabled,
               id: 'newWindow',
               label: 'New Window',
             },
             {
+              command: '',
               flags: MenuItemFlags.SubMenu,
               id: MenuEntryId.OpenRecent,
               label: 'Open Recent',
@@ -47,10 +52,12 @@ jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.js', () => {
         case MenuEntryId.OpenRecent:
           return [
             {
+              command: '',
               flags: MenuItemFlags.None,
               label: 'file-1.txt',
             },
             {
+              command: '',
               flags: MenuItemFlags.None,
               label: 'file-2.txt',
             },
@@ -75,16 +82,19 @@ test('handleMouseOverMenu - focus item', async () => {
       {
         items: [
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -101,16 +111,19 @@ test('handleMouseOverMenu - focus item', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -132,16 +145,19 @@ test('handleMouseOverMenu - focus item - already focused', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -166,16 +182,19 @@ test('handleMouseOverMenu - open sub menu', async () => {
       {
         items: [
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -192,16 +211,19 @@ test('handleMouseOverMenu - open sub menu', async () => {
         focusedIndex: 2,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -213,10 +235,12 @@ test('handleMouseOverMenu - open sub menu', async () => {
         focusedIndex: -1,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'file-1.txt',
           },
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'file-2.txt',
           },
@@ -237,16 +261,19 @@ test('handleMouseOverMenu - unfocus sub menu', async () => {
         focusedIndex: 2,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -258,10 +285,12 @@ test('handleMouseOverMenu - unfocus sub menu', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'file-1.txt',
           },
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'file-2.txt',
           },
@@ -277,16 +306,19 @@ test('handleMouseOverMenu - unfocus sub menu', async () => {
         focusedIndex: 2,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -298,10 +330,12 @@ test('handleMouseOverMenu - unfocus sub menu', async () => {
         focusedIndex: -1,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'file-1.txt',
           },
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'file-2.txt',
           },
@@ -322,16 +356,19 @@ test('handleMouseOverMenu - unfocus menu and sub menu', async () => {
         focusedIndex: 2,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newFile',
             label: 'New File',
           },
           {
+            command: '',
             flags: MenuItemFlags.Disabled,
             id: 'newWindow',
             label: 'New Window',
           },
           {
+            command: '',
             flags: MenuItemFlags.SubMenu,
             id: MenuEntryId.OpenRecent,
             label: 'Open Recent',
@@ -343,10 +380,12 @@ test('handleMouseOverMenu - unfocus menu and sub menu', async () => {
         focusedIndex: 1,
         items: [
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'file-1.txt',
           },
           {
+            command: '',
             flags: MenuItemFlags.None,
             label: 'file-2.txt',
           },

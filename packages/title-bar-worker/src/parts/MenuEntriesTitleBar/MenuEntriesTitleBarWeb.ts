@@ -1,10 +1,9 @@
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
-import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
-export const getMenuEntries = (): readonly VisibleMenuItem[] => {
+export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
       command: '',

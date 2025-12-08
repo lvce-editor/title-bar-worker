@@ -9,16 +9,18 @@ import * as RenderMethod from '../src/parts/RenderMethod/RenderMethod.ts'
 
 const UID = 1
 
-const createMenu = (items: readonly any[], focusedIndex: number = -1, expanded: boolean = false, level: number = 0): IMenu => ({
+const createMenu = (items: readonly any[], focusedIndex: number = -1, expanded: boolean = false, level: number = 0, x: number = 0, y: number = 0): IMenu => ({
   expanded,
   focusedIndex,
   items,
   level,
+  x,
+  y,
 })
 
-const createMenuItem = (label: string, flags: number = MenuItemFlags.None, key: number = 0): MenuEntry => ({
+const createMenuItem = (label: string, flags: number = MenuItemFlags.None): MenuEntry => ({
+  command: '',
   flags,
-  key,
   label,
 })
 
