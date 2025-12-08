@@ -1,9 +1,10 @@
 import { expect, test } from '@jest/globals'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarSelectIndexSubMenu from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexSubMenu.ts'
 
 test('selectIndexSubMenu creates submenu and updates parent menu', async () => {
-  const state = {
+  const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     menus: [
       {
