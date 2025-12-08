@@ -12,6 +12,7 @@ test('handleMouseOverMenu - focus item', async () => {
     isMenuOpen: true,
     menus: [
       {
+        focusedIndex: -1,
         items: [
           {
             command: '',
@@ -33,6 +34,8 @@ test('handleMouseOverMenu - focus item', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
     ],
   }
@@ -119,6 +122,7 @@ test('handleMouseOverMenu - open sub menu', async () => {
     isMenuOpen: true,
     menus: [
       {
+        focusedIndex: -1,
         items: [
           {
             command: '',
@@ -140,6 +144,8 @@ test('handleMouseOverMenu - open sub menu', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
     ],
   }
@@ -148,6 +154,7 @@ test('handleMouseOverMenu - open sub menu', async () => {
   expect(result.menus[0].focusedIndex).toBe(2)
   expect(result.menus[1].level).toBe(1)
   expect(result.menus[1].items.length).toBeGreaterThan(0)
+  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
 })
 
 test('handleMouseOverMenu - unfocus sub menu', async () => {
@@ -179,6 +186,8 @@ test('handleMouseOverMenu - unfocus sub menu', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
       {
         focusedIndex: 1,
@@ -195,6 +204,8 @@ test('handleMouseOverMenu - unfocus sub menu', async () => {
           },
         ],
         level: 1,
+        x: 150,
+        y: 25,
       },
     ],
   }
@@ -274,6 +285,8 @@ test('handleMouseOverMenu - unfocus menu and sub menu', async () => {
           },
         ],
         level: 0,
+        x: 0,
+        y: 0,
       },
       {
         focusedIndex: 1,
@@ -290,6 +303,8 @@ test('handleMouseOverMenu - unfocus menu and sub menu', async () => {
           },
         ],
         level: 1,
+        x: 150,
+        y: 25,
       },
     ],
   }
