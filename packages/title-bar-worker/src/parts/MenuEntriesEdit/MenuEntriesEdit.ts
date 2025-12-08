@@ -7,13 +7,13 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
       command: /* TODO */ '-1',
-      flags: MenuItemFlags.Disabled,
+      flags: MenuItemFlags.None,
       id: 'undo',
       label: EditorStrings.undo(),
     },
     {
       command: /* TODO */ '-1',
-      flags: MenuItemFlags.Disabled,
+      flags: MenuItemFlags.None,
       id: 'redo',
       label: EditorStrings.redo(),
     },
