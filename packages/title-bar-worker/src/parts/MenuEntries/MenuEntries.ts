@@ -47,7 +47,7 @@ const getFn = (id: string | number): any => {
   }
 }
 
-export const getMenuEntries = async (id: string | number, ...args: readonly any[]): Promise<readonly VisibleMenuItem[]> => {
+export const getMenuEntries = async (id: string | number, ...args: readonly unknown[]): Promise<readonly VisibleMenuItem[]> => {
   try {
     const fn = getFn(id)
     // @ts-ignore
