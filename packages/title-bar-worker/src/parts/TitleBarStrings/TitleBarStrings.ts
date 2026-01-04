@@ -64,3 +64,39 @@ export const commandCenter = (): string => {
 export const layoutControls = (): string => {
   return I18nString.i18nString(UiStrings.LayoutControls)
 }
+
+export const about = (): string => {
+  return I18nString.i18nString(UiStrings.About)
+}
+
+export const copy = (): string => {
+  return I18nString.i18nString(UiStrings.Copy)
+}
+
+export const cut = (): string => {
+  return I18nString.i18nString(UiStrings.Cut)
+}
+
+export const exit = (): string => {
+  return I18nString.i18nString(UiStrings.Exit)
+}
+
+export const paste = (): string => {
+  return I18nString.i18nString(UiStrings.Paste)
+}
+
+export const redo = (): string => {
+  return I18nString.i18nString(UiStrings.Redo)
+}
+
+export const selectAll = (): string => {
+  return I18nString.i18nString(UiStrings.SelectAll)
+}
+
+export const toggleDeveloperTools = (): string => {
+  return I18nString.i18nString(UiStrings.ToggleDeveloperTools)
+}
+
+export const undo = (): string => {
+  return I18nString.i18nString(UiStrings.Undo)
+}
