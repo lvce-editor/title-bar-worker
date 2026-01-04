@@ -1,6 +1,7 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as AddWidths from '../AddWidths/AddWidths.ts'
+import { hydrate } from '../ElectronApplicationMenu/ElectronApplicationMenu.ts'
 import { getTitle } from '../GetTitle/GetTitle.ts'
 import { getTitleBarButtons } from '../GetTitleBarButtons/GetTitleBarButtons.ts'
 import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
@@ -14,6 +15,9 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const workspaceUri = await RendererWorker.invoke('Workspace.getUri')
   const title = getTitle(workspaceUri)
   const iconWidth = 30
+  if (titleBarStyleCustom) {
+    return hydrate(state)
+  }
   return {
     ...state,
     buttons,
