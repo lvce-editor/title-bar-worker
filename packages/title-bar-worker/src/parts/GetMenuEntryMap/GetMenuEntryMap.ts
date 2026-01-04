@@ -1,8 +1,13 @@
-export const getEntryMap = async (modules: any): Promise<any> => {
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
+
+export const getEntryMap = async (state: TitleBarMenuBarState, menuIds: readonly number[]): Promise<any> => {
   const map = Object.create(null)
-  for (const module of modules) {
-    const { id } = module
-    const entries = await module.getMenuEntries()
+  for (const id of menuIds) {
+    const entries = getMenuEntries2(state, {
+      // @ts-ignore
+      menuId: id,
+    })
     map[id] = entries
   }
   return map
