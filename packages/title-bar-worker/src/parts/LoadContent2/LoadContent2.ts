@@ -15,7 +15,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const workspaceUri = await RendererWorker.invoke('Workspace.getUri')
   const title = getTitle(workspaceUri)
   const iconWidth = 30
-  if (titleBarStyleCustom) {
+  if (!titleBarStyleCustom) {
     return hydrate(state)
   }
   return {
