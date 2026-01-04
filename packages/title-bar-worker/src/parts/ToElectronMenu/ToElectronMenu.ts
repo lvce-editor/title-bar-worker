@@ -1,6 +1,6 @@
 import * as Assert from '@lvce-editor/assert'
 import { MenuItemFlags } from '@lvce-editor/constants'
-import * as ToElectronMenuItem from '../ToElectronMenuItem/ToElectronMenuItem.js'
+import * as ToElectronMenuItem from '../ToElectronMenuItem/ToElectronMenuItem.ts'
 
 const toElectronMenuInternal = (commandMap: any, map: any, id: number, electronMenu: any): any => {
   Assert.object(commandMap)
