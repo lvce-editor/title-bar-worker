@@ -1,81 +1,64 @@
 import * as ElectronMenuItemRole from '../ElectronMenuItemRole/ElectronMenuItemRole.ts'
 import * as ElectronMenuItemType from '../ElectronMenuItemType/ElectronMenuItemType.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-
-/**
- * @enum {string}
- */
-const UiStrings = {
-  About: 'About',
-  Copy: 'Copy',
-  Cut: 'Cut',
-  Edit: 'Edit',
-  Exit: 'Exit',
-  File: 'File',
-  Help: 'Help',
-  Paste: 'Paste',
-  Redo: 'Redo',
-  SelectAll: 'Select All',
-  ToggleDeveloperTools: 'Toggle Developer Tools',
-  Undo: 'Undo',
-}
+import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
 export const toElectronMenuItem = (entry: any): any => {
   switch (entry.label) {
-    case UiStrings.Copy:
+    case TitleBarStrings.copy():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.Copy,
       }
-    case UiStrings.Cut:
+    case TitleBarStrings.cut():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.Cut,
       }
-    case UiStrings.Edit:
+    case TitleBarStrings.edit():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.EditMenu,
         submenu: [],
       }
-    case UiStrings.Exit:
+    case TitleBarStrings.exit():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.Quit,
       }
-    case UiStrings.File:
+    case TitleBarStrings.file():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.FileMenu,
         submenu: [],
       }
-    case UiStrings.Help:
+    case TitleBarStrings.help():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.Help,
         submenu: [],
       }
-    case UiStrings.Paste:
+    case TitleBarStrings.paste():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.Paste,
       }
-    case UiStrings.Redo:
+    case TitleBarStrings.redo():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.Redo,
       }
-    case UiStrings.SelectAll:
+    case TitleBarStrings.selectAll():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.SelectAll,
       }
-    case UiStrings.ToggleDeveloperTools:
+    case TitleBarStrings.toggleDeveloperTools():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.ToggleDevTools,
       }
-    case UiStrings.Undo:
+    case TitleBarStrings.undo():
       return {
         label: entry.label,
         role: ElectronMenuItemRole.Undo,
