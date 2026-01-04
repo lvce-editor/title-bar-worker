@@ -19,9 +19,18 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     titleBarEntries,
     titleBarIconEnabled,
     titleBarMenuBarEnabled,
+    titleBarStyleCustom,
     titleBarTitleEnabled,
     width,
   } = state
+  if (titleBarStyleCustom) {
+    return [
+      {
+        childCount: 0,
+        type: VirtualDomElements.Div,
+      },
+    ]
+  }
   const iconSrc = getIcon(assetDir)
   const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
 
