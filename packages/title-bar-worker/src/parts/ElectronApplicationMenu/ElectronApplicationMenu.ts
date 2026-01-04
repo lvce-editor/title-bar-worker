@@ -8,7 +8,7 @@ import * as ToElectronMenu from '../ToElectronMenu/ToElectronMenu.ts'
 
 const setItems = async (items: readonly any[]): Promise<void> => {
   const windowId = await getWindowId()
-  return RendererWorker.invoke('ElectronApplicationMenu.setItems', windowId, items)
+  return RendererWorker.invoke('WebView.compatSharedProcessInvoke', 'ElectronApplicationMenu.setItems', windowId, items)
 }
 
 export const hydrate = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
