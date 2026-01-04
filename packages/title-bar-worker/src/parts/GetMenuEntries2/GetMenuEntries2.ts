@@ -12,6 +12,7 @@ import * as MenuEntriesOpenRecent from '../MenuEntriesOpenRecent/MenuEntriesOpen
 import * as MenuEntriesRun from '../MenuEntriesRun/MenuEntriesRun.ts'
 import * as MenuEntriesSelection from '../MenuEntriesSelection/MenuEntriesSelection.ts'
 import * as MenuEntriesTerminal from '../MenuEntriesTerminal/MenuEntriesTerminal.ts'
+import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
 import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.ts'
 
 export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: ContextMenuProps): Promise<readonly MenuEntry[]> => {
@@ -32,6 +33,8 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
       return MenuEntriesSelection.getMenuEntries()
     case MenuEntryId.Terminal:
       return MenuEntriesTerminal.getMenuEntries()
+    case MenuEntryId.TitleBar:
+      return MenuEntriesTitleBar.getMenuEntries(props.platform)
     case MenuEntryId.TitleBarContextMenu:
     case MenuIdTitleBarContextMenu:
       return getMenuEntriesTitleBarContextMenu(state)
