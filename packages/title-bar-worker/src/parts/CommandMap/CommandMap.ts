@@ -2,6 +2,7 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create3 from '../Create3/Create3.ts'
 import * as Diff2 from '../Diff2/Diff2.ts'
 import * as Diff3 from '../Diff3/Diff3.ts'
+import { hydrate } from '../ElectronApplicationMenu/ElectronApplicationMenu.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
@@ -10,6 +11,7 @@ import { handleClickClose } from '../HandleClickClose/HandleClickClose.ts'
 import { handleClickMinimize } from '../HandleClickMinimize/HandleClickMinimize.ts'
 import { handleClickToggleMaximize } from '../HandleClickToggleMaximize/HandleClickToggleMaximize.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
+import { handleElectronMenuClick } from '../HandleElectronMenuClick/HandleElectronMenuClick.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
 import { hideCommandCenter } from '../HideCommandCenter/HideCommandCenter.ts'
@@ -76,6 +78,7 @@ export const commandMap = {
   'TitleBar.handleClickMinimize': wrapCommand(handleClickMinimize),
   'TitleBar.handleClickToggleMaximize': wrapCommand(handleClickToggleMaximize),
   'TitleBar.handleContextMenu': wrapCommand(HandleContextMenu.handleContextMenu),
+  'TitleBar.handleElectronMenuClick': wrapCommand(handleElectronMenuClick),
   'TitleBar.handleFocus': wrapCommand(ViewletTitleBarMenuBarHandleFocus.handleFocus),
   'TitleBar.handleFocusOut': wrapCommand(ViewletTitleBarMenuBarHandleFocusOut.handleFocusOut),
   'TitleBar.handleKeyArrowDown': wrapCommand(ViewletTitleBarMenuBarHandleKeyArrowDown.handleKeyArrowDown),
@@ -95,6 +98,7 @@ export const commandMap = {
   'TitleBar.handlePointerOver': wrapCommand(HandlePointerOver.handlePointerOver),
   'TitleBar.hideCommandCenter': wrapCommand(hideCommandCenter),
   'TitleBar.hideMenuBar': wrapCommand(hideMenuBar),
+  'TitleBar.hydrateElectronApplicationMenu': wrapCommand(hydrate),
   'TitleBar.loadContent2': wrapCommand(loadContent2),
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
