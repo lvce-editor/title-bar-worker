@@ -21,6 +21,7 @@ export const create3 = (
     ...createDefaultState(),
     assetDir,
     commandCenterEnabled: false,
+    commandMap: {},
     controlsOverlayEnabled,
     focusedIndex: -1,
     height,

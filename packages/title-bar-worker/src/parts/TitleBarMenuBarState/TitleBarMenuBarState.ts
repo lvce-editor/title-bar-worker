@@ -5,6 +5,7 @@ export interface TitleBarMenuBarState {
   readonly assetDir: string
   readonly buttons: readonly TitleBarButton[]
   readonly commandCenterEnabled: boolean
+  readonly commandMap: any
   readonly controlsOverlayEnabled: boolean
   readonly focusedIndex: number
   readonly height: number
