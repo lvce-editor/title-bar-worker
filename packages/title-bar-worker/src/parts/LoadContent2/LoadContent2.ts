@@ -1,3 +1,4 @@
+import { PlatformType } from '@lvce-editor/constants'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as AddWidths from '../AddWidths/AddWidths.ts'
@@ -15,7 +16,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const workspaceUri = await RendererWorker.invoke('Workspace.getUri')
   const title = getTitle(workspaceUri)
   const iconWidth = 30
-  if (titleBarStyleCustom === false) {
+  if (titleBarStyleCustom === false && platform === PlatformType.Electron) {
     return hydrate(state)
   }
   return {
