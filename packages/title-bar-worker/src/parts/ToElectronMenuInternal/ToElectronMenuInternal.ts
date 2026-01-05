@@ -24,3 +24,4 @@ export const toElectronMenuInternal = (commandMap: any, map: any, id: number, el
   }
   return { commandMap, electronMenu }
 }
+

@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { TitleBarButton } from '../src/parts/TitleBarButton/TitleBarButton.ts'
 import * as GetTitleBarButtonsVirtualDom from '../src/parts/GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 
 test('getTitleBarButtonsVirtualDom - buttonsEnabled false', () => {
   const buttons: readonly TitleBarButton[] = [
@@ -9,7 +10,7 @@ test('getTitleBarButtonsVirtualDom - buttonsEnabled false', () => {
       icon: 'Close',
       id: 'Close',
       label: 'Close',
-      onClick: 'close',
+      onClick: DomEventListenerFunctions.HandleClickClose,
     },
   ]
   const result = GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(false, buttons)
@@ -34,7 +35,7 @@ test('getTitleBarButtonsVirtualDom - buttonsEnabled true with single button', ()
       icon: 'Close',
       id: 'Close',
       label: 'Close',
-      onClick: 'close',
+      onClick: DomEventListenerFunctions.HandleClickClose,
     },
   ]
   const result = GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(true, buttons)
@@ -48,7 +49,7 @@ test('getTitleBarButtonsVirtualDom - buttonsEnabled true with single button', ()
     ariaLabel: 'Close',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonClose',
-    onClick: 'close',
+    onClick: DomEventListenerFunctions.HandleClickClose,
     type: VirtualDomElements.Button,
   })
   expect(result[2]).toEqual({
@@ -65,19 +66,19 @@ test('getTitleBarButtonsVirtualDom - buttonsEnabled true with multiple buttons',
       icon: 'Minimize',
       id: 'Minimize',
       label: 'Minimize',
-      onClick: 'minimize',
+      onClick: DomEventListenerFunctions.HandleClickMinimize,
     },
     {
       icon: 'Maximize',
       id: 'Maximize',
       label: 'Maximize',
-      onClick: 'maximize',
+      onClick: DomEventListenerFunctions.HandleClickToggleMaximize,
     },
     {
       icon: 'Close',
       id: 'Close',
       label: 'Close',
-      onClick: 'close',
+      onClick: DomEventListenerFunctions.HandleClickClose,
     },
   ]
   const result = GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(true, buttons)
@@ -91,21 +92,21 @@ test('getTitleBarButtonsVirtualDom - buttonsEnabled true with multiple buttons',
     ariaLabel: 'Minimize',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonMinimize',
-    onClick: 'minimize',
+    onClick: DomEventListenerFunctions.HandleClickMinimize,
     type: VirtualDomElements.Button,
   })
   expect(result[3]).toEqual({
     ariaLabel: 'Maximize',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonMaximize',
-    onClick: 'maximize',
+    onClick: DomEventListenerFunctions.HandleClickToggleMaximize,
     type: VirtualDomElements.Button,
   })
   expect(result[5]).toEqual({
     ariaLabel: 'Close',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonClose',
-    onClick: 'close',
+    onClick: DomEventListenerFunctions.HandleClickClose,
     type: VirtualDomElements.Button,
   })
 })
