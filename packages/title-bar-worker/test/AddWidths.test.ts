@@ -13,17 +13,17 @@ const createMockVisibleMenuItem = (label: string): VisibleMenuItem => ({
 
 // Skipped because AddWidths depends on MeasureTextWidths which uses OffscreenCanvas
 // OffscreenCanvas is not available in Node.js test environment
-test.skip('addWidths - should return empty array for empty entries', () => {
+test.skip('addWidths - should return empty array for empty entries', async () => {
   const entries: VisibleMenuItem[] = []
-  const result = AddWidths.addWidths(entries, 10, 400, 14, 'Arial', 0)
+  const result = await AddWidths.addWidths(entries, 10, 400, 14, 'Arial', 0)
 
   expect(result).toEqual([])
 })
 
-test.skip('addWidths - should add widths to entries', () => {
+test.skip('addWidths - should add widths to entries', async () => {
   const entries = [createMockVisibleMenuItem('File'), createMockVisibleMenuItem('Edit'), createMockVisibleMenuItem('View')]
 
-  const result = AddWidths.addWidths(entries, 10, 400, 14, 'Arial', 0)
+  const result = await AddWidths.addWidths(entries, 10, 400, 14, 'Arial', 0)
 
   expect(result).toHaveLength(3)
   for (const [index, entry] of result.entries()) {
@@ -39,10 +39,10 @@ test.skip('addWidths - should add widths to entries', () => {
   }
 })
 
-test.skip('addWidths - should handle single entry', () => {
+test.skip('addWidths - should handle single entry', async () => {
   const entries = [createMockVisibleMenuItem('Help')]
 
-  const result = AddWidths.addWidths(entries, 5, 300, 12, 'Helvetica', 1)
+  const result = await AddWidths.addWidths(entries, 5, 300, 12, 'Helvetica', 1)
 
   expect(result).toHaveLength(1)
   expect(result[0]).toHaveProperty('width')
@@ -50,10 +50,10 @@ test.skip('addWidths - should handle single entry', () => {
   expect(result[0].label).toBe('Help')
 })
 
-test.skip('addWidths - should preserve all original properties', () => {
+test.skip('addWidths - should preserve all original properties', async () => {
   const entries = [createMockVisibleMenuItem('Test')]
 
-  const result = AddWidths.addWidths(entries, 8, 500, 16, 'Times', 2)
+  const result = await AddWidths.addWidths(entries, 8, 500, 16, 'Times', 2)
 
   expect(result[0].label).toBe('Test')
   expect(result[0].flags).toBe(0)
