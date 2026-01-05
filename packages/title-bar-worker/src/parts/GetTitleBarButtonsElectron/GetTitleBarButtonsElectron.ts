@@ -1,4 +1,5 @@
 import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
 export const getTitleBarButtonsElectron = (controlsOverlayEnabled: boolean, titleBarStyleCustom: boolean): readonly TitleBarButton[] => {
@@ -8,9 +9,9 @@ export const getTitleBarButtonsElectron = (controlsOverlayEnabled: boolean, titl
   if (titleBarStyleCustom) {
     // TODO don't render title bar buttons on windows when electron window controls overlay is enabled
     return [
-      { icon: 'Minimize', id: 'Minimize', label: TitleBarStrings.minimize(), onClick: 'handleClickMinimize' },
-      { icon: 'Maximize', id: 'ToggleMaximize', label: TitleBarStrings.maximize(), onClick: 'handleClickToggleMaximize' },
-      { icon: 'ChromeClose', id: 'Close', label: TitleBarStrings.close(), onClick: 'handleClickClose' },
+      { icon: 'Minimize', id: 'Minimize', label: TitleBarStrings.minimize(), onClick: DomEventListenerFunctions.HandleClickMinimize },
+      { icon: 'Maximize', id: 'ToggleMaximize', label: TitleBarStrings.maximize(), onClick: DomEventListenerFunctions.HandleClickToggleMaximize },
+      { icon: 'ChromeClose', id: 'Close', label: TitleBarStrings.close(), onClick: DomEventListenerFunctions.HandleClickClose },
     ]
   }
   return []

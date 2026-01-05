@@ -1,6 +1,6 @@
 export const HandleClick = 1
 export const HandleClickMinimize = 2
-export const HandleClickToggleClose = 3
+export const HandleClickClose = 3
 export const HandleClickToggleMaximize = 4
 export const HandleFocusIn = 5
 export const HandleFocusOut = 6
