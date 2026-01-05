@@ -1,7 +1,6 @@
-import { TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { launchTextMeasurementWorker } from '../LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts'
 
-export const measureTextWidths = async (
+export const measureTextWidths2 = async (
   texts: readonly string[],
   fontWeight: number,
   fontSize: number,
@@ -11,12 +10,19 @@ export const measureTextWidths = async (
   if (typeof letterSpacing !== 'number') {
     throw new TypeError('letterSpacing must be of type number')
   }
-  const rpc = await launchTextMeasurementWorker()
-  TextMeasurementWorker.set(rpc)
+  await using rpc = await launchTextMeasurementWorker()
   const isMonospaceFont = false
   const charWidth = 0
   // @ts-ignore
-  const result = await TextMeasurementWorker.measureTextWidths(texts, fontWeight, fontSize, fontFamily, letterSpacing, isMonospaceFont, charWidth)
-  await TextMeasurementWorker.dispose()
+  const result = await rpc.invoke(
+    'TextMeasurement.measureTextWidths',
+    texts,
+    fontWeight,
+    fontSize,
+    fontFamily,
+    letterSpacing,
+    isMonospaceFont,
+    charWidth,
+  )
   return result
 }
