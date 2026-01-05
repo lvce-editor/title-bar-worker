@@ -10,7 +10,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const { controlsOverlayEnabled, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding, platform, titleBarStyleCustom } =
     state
   const titleBarEntries = await MenuEntriesTitleBar.getMenuEntries(platform)
-  const withWidths = AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
+  const withWidths = await AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
   const workspaceUri = await RendererWorker.invoke('Workspace.getUri')
   const title = getTitle(workspaceUri)
