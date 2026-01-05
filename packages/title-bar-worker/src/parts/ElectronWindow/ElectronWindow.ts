@@ -1,17 +1,17 @@
-import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 
 export const maximize = async (): Promise<void> => {
-  await ParentRpc.invoke('ElectronWindow.maximize')
+  await RendererWorker.invoke('ElectronWindow.maximize')
 }
 
 export const unmaximize = async (): Promise<void> => {
-  await ParentRpc.invoke('ElectronWindow.unmaximize')
+  await RendererWorker.invoke('ElectronWindow.unmaximize')
 }
 
 export const minimize = async (): Promise<void> => {
-  await ParentRpc.invoke('ElectronWindow.minimize')
+  await RendererWorker.invoke('ElectronWindow.minimize')
 }
 
 export const close = async (): Promise<void> => {
-  await ParentRpc.invoke('ElectronWindow.close')
+  await RendererWorker.invoke('ElectronWindow.close')
 }
