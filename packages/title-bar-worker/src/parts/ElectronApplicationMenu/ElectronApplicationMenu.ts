@@ -12,8 +12,9 @@ const setItems = async (items: readonly any[]): Promise<void> => {
 }
 
 export const hydrate = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
+  const { platform } = state
   const ids = getMenuIds()
-  const map = await getEntryMap(state, ids)
+  const map = await getEntryMap(state, ids, platform)
   const { commandMap, electronMenu } = ToElectronMenu.toElectronMenu(map, MenuEntryId.TitleBar)
   await setItems(electronMenu)
   // TODO get all menu items
