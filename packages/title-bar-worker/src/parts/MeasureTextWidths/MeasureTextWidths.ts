@@ -2,13 +2,13 @@ import { px } from '@lvce-editor/virtual-dom-worker'
 import { createTextMeasureContext } from '../CreateTextMeasureContext/CreateTextMeasureContext.ts'
 import * as GetFontString from '../GetFontString/GetFontString.ts'
 
-export const measureTextWidths = (
+export const measureTextWidths = async (
   texts: readonly string[],
   fontWeight: number,
   fontSize: number,
   fontFamily: string,
   letterSpacing: number,
-): readonly number[] => {
+): Promise<readonly number[]> => {
   if (typeof letterSpacing !== 'number') {
     throw new TypeError('letterSpacing must be of type number')
   }
