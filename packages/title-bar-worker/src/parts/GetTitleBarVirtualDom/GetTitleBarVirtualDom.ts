@@ -23,7 +23,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     titleBarTitleEnabled,
     width,
   } = state
-  if (titleBarStyleCustom) {
+  if (!titleBarStyleCustom) {
     return [
       {
         childCount: 0,
