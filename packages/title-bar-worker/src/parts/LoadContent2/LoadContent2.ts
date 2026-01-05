@@ -16,6 +16,9 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const workspaceUri = await RendererWorker.invoke('Workspace.getUri')
   const title = getTitle(workspaceUri)
   const iconWidth = 30
+
+  // TODO load preferences here
+
   if (titleBarStyleCustom === false && platform === PlatformType.Electron) {
     return hydrate(state)
   }
