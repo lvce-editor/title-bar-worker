@@ -1,8 +1,9 @@
 import { px } from '@lvce-editor/virtual-dom-worker'
 import { createTextMeasureContext } from '../CreateTextMeasureContext/CreateTextMeasureContext.ts'
 import * as GetFontString from '../GetFontString/GetFontString.ts'
+import { measureTextWidths2 } from '../MeasureTextWidths2/MeasureTextWidths2.ts'
 
-export const measureTextWidths = async (
+const measureTextWidthsOld = async (
   texts: readonly string[],
   fontWeight: number,
   fontSize: number,
@@ -22,4 +23,18 @@ export const measureTextWidths = async (
     widths.push(width)
   }
   return widths
+}
+
+export const measureTextWidths = async (
+  texts: readonly string[],
+  fontWeight: number,
+  fontSize: number,
+  fontFamily: string,
+  letterSpacing: number,
+): Promise<readonly number[]> => {
+  try {
+    return measureTextWidths2(texts, fontWeight, fontSize, fontFamily, letterSpacing)
+  } catch {
+    return measureTextWidthsOld(texts, fontWeight, fontSize, fontFamily, letterSpacing)
+  }
 }
