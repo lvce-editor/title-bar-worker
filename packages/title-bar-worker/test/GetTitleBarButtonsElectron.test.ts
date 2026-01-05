@@ -1,4 +1,5 @@
 import { expect, test } from '@jest/globals'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetTitleBarButtonsElectron from '../src/parts/GetTitleBarButtonsElectron/GetTitleBarButtonsElectron.ts'
 
 test('getTitleBarButtonsElectron - controlsOverlayEnabled true', () => {
@@ -20,18 +21,18 @@ test('getTitleBarButtonsElectron - controlsOverlayEnabled false, titleBarStyleCu
     icon: 'Minimize',
     id: 'Minimize',
     label: 'Minimize',
-    onClick: 'handleClickMinimize',
+    onClick: DomEventListenerFunctions.HandleClickMinimize,
   })
   expect(result[1]).toEqual({
     icon: 'Maximize',
     id: 'ToggleMaximize',
     label: 'Maximize',
-    onClick: 'handleClickToggleMaximize',
+    onClick: DomEventListenerFunctions.HandleClickToggleMaximize,
   })
   expect(result[2]).toEqual({
     icon: 'ChromeClose',
     id: 'Close',
     label: 'Close',
-    onClick: 'handleClickClose',
+    onClick: DomEventListenerFunctions.HandleClickClose,
   })
 })

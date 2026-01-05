@@ -1,6 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { TitleBarButton } from '../src/parts/TitleBarButton/TitleBarButton.ts'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetTitleBarButtonVirtualDom from '../src/parts/GetTitleBarButtonVirtualDom/GetTitleBarButtonVirtualDom.ts'
 
 test('createTitleBarButton - Close button', () => {
@@ -8,7 +9,7 @@ test('createTitleBarButton - Close button', () => {
     icon: 'Close',
     id: 'Close',
     label: 'Close',
-    onClick: 'close',
+    onClick: DomEventListenerFunctions.HandleClickClose,
   }
   const result = GetTitleBarButtonVirtualDom.createTitleBarButton(button)
   expect(result).toHaveLength(2)
@@ -16,7 +17,7 @@ test('createTitleBarButton - Close button', () => {
     ariaLabel: 'Close',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonClose',
-    onClick: 'close',
+    onClick: DomEventListenerFunctions.HandleClickClose,
     type: VirtualDomElements.Button,
   })
   expect(result[1]).toEqual({
@@ -32,7 +33,7 @@ test('createTitleBarButton - Minimize button', () => {
     icon: 'Minimize',
     id: 'Minimize',
     label: 'Minimize',
-    onClick: 'minimize',
+    onClick: DomEventListenerFunctions.HandleClickMinimize,
   }
   const result = GetTitleBarButtonVirtualDom.createTitleBarButton(button)
   expect(result).toHaveLength(2)
@@ -40,7 +41,7 @@ test('createTitleBarButton - Minimize button', () => {
     ariaLabel: 'Minimize',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonMinimize',
-    onClick: 'minimize',
+    onClick: DomEventListenerFunctions.HandleClickMinimize,
     type: VirtualDomElements.Button,
   })
   expect(result[1]).toEqual({
@@ -56,7 +57,7 @@ test('createTitleBarButton - Maximize button', () => {
     icon: 'Maximize',
     id: 'Maximize',
     label: 'Maximize',
-    onClick: 'maximize',
+    onClick: DomEventListenerFunctions.HandleClickToggleMaximize,
   }
   const result = GetTitleBarButtonVirtualDom.createTitleBarButton(button)
   expect(result).toHaveLength(2)
@@ -64,7 +65,7 @@ test('createTitleBarButton - Maximize button', () => {
     ariaLabel: 'Maximize',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonMaximize',
-    onClick: 'maximize',
+    onClick: DomEventListenerFunctions.HandleClickToggleMaximize,
     type: VirtualDomElements.Button,
   })
   expect(result[1]).toEqual({
@@ -80,7 +81,7 @@ test('createTitleBarButton - custom button', () => {
     icon: 'CustomIcon',
     id: 'CustomId',
     label: 'Custom Label',
-    onClick: 'customOnClick',
+    onClick: DomEventListenerFunctions.HandleClick,
   }
   const result = GetTitleBarButtonVirtualDom.createTitleBarButton(button)
   expect(result).toHaveLength(2)
@@ -88,7 +89,7 @@ test('createTitleBarButton - custom button', () => {
     ariaLabel: 'Custom Label',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonCustomId',
-    onClick: 'customOnClick',
+    onClick: DomEventListenerFunctions.HandleClick,
     type: VirtualDomElements.Button,
   })
   expect(result[1]).toEqual({

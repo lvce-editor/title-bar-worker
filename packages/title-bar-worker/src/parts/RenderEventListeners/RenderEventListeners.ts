@@ -13,7 +13,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleContextMenu', EventExpression.Button, EventExpression.ClientX, EventExpression.ClientY],
     },
     {
-      name: DomEventListenerFunctions.HandleClickToggleClose,
+      name: DomEventListenerFunctions.HandleClickClose,
       params: ['handleClickClose'],
     },
     {
