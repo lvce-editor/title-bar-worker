@@ -1,8 +1,8 @@
 import { expect, test } from '@jest/globals'
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { TitleBarButton } from '../src/parts/TitleBarButton/TitleBarButton.ts'
-import * as GetTitleBarButtonVirtualDom from '../src/parts/GetTitleBarButtonVirtualDom/GetTitleBarButtonVirtualDom.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import * as GetTitleBarButtonVirtualDom from '../src/parts/GetTitleBarButtonVirtualDom/GetTitleBarButtonVirtualDom.ts'
 
 test('createTitleBarButton - Close button', () => {
   const button: TitleBarButton = {

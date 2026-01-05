@@ -1,8 +1,8 @@
 import { expect, test } from '@jest/globals'
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { TitleBarButton } from '../src/parts/TitleBarButton/TitleBarButton.ts'
-import * as GetTitleBarButtonsVirtualDom from '../src/parts/GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import * as GetTitleBarButtonsVirtualDom from '../src/parts/GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 
 test('getTitleBarButtonsVirtualDom - buttonsEnabled false', () => {
   const buttons: readonly TitleBarButton[] = [
