@@ -1,4 +1,4 @@
-import { AriaRoles, VirtualDomElements } from '@lvce-editor/constants'
+import { AriaRoles, PlatformType, VirtualDomElements } from '@lvce-editor/constants'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import { getIcon } from '../GetIcon/GetIcon.ts'
@@ -13,6 +13,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     assetDir,
     focusedIndex,
     isMenuOpen,
+    platform,
     title,
     titleBarButtons,
     titleBarButtonsEnabled,
@@ -23,7 +24,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     titleBarTitleEnabled,
     width,
   } = state
-  if (!titleBarStyleCustom) {
+  if (platform === PlatformType.Electron && !titleBarStyleCustom) {
     return [
       {
         childCount: 0,
