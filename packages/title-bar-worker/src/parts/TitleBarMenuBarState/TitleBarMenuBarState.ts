@@ -7,6 +7,7 @@ export interface TitleBarMenuBarState {
   readonly commandCenterEnabled: boolean
   readonly commandMap: any
   readonly controlsOverlayEnabled: boolean
+  readonly focused: boolean
   readonly focusedIndex: number
   readonly height: number
   readonly iconWidth: number

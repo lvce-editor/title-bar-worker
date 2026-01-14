@@ -9,6 +9,7 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   commandCenterEnabled: false,
   commandMap: {},
   controlsOverlayEnabled: false,
+  focused: false,
   focusedIndex: -1,
   height: 30,
   iconWidth: 30,
