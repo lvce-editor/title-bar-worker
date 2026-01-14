@@ -13,7 +13,6 @@ export const measureTextWidths2 = async (
   await using rpc = await launchTextMeasurementWorker()
   const isMonospaceFont = false
   const charWidth = 0
-  // @ts-ignore
   const result = await rpc.invoke(
     'TextMeasurement.measureTextWidths',
     texts,
