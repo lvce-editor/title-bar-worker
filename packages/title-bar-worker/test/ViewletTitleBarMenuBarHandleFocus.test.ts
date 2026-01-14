@@ -11,6 +11,6 @@ test('handleFocus sets focus and returns same state', async () => {
 
   const state: TitleBarMenuBarState = createDefaultState()
   const result = await ViewletTitleBarMenuBarHandleFocus.handleFocus(state)
-  expect(result).toBe(state)
+  expect(result).toEqual(state)
   expect(mockRpc.invocations).toEqual([['Focus.setFocus', 26]])
 })

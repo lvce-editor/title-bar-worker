@@ -4,5 +4,8 @@ import * as Focus from '../Focus/Focus.ts'
 
 export const handleFocus = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
   await Focus.setFocus(WhenExpression.FocusTitleBarMenuBar)
-  return state
+  return {
+    ...state,
+    focused: true,
+  }
 }
