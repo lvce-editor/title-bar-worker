@@ -57,7 +57,6 @@ export const commandMap = {
   'TitleBar.closeMenu': CloseMenu.closeMenu,
   'TitleBar.create': TitleBarMenuBar.create,
   'TitleBar.create3': Create3.create3,
-  'TitleBar.diff2': Diff2.diff2,
   'TitleBar.diff3': Diff3.diff3,
   'TitleBar.focus': wrapCommand(Focus.focus),
   'TitleBar.focusFirst': wrapCommand(ViewletTitleBarMenuBarFocusFirst.focusFirst),

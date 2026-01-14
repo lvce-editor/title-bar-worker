@@ -12,14 +12,6 @@ import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar
 import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.ts'
 import { VError } from '../VError/VError.ts'
 
-/**
- * @deprecated
- * @returns
- */
-export const getMenus = (): any => {
-  return []
-}
-
 const getFn = (id: string | number): any => {
   switch (id) {
     case MenuEntryId.Edit:
