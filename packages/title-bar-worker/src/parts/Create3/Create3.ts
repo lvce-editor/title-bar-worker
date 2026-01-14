@@ -23,6 +23,7 @@ export const create3 = (
     commandCenterEnabled: false,
     commandMap: {},
     controlsOverlayEnabled,
+    focused: false,
     focusedIndex: -1,
     height,
     iconWidth: 30,
