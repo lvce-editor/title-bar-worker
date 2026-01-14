@@ -1,6 +1,5 @@
 import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create3 from '../Create3/Create3.ts'
-import * as Diff2 from '../Diff2/Diff2.ts'
 import * as Diff3 from '../Diff3/Diff3.ts'
 import { hydrate } from '../ElectronApplicationMenu/ElectronApplicationMenu.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
@@ -57,7 +56,6 @@ export const commandMap = {
   'TitleBar.closeMenu': CloseMenu.closeMenu,
   'TitleBar.create': TitleBarMenuBar.create,
   'TitleBar.create3': Create3.create3,
-  'TitleBar.diff2': Diff2.diff2,
   'TitleBar.diff3': Diff3.diff3,
   'TitleBar.focus': wrapCommand(Focus.focus),
   'TitleBar.focusFirst': wrapCommand(ViewletTitleBarMenuBarFocusFirst.focusFirst),

@@ -18,11 +18,3 @@ export const getMenuIds = (): readonly number[] => {
     MenuEntryId.TitleBarContextMenu,
   ]
 }
-
-/**
- * @deprecated
- * @returns
- */
-export const getMenuEntries = async (id: number, platform: number): Promise<readonly any[]> => {
-  return []
-}
