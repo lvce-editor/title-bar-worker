@@ -42,6 +42,7 @@ export const create3 = (
     titleBarStyleCustom,
     uid: id,
     width,
+    workspaceUri: '',
     x,
     y,
   }
