@@ -12,4 +12,5 @@ export const test: Test = async ({ About, expect, FileSystem, Locator, Workspace
   // assert
   const title = Locator('.TitleBarTitle')
   await expect(title).toBeVisible()
+  await expect(title).toHaveText('folder-1')
 }
