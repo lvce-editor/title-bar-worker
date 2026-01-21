@@ -44,6 +44,7 @@ export const create3 = (
     width,
     x,
     y,
+    workspaceUri: '',
   }
   TitleBarMenuBarStates.set(id, state, state)
 }

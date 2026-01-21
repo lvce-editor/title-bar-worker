@@ -13,6 +13,7 @@ import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleElectronMenuClick } from '../HandleElectronMenuClick/HandleElectronMenuClick.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
+import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
 import { hideCommandCenter } from '../HideCommandCenter/HideCommandCenter.ts'
 import { hideMenuBar } from '../HideMenuBar/HideMenuBar.ts'
 import { loadContent2 } from '../LoadContent2/LoadContent2.ts'
@@ -94,6 +95,7 @@ export const commandMap = {
   'TitleBar.handleMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBar.handlePointerOut': wrapCommand(HandlePointerOut.handlePointerOut),
   'TitleBar.handlePointerOver': wrapCommand(HandlePointerOver.handlePointerOver),
+  'TitleBar.handleWorkspaceChange': wrapCommand(handleWorkspaceChange),
   'TitleBar.hideCommandCenter': wrapCommand(hideCommandCenter),
   'TitleBar.hideMenuBar': wrapCommand(hideMenuBar),
   'TitleBar.hydrateElectronApplicationMenu': wrapCommand(hydrate),
