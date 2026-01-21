@@ -1,10 +1,10 @@
 import { PlatformType } from '@lvce-editor/constants'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as AddWidths from '../AddWidths/AddWidths.ts'
 import { hydrate } from '../ElectronApplicationMenu/ElectronApplicationMenu.ts'
 import { getTitle } from '../GetTitle/GetTitle.ts'
 import { getTitleBarButtons } from '../GetTitleBarButtons/GetTitleBarButtons.ts'
+import { getWorkspaceUri } from '../GetWorkspaceUri/GetWorkspaceUri.ts'
 import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
 
 export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
@@ -13,7 +13,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const titleBarEntries = await MenuEntriesTitleBar.getMenuEntries(platform)
   const withWidths = await AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
-  const workspaceUri = await RendererWorker.invoke('Workspace.getUri')
+  const workspaceUri = await getWorkspaceUri()
   const title = getTitle(workspaceUri)
   const iconWidth = 30
 
