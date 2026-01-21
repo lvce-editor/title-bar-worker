@@ -42,9 +42,9 @@ export const create3 = (
     titleBarStyleCustom,
     uid: id,
     width,
+    workspaceUri: '',
     x,
     y,
-    workspaceUri: '',
   }
   TitleBarMenuBarStates.set(id, state, state)
 }
