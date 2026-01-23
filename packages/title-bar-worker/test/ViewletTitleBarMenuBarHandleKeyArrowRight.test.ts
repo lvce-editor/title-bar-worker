@@ -7,7 +7,7 @@ import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowRight from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowRight.ts'
 
 test('handleKeyArrowRight - open sub menu', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt', 'file:///home/user/file-2.txt'],
   })
 

@@ -5,7 +5,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as ViewletTitleBarMenuBarSelectIndexIgnore from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexIgnore.ts'
 
 test('selectIndexIgnore executes command and returns same state', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'Editor.cut'() {},
   })
 

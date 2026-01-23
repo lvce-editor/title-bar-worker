@@ -5,7 +5,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as HandleClickClose from '../src/parts/HandleClickClose/HandleClickClose.ts'
 
 test('handleClickClose', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.close'() {},
   })
 

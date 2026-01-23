@@ -94,7 +94,7 @@ test('focusIndex - when open - when same index', async () => {
 })
 
 test('focusIndex - when opening different index', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => [],
   })
 
@@ -132,7 +132,7 @@ test('focusIndex - when opening different index', async () => {
 })
 
 test('focusIndex - when open - race condition', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => [],
   })
 

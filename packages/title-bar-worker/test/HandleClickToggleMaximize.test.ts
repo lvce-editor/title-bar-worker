@@ -6,7 +6,7 @@ import * as HandleClickToggleMaximize from '../src/parts/HandleClickToggleMaximi
 import * as NativeHostState from '../src/parts/NativeHostState/NativeHostState.ts'
 
 test('handleClickToggleMaximize - calls maximize when not maximized', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.maximize'() {},
   })
 
@@ -20,7 +20,7 @@ test('handleClickToggleMaximize - calls maximize when not maximized', async () =
 })
 
 test('handleClickToggleMaximize - calls unmaximize when maximized', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.maximize'() {},
     'ElectronWindow.unmaximize'() {},
   })

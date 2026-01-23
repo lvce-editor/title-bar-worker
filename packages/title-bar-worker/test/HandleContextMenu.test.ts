@@ -6,7 +6,7 @@ import { MenuIdTitleBarContextMenu } from '../src/parts/GetMenuIds/GetMenuIds.ts
 import * as HandleContextMenu from '../src/parts/HandleContextMenu/HandleContextMenu.ts'
 
 test('handleContextMenu - calls ContextMenu.show2 with correct parameters', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2'() {},
   })
 
@@ -33,7 +33,7 @@ test('handleContextMenu - calls ContextMenu.show2 with correct parameters', asyn
 })
 
 test('handleContextMenu - returns same state', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ContextMenu.show2'() {},
   })
 

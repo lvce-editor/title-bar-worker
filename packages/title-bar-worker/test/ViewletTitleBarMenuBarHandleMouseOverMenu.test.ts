@@ -110,7 +110,7 @@ test('handleMouseOverMenu - focus item - already focused', async () => {
 })
 
 test('handleMouseOverMenu - open sub menu', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt', 'file:///home/user/file-2.txt'],
   })
 
@@ -503,7 +503,7 @@ test('handleMouseOverMenu - change focus to different item', async () => {
 })
 
 test('handleMouseOverMenu - open submenu when already focused on different item', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt', 'file:///home/user/file-2.txt'],
   })
 
@@ -644,7 +644,7 @@ test('handleMouseOverMenu - hover over submenu item when submenu has focused ite
 })
 
 test('handleMouseOverMenu - hover over submenu item when not last menu', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
@@ -812,7 +812,7 @@ test('handleMouseOverMenu - focus checked item', async () => {
 })
 
 test('handleMouseOverMenu - multiple level submenu navigation', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
@@ -925,7 +925,7 @@ test('handleMouseOverMenu - hover over index -1 when focused', async () => {
 })
 
 test('handleMouseOverMenu - replace existing submenu when hovering different submenu', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
