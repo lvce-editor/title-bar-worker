@@ -6,7 +6,7 @@ import * as HandleButtonsClick from '../src/parts/HandleButtonsClick/HandleButto
 import * as NativeHostState from '../src/parts/NativeHostState/NativeHostState.ts'
 
 test('handleClick - Minimize button', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.minimize'() {},
   })
 
@@ -17,7 +17,7 @@ test('handleClick - Minimize button', async () => {
 })
 
 test('handleClick - Maximize button', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.maximize'() {},
   })
 
@@ -30,7 +30,7 @@ test('handleClick - Maximize button', async () => {
 })
 
 test('handleClick - Restore button', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.unmaximize'() {},
   })
 
@@ -43,7 +43,7 @@ test('handleClick - Restore button', async () => {
 })
 
 test('handleClick - Close button', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.close'() {},
   })
 
@@ -60,7 +60,7 @@ test('handleClick - unknown button returns state unchanged', async () => {
 })
 
 test('handleClick - className with Minimize substring', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.minimize'() {},
   })
 
@@ -71,7 +71,7 @@ test('handleClick - className with Minimize substring', async () => {
 })
 
 test('handleClick - className with Maximize substring', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.maximize'() {},
   })
 
@@ -84,7 +84,7 @@ test('handleClick - className with Maximize substring', async () => {
 })
 
 test('handleClick - className with Restore substring', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.unmaximize'() {},
   })
 
@@ -97,7 +97,7 @@ test('handleClick - className with Restore substring', async () => {
 })
 
 test('handleClick - className with Close substring', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.close'() {},
   })
 

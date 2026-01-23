@@ -5,7 +5,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as HandleClickMinimize from '../src/parts/HandleClickMinimize/HandleClickMinimize.ts'
 
 test('handleClickMinimize', async () => {
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.minimize'() {},
   })
 

@@ -8,7 +8,7 @@ test('getRecentlyOpened', async () => {
     { label: 'project2', path: '/home/user/project2' },
   ]
 
-  const mockRpc = RendererWorker.registerMockRpc({
+  using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened'() {
       return mockData
     },
