@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-title-template-long'
 
-export const skip = true
+export const skip = false
 
 export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspace }) => {
   // arrange
