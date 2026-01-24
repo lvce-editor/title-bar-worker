@@ -10,7 +10,10 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspa
   await Workspace.setPath(`${tmpDir}/my-project`)
 
   // act
-  await Command.execute('TitleBar.setTitleTemplate', 'This is a very long title template that should still be displayed correctly in the title bar without any issues')
+  await Command.execute(
+    'TitleBar.setTitleTemplate',
+    'This is a very long title template that should still be displayed correctly in the title bar without any issues',
+  )
 
   // assert
   const title = Locator('.TitleBarTitle')
