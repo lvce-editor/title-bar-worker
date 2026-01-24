@@ -31,6 +31,7 @@ export interface TitleBarMenuBarState {
   readonly titleBarMenuBarEnabled: boolean
   readonly titleBarStyleCustom: boolean
   readonly titleBarTitleEnabled: boolean
+  readonly titleTemplate: string
   readonly uid: number
   readonly width: number
   readonly workspaceUri: string
