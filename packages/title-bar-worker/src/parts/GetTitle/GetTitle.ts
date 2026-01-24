@@ -1,4 +1,6 @@
-export const getTitle = (workspaceUri: string): string => {
+import { parseTitleTemplate } from '../ParseTitleTemplate/ParseTitleTemplate.ts'
+
+export const getTitle = (workspaceUri: string, titleTemplate: string, appName: string): string => {
   if (!workspaceUri) {
     return ''
   }
@@ -6,6 +8,17 @@ export const getTitle = (workspaceUri: string): string => {
   if (slashIndex === -1) {
     return ''
   }
-  const baseName = workspaceUri.slice(slashIndex + 1)
-  return baseName
+  const folderName = workspaceUri.slice(slashIndex + 1)
+
+  // If titleTemplate is empty, return folderName directly
+  if (!titleTemplate) {
+    return folderName
+  }
+
+  // If titleTemplate doesn't contain variables, return the template itself
+  if (!titleTemplate.includes('${')) {
+    return titleTemplate
+  }
+
+  return parseTitleTemplate(titleTemplate, folderName, appName)
 }
