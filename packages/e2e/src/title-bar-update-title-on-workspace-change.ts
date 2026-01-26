@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-update-title-on-workspace-change'
 
-export const test: Test = async ({ About, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => {
   // arrange
   const tmpDir1 = await FileSystem.getTmpDir()
 
