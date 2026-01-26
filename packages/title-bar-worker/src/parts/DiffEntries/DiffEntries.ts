@@ -6,6 +6,7 @@ export const isEqual = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBa
     oldState.width === newState.width &&
     oldState.focusedIndex === newState.focusedIndex &&
     oldState.isMenuOpen === newState.isMenuOpen &&
-    oldState.title === newState.title
+    oldState.title === newState.title &&
+    oldState.workspaceUri === newState.workspaceUri
   )
 }
