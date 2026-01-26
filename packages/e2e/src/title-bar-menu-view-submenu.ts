@@ -31,6 +31,6 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   await TitleBarMenuBar.handleKeyEscape()
 
   // assert - menu is closed and View is still focused
-  await expect(menu).not.toBeVisible()
+  await expect(menu).toBeHidden()
   await expect(viewMenu).toHaveAttribute('id', 'TitleBarEntryActive')
 }

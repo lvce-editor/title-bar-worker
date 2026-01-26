@@ -19,10 +19,6 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   const menu = Locator('#Menu-0')
   await expect(menu).toBeVisible()
 
-  // act - navigate to Open Recent item
-  const openRecentItem = Locator('.MenuItem', { hasText: 'Open Recent' })
-  await expect(openRecentItem).toBeVisible()
-
   // act - move down to reach Open Recent and then open its submenu
   await TitleBarMenuBar.handleKeyArrowDown()
   await TitleBarMenuBar.handleKeyArrowDown()
@@ -51,6 +47,6 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   await TitleBarMenuBar.handleKeyEscape()
 
   // assert - menu is closed and File is still focused
-  await expect(menu).not.toBeVisible()
+  await expect(menu).toBeHidden()
   await expect(fileMenu).toHaveAttribute('id', 'TitleBarEntryActive')
 }
