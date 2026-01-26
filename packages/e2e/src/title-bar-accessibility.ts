@@ -24,7 +24,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'viewlet.title-bar-accessibility'
 
-export const skip = true
+// export const skip = true
 
 export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
@@ -34,9 +34,9 @@ export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => 
 
   const titleBar = Locator('#TitleBar')
   await expect(titleBar).toHaveAttribute('role', 'contentinfo')
-  const titleBarMenuBar = Locator('#TitleBarMenu')
+  const titleBarMenuBar = Locator('.TitleBarMenuBar')
   await expect(titleBarMenuBar).toHaveAttribute('role', 'menubar')
-  const menuItemFile = titleBarMenuBar.locator('.TitleBarTopLevelEntry[data-id="file"]')
+  const menuItemFile = titleBarMenuBar.locator('.TitleBarTopLevelEntry[name="File"]')
   await expect(menuItemFile).toHaveAttribute('tabindex', '-1')
   await expect(menuItemFile).toHaveAttribute('aria-haspopup', 'true')
   await expect(menuItemFile).toHaveAttribute('aria-expanded', 'false')
