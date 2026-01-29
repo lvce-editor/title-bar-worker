@@ -258,6 +258,15 @@ test('loadContent2 - calls hydrate for Electron platform with titleBarStyleCusto
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    'GetWindowId.getWindowId'() {
+      return 1
+    },
+    'RecentlyOpened.getRecentlyOpened'() {
+      return []
+    },
+    'WebView.compatSharedProcessInvoke'() {
+      return undefined
+    },
     'Workspace.getUri'() {
       return '/home/user/project'
     },
