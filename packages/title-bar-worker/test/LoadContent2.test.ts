@@ -1,10 +1,11 @@
-import { expect, test } from '@jest/globals'
+import { expect, test, jest } from '@jest/globals'
 import { PlatformType } from '@lvce-editor/constants'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as AddWidthsModule from '../src/parts/AddWidths/AddWidths.ts'
-;
-import * as LoadContent2 from '../src/parts/LoadContent2/LoadContent2.ts';(AddWidthsModule as any).addWidths = async (entries: readonly any[]): Promise<any[]> => entries.map((entry: any) => ({ ...entry, width: 100 }))
+import * as LoadContent2 from '../src/parts/LoadContent2/LoadContent2.ts'
+
+jest.spyOn(AddWidthsModule, 'addWidths').mockImplementation(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 })))
 
 const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBarMenuBarState => ({
   assetDir: '/assets',
