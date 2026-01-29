@@ -4,9 +4,8 @@ import { PlatformType } from '@lvce-editor/constants'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
-// @ts-expect-error
 jest.unstable_mockModule('../src/parts/AddWidths/AddWidths.ts', () => ({
-  addWidths: jest.fn(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 })))
+  addWidths: jest.fn(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 }))),
 }))
 
 // @ts-expect-error
