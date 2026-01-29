@@ -5,7 +5,9 @@ import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/Tit
 import * as AddWidthsModule from '../src/parts/AddWidths/AddWidths.ts'
 import * as LoadContent2 from '../src/parts/LoadContent2/LoadContent2.ts'
 
-jest.spyOn(AddWidthsModule, 'addWidths').mockImplementation(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 })))
+jest
+  .spyOn(AddWidthsModule, 'addWidths')
+  .mockImplementation(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 })))
 
 const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBarMenuBarState => ({
   assetDir: '/assets',
