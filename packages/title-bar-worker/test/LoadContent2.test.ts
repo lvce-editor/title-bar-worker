@@ -8,7 +8,6 @@ jest.unstable_mockModule('../src/parts/AddWidths/AddWidths.ts', () => ({
   addWidths: jest.fn(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 }))),
 }))
 
-// @ts-expect-error
 const LoadContent2 = await import('../src/parts/LoadContent2/LoadContent2.ts')
 
 const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBarMenuBarState => ({
