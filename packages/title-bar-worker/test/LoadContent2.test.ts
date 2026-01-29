@@ -1,13 +1,14 @@
+/* eslint-disable jest/no-restricted-jest-methods */
 import { expect, test, jest } from '@jest/globals'
 import { PlatformType } from '@lvce-editor/constants'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
-import * as AddWidthsModule from '../src/parts/AddWidths/AddWidths.ts'
-import * as LoadContent2 from '../src/parts/LoadContent2/LoadContent2.ts'
 
-jest
-  .spyOn(AddWidthsModule, 'addWidths')
-  .mockImplementation(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 })))
+jest.unstable_mockModule('../src/parts/AddWidths/AddWidths.ts', () => ({
+  addWidths: jest.fn(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 }))),
+}))
+
+const LoadContent2 = await import('../src/parts/LoadContent2/LoadContent2.ts')
 
 const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBarMenuBarState => ({
   assetDir: '/assets',
