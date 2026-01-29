@@ -14,6 +14,17 @@ test('getRenderer3 - should return renderTitleBar for RenderEntries type', () =>
   expect(Array.isArray(result)).toBe(true)
 })
 
+test('getRenderer3 - should return renderFocusContext for RenderFocusContext type', () => {
+  const oldState = CreateDefaultState.createDefaultState()
+  const newState = CreateDefaultState.createDefaultState()
+
+  const renderer = GetRenderer3.getRenderer3(DiffType.RenderFocusContext)
+  expect(typeof renderer).toBe('function')
+
+  const result = renderer(oldState, newState)
+  expect(Array.isArray(result)).toBe(true)
+})
+
 test('getRenderer3 - should return renderFocusedIndex for RenderFocusedIndex type', () => {
   const oldState = CreateDefaultState.createDefaultState()
   const newState = CreateDefaultState.createDefaultState()
