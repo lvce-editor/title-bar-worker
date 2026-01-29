@@ -64,3 +64,6 @@ test('commandCenter', () => {
 test('layoutControls', () => {
   expect(TitleBarStrings.layoutControls()).toBe('Layout Controls')
 })
+test('about', () => {
+  expect(TitleBarStrings.about()).toBe('About')
+})
