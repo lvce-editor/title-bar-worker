@@ -25,26 +25,13 @@ test('should invoke command with label', async () => {
 
 test('should invoke command with args', async () => {
   const state = {
-    assetDir: '/assets',
-    buttons: [],
-    commandCenterEnabled: false,
+    ...createDefaultState(),
     commandMap: {
       'Open File': {
         args: ['/path/to/file', true],
         command: 'file.openFile',
       },
     },
-    controlsOverlayEnabled: false,
-    focused: false,
-    focusedIndex: -1,
-    height: 30,
-    iconWidth: 16,
-    isMenuOpen: false,
-    labelFontFamily: 'Arial',
-    labelFontSize: 12,
-    labelFontWeight: 400,
-    labelLetterSpacing: 0,
-    labelPadding: 8,
   }
 
   using _mockRpc = RendererWorker.registerMockRpc({
@@ -58,26 +45,13 @@ test('should invoke command with args', async () => {
 
 test('should throw error when label not found in commandMap', async () => {
   const state = {
-    assetDir: '/assets',
-    buttons: [],
-    commandCenterEnabled: false,
+    ...createDefaultState(),
     commandMap: {
       File: {
         args: [],
         command: 'file.open',
       },
     },
-    controlsOverlayEnabled: false,
-    focused: false,
-    focusedIndex: -1,
-    height: 30,
-    iconWidth: 16,
-    isMenuOpen: false,
-    labelFontFamily: 'Arial',
-    labelFontSize: 12,
-    labelFontWeight: 400,
-    labelLetterSpacing: 0,
-    labelPadding: 8,
   }
 
   await expect(HandleElectronMenuClick.handleElectronMenuClick(state, 'NonExistent')).rejects.toThrow('no command found for NonExistent')
@@ -85,26 +59,13 @@ test('should throw error when label not found in commandMap', async () => {
 
 test('should handle multiple arguments', async () => {
   const state = {
-    assetDir: '/assets',
-    buttons: [],
-    commandCenterEnabled: false,
+    ...createDefaultState(),
     commandMap: {
       'Run Command': {
         args: ['arg1', 'arg2', 'arg3'],
         command: 'extension.runCommand',
       },
     },
-    controlsOverlayEnabled: false,
-    focused: false,
-    focusedIndex: -1,
-    height: 30,
-    iconWidth: 16,
-    isMenuOpen: false,
-    labelFontFamily: 'Arial',
-    labelFontSize: 12,
-    labelFontWeight: 400,
-    labelLetterSpacing: 0,
-    labelPadding: 8,
   }
 
   using _mockRpc = RendererWorker.registerMockRpc({
@@ -118,25 +79,12 @@ test('should handle multiple arguments', async () => {
 
 test('should handle command without args property', async () => {
   const state = {
-    assetDir: '/assets',
-    buttons: [],
-    commandCenterEnabled: false,
+    ...createDefaultState(),
     commandMap: {
       Edit: {
         command: 'edit.undo',
       },
     },
-    controlsOverlayEnabled: false,
-    focused: false,
-    focusedIndex: -1,
-    height: 30,
-    iconWidth: 16,
-    isMenuOpen: false,
-    labelFontFamily: 'Arial',
-    labelFontSize: 12,
-    labelFontWeight: 400,
-    labelLetterSpacing: 0,
-    labelPadding: 8,
   }
 
   using _mockRpc = RendererWorker.registerMockRpc({
@@ -150,26 +98,13 @@ test('should handle command without args property', async () => {
 
 test('should return the same state object', async () => {
   const state = {
-    assetDir: '/assets',
-    buttons: [],
-    commandCenterEnabled: false,
+    ...createDefaultState(),
     commandMap: {
       View: {
         args: [],
         command: 'view.toggle',
       },
     },
-    controlsOverlayEnabled: false,
-    focused: false,
-    focusedIndex: -1,
-    height: 30,
-    iconWidth: 16,
-    isMenuOpen: false,
-    labelFontFamily: 'Arial',
-    labelFontSize: 12,
-    labelFontWeight: 400,
-    labelLetterSpacing: 0,
-    labelPadding: 8,
   }
 
   using _mockRpc = RendererWorker.registerMockRpc({
