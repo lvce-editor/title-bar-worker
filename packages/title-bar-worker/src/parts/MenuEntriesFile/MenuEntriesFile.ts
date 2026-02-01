@@ -8,7 +8,7 @@ import * as PlatformType from '../PlatformType/PlatformType.ts'
 export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
   const entries: MenuEntry[] = [
     {
-      command: '-1',
+      command: 'Main.newFile',
       flags: MenuItemFlags.None,
       id: 'newFile',
       label: FileStrings.newFile(),
