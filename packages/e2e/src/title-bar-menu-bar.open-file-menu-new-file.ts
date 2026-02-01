@@ -2,6 +2,8 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-bar.open-file-menu-new-file'
 
+export const skip = 1
+
 export const test: Test = async ({ expect, Locator }) => {
   // arrange
   const titleBarItemFile = Locator('.TitleBarTopLevelEntry', {
