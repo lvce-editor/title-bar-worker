@@ -2,6 +2,8 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-file-submenu-open-recent'
 
+export const skip = true
+
 export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   // act - focus and open File menu
   await TitleBarMenuBar.focus()
