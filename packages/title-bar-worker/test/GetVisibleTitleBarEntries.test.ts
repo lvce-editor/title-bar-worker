@@ -201,7 +201,7 @@ test('getVisibleTitleBarEntries - should calculate more icon width correctly', (
   const entries = [createEntry('File', 30), createEntry('Edit', 30), createEntry('View', 30)]
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 60, 0, false)
 
-  const moreIcon = result[result.length - 1]
+  const moreIcon = result.at(-1)
   expect(moreIcon.icon).toBe(Icon.Ellipsis)
   expect(moreIcon.width).toBe(38)
 })
@@ -211,7 +211,7 @@ test('getVisibleTitleBarEntries - should handle multiple entries with overflow',
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 60, 0, false)
 
   expect(result.length).toBeGreaterThan(0)
-  const lastEntry = result[result.length - 1]
+  const lastEntry = result.at(-1)
   expect(lastEntry.icon).toBe(Icon.Ellipsis)
 })
 
