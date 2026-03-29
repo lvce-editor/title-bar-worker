@@ -2,9 +2,11 @@ import { MenuEntryId } from '@lvce-editor/constants'
 import type { ContextMenuProps } from '../ContextMenuProps/ContextMenuProps.ts'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import { MenuIdAppearance, MenuIdEditorLayout, MenuIdTitleBarContextMenu } from '../GetMenuIds/GetMenuIds.ts'
 import { getMenuEntriesTitleBarContextMenu } from '../GetMenuEntriesTitleBarContextMenu/GetMenuEntriesTitleBarContextMenu.ts'
-import { MenuIdTitleBarContextMenu } from '../GetMenuIds/GetMenuIds.ts'
+import * as MenuEntriesAppearance from '../MenuEntriesAppearance/MenuEntriesAppearance.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
+import * as MenuEntriesEditorLayout from '../MenuEntriesEditorLayout/MenuEntriesEditorLayout.ts'
 import * as MenuEntriesFile from '../MenuEntriesFile/MenuEntriesFile.ts'
 import * as MenuEntriesGo from '../MenuEntriesGo/MenuEntriesGo.ts'
 import * as MenuEntriesHelp from '../MenuEntriesHelp/MenuEntriesHelp.ts'
@@ -17,8 +19,12 @@ import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.ts'
 
 export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: ContextMenuProps): Promise<readonly MenuEntry[]> => {
   switch (props.menuId) {
+    case MenuIdAppearance:
+      return MenuEntriesAppearance.getMenuEntries()
     case MenuEntryId.Edit:
       return MenuEntriesEdit.getMenuEntries()
+    case MenuIdEditorLayout:
+      return MenuEntriesEditorLayout.getMenuEntries()
     case MenuEntryId.File:
       return MenuEntriesFile.getMenuEntries(props.platform)
     case MenuEntryId.Go:

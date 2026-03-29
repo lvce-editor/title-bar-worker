@@ -134,7 +134,7 @@ test('handleKeyArrowDownMenuClosed - opens View menu', async () => {
   const result = await ViewletTitleBarMenuBarHandleKeyArrowDownMenuClosed.handleKeyArrowDownMenuClosed(state)
   expect(result.isMenuOpen).toBe(true)
   expect(result.menus[0].id).toBe(16)
-  expect(result.menus[0].focusedIndex).toBe(-1) // View menu has no items
+  expect(result.menus[0].focusedIndex).toBe(0)
 })
 
 test('handleKeyArrowDownMenuClosed - preserves other state properties', async () => {

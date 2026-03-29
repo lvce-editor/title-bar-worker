@@ -1,6 +1,8 @@
 import { MenuEntryId } from '@lvce-editor/constants'
 
 export const MenuIdTitleBarContextMenu = 50
+export const MenuIdAppearance = 'appearance'
+export const MenuIdEditorLayout = 'editorLayout'
 
 export const getMenuIds = (): readonly number[] => {
   return [
