@@ -7,6 +7,7 @@ import { getTitleBarIconVirtualDom } from '../GetTitleBarIconVirtualDom/GetTitle
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
 import { getTitleVirtualDom } from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
+import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
   const {
@@ -37,7 +38,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
 
   return [
     {
-      ariaLabel: 'Title Bar', // TODO i18n string
+      ariaLabel: TitleBarStrings.titleBar(),
       childCount: 4,
       className: 'Viewlet TitleBar',
       id: 'TitleBar',
