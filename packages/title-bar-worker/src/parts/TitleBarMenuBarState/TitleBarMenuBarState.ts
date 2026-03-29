@@ -2,6 +2,7 @@ import type { IMenu } from '../IMenu/IMenu.ts'
 import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
 
 export interface TitleBarMenuBarState {
+  readonly appName: string
   readonly assetDir: string
   readonly buttons: readonly TitleBarButton[]
   readonly commandCenterEnabled: boolean
