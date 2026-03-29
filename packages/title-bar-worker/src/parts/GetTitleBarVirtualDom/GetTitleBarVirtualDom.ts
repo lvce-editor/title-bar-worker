@@ -1,6 +1,7 @@
 import { AriaRoles, PlatformType, VirtualDomElements } from '@lvce-editor/constants'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getIcon } from '../GetIcon/GetIcon.ts'
 import * as GetTitleBarButtonsVirtualDom from '../GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 import { getTitleBarIconVirtualDom } from '../GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
@@ -42,6 +43,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
       childCount: 4,
       className: 'Viewlet TitleBar',
       id: 'TitleBar',
+      onContextMenu: DomEventListenerFunctions.HandleTitleBarContextMenu,
       role: AriaRoles.ContentInfo,
       type: VirtualDomElements.Div,
     },
