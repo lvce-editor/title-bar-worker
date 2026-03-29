@@ -1,7 +1,11 @@
+/* eslint-disable jest/no-restricted-jest-methods */
 import { beforeEach, expect, jest, test } from '@jest/globals'
 import type { VisibleMenuItem } from '../src/parts/VisibleMenuItem/VisibleMenuItem.ts'
 
-const mockMeasureTextWidths = jest.fn(async (labels: readonly string[]) => labels.map((label) => label.length * 8))
+const mockMeasureTextWidths = jest.fn(
+  async (labels: readonly string[], _fontWeight: number, _fontSize: number, _fontFamily: string, _letterSpacing: number) =>
+    labels.map((label) => label.length * 8),
+)
 
 await jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.ts', () => ({
   measureTextWidths: mockMeasureTextWidths,
