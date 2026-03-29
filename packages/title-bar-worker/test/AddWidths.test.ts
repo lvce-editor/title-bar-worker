@@ -1,40 +1,16 @@
-import { afterEach, beforeEach, expect, test } from '@jest/globals'
+import { beforeEach, expect, jest, test } from '@jest/globals'
 import type { VisibleMenuItem } from '../src/parts/VisibleMenuItem/VisibleMenuItem.ts'
-import * as AddWidths from '../src/parts/AddWidths/AddWidths.ts'
 
-interface MockTextMeasureContext {
-  letterSpacing: string
-  font: string
-  measureText(text: string): { width: number }
-}
+const mockMeasureTextWidths = jest.fn(async (labels: readonly string[]) => labels.map((label) => label.length * 8))
 
-class MockOffscreenCanvas {
-  constructor(_width: number, _height: number) {}
+await jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.ts', () => ({
+  measureTextWidths: mockMeasureTextWidths,
+}))
 
-  getContext(type: string): MockTextMeasureContext | null {
-    if (type !== '2d') {
-      return null
-    }
-    return {
-      letterSpacing: '',
-      font: '',
-      measureText(text: string) {
-        return {
-          width: text.length * 8,
-        }
-      },
-    }
-  }
-}
-
-const originalOffscreenCanvas = (globalThis as any).OffscreenCanvas
+const AddWidths = await import('../src/parts/AddWidths/AddWidths.ts')
 
 beforeEach(() => {
-  ;(globalThis as any).OffscreenCanvas = MockOffscreenCanvas
-})
-
-afterEach(() => {
-  ;(globalThis as any).OffscreenCanvas = originalOffscreenCanvas
+  mockMeasureTextWidths.mockClear()
 })
 
 const createMockVisibleMenuItem = (label: string): VisibleMenuItem => ({
@@ -51,6 +27,7 @@ test('addWidths - should return empty array for empty entries', async () => {
   const result = await AddWidths.addWidths(entries, 10, 400, 14, 'Arial', 0)
 
   expect(result).toEqual([])
+  expect(mockMeasureTextWidths).toHaveBeenCalledWith([], 400, 14, 'Arial', 0)
 })
 
 test('addWidths - should add widths to entries', async () => {
@@ -59,6 +36,7 @@ test('addWidths - should add widths to entries', async () => {
   const result = await AddWidths.addWidths(entries, 10, 400, 14, 'Arial', 0)
 
   expect(result).toHaveLength(3)
+  expect(mockMeasureTextWidths).toHaveBeenCalledWith(['File', 'Edit', 'View'], 400, 14, 'Arial', 0)
   for (const [index, entry] of result.entries()) {
     expect(entry).toHaveProperty('width')
     expect(typeof entry.width).toBe('number')

@@ -2,8 +2,8 @@ import { afterEach, beforeEach, expect, test } from '@jest/globals'
 import * as CreateTextMeasureContext from '../src/parts/CreateTextMeasureContext/CreateTextMeasureContext.ts'
 
 interface MockCanvasContext {
-  letterSpacing: string
   font: string
+  letterSpacing: string
 }
 
 class SuccessfulOffscreenCanvas {
@@ -14,8 +14,8 @@ class SuccessfulOffscreenCanvas {
       return null
     }
     return {
-      letterSpacing: '',
       font: '',
+      letterSpacing: '',
     }
   }
 }

@@ -9,7 +9,7 @@ test('create3 - should initialize state for electron windows', () => {
 
   Create3.create3(uid, 'file:///workspace', 10, 20, 800, 32, PlatformType.Electron, false, true, '/assets')
 
-  const { oldState, newState } = TitleBarMenuBarStates.get(uid)
+  const { newState, oldState } = TitleBarMenuBarStates.get(uid)
 
   expect(oldState).toBe(newState)
   expect(newState.uid).toBe(uid)
