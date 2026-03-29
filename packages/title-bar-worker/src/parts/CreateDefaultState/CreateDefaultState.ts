@@ -2,8 +2,10 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 
 const DEFAULT_UID = 1
+const DEFAULT_APP_NAME = 'Lvce Editor'
 
 export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarState => ({
+  appName: DEFAULT_APP_NAME,
   assetDir: '',
   buttons: [],
   commandCenterEnabled: false,
