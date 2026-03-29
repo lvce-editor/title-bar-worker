@@ -33,6 +33,14 @@ test('renderEventListeners - should have correct structure for HandleContextMenu
   expect(contextMenuListener?.params[0]).toBe('handleContextMenu')
 })
 
+test('renderEventListeners - should have correct structure for HandleTitleBarContextMenu', () => {
+  const result = RenderEventListeners.renderEventListeners()
+  const contextMenuListener = result.find((l) => l.name === DomEventListenerFunctions.HandleTitleBarContextMenu)
+  expect(contextMenuListener).toBeDefined()
+  expect(contextMenuListener?.params).toEqual(['handleTitleBarContextMenu'])
+  expect(contextMenuListener?.preventDefault).toBe(true)
+})
+
 test('renderEventListeners - should return the same result on multiple calls', () => {
   const result1 = RenderEventListeners.renderEventListeners()
   const result2 = RenderEventListeners.renderEventListeners()
