@@ -17,12 +17,8 @@ import { VError } from '../VError/VError.ts'
 
 const getFn = (id: string | number): any => {
   switch (id) {
-    case MenuIdAppearance:
-      return MenuEntriesAppearance.getMenuEntries
     case MenuEntryId.Edit:
       return MenuEntriesEdit.getMenuEntries
-    case MenuIdEditorLayout:
-      return MenuEntriesEditorLayout.getMenuEntries
     case MenuEntryId.File:
       return MenuEntriesFile.getMenuEntries
     case MenuEntryId.Go:
@@ -41,6 +37,10 @@ const getFn = (id: string | number): any => {
       return MenuEntriesTitleBar.getMenuEntries
     case MenuEntryId.View:
       return MenuEntriesView.getMenuEntries
+    case MenuIdAppearance:
+      return MenuEntriesAppearance.getMenuEntries
+    case MenuIdEditorLayout:
+      return MenuEntriesEditorLayout.getMenuEntries
     default:
       return undefined
   }
