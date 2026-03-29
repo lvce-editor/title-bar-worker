@@ -7,8 +7,6 @@ import { getTitleBarButtons } from '../GetTitleBarButtons/GetTitleBarButtons.ts'
 import { getWorkspaceUri } from '../GetWorkspaceUri/GetWorkspaceUri.ts'
 import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
 
-const APP_NAME = 'Lvce Editor'
-
 export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
   const { controlsOverlayEnabled, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding, platform, titleBarStyleCustom } =
     state
@@ -16,7 +14,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const withWidths = await AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
   const workspaceUri = await getWorkspaceUri()
-  const title = getTitle(workspaceUri, state.titleTemplate, APP_NAME)
+  const title = getTitle(workspaceUri, state.titleTemplate, state.appName)
   const iconWidth = 30
 
   // TODO load preferences here
