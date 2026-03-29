@@ -11,7 +11,7 @@ test('handleClick - Minimize button', async () => {
   })
 
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
-  const result = await HandleButtonsClick.handleClick(state, 'title-bar-button Minimize')
+  const result = await HandleButtonsClick.handleClick(state, 'Minimize')
   expect(result).toBe(state)
   expect(mockRpc.invocations).toEqual([['ElectronWindow.minimize']])
 })
@@ -24,7 +24,7 @@ test('handleClick - Maximize button', async () => {
   NativeHostState.setMaximized(false)
 
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
-  const result = await HandleButtonsClick.handleClick(state, 'title-bar-button Maximize')
+  const result = await HandleButtonsClick.handleClick(state, 'ToggleMaximize')
   expect(result).toBe(state)
   expect(mockRpc.invocations).toEqual([['ElectronWindow.maximize']])
 })
@@ -37,7 +37,7 @@ test('handleClick - Restore button', async () => {
   NativeHostState.setMaximized(true)
 
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
-  const result = await HandleButtonsClick.handleClick(state, 'title-bar-button Restore')
+  const result = await HandleButtonsClick.handleClick(state, 'ToggleMaximize')
   expect(result).toBe(state)
   expect(mockRpc.invocations).toEqual([['ElectronWindow.unmaximize']])
 })
@@ -48,18 +48,18 @@ test('handleClick - Close button', async () => {
   })
 
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
-  const result = await HandleButtonsClick.handleClick(state, 'title-bar-button Close')
+  const result = await HandleButtonsClick.handleClick(state, 'Close')
   expect(result).toBe(state)
   expect(mockRpc.invocations).toEqual([['ElectronWindow.close']])
 })
 
 test('handleClick - unknown button returns state unchanged', async () => {
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
-  const result = await HandleButtonsClick.handleClick(state, 'title-bar-button Unknown')
+  const result = await HandleButtonsClick.handleClick(state, 'Unknown')
   expect(result).toBe(state)
 })
 
-test('handleClick - className with Minimize substring', async () => {
+test('handleClick - className-like value does not trigger minimize', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.minimize'() {},
   })
@@ -67,10 +67,10 @@ test('handleClick - className with Minimize substring', async () => {
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
   const result = await HandleButtonsClick.handleClick(state, 'some-class Minimize-button')
   expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ElectronWindow.minimize']])
+  expect(mockRpc.invocations).toEqual([])
 })
 
-test('handleClick - className with Maximize substring', async () => {
+test('handleClick - className-like value does not trigger toggle maximize', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.maximize'() {},
   })
@@ -80,10 +80,10 @@ test('handleClick - className with Maximize substring', async () => {
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
   const result = await HandleButtonsClick.handleClick(state, 'button-Maximize-class')
   expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ElectronWindow.maximize']])
+  expect(mockRpc.invocations).toEqual([])
 })
 
-test('handleClick - className with Restore substring', async () => {
+test('handleClick - restore label does not trigger toggle maximize', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.unmaximize'() {},
   })
@@ -91,12 +91,12 @@ test('handleClick - className with Restore substring', async () => {
   NativeHostState.setMaximized(true)
 
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
-  const result = await HandleButtonsClick.handleClick(state, 'Restore-button-class')
+  const result = await HandleButtonsClick.handleClick(state, 'Restore')
   expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ElectronWindow.unmaximize']])
+  expect(mockRpc.invocations).toEqual([])
 })
 
-test('handleClick - className with Close substring', async () => {
+test('handleClick - className-like value does not trigger close', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
     'ElectronWindow.close'() {},
   })
@@ -104,5 +104,5 @@ test('handleClick - className with Close substring', async () => {
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
   const result = await HandleButtonsClick.handleClick(state, 'Close-button-class')
   expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ElectronWindow.close']])
+  expect(mockRpc.invocations).toEqual([])
 })

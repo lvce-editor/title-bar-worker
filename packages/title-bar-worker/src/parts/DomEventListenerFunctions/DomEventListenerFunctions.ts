@@ -9,3 +9,4 @@ export const HandlePointerOver = 8
 export const HandleMenuClick = 9
 export const HandleMenuMouseOver = 10
 export const HandleContextMenu = 11
+export const HandleTitleBarContextMenu = 12

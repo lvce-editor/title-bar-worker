@@ -10,6 +10,7 @@ export const createTitleBarButton = (button: TitleBarButton): readonly VirtualDo
       ariaLabel: label,
       childCount: 1,
       className: `TitleBarButton TitleBarButton${id}`,
+      name: id,
       onClick,
       type: VirtualDomElements.Button,
     },
