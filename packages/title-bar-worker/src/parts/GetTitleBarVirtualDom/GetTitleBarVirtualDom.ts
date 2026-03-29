@@ -1,12 +1,14 @@
 import { AriaRoles, PlatformType, VirtualDomElements } from '@lvce-editor/constants'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
+import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getIcon } from '../GetIcon/GetIcon.ts'
 import * as GetTitleBarButtonsVirtualDom from '../GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 import { getTitleBarIconVirtualDom } from '../GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
 import * as GetTitleBarMenuBarVirtualDom from '../GetTitleBarMenuBarVirtualDom/GetTitleBarMenuBarVirtualDom.ts'
 import { getTitleVirtualDom } from '../GetTitleVirtualDom/GetTitleVirtualDom.ts'
 import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
+import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
@@ -40,7 +42,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     {
       ariaLabel: TitleBarStrings.titleBar(),
       childCount: 4,
-      className: 'Viewlet TitleBar',
+      className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.TitleBar),
       id: 'TitleBar',
       role: AriaRoles.ContentInfo,
       type: VirtualDomElements.Div,
