@@ -4,6 +4,7 @@ import * as HandleWorkspaceChange from '../src/parts/HandleWorkspaceChange/Handl
 
 const createMockState = (overrides?: Partial<TitleBarMenuBarState>): TitleBarMenuBarState => {
   const defaults: TitleBarMenuBarState = {
+    appName: 'Lvce Editor',
     assetDir: '/assets',
     buttons: [],
     commandCenterEnabled: false,
@@ -84,13 +85,14 @@ test('handleWorkspaceChange - should handle file protocol URIs', async () => {
 
 test('handleWorkspaceChange - should handle titleTemplate with appName', async () => {
   const initialState = createMockState({
+    appName: 'Custom Editor',
     titleTemplate: '${appName} - ${folderName}',
   })
 
   const result = await HandleWorkspaceChange.handleWorkspaceChange(initialState, '/home/user/my-app')
 
   expect(result.workspaceUri).toBe('/home/user/my-app')
-  expect(result.title).toBe('Lvce Editor - my-app')
+  expect(result.title).toBe('Custom Editor - my-app')
 })
 
 test('handleWorkspaceChange - should handle empty titleTemplate', async () => {
@@ -177,13 +179,14 @@ test('handleWorkspaceChange - should handle nested directory paths', async () =>
 
 test('handleWorkspaceChange - should handle titleTemplate with multiple variables', async () => {
   const initialState = createMockState({
+    appName: 'Custom Editor',
     titleTemplate: '${appName} - ${folderName} - Project',
   })
 
   const result = await HandleWorkspaceChange.handleWorkspaceChange(initialState, '/home/user/my-workspace')
 
   expect(result.workspaceUri).toBe('/home/user/my-workspace')
-  expect(result.title).toBe('Lvce Editor - my-workspace - Project')
+  expect(result.title).toBe('Custom Editor - my-workspace - Project')
 })
 
 test('handleWorkspaceChange - should handle single segment path', async () => {

@@ -2,10 +2,9 @@ import * as Assert from '@lvce-editor/assert'
 import { MenuItemFlags } from '@lvce-editor/constants'
 import * as ToElectronMenuItem from '../ToElectronMenuItem/ToElectronMenuItem.ts'
 
-export const toElectronMenuInternal = (commandMap: any, map: any, id: number, electronMenu: any): any => {
+export const toElectronMenuInternal = (commandMap: any, map: any, id: string | number, electronMenu: any): any => {
   Assert.object(commandMap)
   Assert.object(map)
-  Assert.number(id)
   Assert.array(electronMenu)
   const entries = map[id]
   Assert.array(entries)
@@ -17,7 +16,7 @@ export const toElectronMenuInternal = (commandMap: any, map: any, id: number, el
       }
     }
     const electronEntry = ToElectronMenuItem.toElectronMenuItem(entry)
-    if (entry.flags === MenuItemFlags.SubMenu) {
+    if (entry.flags === MenuItemFlags.SubMenu && entry.id !== undefined && map[entry.id]) {
       toElectronMenuInternal(commandMap, map, entry.id, electronEntry.submenu)
     }
     electronMenu.push(electronEntry)
