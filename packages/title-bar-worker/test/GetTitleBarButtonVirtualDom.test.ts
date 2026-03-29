@@ -17,6 +17,7 @@ test('createTitleBarButton - Close button', () => {
     ariaLabel: 'Close',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonClose',
+    name: 'Close',
     onClick: DomEventListenerFunctions.HandleClickClose,
     type: VirtualDomElements.Button,
   })
@@ -41,6 +42,7 @@ test('createTitleBarButton - Minimize button', () => {
     ariaLabel: 'Minimize',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonMinimize',
+    name: 'Minimize',
     onClick: DomEventListenerFunctions.HandleClickMinimize,
     type: VirtualDomElements.Button,
   })
@@ -55,7 +57,7 @@ test('createTitleBarButton - Minimize button', () => {
 test('createTitleBarButton - Maximize button', () => {
   const button: TitleBarButton = {
     icon: 'Maximize',
-    id: 'Maximize',
+    id: 'ToggleMaximize',
     label: 'Maximize',
     onClick: DomEventListenerFunctions.HandleClickToggleMaximize,
   }
@@ -64,7 +66,8 @@ test('createTitleBarButton - Maximize button', () => {
   expect(result[0]).toEqual({
     ariaLabel: 'Maximize',
     childCount: 1,
-    className: 'TitleBarButton TitleBarButtonMaximize',
+    className: 'TitleBarButton TitleBarButtonToggleMaximize',
+    name: 'ToggleMaximize',
     onClick: DomEventListenerFunctions.HandleClickToggleMaximize,
     type: VirtualDomElements.Button,
   })
@@ -89,6 +92,7 @@ test('createTitleBarButton - custom button', () => {
     ariaLabel: 'Custom Label',
     childCount: 1,
     className: 'TitleBarButton TitleBarButtonCustomId',
+    name: 'CustomId',
     onClick: DomEventListenerFunctions.HandleClick,
     type: VirtualDomElements.Button,
   })
