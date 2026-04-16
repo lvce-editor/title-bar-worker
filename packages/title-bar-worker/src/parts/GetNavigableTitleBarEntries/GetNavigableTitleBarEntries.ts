@@ -13,7 +13,7 @@ const hasOverflowEntry = (entries: readonly EntryWithId[]): boolean => {
 export const getNavigableTitleBarEntries = (state: TitleBarMenuBarState): readonly ComputedTitleBarEntry<TitleBarEntry>[] => {
   const { focusedIndex, isMenuOpen, titleBarEntries, width } = state
   if (hasOverflowEntry(titleBarEntries)) {
-    return titleBarEntries
+    return titleBarEntries as readonly ComputedTitleBarEntry<TitleBarEntry>[]
   }
   return getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
 }

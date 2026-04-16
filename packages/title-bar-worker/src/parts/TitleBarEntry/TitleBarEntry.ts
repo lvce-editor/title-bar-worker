@@ -1,4 +1,4 @@
-import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
+import type * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 
 export type TitleBarEntryId =
   | typeof MenuEntryId.Edit
@@ -32,8 +32,8 @@ export interface OverflowTitleBarEntry<T extends TitleBarEntry = TitleBarEntry> 
   readonly ariaLabel: string
   readonly hiddenEntries: readonly T[]
   readonly icon: string
-  readonly keyboardShortCut?: string
   readonly id: string
+  readonly keyboardShortCut?: string
   readonly label: string
   readonly width: number
 }
