@@ -32,13 +32,12 @@ export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number
   if (!isOverflowTitleBarEntry(titleBarEntry) && id === undefined) {
     return state
   }
-  const items =
-    id === OverflowMenuId
-      ? getOverflowMenuItems(titleBarEntry.hiddenEntries)
-      : await GetMenuEntries2.getMenuEntries2(state, {
-          menuId: id,
-          platform,
-        })
+  const items = isOverflowTitleBarEntry(titleBarEntry)
+    ? getOverflowMenuItems(titleBarEntry.hiddenEntries)
+    : await GetMenuEntries2.getMenuEntries2(state, {
+        menuId: id,
+        platform,
+      })
   const relevantEntries = titleBarEntries.slice(0, index)
   const totalWidths = GetTotalWidth.getTotalWidth(relevantEntries)
   const offset = totalWidths
