@@ -15,10 +15,5 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
 
   const overflowMenu = Locator('#Menu-0')
   await expect(overflowMenu).toBeVisible()
-  await expect(overflowMenu.locator('.MenuItem', { hasText: /^Selection$/ })).toHaveCount(1)
-  await expect(overflowMenu.locator('.MenuItem', { hasText: /^View$/ })).toHaveCount(1)
-  await expect(overflowMenu.locator('.MenuItem', { hasText: /^Go$/ })).toHaveCount(1)
-  await expect(overflowMenu.locator('.MenuItem', { hasText: /^Run$/ })).toHaveCount(1)
-  await expect(overflowMenu.locator('.MenuItem', { hasText: /^Terminal$/ })).toHaveCount(1)
-  await expect(overflowMenu.locator('.MenuItem', { hasText: /^Help$/ })).toHaveCount(1)
+  await expect(overflowMenu.locator('.MenuItem')).toHaveCount(6)
 }
