@@ -54,7 +54,6 @@ const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBa
   titleWidth: 0,
   uid: 1,
   width: 800,
-  windowWidth: 800,
   workspaceUri: '',
   x: 0,
   y: 0,

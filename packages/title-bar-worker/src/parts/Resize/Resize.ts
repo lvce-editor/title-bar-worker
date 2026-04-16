@@ -1,8 +1,5 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
-
-const getTitleBarMenuBarWidth = (windowWidth: number, menuBarX: number, iconWidth: number, titleWidth: number): number => {
-  return windowWidth / 2 - titleWidth / 2 - menuBarX - iconWidth
-}
+import { getTitleBarMenuBarWidth } from '../GetTitleBarMenuBarWidth/GetTitleBarMenuBarWidth.ts'
 
 interface Dimensions {
   readonly height: number
@@ -22,7 +19,6 @@ export const resize = async (state: TitleBarMenuBarState, dimensions: Dimensions
     ...dimensions,
     height: menuBarHeight,
     width: menuBarWidth,
-    windowWidth: dimensions.width,
     x: menuBarX,
     y: menuBarY,
   }

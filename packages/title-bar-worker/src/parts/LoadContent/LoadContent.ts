@@ -2,7 +2,7 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as AddWidths from '../AddWidths/AddWidths.ts'
 import { getTitleBarButtons } from '../GetTitleBarButtons/GetTitleBarButtons.ts'
-import { measureTextWidths } from '../MeasureTextWidths/MeasureTextWidths.ts'
+import { measureTitleWidth } from '../MeasureTitleWidth/MeasureTitleWidth.ts'
 
 export const loadContent = async (state: TitleBarMenuBarState, titleBarEntries: readonly VisibleMenuItem[]): Promise<TitleBarMenuBarState> => {
   const { controlsOverlayEnabled, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding, platform, titleBarStyleCustom } =
@@ -10,7 +10,7 @@ export const loadContent = async (state: TitleBarMenuBarState, titleBarEntries: 
   const withWidths = await AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
   const title = 'test'
-  const [titleWidth = 0] = await measureTextWidths([title], labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
+  const titleWidth = await measureTitleWidth(title, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   return {
     ...state,
     buttons,

@@ -39,7 +39,6 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   titleWidth: 0,
   uid,
   width: 800,
-  windowWidth: 800,
   workspaceUri: '',
   x: 0,
   y: 0,

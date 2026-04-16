@@ -5,7 +5,7 @@ import { hydrate } from '../ElectronApplicationMenu/ElectronApplicationMenu.ts'
 import { getTitle } from '../GetTitle/GetTitle.ts'
 import { getTitleBarButtons } from '../GetTitleBarButtons/GetTitleBarButtons.ts'
 import { getWorkspaceUri } from '../GetWorkspaceUri/GetWorkspaceUri.ts'
-import { measureTextWidths } from '../MeasureTextWidths/MeasureTextWidths.ts'
+import { measureTitleWidth } from '../MeasureTitleWidth/MeasureTitleWidth.ts'
 import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
 
 export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
@@ -16,7 +16,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
   const workspaceUri = await getWorkspaceUri()
   const title = getTitle(workspaceUri, state.titleTemplate, state.appName)
-  const [titleWidth = 0] = await measureTextWidths([title], labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
+  const titleWidth = await measureTitleWidth(title, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const iconWidth = 30
 
   // TODO load preferences here

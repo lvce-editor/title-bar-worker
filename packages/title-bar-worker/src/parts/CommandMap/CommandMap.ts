@@ -24,6 +24,7 @@ import { resize } from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
 import { setPlatform } from '../SetPlatform/SetPlatform.ts'
 import { setTitleTemplate } from '../SetTitleTemplate/SetTitleTemplate.ts'
+import { setWidth } from '../SetWidth/SetWidth.ts'
 import { showCommandCenter } from '../ShowCommandCenter/ShowCommandCenter.ts'
 import { showMenuBar } from '../ShowMenuBar/ShowMenuBar.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
@@ -109,6 +110,7 @@ export const commandMap = {
   'TitleBar.saveState': wrapGetter(SaveState.saveState),
   'TitleBar.setPlatform': wrapCommand(setPlatform),
   'TitleBar.setTitleTemplate': wrapCommand(setTitleTemplate),
+  'TitleBar.setWidth': wrapCommand(setWidth),
   'TitleBar.showCommandCenter': wrapCommand(showCommandCenter),
   'TitleBar.showMenuBar': wrapCommand(showMenuBar),
   'TitleBar.terminate': terminate,
