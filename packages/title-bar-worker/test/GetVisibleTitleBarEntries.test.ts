@@ -1,8 +1,8 @@
 import { expect, test } from '@jest/globals'
+import type { ComputedTitleBarEntry, OverflowTitleBarEntry, TitleBarEntry } from '../src/parts/TitleBarEntry/TitleBarEntry.ts'
 import * as GetVisibleTitleBarEntries from '../src/parts/GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 import * as Icon from '../src/parts/Icon/Icon.ts'
 import * as TitleBarMenuBarStrings from '../src/parts/TitleBarMenuBarStrings/TitleBarMenuBarStrings.ts'
-import type { ComputedTitleBarEntry, OverflowTitleBarEntry, TitleBarEntry } from '../src/parts/TitleBarEntry/TitleBarEntry.ts'
 
 const createEntry = (label: string, width: number): TitleBarEntry => ({
   label,

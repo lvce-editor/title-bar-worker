@@ -1,5 +1,5 @@
-import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import type { ComputedTitleBarEntry, TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
+import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { getVisibleTitleBarEntries, OverflowMenuId } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 
 interface EntryWithId {
@@ -13,7 +13,7 @@ const hasOverflowEntry = (entries: readonly EntryWithId[]): boolean => {
 export const getNavigableTitleBarEntries = (state: TitleBarMenuBarState): readonly ComputedTitleBarEntry<TitleBarEntry>[] => {
   const { focusedIndex, isMenuOpen, titleBarEntries, width } = state
   if (hasOverflowEntry(titleBarEntries)) {
-    return titleBarEntries as readonly ComputedTitleBarEntry<TitleBarEntry>[]
+    return titleBarEntries
   }
   return getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
 }

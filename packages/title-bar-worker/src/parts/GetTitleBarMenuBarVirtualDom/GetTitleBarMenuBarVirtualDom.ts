@@ -1,10 +1,10 @@
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
+import type { ComputedTitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetTitleBarMenubarItemsVirtualDom from '../GetTitleBarMenuBarItemsVirtualDom/GetTitleBarMenuBarItemsVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
-import type { ComputedTitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 
 const activeId = 'TitleBarEntryActive'
 

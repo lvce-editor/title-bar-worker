@@ -1,12 +1,12 @@
+import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
+import type { TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as GetMenuEntries2 from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as GetNavigableTitleBarEntries from '../GetNavigableTitleBarEntries/GetNavigableTitleBarEntries.ts'
 import * as GetTotalWidth from '../GetTotalWidth/GetTotalWidth.ts'
-import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import { isOverflowTitleBarEntry, OverflowMenuId } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-import type { TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 
 const getOverflowMenuItems = (hiddenEntries: readonly TitleBarEntry[]): readonly MenuEntry[] => {
   return hiddenEntries.map((entry) => ({

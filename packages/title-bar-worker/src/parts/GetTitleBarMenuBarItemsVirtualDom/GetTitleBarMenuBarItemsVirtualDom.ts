@@ -1,7 +1,7 @@
 import { AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import type { ComputedTitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import type { ComputedTitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 
 const getItemVirtualDom = (item: ComputedTitleBarEntry): readonly VirtualDomNode[] => {
   const { ariaLabel, isFocused, isOpen, keyboardShortCut, label } = item

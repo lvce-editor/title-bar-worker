@@ -1,7 +1,7 @@
+import type { ComputedTitleBarEntry, OverflowTitleBarEntry, TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 import * as Assert from '../Assert/Assert.ts'
 import * as Icon from '../Icon/Icon.ts'
 import * as TitleBarMenuBarStrings from '../TitleBarMenuBarStrings/TitleBarMenuBarStrings.ts'
-import type { ComputedTitleBarEntry, OverflowTitleBarEntry, TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 
 const MoreEntryWidth = 38
 
@@ -37,9 +37,7 @@ const createOverflowEntry = <T extends TitleBarEntry>(
   }
 }
 
-export const isOverflowTitleBarEntry = <T extends TitleBarEntry>(
-  entry: ComputedTitleBarEntry<T>,
-): entry is OverflowTitleBarEntry<T> => {
+export const isOverflowTitleBarEntry = <T extends TitleBarEntry>(entry: ComputedTitleBarEntry<T>): entry is OverflowTitleBarEntry<T> => {
   return entry.id === OverflowMenuId
 }
 

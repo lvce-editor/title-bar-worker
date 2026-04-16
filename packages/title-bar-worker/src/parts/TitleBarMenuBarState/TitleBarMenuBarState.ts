@@ -1,6 +1,6 @@
 import type { IMenu } from '../IMenu/IMenu.ts'
-import type { TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
+import type { TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 
 export interface TitleBarMenuBarState {
   readonly appName: string
