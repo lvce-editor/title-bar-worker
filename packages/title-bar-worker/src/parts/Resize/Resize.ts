@@ -1,8 +1,7 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
-const getTitleBarMenuBarWidth = (width: number, menuBarX: number, titleBarButtonsWidth: number): number => {
-  const remainingWidth = width - menuBarX - titleBarButtonsWidth
-  return remainingWidth
+const getTitleBarMenuBarWidth = (windowWidth: number, menuBarX: number, iconWidth: number, titleWidth: number): number => {
+  return windowWidth / 2 - titleWidth / 2 - menuBarX - iconWidth
 }
 
 interface Dimensions {
@@ -13,16 +12,17 @@ interface Dimensions {
 }
 
 export const resize = async (state: TitleBarMenuBarState, dimensions: Dimensions): Promise<TitleBarMenuBarState> => {
-  const { titleBarButtonsWidth } = state
+  const { iconWidth, titleWidth } = state
   const menuBarX = dimensions.x
   const menuBarY = dimensions.y
-  const menuBarWidth = getTitleBarMenuBarWidth(dimensions.width, menuBarX, titleBarButtonsWidth)
+  const menuBarWidth = getTitleBarMenuBarWidth(dimensions.width, menuBarX, iconWidth, titleWidth)
   const menuBarHeight = dimensions.height
   return {
     ...state,
     ...dimensions,
     height: menuBarHeight,
     width: menuBarWidth,
+    windowWidth: dimensions.width,
     x: menuBarX,
     y: menuBarY,
   }

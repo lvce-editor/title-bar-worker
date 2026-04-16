@@ -5,13 +5,14 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 
 const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
   // @ts-ignore
-  const { icon, isFocused, isOpen, keyboardShortCut, label } = item
+  const { ariaLabel, icon, isFocused, isOpen, keyboardShortCut, label } = item
   let className = ClassNames.TitleBarTopLevelEntry
   if (isFocused) {
     className += ' ' + ClassNames.TitleBarEntryActive
   }
   return [
     {
+      ariaLabel: ariaLabel || label,
       ariaExpanded: isOpen,
       ariaHasPopup: true,
       ariaKeyShortcuts: keyboardShortCut,

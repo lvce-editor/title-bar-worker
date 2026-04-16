@@ -19,6 +19,7 @@ export const create = (id: any, uri: string, x: number, y: number, width: number
     titleBarHeight: height,
     uid: id,
     width,
+    windowWidth: width,
     x,
     y,
   }
