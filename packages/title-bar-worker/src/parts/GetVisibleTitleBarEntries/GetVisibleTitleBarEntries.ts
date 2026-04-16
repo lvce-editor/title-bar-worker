@@ -18,7 +18,7 @@ export const getVisibleTitleBarEntries = (entries: readonly any[], width: number
   Assert.array(entries)
   Assert.number(width)
   let total = 0
-  const visible = []
+  const visible: any[] = []
   for (let i = 0; i < entries.length; i++) {
     const entry = entries[i]
     const nextTotal = total + entry.width
@@ -26,9 +26,9 @@ export const getVisibleTitleBarEntries = (entries: readonly any[], width: number
       break
     }
     total = nextTotal
-    const visibleIndex = visible.length
-    const isOpen = visibleIndex === focusedIndex && isMenuOpen
-    const isFocused = visibleIndex === focusedIndex
+    const visibleIndex: number = visible.length
+    const isOpen: boolean = visibleIndex === focusedIndex && isMenuOpen
+    const isFocused: boolean = visibleIndex === focusedIndex
     visible.push({ ...entry, isFocused, isOpen })
   }
   const hasOverflow = visible.length < entries.length
