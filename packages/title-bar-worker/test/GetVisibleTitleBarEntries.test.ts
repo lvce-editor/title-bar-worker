@@ -2,14 +2,22 @@ import { expect, test } from '@jest/globals'
 import * as GetVisibleTitleBarEntries from '../src/parts/GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 import * as Icon from '../src/parts/Icon/Icon.ts'
 import * as TitleBarMenuBarStrings from '../src/parts/TitleBarMenuBarStrings/TitleBarMenuBarStrings.ts'
+import type { ComputedTitleBarEntry, OverflowTitleBarEntry, TitleBarEntry } from '../src/parts/TitleBarEntry/TitleBarEntry.ts'
 
-const createEntry = (label: string, width: number): any => ({
+const createEntry = (label: string, width: number): TitleBarEntry => ({
   label,
   width,
 })
 
+const getOverflowEntry = (entry: ComputedTitleBarEntry<TitleBarEntry>): OverflowTitleBarEntry<TitleBarEntry> => {
+  if (!('hiddenEntries' in entry)) {
+    throw new Error('Expected overflow entry')
+  }
+  return entry
+}
+
 test('getVisibleTitleBarEntries - should return empty array for empty entries', () => {
-  const entries: any[] = []
+  const entries: readonly TitleBarEntry[] = []
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 100, 0, false)
   expect(result).toEqual([])
 })
@@ -38,7 +46,7 @@ test('getVisibleTitleBarEntries - should stop when total width exceeds available
     label: '...',
     width: 38,
   })
-  expect(result[0].hiddenEntries).toEqual(entries)
+  expect(getOverflowEntry(result[0]).hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should add isFocused property correctly', () => {
@@ -84,7 +92,7 @@ test('getVisibleTitleBarEntries - should add more icon when entries overflow', (
     label: '...',
     width: 38,
   })
-  expect(result[2].hiddenEntries).toEqual([entries[2], entries[3]])
+  expect(getOverflowEntry(result[2]).hiddenEntries).toEqual([entries[2], entries[3]])
 })
 
 test('getVisibleTitleBarEntries - should remove last entry if more icon still causes overflow', () => {
@@ -101,7 +109,7 @@ test('getVisibleTitleBarEntries - should remove last entry if more icon still ca
     label: '...',
     width: 38,
   })
-  expect(result[0].hiddenEntries).toEqual(entries)
+  expect(getOverflowEntry(result[0]).hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should handle single entry that fits', () => {
@@ -126,7 +134,7 @@ test('getVisibleTitleBarEntries - should handle single entry that exceeds width'
     label: '...',
     width: 38,
   })
-  expect(result[0].hiddenEntries).toEqual(entries)
+  expect(getOverflowEntry(result[0]).hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should handle focusedIndex out of bounds', () => {
@@ -186,7 +194,7 @@ test('getVisibleTitleBarEntries - should handle exact width match', () => {
     label: '...',
     width: 38,
   })
-  expect(result[0].hiddenEntries).toEqual(entries)
+  expect(getOverflowEntry(result[0]).hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should handle width just below threshold for more icon', () => {
@@ -203,7 +211,7 @@ test('getVisibleTitleBarEntries - should handle width just below threshold for m
     label: '...',
     width: 38,
   })
-  expect(result[0].hiddenEntries).toEqual(entries)
+  expect(getOverflowEntry(result[0]).hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should show entry with more icon when there is space', () => {
@@ -221,7 +229,7 @@ test('getVisibleTitleBarEntries - should show entry with more icon when there is
     label: '...',
     width: 38,
   })
-  expect(result[1].hiddenEntries).toEqual([entries[1], entries[2]])
+  expect(getOverflowEntry(result[1]).hiddenEntries).toEqual([entries[1], entries[2]])
 })
 
 test('getVisibleTitleBarEntries - should calculate more icon width correctly', () => {
@@ -229,6 +237,10 @@ test('getVisibleTitleBarEntries - should calculate more icon width correctly', (
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 60, 0, false)
 
   const moreIcon = result.at(-1)
+  expect(moreIcon).toBeDefined()
+  if (!moreIcon) {
+    throw new Error('Expected overflow entry')
+  }
   expect(moreIcon.icon).toBe(Icon.Ellipsis)
   expect(moreIcon.width).toBe(38)
 })
@@ -239,6 +251,10 @@ test('getVisibleTitleBarEntries - should handle multiple entries with overflow',
 
   expect(result.length).toBeGreaterThan(0)
   const lastEntry = result.at(-1)
+  expect(lastEntry).toBeDefined()
+  if (!lastEntry) {
+    throw new Error('Expected overflow entry')
+  }
   expect(lastEntry.icon).toBe(Icon.Ellipsis)
 })
 
@@ -264,7 +280,7 @@ test('getVisibleTitleBarEntries - should keep hidden entries on overflow item', 
     label: '...',
     width: 38,
   })
-  expect(result[1].hiddenEntries).toEqual([entries[1], entries[2], entries[3]])
+  expect(getOverflowEntry(result[1]).hiddenEntries).toEqual([entries[1], entries[2], entries[3]])
 })
 
 test('getVisibleTitleBarEntries - should focus overflow item when focusedIndex matches it', () => {

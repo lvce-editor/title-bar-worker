@@ -4,12 +4,20 @@ interface EntryWithLabel {
   readonly label: string
 }
 
+export interface EntryWithWidth {
+  readonly width: number
+}
+
 const getLabel = (entry: EntryWithLabel): string => {
   return entry.label
 }
 
-const getWithWidths = (entries: readonly EntryWithLabel[], widths: readonly number[], labelPadding: number): readonly any[] => {
-  const withWidths = []
+const getWithWidths = <T extends EntryWithLabel>(
+  entries: readonly T[],
+  widths: readonly number[],
+  labelPadding: number,
+): readonly (T & EntryWithWidth)[] => {
+  const withWidths: Array<T & EntryWithWidth> = []
   for (let i = 0; i < entries.length; i++) {
     const entry = entries[i]
     const textWidth = widths[i]
@@ -19,14 +27,14 @@ const getWithWidths = (entries: readonly EntryWithLabel[], widths: readonly numb
   return withWidths
 }
 
-export const addWidths = async (
-  entries: readonly EntryWithLabel[],
+export const addWidths = async <T extends EntryWithLabel>(
+  entries: readonly T[],
   labelPadding: number,
   fontWeight: number,
   fontSize: number,
   fontFamily: string,
   letterSpacing: number,
-): Promise<readonly any[]> => {
+): Promise<readonly (T & EntryWithWidth)[]> => {
   const labels = entries.map(getLabel)
   const widths = await measureTextWidths(labels, fontWeight, fontSize, fontFamily, letterSpacing)
   const withWidths = getWithWidths(entries, widths, labelPadding)

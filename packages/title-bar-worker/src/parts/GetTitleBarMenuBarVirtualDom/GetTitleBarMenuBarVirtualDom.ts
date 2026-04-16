@@ -1,16 +1,16 @@
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
-import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import * as GetTitleBarMenubarItemsVirtualDom from '../GetTitleBarMenuBarItemsVirtualDom/GetTitleBarMenuBarItemsVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
+import type { ComputedTitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 
 const activeId = 'TitleBarEntryActive'
 
 export const getTitleBarMenuBarVirtualDom = (
   menuBarEnabled: boolean,
-  visibleItems: readonly VisibleMenuItem[],
+  visibleItems: readonly ComputedTitleBarEntry[],
   focusedIndex: number,
 ): readonly VirtualDomNode[] => {
   if (!menuBarEnabled) {

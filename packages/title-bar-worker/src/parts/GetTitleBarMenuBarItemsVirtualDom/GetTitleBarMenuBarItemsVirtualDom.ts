@@ -1,11 +1,10 @@
 import { AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
-import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import type { ComputedTitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 
-const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
-  // @ts-ignore
-  const { ariaLabel, icon, isFocused, isOpen, keyboardShortCut, label } = item
+const getItemVirtualDom = (item: ComputedTitleBarEntry): readonly VirtualDomNode[] => {
+  const { ariaLabel, isFocused, isOpen, keyboardShortCut, label } = item
   let className = ClassNames.TitleBarTopLevelEntry
   if (isFocused) {
     className += ' ' + ClassNames.TitleBarEntryActive
@@ -29,7 +28,7 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
   ]
 }
 
-export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: readonly VisibleMenuItem[]): readonly VirtualDomNode[] => {
+export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: readonly ComputedTitleBarEntry[]): readonly VirtualDomNode[] => {
   const dom = visibleItems.flatMap(getItemVirtualDom)
   return dom
 }

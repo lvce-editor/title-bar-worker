@@ -2,11 +2,13 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import * as GetMenuEntries2 from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as GetNavigableTitleBarEntries from '../GetNavigableTitleBarEntries/GetNavigableTitleBarEntries.ts'
 import * as GetTotalWidth from '../GetTotalWidth/GetTotalWidth.ts'
-import { OverflowMenuId } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
+import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
+import { isOverflowTitleBarEntry, OverflowMenuId } from '../GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
+import type { TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 
-const getOverflowMenuItems = (hiddenEntries: readonly any[]): readonly any[] => {
+const getOverflowMenuItems = (hiddenEntries: readonly TitleBarEntry[]): readonly MenuEntry[] => {
   return hiddenEntries.map((entry) => ({
     command: '',
     flags: MenuItemFlags.SubMenu,
@@ -27,9 +29,12 @@ export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number
     return state
   }
   const { id } = titleBarEntry
+  if (!isOverflowTitleBarEntry(titleBarEntry) && id === undefined) {
+    return state
+  }
   const items =
     id === OverflowMenuId
-      ? getOverflowMenuItems(titleBarEntry.hiddenEntries || [])
+      ? getOverflowMenuItems(titleBarEntry.hiddenEntries)
       : await GetMenuEntries2.getMenuEntries2(state, {
           menuId: id,
           platform,

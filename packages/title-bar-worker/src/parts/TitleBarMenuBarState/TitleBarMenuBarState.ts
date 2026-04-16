@@ -1,4 +1,5 @@
 import type { IMenu } from '../IMenu/IMenu.ts'
+import type { TitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 import type { TitleBarButton } from '../TitleBarButton/TitleBarButton.ts'
 
 export interface TitleBarMenuBarState {
@@ -25,7 +26,7 @@ export interface TitleBarMenuBarState {
   readonly titleBarButtons: readonly TitleBarButton[]
   readonly titleBarButtonsEnabled: boolean
   readonly titleBarButtonsWidth: number
-  readonly titleBarEntries: readonly any[]
+  readonly titleBarEntries: readonly TitleBarEntry[]
   readonly titleBarHeight: number
   readonly titleBarIconEnabled: boolean
   readonly titleBarIconWidth: number
