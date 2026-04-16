@@ -12,10 +12,10 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
   }
   return [
     {
-      ariaLabel: ariaLabel || label,
       ariaExpanded: isOpen,
       ariaHasPopup: true,
       ariaKeyShortcuts: keyboardShortCut,
+      ariaLabel: ariaLabel || label,
       ariaOwns: isOpen ? 'Menu-0' : undefined,
       childCount: 1,
       className,

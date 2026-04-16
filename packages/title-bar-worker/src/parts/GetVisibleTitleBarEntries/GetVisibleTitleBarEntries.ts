@@ -41,8 +41,8 @@ export const getVisibleTitleBarEntries = (entries: readonly any[], width: number
     visible.push({
       ariaLabel: TitleBarMenuBarStrings.moreDot(),
       hiddenEntries,
-      id: OverflowMenuId,
       icon: Icon.Ellipsis,
+      id: OverflowMenuId,
       isFocused: overflowIndex === focusedIndex,
       isOpen: overflowIndex === focusedIndex && isMenuOpen,
       label: '...',
