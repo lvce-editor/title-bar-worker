@@ -11,9 +11,9 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspa
 
   const titleBarEntries = Locator('.TitleBarTopLevelEntry')
   await expect(titleBarEntries).toHaveCount(4)
-  await expect(Locator('.TitleBarTopLevelEntry', { hasText: 'File' })).toHaveCount(1)
-  await expect(Locator('.TitleBarTopLevelEntry', { hasText: 'Edit' })).toHaveCount(1)
-  await expect(Locator('.TitleBarTopLevelEntry', { hasText: 'Selection' })).toHaveCount(1)
-  await expect(Locator('.TitleBarTopLevelEntry', { hasText: 'View' })).toHaveCount(0)
-  await expect(Locator('.TitleBarTopLevelEntry', { hasText: '...' })).toHaveCount(1)
+  await expect(Locator('.TitleBarTopLevelEntry[name="File"]')).toHaveCount(1)
+  await expect(Locator('.TitleBarTopLevelEntry[name="Edit"]')).toHaveCount(1)
+  await expect(Locator('.TitleBarTopLevelEntry[name="Selection"]')).toHaveCount(1)
+  await expect(Locator('.TitleBarTopLevelEntry[name="View"]')).toHaveCount(0)
+  await expect(Locator('.TitleBarTopLevelEntry[name="..."]')).toHaveCount(1)
 }
