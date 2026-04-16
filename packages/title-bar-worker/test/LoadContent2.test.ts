@@ -8,6 +8,15 @@ jest.unstable_mockModule('../src/parts/AddWidths/AddWidths.ts', () => ({
   addWidths: jest.fn(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 }))),
 }))
 
+const mockMeasureTextWidths = jest.fn(
+  async (texts: readonly string[], _fontWeight: number, _fontSize: number, _fontFamily: string, _letterSpacing: number) =>
+    texts.map((text) => text.length * 10),
+)
+
+jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.ts', () => ({
+  measureTextWidths: mockMeasureTextWidths,
+}))
+
 const LoadContent2 = await import('../src/parts/LoadContent2/LoadContent2.ts')
 
 const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBarMenuBarState => ({
@@ -42,6 +51,7 @@ const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBa
   titleBarStyleCustom: true,
   titleBarTitleEnabled: true,
   titleTemplate: '${folderName}',
+  titleWidth: 0,
   uid: 1,
   width: 800,
   workspaceUri: '',
@@ -140,6 +150,7 @@ test('loadContent2 - title is generated from workspace URI and titleTemplate', a
   const result = await LoadContent2.loadContent2(mockState)
 
   expect(result.title).toBe('myproject')
+  expect(result.titleWidth).toBe(90)
 })
 
 test('loadContent2 - title uses appName when in titleTemplate', async () => {
@@ -327,6 +338,28 @@ test('loadContent2 - handles multiple different platforms', async () => {
     expect(result.title).toBe('test')
     expect(result.titleBarEntries).toBeDefined()
   }
+})
+
+test('loadContent2 - measures title text with configured font settings', async () => {
+  const mockState = createMockState({
+    labelFontFamily: 'Courier',
+    labelFontSize: 12,
+    labelFontWeight: 600,
+    labelLetterSpacing: 2,
+    platform: PlatformType.Web,
+    titleTemplate: '${appName} - ${folderName}',
+  })
+
+  using _mockRpc = RendererWorker.registerMockRpc({
+    'Workspace.getUri'() {
+      return '/home/user/myproject'
+    },
+  })
+
+  const result = await LoadContent2.loadContent2(mockState)
+
+  expect(mockMeasureTextWidths).toHaveBeenCalledWith(['Lvce Editor - myproject'], 600, 12, 'Courier', 2)
+  expect(result.titleWidth).toBe(230)
 })
 
 test('loadContent2 - returns updated state with same uid', async () => {

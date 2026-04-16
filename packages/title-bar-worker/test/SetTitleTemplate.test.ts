@@ -1,28 +1,55 @@
-import { expect, test } from '@jest/globals'
+/* eslint-disable jest/no-restricted-jest-methods */
+import { expect, jest, test } from '@jest/globals'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import { setTitleTemplate } from '../src/parts/SetTitleTemplate/SetTitleTemplate.ts'
 
-test('setTitleTemplate - sets the title template', () => {
-  const state = createDefaultState()
-  const newState = setTitleTemplate(state, '${appName} - ${folderName}')
+const mockMeasureTextWidths = jest.fn(
+  async (texts: readonly string[], _fontWeight: number, _fontSize: number, _fontFamily: string, _letterSpacing: number) =>
+    texts.map((text) => text.length * 10),
+)
+
+await jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.ts', () => ({
+  measureTextWidths: mockMeasureTextWidths,
+}))
+
+const { setTitleTemplate } = await import('../src/parts/SetTitleTemplate/SetTitleTemplate.ts')
+
+test('setTitleTemplate - sets the title template', async () => {
+  const state = {
+    ...createDefaultState(),
+    workspaceUri: '/home/user/project',
+  }
+  const newState = await setTitleTemplate(state, '${appName} - ${folderName}')
   expect(newState.titleTemplate).toBe('${appName} - ${folderName}')
+  expect(newState.title).toBe('Lvce Editor - project')
+  expect(newState.titleWidth).toBe(210)
 })
 
-test('setTitleTemplate - sets empty title template', () => {
-  const state = createDefaultState()
-  const newState = setTitleTemplate(state, '')
+test('setTitleTemplate - sets empty title template', async () => {
+  const state = {
+    ...createDefaultState(),
+    workspaceUri: '/home/user/project',
+  }
+  const newState = await setTitleTemplate(state, '')
   expect(newState.titleTemplate).toBe('')
+  expect(newState.title).toBe('project')
 })
 
-test('setTitleTemplate - sets custom title template', () => {
-  const state = createDefaultState()
-  const newState = setTitleTemplate(state, 'My Custom Title')
+test('setTitleTemplate - sets custom title template', async () => {
+  const state = {
+    ...createDefaultState(),
+    workspaceUri: '/home/user/project',
+  }
+  const newState = await setTitleTemplate(state, 'My Custom Title')
   expect(newState.titleTemplate).toBe('My Custom Title')
+  expect(newState.title).toBe('My Custom Title')
 })
 
-test('setTitleTemplate - does not modify other state properties', () => {
-  const state = createDefaultState()
-  const newState = setTitleTemplate(state, '${folderName}')
+test('setTitleTemplate - does not modify other state properties', async () => {
+  const state = {
+    ...createDefaultState(),
+    workspaceUri: '/home/user/project',
+  }
+  const newState = await setTitleTemplate(state, '${folderName}')
   expect(newState.assetDir).toBe(state.assetDir)
   expect(newState.buttons).toBe(state.buttons)
   expect(newState.commandCenterEnabled).toBe(state.commandCenterEnabled)
@@ -40,7 +67,6 @@ test('setTitleTemplate - does not modify other state properties', () => {
   expect(newState.layoutControlsEnabled).toBe(state.layoutControlsEnabled)
   expect(newState.menus).toBe(state.menus)
   expect(newState.platform).toBe(state.platform)
-  expect(newState.title).toBe(state.title)
   expect(newState.titleBarButtons).toBe(state.titleBarButtons)
   expect(newState.titleBarButtonsEnabled).toBe(state.titleBarButtonsEnabled)
   expect(newState.titleBarButtonsWidth).toBe(state.titleBarButtonsWidth)

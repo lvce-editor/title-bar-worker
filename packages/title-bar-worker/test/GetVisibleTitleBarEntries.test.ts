@@ -29,12 +29,16 @@ test('getVisibleTitleBarEntries - should stop when total width exceeds available
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 60, 0, false)
 
   expect(result).toHaveLength(1)
-  expect(result[0]).toEqual({
+  expect(result[0]).toMatchObject({
     ariaLabel: TitleBarMenuBarStrings.moreDot(),
     icon: Icon.Ellipsis,
-    label: '',
+    id: GetVisibleTitleBarEntries.OverflowMenuId,
+    isFocused: true,
+    isOpen: false,
+    label: '...',
     width: 38,
   })
+  expect(result[0].hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should add isFocused property correctly', () => {
@@ -71,26 +75,33 @@ test('getVisibleTitleBarEntries - should add more icon when entries overflow', (
   expect(result).toHaveLength(3)
   expect(result[0]).toEqual({ isFocused: true, isOpen: false, label: 'File', width: 30 })
   expect(result[1]).toEqual({ isFocused: false, isOpen: false, label: 'Edit', width: 30 })
-  expect(result[2]).toEqual({
+  expect(result[2]).toMatchObject({
     ariaLabel: TitleBarMenuBarStrings.moreDot(),
     icon: Icon.Ellipsis,
-    label: '',
+    id: GetVisibleTitleBarEntries.OverflowMenuId,
+    isFocused: false,
+    isOpen: false,
+    label: '...',
     width: 38,
   })
+  expect(result[2].hiddenEntries).toEqual([entries[2], entries[3]])
 })
 
 test('getVisibleTitleBarEntries - should remove last entry if more icon still causes overflow', () => {
   const entries = [createEntry('File', 30), createEntry('Edit', 30), createEntry('View', 30), createEntry('Help', 30)]
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 65, 0, false)
 
-  expect(result).toHaveLength(2)
-  expect(result[0]).toEqual({ isFocused: true, isOpen: false, label: 'File', width: 30 })
-  expect(result[1]).toEqual({
+  expect(result).toHaveLength(1)
+  expect(result[0]).toMatchObject({
     ariaLabel: TitleBarMenuBarStrings.moreDot(),
     icon: Icon.Ellipsis,
-    label: '',
+    id: GetVisibleTitleBarEntries.OverflowMenuId,
+    isFocused: true,
+    isOpen: false,
+    label: '...',
     width: 38,
   })
+  expect(result[0].hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should handle single entry that fits', () => {
@@ -106,12 +117,16 @@ test('getVisibleTitleBarEntries - should handle single entry that exceeds width'
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 50, 0, false)
 
   expect(result).toHaveLength(1)
-  expect(result[0]).toEqual({
+  expect(result[0]).toMatchObject({
     ariaLabel: TitleBarMenuBarStrings.moreDot(),
     icon: Icon.Ellipsis,
-    label: '',
+    id: GetVisibleTitleBarEntries.OverflowMenuId,
+    isFocused: true,
+    isOpen: false,
+    label: '...',
     width: 38,
   })
+  expect(result[0].hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should handle focusedIndex out of bounds', () => {
@@ -162,12 +177,16 @@ test('getVisibleTitleBarEntries - should handle exact width match', () => {
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 60, 0, false)
 
   expect(result).toHaveLength(1)
-  expect(result[0]).toEqual({
+  expect(result[0]).toMatchObject({
     ariaLabel: TitleBarMenuBarStrings.moreDot(),
     icon: Icon.Ellipsis,
-    label: '',
+    id: GetVisibleTitleBarEntries.OverflowMenuId,
+    isFocused: true,
+    isOpen: false,
+    label: '...',
     width: 38,
   })
+  expect(result[0].hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should handle width just below threshold for more icon', () => {
@@ -175,12 +194,16 @@ test('getVisibleTitleBarEntries - should handle width just below threshold for m
   const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 60, 0, false)
 
   expect(result).toHaveLength(1)
-  expect(result[0]).toEqual({
+  expect(result[0]).toMatchObject({
     ariaLabel: TitleBarMenuBarStrings.moreDot(),
     icon: Icon.Ellipsis,
-    label: '',
+    id: GetVisibleTitleBarEntries.OverflowMenuId,
+    isFocused: true,
+    isOpen: false,
+    label: '...',
     width: 38,
   })
+  expect(result[0].hiddenEntries).toEqual(entries)
 })
 
 test('getVisibleTitleBarEntries - should show entry with more icon when there is space', () => {
@@ -189,12 +212,16 @@ test('getVisibleTitleBarEntries - should show entry with more icon when there is
 
   expect(result).toHaveLength(2)
   expect(result[0]).toEqual({ isFocused: true, isOpen: false, label: 'File', width: 30 })
-  expect(result[1]).toEqual({
+  expect(result[1]).toMatchObject({
     ariaLabel: TitleBarMenuBarStrings.moreDot(),
     icon: Icon.Ellipsis,
-    label: '',
+    id: GetVisibleTitleBarEntries.OverflowMenuId,
+    isFocused: false,
+    isOpen: false,
+    label: '...',
     width: 38,
   })
+  expect(result[1].hiddenEntries).toEqual([entries[1], entries[2]])
 })
 
 test('getVisibleTitleBarEntries - should calculate more icon width correctly', () => {
@@ -223,4 +250,32 @@ test('getVisibleTitleBarEntries - should handle isOpen true with matching focuse
   expect(result[1].isOpen).toBe(false)
   expect(result[2].isOpen).toBe(true)
   expect(result[2].isFocused).toBe(true)
+})
+
+test('getVisibleTitleBarEntries - should keep hidden entries on overflow item', () => {
+  const entries = [createEntry('File', 30), createEntry('Edit', 30), createEntry('View', 30), createEntry('Help', 30)]
+
+  const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 70, 0, false)
+
+  expect(result).toHaveLength(2)
+  expect(result[1]).toMatchObject({
+    ariaLabel: TitleBarMenuBarStrings.moreDot(),
+    icon: Icon.Ellipsis,
+    label: '...',
+    width: 38,
+  })
+  expect(result[1].hiddenEntries).toEqual([entries[1], entries[2], entries[3]])
+})
+
+test('getVisibleTitleBarEntries - should focus overflow item when focusedIndex matches it', () => {
+  const entries = [createEntry('File', 30), createEntry('Edit', 30), createEntry('View', 30)]
+
+  const result = GetVisibleTitleBarEntries.getVisibleTitleBarEntries(entries, 70, 1, true)
+
+  expect(result).toHaveLength(2)
+  expect(result[1]).toMatchObject({
+    isFocused: true,
+    isOpen: true,
+    label: '...',
+  })
 })

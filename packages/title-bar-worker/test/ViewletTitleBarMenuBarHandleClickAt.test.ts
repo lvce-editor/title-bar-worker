@@ -20,3 +20,27 @@ test('handleClickAt with valid position calls handleClick', async () => {
   expect(result.isMenuOpen).toBe(true)
   expect(result.focusedIndex).toBe(0)
 })
+
+test('handleClickAt opens overflow menu from visible entries only', async () => {
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
+    iconWidth: 30,
+    titleBarEntries: [
+      { command: '', flags: 0, id: 1, label: 'File', width: 50 },
+      { command: '', flags: 0, id: 2, label: 'Edit', width: 50 },
+      { command: '', flags: 0, id: 3, label: 'View', width: 50 },
+    ],
+    titleWidth: 200,
+    width: 90,
+    x: 0,
+  }
+
+  const result = await ViewletTitleBarMenuBarHandleClickAt.handleClickAt(state, 0, 85, 15)
+
+  expect(result.isMenuOpen).toBe(true)
+  expect(result.focusedIndex).toBe(1)
+  expect(result.menus[0].items).toEqual([
+    { command: '', flags: 4, id: 2, label: 'Edit' },
+    { command: '', flags: 4, id: 3, label: 'View' },
+  ])
+})

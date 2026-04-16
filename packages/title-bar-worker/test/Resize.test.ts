@@ -15,7 +15,7 @@ test('resize - basic resize with default state', async () => {
   const result = await Resize.resize(state, dimensions)
 
   expect(result.height).toBe(40)
-  expect(result.width).toBe(860) // 1000 - 50 - 90
+  expect(result.width).toBe(420) // 1000 / 2 - 0 / 2 - 50 - 30
   expect(result.x).toBe(50)
   expect(result.y).toBe(10)
   expect(result.titleBarButtonsWidth).toBe(state.titleBarButtonsWidth)
@@ -53,7 +53,7 @@ test('resize - with different titleBarButtonsWidth', async () => {
 
   const result = await Resize.resize(state, dimensions)
 
-  expect(result.width).toBe(680) // 800 - 0 - 120
+  expect(result.width).toBe(370) // 800 / 2 - 0 / 2 - 0 - 30
   expect(result.titleBarButtonsWidth).toBe(120)
 })
 
@@ -68,7 +68,7 @@ test('resize - with zero x position', async () => {
 
   const result = await Resize.resize(state, dimensions)
 
-  expect(result.width).toBe(410) // 500 - 0 - 90
+  expect(result.width).toBe(220) // 500 / 2 - 0 / 2 - 0 - 30
   expect(result.x).toBe(0)
 })
 
@@ -83,7 +83,7 @@ test('resize - with large x position', async () => {
 
   const result = await Resize.resize(state, dimensions)
 
-  expect(result.width).toBe(1410) // 2000 - 500 - 90
+  expect(result.width).toBe(470) // 2000 / 2 - 0 / 2 - 500 - 30
   expect(result.x).toBe(500)
 })
 
@@ -127,7 +127,7 @@ test('resize - with all dimensions changed', async () => {
   const result = await Resize.resize(state, dimensions)
 
   expect(result.height).toBe(45)
-  expect(result.width).toBe(1210) // 1500 - 200 - 90
+  expect(result.width).toBe(520) // 1500 / 2 - 0 / 2 - 200 - 30
   expect(result.x).toBe(200)
   expect(result.y).toBe(15)
 })
@@ -143,7 +143,7 @@ test('resize - with zero width', async () => {
 
   const result = await Resize.resize(state, dimensions)
 
-  expect(result.width).toBe(-90) // 0 - 0 - 90
+  expect(result.width).toBe(-30) // 0 / 2 - 0 / 2 - 0 - 30
 })
 
 test('resize - with width smaller than x and titleBarButtonsWidth', async () => {
@@ -157,5 +157,22 @@ test('resize - with width smaller than x and titleBarButtonsWidth', async () => 
 
   const result = await Resize.resize(state, dimensions)
 
-  expect(result.width).toBe(-40) // 100 - 50 - 90
+  expect(result.width).toBe(-30) // 100 / 2 - 0 / 2 - 50 - 30
+})
+
+test('resize - reserves space for centered title width', async () => {
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
+    titleWidth: 200,
+  }
+  const dimensions = {
+    height: 30,
+    width: 1000,
+    x: 50,
+    y: 0,
+  }
+
+  const result = await Resize.resize(state, dimensions)
+
+  expect(result.width).toBe(320) // 1000 / 2 - 200 / 2 - 50 - 30
 })

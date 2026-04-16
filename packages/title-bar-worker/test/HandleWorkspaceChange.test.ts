@@ -1,6 +1,17 @@
-import { expect, test } from '@jest/globals'
+/* eslint-disable jest/no-restricted-jest-methods */
+import { expect, jest, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
-import * as HandleWorkspaceChange from '../src/parts/HandleWorkspaceChange/HandleWorkspaceChange.ts'
+
+const mockMeasureTextWidths = jest.fn(
+  async (texts: readonly string[], _fontWeight: number, _fontSize: number, _fontFamily: string, _letterSpacing: number) =>
+    texts.map((text) => text.length * 10),
+)
+
+await jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.ts', () => ({
+  measureTextWidths: mockMeasureTextWidths,
+}))
+
+const HandleWorkspaceChange = await import('../src/parts/HandleWorkspaceChange/HandleWorkspaceChange.ts')
 
 const createMockState = (overrides?: Partial<TitleBarMenuBarState>): TitleBarMenuBarState => {
   const defaults: TitleBarMenuBarState = {
@@ -35,6 +46,7 @@ const createMockState = (overrides?: Partial<TitleBarMenuBarState>): TitleBarMen
     titleBarStyleCustom: false,
     titleBarTitleEnabled: false,
     titleTemplate: '${folderName}',
+    titleWidth: 0,
     uid: 0,
     width: 0,
     workspaceUri: '/old/workspace',
@@ -53,6 +65,7 @@ test('handleWorkspaceChange - should update workspaceUri and title with folder n
 
   expect(result.workspaceUri).toBe('/home/user/my-project')
   expect(result.title).toBe('my-project')
+  expect(result.titleWidth).toBe(100)
 })
 
 test('handleWorkspaceChange - should preserve other state properties', async () => {
@@ -70,6 +83,7 @@ test('handleWorkspaceChange - should preserve other state properties', async () 
   expect(result.isMenuOpen).toBe(true)
   expect(result.height).toBe(1080)
   expect(result.commandMap).toEqual({ 'some-command': 'value' })
+  expect(result.titleWidth).toBe(70)
 })
 
 test('handleWorkspaceChange - should handle file protocol URIs', async () => {
