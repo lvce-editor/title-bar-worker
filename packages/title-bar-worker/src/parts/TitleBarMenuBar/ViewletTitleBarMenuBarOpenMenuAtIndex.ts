@@ -35,7 +35,12 @@ export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number
     menuId = undefined
   } else {
     if (titleBarEntry.id === undefined) {
-      return state
+      return {
+        ...state,
+        focusedIndex: index,
+        isMenuOpen: true,
+        menus: [],
+      }
     }
     items = await GetMenuEntries2.getMenuEntries2(state, {
       menuId: titleBarEntry.id,
