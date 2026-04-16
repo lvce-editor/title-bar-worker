@@ -39,5 +39,8 @@ test('handleClickAt opens overflow menu from visible entries only', async () => 
 
   expect(result.isMenuOpen).toBe(true)
   expect(result.focusedIndex).toBe(1)
-  expect(result.menus[0].items).toEqual([{ command: '', flags: 4, id: 2, label: 'Edit' }, { command: '', flags: 4, id: 3, label: 'View' }])
+  expect(result.menus[0].items).toEqual([
+    { command: '', flags: 4, id: 2, label: 'Edit' },
+    { command: '', flags: 4, id: 3, label: 'View' },
+  ])
 })

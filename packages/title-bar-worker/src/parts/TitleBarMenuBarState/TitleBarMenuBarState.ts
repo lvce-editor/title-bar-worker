@@ -22,7 +22,6 @@ export interface TitleBarMenuBarState {
   readonly menus: readonly IMenu[]
   readonly platform: number
   readonly title: string
-  readonly titleWidth: number
   readonly titleBarButtons: readonly TitleBarButton[]
   readonly titleBarButtonsEnabled: boolean
   readonly titleBarButtonsWidth: number
@@ -34,6 +33,7 @@ export interface TitleBarMenuBarState {
   readonly titleBarStyleCustom: boolean
   readonly titleBarTitleEnabled: boolean
   readonly titleTemplate: string
+  readonly titleWidth: number
   readonly uid: number
   readonly width: number
   readonly windowWidth: number
