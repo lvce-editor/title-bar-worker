@@ -8,7 +8,10 @@ jest.unstable_mockModule('../src/parts/AddWidths/AddWidths.ts', () => ({
   addWidths: jest.fn(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 }))),
 }))
 
-const mockMeasureTextWidths = jest.fn(async (texts: readonly string[]) => texts.map((text) => text.length * 10))
+const mockMeasureTextWidths = jest.fn(
+  async (texts: readonly string[], _fontWeight: number, _fontSize: number, _fontFamily: string, _letterSpacing: number) =>
+    texts.map((text) => text.length * 10),
+)
 
 jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.ts', () => ({
   measureTextWidths: mockMeasureTextWidths,
