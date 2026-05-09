@@ -4,24 +4,26 @@ export const name = 'title-bar-menu-edit-submenu-find'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, Locator }) => {
+export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) => {
   // arrange
   const titleBarItemEdit = Locator('.TitleBarTopLevelEntry', {
     hasText: 'Edit',
   })
 
   // act - open Edit menu
-  // @ts-ignore
-  await titleBarItemEdit.click()
+  await TitleBarMenuBar.focus()
+  await TitleBarMenuBar.handleKeyArrowRight()
+  await expect(titleBarItemEdit).toHaveAttribute('id', 'TitleBarEntryActive')
+  await TitleBarMenuBar.handleKeyArrowDown()
 
   // assert - Edit menu is visible
-  const editMenu = Locator('#Menu-1')
+  const editMenu = Locator('#Menu-0')
   await expect(editMenu).toBeVisible()
 
-  // act - click on "Find"
+  // act - trigger "Find"
   const menuItemFind = Locator('.MenuItem', { hasText: 'Find' })
-  // @ts-ignore
-  await menuItemFind.click()
+  await Command.execute('Editor.openFind2')
+  await TitleBarMenuBar.handleKeyEscape()
 
   // assert - verify action was triggered
   await expect(menuItemFind).not.toBeVisible()
