@@ -4,6 +4,7 @@ import * as AddWidths from '../AddWidths/AddWidths.ts'
 import { hydrate } from '../ElectronApplicationMenu/ElectronApplicationMenu.ts'
 import { getTitle } from '../GetTitle/GetTitle.ts'
 import { getTitleBarButtons } from '../GetTitleBarButtons/GetTitleBarButtons.ts'
+import { getTitleBarMenuBarWidth } from '../GetTitleBarMenuBarWidth/GetTitleBarMenuBarWidth.ts'
 import { getWorkspaceUri } from '../GetWorkspaceUri/GetWorkspaceUri.ts'
 import { measureTitleWidth } from '../MeasureTitleWidth/MeasureTitleWidth.ts'
 import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
@@ -18,6 +19,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const title = getTitle(workspaceUri, state.titleTemplate, state.appName)
   const titleWidth = await measureTitleWidth(title, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const iconWidth = 30
+  const width = getTitleBarMenuBarWidth(state.width, state.x, iconWidth, titleWidth)
 
   // TODO load preferences here
 
@@ -32,5 +34,6 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
     titleBarButtons: buttons,
     titleBarEntries: withWidths,
     titleWidth,
+    width,
   }
 }

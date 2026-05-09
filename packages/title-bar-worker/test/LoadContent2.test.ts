@@ -379,6 +379,29 @@ test('loadContent2 - returns updated state with same uid', async () => {
   expect(result.uid).toBe(42)
 })
 
+test('loadContent2 - recalculates menu bar width for initial load', async () => {
+  const mockState = createMockState({
+    iconWidth: 999,
+    platform: PlatformType.Web,
+    titleTemplate: '${appName} - ${folderName}',
+    width: 1000,
+    x: 50,
+  })
+
+  using _mockRpc = RendererWorker.registerMockRpc({
+    'Workspace.getUri'() {
+      return '/home/user/myproject'
+    },
+  })
+
+  const result = await LoadContent2.loadContent2(mockState)
+
+  expect(result.title).toBe('Lvce Editor - myproject')
+  expect(result.titleWidth).toBe(230)
+  expect(result.iconWidth).toBe(30)
+  expect(result.width).toBe(305)
+})
+
 test('loadContent2 - preserves layout and display settings', async () => {
   const mockState = createMockState({
     height: 768,
@@ -396,7 +419,6 @@ test('loadContent2 - preserves layout and display settings', async () => {
 
   const result = await LoadContent2.loadContent2(mockState)
 
-  expect(result.width).toBe(1024)
   expect(result.height).toBe(768)
   expect(result.titleBarHeight).toBe(35)
   expect(result.titleBarIconWidth).toBe(20)
