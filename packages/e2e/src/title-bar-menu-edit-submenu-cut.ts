@@ -4,24 +4,25 @@ export const name = 'title-bar-menu-edit-submenu-cut'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, Locator }) => {
+export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) => {
   // arrange
   const titleBarItemEdit = Locator('.TitleBarTopLevelEntry', {
     hasText: 'Edit',
   })
 
   // act - open Edit menu
-  // @ts-ignore
-  await titleBarItemEdit.click()
+  await TitleBarMenuBar.focus()
+  await TitleBarMenuBar.handleKeyArrowRight()
+  await expect(titleBarItemEdit).toHaveAttribute('id', 'TitleBarEntryActive')
+  await TitleBarMenuBar.handleKeyArrowDown()
 
   // assert - Edit menu is visible
-  const editMenu = Locator('#Menu-1')
+  const editMenu = Locator('#Menu-0')
   await expect(editMenu).toBeVisible()
 
-  // act - click on "Cut"
+  // act - trigger "Cut"
   const menuItemCut = Locator('.MenuItem', { hasText: 'Cut' })
-  // @ts-ignore
-  await menuItemCut.click()
+  await Command.execute('TitleBar.handleMenuClick', 0, 3)
 
   // assert - verify action was triggered
   await expect(menuItemCut).not.toBeVisible()
