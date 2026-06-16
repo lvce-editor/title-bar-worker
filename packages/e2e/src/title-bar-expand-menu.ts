@@ -35,12 +35,12 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspa
   await expect(menuItemOpenRecent).toHaveClass('Focused')
 
   await expect(menu).toHaveCount(2)
-  const subMenu = menu.nth(1)
+  const submenu = menu.nth(1)
   await expect(menuItemOpenRecent).toHaveAttribute('aria-expanded', 'true')
   await expect(menuItemOpenRecent).toHaveAttribute('aria-owns', 'Menu-1')
 
-  const subMenuItemClearRecentlyOpened = subMenu.locator('text=Clear Recently Opened')
-  await subMenuItemClearRecentlyOpened.hover()
+  const submenuItemClearRecentlyOpened = submenu.locator('text=Clear Recently Opened')
+  await submenuItemClearRecentlyOpened.hover()
 
   const menuItemExit = menu.locator('text=Exit')
   await menuItemExit.hover()

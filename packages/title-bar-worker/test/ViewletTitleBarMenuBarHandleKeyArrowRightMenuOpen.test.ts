@@ -70,7 +70,7 @@ test('handleKeyArrowRightMenuOpen - focusedIndex -1 calls focusNext', async () =
   })
 })
 
-test('handleKeyArrowRightMenuOpen - item without SubMenu calls focusNext', async () => {
+test('handleKeyArrowRightMenuOpen - item without Submenu calls focusNext', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
@@ -115,7 +115,7 @@ test('handleKeyArrowRightMenuOpen - item without SubMenu calls focusNext', async
   })
 })
 
-test('handleKeyArrowRightMenuOpen - item with SubMenu but no id calls focusNext', async () => {
+test('handleKeyArrowRightMenuOpen - item with Submenu but no id calls focusNext', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,

@@ -44,7 +44,7 @@ test('getMenuItemRenderer returns getMenuItemDisabledDom for Disabled flag', () 
   expect(renderer).toBe(getMenuItemDisabledDom)
 })
 
-test('getMenuItemRenderer returns getMenuItemSubMenuDom for SubMenu flag', () => {
+test('getMenuItemRenderer returns getMenuItemSubMenuDom for Submenu flag', () => {
   const renderer = GetMenuItemRenderer.getMenuItemRenderer(MenuItemFlags.SubMenu)
   expect(renderer).toBe(getMenuItemSubMenuDom)
 })

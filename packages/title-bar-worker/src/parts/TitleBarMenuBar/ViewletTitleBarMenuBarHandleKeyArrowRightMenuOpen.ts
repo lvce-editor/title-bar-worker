@@ -18,10 +18,10 @@ export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): 
   }
   const item = items[focusedIndex]
   if (item.flags === MenuItemFlags.SubMenu && item.id !== undefined) {
-    const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
-    const subMenu = {
+    const submenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const submenu = {
       focusedIndex: 0,
-      items: subMenuEntries,
+      items: submenuEntries,
       level: menus.length,
       x: x + Menu.MENU_WIDTH,
       y: y + focusedIndex * 25,
@@ -30,7 +30,7 @@ export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): 
       ...menu,
       expanded: true,
     }
-    const newMenus = [...menus.slice(0, -1), newParentMenu, subMenu]
+    const newMenus = [...menus.slice(0, -1), newParentMenu, submenu]
     return {
       ...state,
       menus: newMenus,

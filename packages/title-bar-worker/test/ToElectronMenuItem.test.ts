@@ -140,7 +140,7 @@ test('separator flag - should return separator type', () => {
   })
 })
 
-test('subMenu flag - should return submenu type with empty submenu', () => {
+test('submenu flag - should return submenu type with empty submenu', () => {
   const entry = {
     flags: MenuItemFlags.SubMenu,
     label: 'Sub Menu',
@@ -186,7 +186,7 @@ test('label match takes precedence over separator flag', () => {
   })
 })
 
-test('label match takes precedence over subMenu flag', () => {
+test('label match takes precedence over submenu flag', () => {
   const entry = {
     flags: MenuItemFlags.SubMenu,
     label: TitleBarStrings.file(),
@@ -265,7 +265,7 @@ test('empty label with separator flag - should return separator', () => {
   })
 })
 
-test('empty label with subMenu flag - should return submenu with empty label', () => {
+test('empty label with submenu flag - should return submenu with empty label', () => {
   const entry = {
     flags: MenuItemFlags.SubMenu,
     label: '',

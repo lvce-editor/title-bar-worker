@@ -10,10 +10,10 @@ export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMen
   if (!item.id) {
     return state
   }
-  const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
-  const subMenu = {
+  const submenuEntries = await MenuEntries.getMenuEntries(item.id)
+  const submenu = {
     focusedIndex: -1,
-    items: subMenuEntries,
+    items: submenuEntries,
     level: menus.length,
     x: x + Menu.MENU_WIDTH,
     y: y + index * 25,
@@ -22,7 +22,7 @@ export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMen
     ...menu,
     focusedIndex: index,
   }
-  const newMenus = [...menus.slice(0, level - 1), newParentMenu, subMenu]
+  const newMenus = [...menus.slice(0, level - 1), newParentMenu, submenu]
   return {
     ...state,
     menus: newMenus,

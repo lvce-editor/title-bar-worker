@@ -17,13 +17,13 @@ const getNewMenus = async (menus: readonly IMenu[], level: number, index: number
       return menus
     }
     if (item.flags === MenuItemFlags.SubMenu && level === menus.length - 2) {
-      const subMenu = menus[level + 1]
-      if (subMenu.focusedIndex !== -1) {
-        const newSubMenu = {
-          ...subMenu,
+      const submenu = menus[level + 1]
+      if (submenu.focusedIndex !== -1) {
+        const newSubmenu = {
+          ...submenu,
           focusedIndex: -1,
         }
-        const newMenus = [...menus.slice(0, -1), newSubMenu]
+        const newMenus = [...menus.slice(0, -1), newSubmenu]
         return newMenus
       }
     }
@@ -44,10 +44,10 @@ const getNewMenus = async (menus: readonly IMenu[], level: number, index: number
     if (!item.id) {
       return menus
     }
-    const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
-    const subMenu: IMenu = {
+    const submenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const submenu: IMenu = {
       focusedIndex: -1,
-      items: subMenuEntries,
+      items: submenuEntries,
       level: menus.length,
       x: x + Menu.MENU_WIDTH,
       y: y + index * 25,
@@ -56,7 +56,7 @@ const getNewMenus = async (menus: readonly IMenu[], level: number, index: number
       ...menu,
       focusedIndex: index,
     }
-    const newMenus = [...menus.slice(0, level - 1), newParentMenu, subMenu]
+    const newMenus = [...menus.slice(0, level - 1), newParentMenu, submenu]
     return newMenus
   }
   const newMenus = [

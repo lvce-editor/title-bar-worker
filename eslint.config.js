@@ -10,6 +10,7 @@ export default [
       '@typescript-eslint/await-thenable': 'off',
       '@typescript-eslint/prefer-readonly-parameter-types': 'off',
       '@typescript-eslint/only-throw-error': 'off',
+      'unicorn/consistent-compound-words': 'off',
       'unicorn/prefer-short-arrow-method': 'off',
     },
   },
