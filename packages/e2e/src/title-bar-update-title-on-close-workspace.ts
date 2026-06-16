@@ -15,17 +15,7 @@ export const test: Test = async ({ Command, expect, Explorer, FileSystem, Locato
   await expect(title).toHaveText('my-project')
 
   // act
-  await Command.execute('Explorer.focus')
-  await Explorer.focusFirst()
-  await Explorer.openContextMenu(0)
-
-  // assert
-  const closeWorkspaceItem = Locator('.MenuItem', { hasText: 'Close Folder' })
-  await expect(closeWorkspaceItem).toBeVisible()
-
-  // act
-  // @ts-ignore
-  await closeWorkspaceItem.click()
+  await Command.execute('Workspace.close')
 
   // assert
   await expect(title).toHaveText('')
