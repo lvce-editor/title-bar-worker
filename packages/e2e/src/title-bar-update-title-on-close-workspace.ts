@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-update-title-on-close-workspace'
 
-export const test: Test = async ({ Command, expect, Explorer, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   const title = Locator('.TitleBarTitle')
