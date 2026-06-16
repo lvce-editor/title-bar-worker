@@ -50,7 +50,7 @@ const getIndexToFocusPreviousStartingAt = (items: readonly (VisibleMenuItem | Me
 }
 
 export const getIndexToFocusPrevious = (menu: IMenu): number => {
-  const startIndex = menu.focusedIndex === -1 ? menu.items.length - 1 : menu.focusedIndex - 1
+  const startIndex = menu.focusedIndex + (menu.focusedIndex === -1 ? menu.items.length : -1)
   return getIndexToFocusPreviousStartingAt(menu.items, startIndex)
 }
 

@@ -12,6 +12,13 @@ import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar
 export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
   const { controlsOverlayEnabled, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding, platform, titleBarStyleCustom } =
     state
+
+  // TODO load preferences here
+
+  if (titleBarStyleCustom === false && platform === PlatformType.Electron) {
+    return hydrate(state)
+  }
+
   const titleBarEntries = await MenuEntriesTitleBar.getMenuEntries(platform)
   const withWidths = await AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
@@ -21,11 +28,6 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
   const iconWidth = 30
   const width = getTitleBarMenuBarWidth(state.width, state.x, iconWidth, titleWidth)
 
-  // TODO load preferences here
-
-  if (titleBarStyleCustom === false && platform === PlatformType.Electron) {
-    return hydrate(state)
-  }
   return {
     ...state,
     buttons,

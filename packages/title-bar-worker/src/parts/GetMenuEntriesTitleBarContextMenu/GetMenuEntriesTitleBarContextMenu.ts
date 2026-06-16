@@ -8,13 +8,13 @@ export const getMenuEntriesTitleBarContextMenu = async (state: TitleBarMenuBarSt
   // TODO checked state should be depending on whether or not that feature is currently visible or not
   return [
     {
-      command: titleBarMenuBarEnabled ? 'TitleBar.hideMenuBar' : 'TitleBar.showMenuBar',
+      command: `TitleBar.${titleBarMenuBarEnabled ? 'hide' : 'show'}MenuBar`,
       flags: titleBarMenuBarEnabled ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
       id: 'MenuBar',
       label: TitleBarStrings.menuBar(),
     },
     {
-      command: commandCenterEnabled ? 'TitleBar.hideCommandCenter' : 'TitleBar.showCommandCenter',
+      command: `TitleBar.${commandCenterEnabled ? 'hide' : 'show'}CommandCenter`,
       flags: commandCenterEnabled ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
       id: 'Command center',
       label: TitleBarStrings.commandCenter(),

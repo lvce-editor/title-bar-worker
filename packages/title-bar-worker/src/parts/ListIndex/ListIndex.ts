@@ -11,5 +11,5 @@ export const next = <T>(items: readonly T[], index: number): number => {
 }
 
 export const previous = <T>(items: readonly T[], index: number): number => {
-  return index === 0 ? items.length - 1 : index - 1
+  return (index || items.length) - 1
 }

@@ -5,7 +5,7 @@ export interface MenuPropsBase {
 }
 
 export interface MenuPropsContextMenu extends MenuPropsBase {
-  readonly menuId: typeof MenuEntryId.TitleBarContextMenu | 50
+  readonly menuId: number
 }
 
 export interface MenuPropsFile extends MenuPropsBase {

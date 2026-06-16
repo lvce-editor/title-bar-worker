@@ -16,7 +16,7 @@ export const toElectronMenuInternal = (commandMap: any, map: any, id: string | n
       }
     }
     const electronEntry = ToElectronMenuItem.toElectronMenuItem(entry)
-    if (entry.flags === MenuItemFlags.SubMenu && entry.id !== undefined && map[entry.id]) {
+    if (entry.flags === MenuItemFlags.SubMenu && entry.id !== undefined && Object.hasOwn(map, entry.id)) {
       toElectronMenuInternal(commandMap, map, entry.id, electronEntry.submenu)
     }
     electronMenu.push(electronEntry)
