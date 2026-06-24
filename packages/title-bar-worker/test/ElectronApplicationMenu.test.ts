@@ -80,7 +80,7 @@ test('hydrate - calls setItems with correct window id', async () => {
 
   // Check that WebView.compatSharedProcessInvoke was called with correct arguments
   const invocations = mockRpc.invocations.filter((inv) => inv[0] === 'WebView.compatSharedProcessInvoke')
-  expect(invocations.length).toBe(1)
+  expect(invocations).toHaveLength(1)
   expect(invocations[0][1]).toBe('ElectronApplicationMenu.setItems')
   expect(invocations[0][2]).toBe(5)
 })
@@ -131,7 +131,7 @@ test('hydrate - with different window ids', async () => {
 
   // Check that WebView.compatSharedProcessInvoke was called with correct window id
   const invocations = mockRpc.invocations.filter((inv) => inv[0] === 'WebView.compatSharedProcessInvoke')
-  expect(invocations.length).toBe(1)
+  expect(invocations).toHaveLength(1)
   expect(invocations[0][1]).toBe('ElectronApplicationMenu.setItems')
   expect(invocations[0][2]).toBe(42)
 })
