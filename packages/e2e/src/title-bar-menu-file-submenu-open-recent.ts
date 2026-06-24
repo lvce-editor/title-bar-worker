@@ -4,6 +4,8 @@ export const name = 'title-bar-menu-file-submenu-open-recent'
 
 export const skip = true
 
+const MoreItemRegex = /^\.\.\./
+
 export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   // act - focus and open File menu
   await TitleBarMenuBar.focus()
@@ -38,7 +40,7 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   // The submenu should contain recently opened folders and always has:
   // - "..." (More)
   // - "Clear Recently Opened"
-  const moreItem = Locator('.MenuItem', { hasText: /^\.\.\./ })
+  const moreItem = Locator('.MenuItem', { hasText: MoreItemRegex })
   await expect(moreItem).toBeVisible()
 
   const clearRecentlyOpenedItem = Locator('.MenuItem', { hasText: 'Clear Recently Opened' })
