@@ -18,7 +18,7 @@ test('getMenuIds contains MenuIdTitleBarContextMenu', () => {
 
 test('getMenuIds contains expected menu entries', () => {
   const result = getMenuIds()
-  expect(result.length).toBe(12)
+  expect(result).toHaveLength(12)
 })
 
 test('getMenuIds returns numbers', () => {

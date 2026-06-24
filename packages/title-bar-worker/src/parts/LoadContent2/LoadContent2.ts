@@ -23,7 +23,7 @@ export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBa
 
   // TODO load preferences here
 
-  if (titleBarStyleCustom === false && platform === PlatformType.Electron) {
+  if (!titleBarStyleCustom && platform === PlatformType.Electron) {
     return hydrate(state)
   }
   return {
