@@ -1,9 +1,11 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 
+const DriveLetterProtocolRegex = /^[a-zA-Z]:$/
+
 const normalizeUri = (value: string): string => {
   try {
     const url = new URL(value)
-    if (/^[a-zA-Z]:$/.test(url.protocol)) {
+    if (DriveLetterProtocolRegex.test(url.protocol)) {
       return ''
     }
     return url.href
