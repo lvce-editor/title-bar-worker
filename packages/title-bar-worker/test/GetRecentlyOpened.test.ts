@@ -4,8 +4,15 @@ import * as GetRecentlyOpened from '../src/parts/GetRecentlyOpened/GetRecentlyOp
 
 test('getRecentlyOpened', async () => {
   const mockData = [
-    { label: 'project1', path: '/home/user/project1' },
-    { label: 'project2', path: '/home/user/project2' },
+    'file:///home/user/project1',
+    '/home/user/project2',
+    'C:\\Users\\user\\project2',
+    'https://example.com',
+    'https://example.com/',
+    { label: 'project3', path: 'file:///home/user/project3' },
+    'not a uri',
+    'vscode-remote://ssh-remote+host/home/user/project4',
+    'file:///home/user/project1',
   ]
 
   using mockRpc = RendererWorker.registerMockRpc({
@@ -15,6 +22,18 @@ test('getRecentlyOpened', async () => {
   })
 
   const result = await GetRecentlyOpened.getRecentlyOpened()
-  expect(result).toEqual(mockData)
+  expect(result).toEqual(['file:///home/user/project1', 'https://example.com/', 'vscode-remote://ssh-remote+host/home/user/project4'])
+  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
+})
+
+test('getRecentlyOpened - returns empty array for non-array result', async () => {
+  using mockRpc = RendererWorker.registerMockRpc({
+    'RecentlyOpened.getRecentlyOpened'() {
+      return undefined
+    },
+  })
+
+  const result = await GetRecentlyOpened.getRecentlyOpened()
+  expect(result).toEqual([])
   expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
 })
