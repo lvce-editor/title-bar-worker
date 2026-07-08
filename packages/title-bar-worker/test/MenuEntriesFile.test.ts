@@ -26,3 +26,35 @@ test('getMenuEntries - auto save disabled', async () => {
   })
   expect(result).toContainEqual(MenuEntrySeparator.menuEntrySeparator)
 })
+
+test('getMenuEntries - save commands are disabled by default', async () => {
+  const entries = await getMenuEntries(PlatformType.Web, 'off')
+  expect(entries).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        flags: MenuItemFlags.Disabled,
+        id: 'save',
+      }),
+      expect.objectContaining({
+        flags: MenuItemFlags.Disabled,
+        id: 'saveAll',
+      }),
+    ]),
+  )
+})
+
+test('getMenuEntries - save commands are enabled with active text editor', async () => {
+  const entries = await getMenuEntries(PlatformType.Web, 'off', true)
+  expect(entries).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        flags: MenuItemFlags.None,
+        id: 'save',
+      }),
+      expect.objectContaining({
+        flags: MenuItemFlags.None,
+        id: 'saveAll',
+      }),
+    ]),
+  )
+})

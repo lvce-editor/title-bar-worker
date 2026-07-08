@@ -18,8 +18,16 @@ const isAutoSaveEnabled = (autoSave: string): boolean => {
   return autoSave !== 'off'
 }
 
-export const getMenuEntries = async (platform: number, autoSave?: string): Promise<readonly MenuEntry[]> => {
+const getSaveFlags = (hasActiveTextEditor: boolean): number => {
+  if (hasActiveTextEditor) {
+    return MenuItemFlags.None
+  }
+  return MenuItemFlags.Disabled
+}
+
+export const getMenuEntries = async (platform: number, autoSave?: string, hasActiveTextEditor: boolean = false): Promise<readonly MenuEntry[]> => {
   const autoSaveValue = autoSave ?? (await getAutoSave())
+  const saveFlags = getSaveFlags(hasActiveTextEditor)
   const entries: MenuEntry[] = [
     {
       command: 'Main.newFile',
@@ -55,13 +63,13 @@ export const getMenuEntries = async (platform: number, autoSave?: string): Promi
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: 'Main.save',
-      flags: MenuItemFlags.None,
+      flags: saveFlags,
       id: 'save',
       label: FileStrings.save(),
     },
     {
       command: 'Main.saveAll',
-      flags: MenuItemFlags.None,
+      flags: saveFlags,
       id: 'saveAll',
       label: FileStrings.saveAll(),
     },

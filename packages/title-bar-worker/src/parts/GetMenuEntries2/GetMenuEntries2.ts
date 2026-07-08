@@ -4,6 +4,7 @@ import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { getMenuEntriesTitleBarContextMenu } from '../GetMenuEntriesTitleBarContextMenu/GetMenuEntriesTitleBarContextMenu.ts'
 import { MenuIdAppearance, MenuIdEditorLayout, MenuIdTitleBarContextMenu } from '../GetMenuIds/GetMenuIds.ts'
+import * as HasActiveTextEditor from '../HasActiveTextEditor/HasActiveTextEditor.ts'
 import * as MenuEntriesAppearance from '../MenuEntriesAppearance/MenuEntriesAppearance.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
 import * as MenuEntriesEditorLayout from '../MenuEntriesEditorLayout/MenuEntriesEditorLayout.ts'
@@ -17,12 +18,18 @@ import * as MenuEntriesTerminal from '../MenuEntriesTerminal/MenuEntriesTerminal
 import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
 import * as MenuEntriesView from '../MenuEntriesView/MenuEntriesView.ts'
 
+const DEFAULT_MAIN_AREA_UID = 2
+
 export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: ContextMenuProps): Promise<readonly MenuEntry[]> => {
   switch (props.menuId) {
     case MenuEntryId.Edit:
       return MenuEntriesEdit.getMenuEntries()
     case MenuEntryId.File:
-      return MenuEntriesFile.getMenuEntries(props.platform)
+      return MenuEntriesFile.getMenuEntries(
+        props.platform,
+        undefined,
+        await HasActiveTextEditor.hasActiveTextEditor(state.mainAreaUid ?? DEFAULT_MAIN_AREA_UID),
+      )
     case MenuEntryId.Go:
       return MenuEntriesGo.getMenuEntries()
     case MenuEntryId.Help:
