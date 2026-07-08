@@ -1,3 +1,4 @@
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as FileStrings from '../FileStrings/FileStrings.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
@@ -5,7 +6,20 @@ import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 
-export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
+const getAutoSave = async (): Promise<string> => {
+  try {
+    return await RendererWorker.invoke('Preferences.get', 'files.autoSave')
+  } catch {
+    return 'off'
+  }
+}
+
+const isAutoSaveEnabled = (autoSave: string): boolean => {
+  return autoSave !== 'off'
+}
+
+export const getMenuEntries = async (platform: number, autoSave?: string): Promise<readonly MenuEntry[]> => {
+  const autoSaveValue = autoSave ?? (await getAutoSave())
   const entries: MenuEntry[] = [
     {
       command: 'Main.newFile',
@@ -50,6 +64,13 @@ export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
       flags: MenuItemFlags.None,
       id: 'saveAll',
       label: FileStrings.saveAll(),
+    },
+    MenuEntrySeparator.menuEntrySeparator,
+    {
+      command: 'Preferences.toggleAutoSave',
+      flags: isAutoSaveEnabled(autoSaveValue) ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
+      id: 'autoSave',
+      label: FileStrings.autoSave(),
     },
   ]
   if (platform === PlatformType.Electron) {
