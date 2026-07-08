@@ -4,6 +4,7 @@ import * as I18nString from '../I18NString/I18NString.ts'
  * @enum {string}
  */
 const UiStrings = {
+  AutoSave: 'Auto Save',
   Exit: 'Exit',
   NewFile: 'New File',
   NewWindow: 'New Window',
@@ -13,6 +14,10 @@ const UiStrings = {
   Save: 'Save',
   SaveAll: 'Save All',
   Separator: 'Separator',
+}
+
+export const autoSave = (): string => {
+  return I18nString.i18nString(UiStrings.AutoSave)
 }
 
 export const newFile = (): string => {
