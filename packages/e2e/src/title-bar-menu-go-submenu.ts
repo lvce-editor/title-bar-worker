@@ -25,8 +25,18 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   const menu = Locator('#Menu-0')
   await expect(menu).toBeVisible()
 
-  // assert - menu is open (Go menu is currently empty, but we verify it opens)
-  // In the future when Go menu has items, add specific item checks here
+  // assert - verify expected menu items in Go submenu
+  const switchEditorItem = Locator('.MenuItem', { hasText: 'Switch Editor' })
+  await expect(switchEditorItem).toBeVisible()
+
+  const switchGroupItem = Locator('.MenuItem', { hasText: 'Switch Group' })
+  await expect(switchGroupItem).toBeVisible()
+
+  const goToFileItem = Locator('.MenuItem', { hasText: 'Go to File...' })
+  await expect(goToFileItem).toBeVisible()
+
+  const nextProblemItem = Locator('.MenuItem', { hasText: 'Next Problem' })
+  await expect(nextProblemItem).toBeVisible()
 
   // Close the menu
   await TitleBarMenuBar.handleKeyEscape()

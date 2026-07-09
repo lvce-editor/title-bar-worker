@@ -1,5 +1,12 @@
 import { expect, test } from '@jest/globals'
-import { MenuIdTitleBarContextMenu, getMenuIds } from '../src/parts/GetMenuIds/GetMenuIds.ts'
+import {
+  MenuIdAppearance,
+  MenuIdEditorLayout,
+  MenuIdSwitchEditor,
+  MenuIdSwitchGroup,
+  MenuIdTitleBarContextMenu,
+  getMenuIds,
+} from '../src/parts/GetMenuIds/GetMenuIds.ts'
 
 test('getMenuIds returns an array', () => {
   const result = getMenuIds()
@@ -18,14 +25,22 @@ test('getMenuIds contains MenuIdTitleBarContextMenu', () => {
 
 test('getMenuIds contains expected menu entries', () => {
   const result = getMenuIds()
-  expect(result).toHaveLength(12)
+  expect(result).toHaveLength(16)
 })
 
-test('getMenuIds returns numbers', () => {
+test('getMenuIds returns numbers or strings', () => {
   const result = getMenuIds()
   for (const id of result) {
-    expect(typeof id).toBe('number')
+    expect(['number', 'string']).toContain(typeof id)
   }
+})
+
+test('getMenuIds contains submenu ids', () => {
+  const result = getMenuIds()
+  expect(result).toContain(MenuIdAppearance)
+  expect(result).toContain(MenuIdEditorLayout)
+  expect(result).toContain(MenuIdSwitchEditor)
+  expect(result).toContain(MenuIdSwitchGroup)
 })
 
 test('MenuIdTitleBarContextMenu equals 50', () => {
