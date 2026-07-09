@@ -80,6 +80,14 @@ export const getMenuEntries = async (platform: number, autoSave?: string, hasAct
       id: 'autoSave',
       label: FileStrings.autoSave(),
     },
+    MenuEntrySeparator.menuEntrySeparator,
+    {
+      command: 'Workspace.close',
+      flags: MenuItemFlags.RestoreFocus,
+      id: 'closeFolder',
+      keyboardShortCut: 'Ctrl+K F',
+      label: FileStrings.closeFolder(),
+    },
   ]
   if (platform === PlatformType.Electron) {
     entries.push(MenuEntrySeparator.menuEntrySeparator, {

@@ -58,3 +58,14 @@ test('getMenuEntries - save commands are enabled with active text editor', async
     ]),
   )
 })
+
+test('getMenuEntries - close folder command', async () => {
+  const entries = await getMenuEntries(PlatformType.Web, 'off')
+  expect(entries).toContainEqual({
+    command: 'Workspace.close',
+    flags: MenuItemFlags.RestoreFocus,
+    id: 'closeFolder',
+    keyboardShortCut: 'Ctrl+K F',
+    label: 'Close Folder',
+  })
+})
