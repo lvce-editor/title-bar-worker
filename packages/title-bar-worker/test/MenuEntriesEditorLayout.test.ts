@@ -1,103 +1,102 @@
-import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
-import * as I18NString from '../I18NString/I18NString.ts'
-import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
-import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
-import * as UiStrings from '../UiStrings/UiStrings.ts'
+import { expect, test } from '@jest/globals'
+import { getMenuEntries } from '../src/parts/MenuEntriesEditorLayout/MenuEntriesEditorLayout.ts'
+import * as MenuEntrySeparator from '../src/parts/MenuEntrySeparator/MenuEntrySeparator.ts'
+import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 
-export const getMenuEntries = (): readonly MenuEntry[] => {
-  return [
+test('getMenuEntries', () => {
+  expect(getMenuEntries()).toEqual([
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'splitUp',
-      label: I18NString.i18nString(UiStrings.SplitUp),
+      label: 'Split Up',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'splitDown',
-      label: I18NString.i18nString(UiStrings.SplitDown),
+      label: 'Split Down',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'splitLeft',
-      label: I18NString.i18nString(UiStrings.SplitLeft),
+      label: 'Split Left',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'splitRight',
-      label: I18NString.i18nString(UiStrings.SplitRight),
+      label: 'Split Right',
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'moveEditorIntoNewWindow',
-      label: I18NString.i18nString(UiStrings.MoveEditorIntoNewWindow),
+      label: 'Move Editor into New Window',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'copyEditorIntoNewWindow',
-      label: I18NString.i18nString(UiStrings.CopyEditorIntoNewWindow),
+      label: 'Copy Editor into New Window',
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'single',
-      label: I18NString.i18nString(UiStrings.Single),
+      label: 'Single',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'twoColumns',
-      label: I18NString.i18nString(UiStrings.TwoColumns),
+      label: 'Two Columns',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'threeColumns',
-      label: I18NString.i18nString(UiStrings.ThreeColumns),
+      label: 'Three Columns',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'twoRows',
-      label: I18NString.i18nString(UiStrings.TwoRows),
+      label: 'Two Rows',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'threeRows',
-      label: I18NString.i18nString(UiStrings.ThreeRows),
+      label: 'Three Rows',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'gridTwoByTwo',
-      label: I18NString.i18nString(UiStrings.GridTwoByTwo),
+      label: 'Grid (2x2)',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'twoRowsRight',
-      label: I18NString.i18nString(UiStrings.TwoRowsRight),
+      label: 'Two Rows Right',
     },
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'twoColumnsBottom',
-      label: I18NString.i18nString(UiStrings.TwoColumnsBottom),
+      label: 'Two Columns Bottom',
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: '',
       flags: MenuItemFlags.None,
       id: 'flipLayout',
-      label: I18NString.i18nString(UiStrings.FlipLayout),
+      label: 'Flip Layout',
     },
-  ]
-}
+  ])
+})
