@@ -14,7 +14,6 @@ const UiStrings = {
   OpenRecent: 'Open Recent',
   Save: 'Save',
   SaveAll: 'Save All',
-  Separator: 'Separator',
 }
 
 export const autoSave = (): string => {

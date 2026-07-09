@@ -85,7 +85,6 @@ export const getMenuEntries = async (platform: number, autoSave?: string, hasAct
       command: 'Workspace.close',
       flags: MenuItemFlags.RestoreFocus,
       id: 'closeFolder',
-      keyboardShortCut: 'Ctrl+K F',
       label: FileStrings.closeFolder(),
     },
   ]

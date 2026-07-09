@@ -65,7 +65,6 @@ test('getMenuEntries - close folder command', async () => {
     command: 'Workspace.close',
     flags: MenuItemFlags.RestoreFocus,
     id: 'closeFolder',
-    keyboardShortCut: 'Ctrl+K F',
     label: 'Close Folder',
   })
 })
