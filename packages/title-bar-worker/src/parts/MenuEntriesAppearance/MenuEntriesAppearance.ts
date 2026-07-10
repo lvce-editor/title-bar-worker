@@ -68,8 +68,8 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
     entry('renderWhitespace', 'Render Whitespace'),
     checkedEntry('renderControlCharacters', 'Render Control Characters'),
     MenuEntrySeparator.menuEntrySeparator,
-    entry('zoomIn', 'Zoom In', 'Ctrl+='),
-    entry('zoomOut', 'Zoom Out', 'Ctrl+-'),
-    entry('resetZoom', 'Reset Zoom', 'Ctrl+NumPad0'),
+    commandEntry('zoomIn', 'Zoom In', 'Window.zoomIn', 'Ctrl+='),
+    commandEntry('zoomOut', 'Zoom Out', 'Window.zoomOut', 'Ctrl+-'),
+    commandEntry('resetZoom', 'Reset Zoom', 'Window.zoomReset', 'Ctrl+NumPad0'),
   ]
 }
