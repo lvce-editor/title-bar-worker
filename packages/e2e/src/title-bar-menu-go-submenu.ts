@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-go-submenu'
 
-export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
+export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) => {
   // act - focus menu bar
   await TitleBarMenuBar.focus()
 
@@ -38,10 +38,35 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   const nextProblemItem = Locator('.MenuItem', { hasText: 'Next Problem' })
   await expect(nextProblemItem).toBeVisible()
 
+  // act - open the Switch Editor submenu
+  await Command.execute('TitleBar.handleMenuClick', 0, 4)
+
+  // assert - Switch Editor has the same entries and order as VS Code
+  const switchEditorMenu = Locator('#Menu-1')
+  await expect(switchEditorMenu).toBeVisible()
+
+  const switchEditorItems = Locator('#Menu-1 .MenuItem')
+  await expect(switchEditorItems).toHaveCount(8)
+  const expectedSwitchEditorLabels = [
+    'Next Editor',
+    'Previous Editor',
+    'Next Used Editor',
+    'Previous Used Editor',
+    'Next Editor in Group',
+    'Previous Editor in Group',
+    'Next Used Editor in Group',
+    'Previous Used Editor in Group',
+  ]
+  for (const [index, label] of expectedSwitchEditorLabels.entries()) {
+    const item = switchEditorItems.nth(index)
+    await expect(item).toHaveText(label)
+  }
+
   // Close the menu
   await TitleBarMenuBar.handleKeyEscape()
 
   // assert - menu is closed and Go is still focused
   await expect(menu).toBeHidden()
+  await expect(switchEditorMenu).toBeHidden()
   await expect(goMenu).toHaveAttribute('id', 'TitleBarEntryActive')
 }
