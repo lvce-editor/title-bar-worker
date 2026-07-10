@@ -27,6 +27,16 @@ const checkedEntry = (id: string, label: string, keyboardShortCut = ''): MenuEnt
   }
 }
 
+const commandEntry = (id: string, label: string, command: string, keyboardShortCut = '', flags = MenuItemFlags.None): MenuEntry => {
+  return {
+    command,
+    flags,
+    id,
+    keyboardShortCut,
+    label,
+  }
+}
+
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
@@ -40,10 +50,10 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
     entry('centeredLayout', 'Centered Layout'),
     MenuEntrySeparator.menuEntrySeparator,
     checkedEntry('menuBar', 'Menu Bar'),
-    entry('primarySideBar', 'Primary Side Bar', 'Ctrl+B'),
-    entry('secondarySideBar', 'Secondary Side Bar', 'Ctrl+Alt+B'),
-    checkedEntry('statusBar', 'Status Bar'),
-    checkedEntry('panel', 'Panel', 'Ctrl+J'),
+    commandEntry('primarySideBar', 'Primary Side Bar', 'Layout.toggleSideBar', 'Ctrl+B'),
+    commandEntry('secondarySideBar', 'Secondary Side Bar', 'Layout.toggleSecondarySideBar', 'Ctrl+Alt+B'),
+    commandEntry('statusBar', 'Status Bar', 'Layout.toggleStatusBar', '', MenuItemFlags.Checked),
+    commandEntry('panel', 'Panel', 'Layout.togglePanel', 'Ctrl+J', MenuItemFlags.Checked),
     MenuEntrySeparator.menuEntrySeparator,
     entry('movePrimarySideBarLeft', 'Move Primary Side Bar Left'),
     entry('activityBarPosition', 'Activity Bar Position'),
