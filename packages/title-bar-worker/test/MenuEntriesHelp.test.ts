@@ -9,6 +9,13 @@ test('getMenuEntries - Web platform with auto update not supported', async () =>
   const result = await getMenuEntries(PlatformType.Web)
   expect(result).toEqual([
     {
+      command: 'QuickPick.showCommands',
+      flags: MenuItemFlags.None,
+      id: 'showAllCommands',
+      label: HelpStrings.showAllCommands(),
+    },
+    MenuEntrySeparator.menuEntrySeparator,
+    {
       command: 'About.showAbout',
       flags: MenuItemFlags.None,
       id: 'about',
@@ -20,6 +27,13 @@ test('getMenuEntries - Web platform with auto update not supported', async () =>
 test('getMenuEntries - Electron platform with auto update not supported', async () => {
   const result = await getMenuEntries(PlatformType.Electron)
   expect(result).toEqual([
+    {
+      command: 'QuickPick.showCommands',
+      flags: MenuItemFlags.None,
+      id: 'showAllCommands',
+      label: HelpStrings.showAllCommands(),
+    },
+    MenuEntrySeparator.menuEntrySeparator,
     {
       command: 'Developer.toggleDeveloperTools',
       flags: MenuItemFlags.None,
@@ -45,6 +59,13 @@ test('getMenuEntries - Electron platform with auto update not supported', async 
 test('getMenuEntries - Remote platform with auto update not supported', async () => {
   const result = await getMenuEntries(PlatformType.Remote)
   expect(result).toEqual([
+    {
+      command: 'QuickPick.showCommands',
+      flags: MenuItemFlags.None,
+      id: 'showAllCommands',
+      label: HelpStrings.showAllCommands(),
+    },
+    MenuEntrySeparator.menuEntrySeparator,
     {
       command: 'Developer.toggleDeveloperTools',
       flags: MenuItemFlags.None,
