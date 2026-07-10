@@ -9,5 +9,6 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   const autoSaveItem = Locator('#Menu-0 .MenuItem', { hasText: 'Auto Save' })
   await autoSaveItem.hover()
 
-  await expect(autoSaveItem).toHaveClass('MenuItem MenuItemFocused')
+  const focusedAutoSaveItem = Locator('#Menu-0 .MenuItem.MenuItemFocused', { hasText: 'Auto Save' })
+  await expect(focusedAutoSaveItem).toBeVisible()
 }
