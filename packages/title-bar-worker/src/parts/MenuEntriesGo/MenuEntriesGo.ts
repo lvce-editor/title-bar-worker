@@ -9,12 +9,13 @@ const notImplementedMessage = {
 
 const notImplementedArgs = [notImplementedMessage, ['OK']]
 
-const notImplementedEntry = (id: string, label: string): MenuEntry => {
+const notImplementedEntry = (id: string, label: string, keyboardShortCut?: string): MenuEntry => {
   return {
     args: notImplementedArgs,
     command: 'Dialog.showMessage',
     flags: MenuItemFlags.None,
     id,
+    ...(keyboardShortCut && { keyboardShortCut }),
     label,
   }
 }
@@ -61,18 +62,14 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
 
 export const getMenuEntriesSwitchEditor = (): readonly MenuEntry[] => {
   return [
-    notImplementedEntry('firstSideInEditor', 'First Side in Editor'),
-    notImplementedEntry('secondSideInEditor', 'Second Side in Editor'),
-    menuEntrySeparator,
-    notImplementedEntry('nextEditor', 'Next Editor'),
-    notImplementedEntry('previousEditor', 'Previous Editor'),
+    notImplementedEntry('nextEditor', 'Next Editor', 'Ctrl+PageDown'),
+    notImplementedEntry('previousEditor', 'Previous Editor', 'Ctrl+PageUp'),
     menuEntrySeparator,
     notImplementedEntry('nextUsedEditor', 'Next Used Editor'),
     notImplementedEntry('previousUsedEditor', 'Previous Used Editor'),
     menuEntrySeparator,
-    notImplementedEntry('nextEditorInGroup', 'Next Editor in Group'),
-    notImplementedEntry('previousEditorInGroup', 'Previous Editor in Group'),
-    menuEntrySeparator,
+    notImplementedEntry('nextEditorInGroup', 'Next Editor in Group', 'Ctrl+K Ctrl+PageDown'),
+    notImplementedEntry('previousEditorInGroup', 'Previous Editor in Group', 'Ctrl+K Ctrl+PageUp'),
     notImplementedEntry('nextUsedEditorInGroup', 'Next Used Editor in Group'),
     notImplementedEntry('previousUsedEditorInGroup', 'Previous Used Editor in Group'),
   ]
