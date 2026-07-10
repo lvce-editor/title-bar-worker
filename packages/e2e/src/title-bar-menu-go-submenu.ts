@@ -62,11 +62,17 @@ export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) 
     await expect(item).toHaveText(label)
   }
 
-  // Close the menu
+  // act - close the Switch Editor submenu
+  await TitleBarMenuBar.handleKeyEscape()
+
+  // assert - the parent Go menu remains open
+  await expect(switchEditorMenu).toBeHidden()
+  await expect(menu).toBeVisible()
+
+  // act - close the Go menu
   await TitleBarMenuBar.handleKeyEscape()
 
   // assert - menu is closed and Go is still focused
   await expect(menu).toBeHidden()
-  await expect(switchEditorMenu).toBeHidden()
   await expect(goMenu).toHaveAttribute('id', 'TitleBarEntryActive')
 }

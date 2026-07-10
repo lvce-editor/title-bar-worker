@@ -1,5 +1,5 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
-import { arrangeEditors, expectSelectedEditor } from './shared/switchEditor.js'
+import { arrangeEditors, expectSelectedEditor } from './shared/switchEditor.ts'
 
 export const name = 'title-bar-menu-go-switch-editor-previous-editor-keyboard-shortcut'
 export const skip = 1

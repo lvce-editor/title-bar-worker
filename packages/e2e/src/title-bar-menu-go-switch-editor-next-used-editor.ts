@@ -5,7 +5,7 @@ import {
   openSwitchEditorSubmenu,
   selectSwitchEditorItem,
   switchEditorItemIndex,
-} from './shared/switchEditor.js'
+} from './shared/switchEditor.ts'
 
 export const name = 'title-bar-menu-go-switch-editor-next-used-editor'
 export const skip = 1
