@@ -9,8 +9,7 @@ test('getMenuEntries', () => {
   const result = getMenuEntries()
   expect(result).toEqual([
     {
-      args: notImplementedArgs,
-      command: 'Dialog.showMessage',
+      command: 'Window.toggleFullScreen',
       flags: MenuItemFlags.None,
       id: 'fullScreen',
       keyboardShortCut: 'F11',

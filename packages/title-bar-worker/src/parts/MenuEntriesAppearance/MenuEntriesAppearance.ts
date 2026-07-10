@@ -1,6 +1,7 @@
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
+import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
 const notImplementedArgs = [{ message: 'not implemented' }]
 
@@ -28,7 +29,13 @@ const checkedEntry = (id: string, label: string, keyboardShortCut = ''): MenuEnt
 
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
-    entry('fullScreen', 'Full Screen', 'F11'),
+    {
+      command: 'Window.toggleFullScreen',
+      flags: MenuItemFlags.None,
+      id: 'fullScreen',
+      keyboardShortCut: 'F11',
+      label: TitleBarStrings.fullScreen(),
+    },
     entry('zenMode', 'Zen Mode', 'Ctrl+K Z'),
     entry('centeredLayout', 'Centered Layout'),
     MenuEntrySeparator.menuEntrySeparator,

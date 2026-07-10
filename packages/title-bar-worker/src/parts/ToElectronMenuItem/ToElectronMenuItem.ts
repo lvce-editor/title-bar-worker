@@ -32,6 +32,11 @@ export const toElectronMenuItem = (entry: any): any => {
         role: ElectronMenuItemRole.FileMenu,
         submenu: [],
       }
+    case TitleBarStrings.fullScreen():
+      return {
+        label: entry.label,
+        role: ElectronMenuItemRole.Togglefullscreen,
+      }
     case TitleBarStrings.help():
       return {
         label: entry.label,
