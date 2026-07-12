@@ -25,6 +25,8 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   // assert - verify expected menu items in Help submenu
   const aboutItem = Locator('.MenuItem', { hasText: 'About' })
   await expect(aboutItem).toBeVisible()
+  const viewLicenseItem = Locator('.MenuItem', { hasText: 'View License' })
+  await expect(viewLicenseItem).toBeVisible()
 
   // Note: Platform-specific items like Toggle Developer Tools and Check for Updates
   // may not be visible in all environments, but About should always be present
