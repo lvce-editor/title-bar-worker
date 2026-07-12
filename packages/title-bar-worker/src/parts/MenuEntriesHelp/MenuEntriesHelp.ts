@@ -44,6 +44,12 @@ export const getMenuEntries = async (platform: number): Promise<readonly MenuEnt
     entries.push(MenuEntrySeparator.menuEntrySeparator)
   }
   entries.push({
+    command: 'License.openLicense',
+    flags: MenuItemFlags.None,
+    id: 'viewLicense',
+    label: HelpStrings.viewLicense(),
+  })
+  entries.push({
     command: 'About.showAbout',
     flags: MenuItemFlags.None,
     id: 'about',

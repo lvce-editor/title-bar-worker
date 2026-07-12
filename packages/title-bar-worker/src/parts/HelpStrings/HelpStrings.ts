@@ -17,6 +17,10 @@ export const checkForUpdates = (): string => {
   return I18nString.i18nString(UiStrings.CheckForUpdates)
 }
 
+export const viewLicense = (): string => {
+  return I18nString.i18nString(UiStrings.ViewLicense)
+}
+
 export const about = (): string => {
   return I18nString.i18nString(UiStrings.About)
 }

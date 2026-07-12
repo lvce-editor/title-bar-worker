@@ -11,6 +11,7 @@ test('toggleDeveloperTools', () => {
 
 test('openProcessExplorer', () => {
   expect(HelpStrings.openProcessExplorer()).toBe('Open Process Explorer')
+  expect(HelpStrings.viewLicense()).toBe('View License')
 })
 
 test('checkForUpdates', () => {

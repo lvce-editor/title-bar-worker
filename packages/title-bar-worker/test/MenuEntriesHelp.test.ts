@@ -16,6 +16,12 @@ test('getMenuEntries - Web platform with auto update not supported', async () =>
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
+      command: 'License.openLicense',
+      flags: MenuItemFlags.None,
+      id: 'viewLicense',
+      label: HelpStrings.viewLicense(),
+    },
+    {
       command: 'About.showAbout',
       flags: MenuItemFlags.None,
       id: 'about',
@@ -48,6 +54,12 @@ test('getMenuEntries - Electron platform with auto update not supported', async 
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
+      command: 'License.openLicense',
+      flags: MenuItemFlags.None,
+      id: 'viewLicense',
+      label: HelpStrings.viewLicense(),
+    },
+    {
       command: 'About.showAbout',
       flags: MenuItemFlags.None,
       id: 'about',
@@ -79,6 +91,12 @@ test('getMenuEntries - Remote platform with auto update not supported', async ()
       label: HelpStrings.openProcessExplorer(),
     },
     MenuEntrySeparator.menuEntrySeparator,
+    {
+      command: 'License.openLicense',
+      flags: MenuItemFlags.None,
+      id: 'viewLicense',
+      label: HelpStrings.viewLicense(),
+    },
     {
       command: 'About.showAbout',
       flags: MenuItemFlags.None,
