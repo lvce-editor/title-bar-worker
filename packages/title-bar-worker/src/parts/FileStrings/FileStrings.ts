@@ -5,6 +5,7 @@ import * as I18nString from '../I18NString/I18NString.ts'
  */
 const UiStrings = {
   AutoSave: 'Auto Save',
+  CloseFolder: 'Close Folder',
   Exit: 'Exit',
   NewFile: 'New File',
   NewWindow: 'New Window',
@@ -13,11 +14,14 @@ const UiStrings = {
   OpenRecent: 'Open Recent',
   Save: 'Save',
   SaveAll: 'Save All',
-  Separator: 'Separator',
 }
 
 export const autoSave = (): string => {
   return I18nString.i18nString(UiStrings.AutoSave)
+}
+
+export const closeFolder = (): string => {
+  return I18nString.i18nString(UiStrings.CloseFolder)
 }
 
 export const newFile = (): string => {
