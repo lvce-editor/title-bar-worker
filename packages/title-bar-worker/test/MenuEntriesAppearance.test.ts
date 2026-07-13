@@ -70,8 +70,7 @@ test('getMenuEntries', () => {
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
-      args: notImplementedArgs,
-      command: 'Dialog.showMessage',
+      command: 'Layout.moveSideBarLeft',
       flags: MenuItemFlags.None,
       id: 'movePrimarySideBarLeft',
       keyboardShortCut: '',

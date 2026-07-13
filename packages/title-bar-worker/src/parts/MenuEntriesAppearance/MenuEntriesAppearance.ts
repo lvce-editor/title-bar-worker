@@ -55,7 +55,7 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
     commandEntry('statusBar', 'Status Bar', 'Layout.toggleStatusBar', '', MenuItemFlags.Checked),
     commandEntry('panel', 'Panel', 'Layout.togglePanel', 'Ctrl+J', MenuItemFlags.Checked),
     MenuEntrySeparator.menuEntrySeparator,
-    entry('movePrimarySideBarLeft', 'Move Primary Side Bar Left'),
+    commandEntry('movePrimarySideBarLeft', 'Move Primary Side Bar Left', 'Layout.moveSideBarLeft'),
     entry('activityBarPosition', 'Activity Bar Position'),
     entry('panelPosition', 'Panel Position'),
     entry('alignPanel', 'Align Panel'),
