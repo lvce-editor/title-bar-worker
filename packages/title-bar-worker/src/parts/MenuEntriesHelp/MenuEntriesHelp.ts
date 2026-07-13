@@ -7,9 +7,17 @@ import * as PlatformType from '../PlatformType/PlatformType.ts'
 
 export const getMenuEntries = async (platform: number): Promise<readonly MenuEntry[]> => {
   const autoUpdateSupported = IsAutoUpdateSupported.isAutoUpdateSupported(platform)
-  const entries = []
+  const entries: MenuEntry[] = [
+    {
+      command: 'QuickPick.showCommands',
+      flags: MenuItemFlags.None,
+      id: 'showAllCommands',
+      label: HelpStrings.showAllCommands(),
+    },
+  ]
   if (platform !== PlatformType.Web) {
     entries.push(
+      MenuEntrySeparator.menuEntrySeparator,
       {
         command: 'Developer.toggleDeveloperTools',
         flags: MenuItemFlags.None,
@@ -35,6 +43,12 @@ export const getMenuEntries = async (platform: number): Promise<readonly MenuEnt
   if (entries.length > 0) {
     entries.push(MenuEntrySeparator.menuEntrySeparator)
   }
+  entries.push({
+    command: 'License.openLicense',
+    flags: MenuItemFlags.None,
+    id: 'viewLicense',
+    label: HelpStrings.viewLicense(),
+  })
   entries.push({
     command: 'About.showAbout',
     flags: MenuItemFlags.None,

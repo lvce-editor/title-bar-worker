@@ -3,7 +3,7 @@ import type { ContextMenuProps } from '../ContextMenuProps/ContextMenuProps.ts'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { getMenuEntriesTitleBarContextMenu } from '../GetMenuEntriesTitleBarContextMenu/GetMenuEntriesTitleBarContextMenu.ts'
-import { MenuIdAppearance, MenuIdEditorLayout, MenuIdTitleBarContextMenu } from '../GetMenuIds/GetMenuIds.ts'
+import { MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup, MenuIdTitleBarContextMenu } from '../GetMenuIds/GetMenuIds.ts'
 import * as HasActiveTextEditor from '../HasActiveTextEditor/HasActiveTextEditor.ts'
 import * as MenuEntriesAppearance from '../MenuEntriesAppearance/MenuEntriesAppearance.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
@@ -55,6 +55,12 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     // @ts-ignore
     case MenuIdEditorLayout:
       return MenuEntriesEditorLayout.getMenuEntries()
+    // @ts-ignore
+    case MenuIdSwitchEditor:
+      return MenuEntriesGo.getMenuEntriesSwitchEditor()
+    // @ts-ignore
+    case MenuIdSwitchGroup:
+      return MenuEntriesGo.getMenuEntriesSwitchGroup()
     default:
       return []
   }

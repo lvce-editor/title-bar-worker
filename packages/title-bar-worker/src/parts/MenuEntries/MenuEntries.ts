@@ -1,6 +1,6 @@
 import { MenuEntryId } from '@lvce-editor/constants'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
-import { MenuIdAppearance, MenuIdEditorLayout } from '../GetMenuIds/GetMenuIds.ts'
+import { MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup } from '../GetMenuIds/GetMenuIds.ts'
 import * as MenuEntriesAppearance from '../MenuEntriesAppearance/MenuEntriesAppearance.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
 import * as MenuEntriesEditorLayout from '../MenuEntriesEditorLayout/MenuEntriesEditorLayout.ts'
@@ -41,6 +41,10 @@ const getFn = (id: string | number): any => {
       return MenuEntriesAppearance.getMenuEntries
     case MenuIdEditorLayout:
       return MenuEntriesEditorLayout.getMenuEntries
+    case MenuIdSwitchEditor:
+      return MenuEntriesGo.getMenuEntriesSwitchEditor
+    case MenuIdSwitchGroup:
+      return MenuEntriesGo.getMenuEntriesSwitchGroup
     default:
       return undefined
   }

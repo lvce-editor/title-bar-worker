@@ -17,6 +17,10 @@ test('view', () => {
   expect(TitleBarStrings.view()).toBe('View')
 })
 
+test('fullScreen', () => {
+  expect(TitleBarStrings.fullScreen()).toBe('Full Screen')
+})
+
 test('go', () => {
   expect(TitleBarStrings.go()).toBe('Go')
 })

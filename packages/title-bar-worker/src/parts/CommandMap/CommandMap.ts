@@ -17,7 +17,7 @@ import * as HandleTitleBarContextMenu from '../HandleTitleBarContextMenu/HandleT
 import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
 import { hideCommandCenter } from '../HideCommandCenter/HideCommandCenter.ts'
 import { hideMenuBar } from '../HideMenuBar/HideMenuBar.ts'
-import { loadContent2 } from '../LoadContent2/LoadContent2.ts'
+import { loadContent2Command } from '../LoadContent2Command/LoadContent2Command.ts'
 import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import { resize } from '../Resize/Resize.ts'
@@ -103,7 +103,7 @@ export const commandMap = {
   'TitleBar.hideCommandCenter': wrapCommand(hideCommandCenter),
   'TitleBar.hideMenuBar': wrapCommand(hideMenuBar),
   'TitleBar.hydrateElectronApplicationMenu': wrapCommand(hydrate),
-  'TitleBar.loadContent2': wrapCommand(loadContent2),
+  'TitleBar.loadContent2': loadContent2Command,
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBar.resize': wrapCommand(resize),

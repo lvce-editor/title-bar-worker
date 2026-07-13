@@ -62,7 +62,7 @@ test('getMenuItemUncheckedDom - unchecked menu item with different label', () =>
   ])
 })
 
-test('getMenuItemUncheckedDom - ignores other menuItem properties', () => {
+test('getMenuItemUncheckedDom - focused', () => {
   const menuItem: VisibleMenuItem = {
     flags: 123,
     isExpanded: true,
@@ -78,7 +78,7 @@ test('getMenuItemUncheckedDom - ignores other menuItem properties', () => {
     {
       ariaChecked: false,
       childCount: 1,
-      className: ClassNames.MenuItem,
+      className: `${ClassNames.MenuItem} ${ClassNames.MenuItemFocused}`,
       role: AriaRoles.MenuItemCheckBox,
       tabIndex: -1,
       type: VirtualDomElements.Div,
@@ -124,7 +124,7 @@ test('getMenuItemUncheckedDom - returns same structure regardless of input', () 
   const menuItem1: VisibleMenuItem = {
     flags: 1,
     isExpanded: true,
-    isFocused: true,
+    isFocused: false,
     key: 10,
     label: 'Item 1',
     level: 2,
