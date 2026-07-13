@@ -1,17 +1,22 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
+import { clickAppearanceMenuItem } from './_title-bar-menu-view-appearance-shared.js'
 
 export const name = 'title-bar-menu-view-appearance-submenu-move-primary-side-bar-left'
 
-export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
-  await TitleBarMenuBar.focus()
-  await TitleBarMenuBar.handleKeyArrowRight()
-  await TitleBarMenuBar.handleKeyArrowRight()
-  await TitleBarMenuBar.handleKeyArrowRight()
-  await TitleBarMenuBar.handleKeyArrowDown()
-  await TitleBarMenuBar.handleKeyArrowDown()
-  await TitleBarMenuBar.handleKeyArrowDown()
-  await TitleBarMenuBar.handleKeyArrowRight()
+export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) => {
+  const sideBarLeft = 1
+  const sideBarRight = 2
+  const expectSideBarPosition = async (expected: number): Promise<void> => {
+    const sideBarPosition = await Command.execute('Layout.getSideBarPosition')
+    if (sideBarPosition !== expected) {
+      throw new Error(`expected side bar position to be ${expected} but was ${sideBarPosition}`)
+    }
+  }
 
-  const menuItem = Locator('#Menu-1 .MenuItem', { hasText: 'Move Primary Side Bar Left' })
-  await expect(menuItem).toBeVisible()
+  await Command.execute('Layout.moveSideBarRight')
+  await expectSideBarPosition(sideBarRight)
+
+  await clickAppearanceMenuItem({ Command, expect, Locator, TitleBarMenuBar }, 'Move Primary Side Bar Left', 10)
+
+  await expectSideBarPosition(sideBarLeft)
 }
