@@ -5,8 +5,9 @@ import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 
 const notImplementedArgs = [{ message: 'not implemented' }]
 
-test('getMenuEntries', () => {
-  const result = getMenuEntries()
+test('getMenuEntries', async () => {
+  const sideBarRight = 2
+  const result = await getMenuEntries(sideBarRight)
   expect(result).toEqual([
     {
       command: 'Window.toggleFullScreen',
@@ -180,4 +181,17 @@ test('getMenuEntries', () => {
       label: 'Reset Zoom',
     },
   ])
+})
+
+test('getMenuEntries - primary side bar is left', async () => {
+  const sideBarLeft = 1
+  const result = await getMenuEntries(sideBarLeft)
+
+  expect(result).toContainEqual({
+    command: 'Layout.moveSideBarRight',
+    flags: MenuItemFlags.None,
+    id: 'movePrimarySideBarRight',
+    keyboardShortCut: '',
+    label: 'Move Primary Side Bar Right',
+  })
 })

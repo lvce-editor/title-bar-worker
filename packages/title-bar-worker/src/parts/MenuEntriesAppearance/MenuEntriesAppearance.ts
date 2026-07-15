@@ -1,9 +1,20 @@
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
 const notImplementedArgs = [{ message: 'not implemented' }]
+const sideBarLeft = 1
+const sideBarRight = 2
+
+const getSideBarPosition = async (): Promise<number> => {
+  try {
+    return await RendererWorker.invoke('Layout.getSideBarPosition')
+  } catch {
+    return sideBarRight
+  }
+}
 
 const entry = (id: string, label: string, keyboardShortCut = ''): MenuEntry => {
   return {
@@ -37,7 +48,13 @@ const commandEntry = (id: string, label: string, command: string, keyboardShortC
   }
 }
 
-export const getMenuEntries = (): readonly MenuEntry[] => {
+export const getMenuEntries = async (sideBarPosition?: number): Promise<readonly MenuEntry[]> => {
+  const currentSideBarPosition = sideBarPosition ?? (await getSideBarPosition())
+  const movePrimarySideBarEntry =
+    currentSideBarPosition === sideBarLeft
+      ? commandEntry('movePrimarySideBarRight', 'Move Primary Side Bar Right', 'Layout.moveSideBarRight')
+      : commandEntry('movePrimarySideBarLeft', 'Move Primary Side Bar Left', 'Layout.moveSideBarLeft')
+
   return [
     {
       command: 'Window.toggleFullScreen',
@@ -55,7 +72,7 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
     commandEntry('statusBar', 'Status Bar', 'Layout.toggleStatusBar', '', MenuItemFlags.Checked),
     commandEntry('panel', 'Panel', 'Layout.togglePanel', 'Ctrl+J', MenuItemFlags.Checked),
     MenuEntrySeparator.menuEntrySeparator,
-    commandEntry('movePrimarySideBarLeft', 'Move Primary Side Bar Left', 'Layout.moveSideBarLeft'),
+    movePrimarySideBarEntry,
     entry('activityBarPosition', 'Activity Bar Position'),
     entry('panelPosition', 'Panel Position'),
     entry('alignPanel', 'Align Panel'),
