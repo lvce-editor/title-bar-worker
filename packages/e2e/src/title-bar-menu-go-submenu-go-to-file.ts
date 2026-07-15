@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-go-submenu-go-to-file'
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
+export const test: Test = async ({ Command, expect, FileSystem, Locator, QuickPick, TitleBarMenuBar, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/menu-file.txt`, 'content')
@@ -24,6 +24,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   // assert
   const quickPick = Locator('.QuickPick')
   await expect(quickPick).toBeVisible()
+  await QuickPick.setValue('menu-file')
 
   const quickPickItem = Locator('.QuickPickItemLabel').first()
   await expect(quickPickItem).toContainText('menu-file.txt')
