@@ -14,13 +14,15 @@ test('getMenuEntriesTitleBarContextMenu - both enabled', async () => {
   const result = await getMenuEntriesTitleBarContextMenu(state)
   expect(result).toEqual([
     {
-      command: 'TitleBar.hideMenuBar',
+      args: [1, 'hideMenuBar'],
+      command: 'Viewlet.executeViewletCommand',
       flags: MenuItemFlags.Checked,
       id: 'MenuBar',
       label: TitleBarStrings.menuBar(),
     },
     {
-      command: 'TitleBar.hideCommandCenter',
+      args: [1, 'hideCommandCenter'],
+      command: 'Viewlet.executeViewletCommand',
       flags: MenuItemFlags.Checked,
       id: 'Command center',
       label: TitleBarStrings.commandCenter(),
@@ -43,13 +45,15 @@ test('getMenuEntriesTitleBarContextMenu - both disabled', async () => {
   const result = await getMenuEntriesTitleBarContextMenu(state)
   expect(result).toEqual([
     {
-      command: 'TitleBar.showMenuBar',
+      args: [1, 'showMenuBar'],
+      command: 'Viewlet.executeViewletCommand',
       flags: MenuItemFlags.Unchecked,
       id: 'MenuBar',
       label: TitleBarStrings.menuBar(),
     },
     {
-      command: 'TitleBar.showCommandCenter',
+      args: [1, 'showCommandCenter'],
+      command: 'Viewlet.executeViewletCommand',
       flags: MenuItemFlags.Unchecked,
       id: 'Command center',
       label: TitleBarStrings.commandCenter(),
@@ -72,13 +76,15 @@ test('getMenuEntriesTitleBarContextMenu - menuBar enabled, commandCenter disable
   const result = await getMenuEntriesTitleBarContextMenu(state)
   expect(result).toEqual([
     {
-      command: 'TitleBar.hideMenuBar',
+      args: [1, 'hideMenuBar'],
+      command: 'Viewlet.executeViewletCommand',
       flags: MenuItemFlags.Checked,
       id: 'MenuBar',
       label: TitleBarStrings.menuBar(),
     },
     {
-      command: 'TitleBar.showCommandCenter',
+      args: [1, 'showCommandCenter'],
+      command: 'Viewlet.executeViewletCommand',
       flags: MenuItemFlags.Unchecked,
       id: 'Command center',
       label: TitleBarStrings.commandCenter(),
@@ -101,13 +107,15 @@ test('getMenuEntriesTitleBarContextMenu - menuBar disabled, commandCenter enable
   const result = await getMenuEntriesTitleBarContextMenu(state)
   expect(result).toEqual([
     {
-      command: 'TitleBar.showMenuBar',
+      args: [1, 'showMenuBar'],
+      command: 'Viewlet.executeViewletCommand',
       flags: MenuItemFlags.Unchecked,
       id: 'MenuBar',
       label: TitleBarStrings.menuBar(),
     },
     {
-      command: 'TitleBar.hideCommandCenter',
+      args: [1, 'hideCommandCenter'],
+      command: 'Viewlet.executeViewletCommand',
       flags: MenuItemFlags.Checked,
       id: 'Command center',
       label: TitleBarStrings.commandCenter(),
