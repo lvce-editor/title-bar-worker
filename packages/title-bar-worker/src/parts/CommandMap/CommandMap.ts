@@ -71,7 +71,7 @@ export const commandMap = {
   'TitleBar.getCommandIds': getCommandIds,
   'TitleBar.getCommands': getCommandIds,
   'TitleBar.getKeyBindings': GetKeyBindings.getKeyBindings,
-  'TitleBar.getMenuEntries2': getMenuEntries2,
+  'TitleBar.getMenuEntries2': wrapGetter(getMenuEntries2),
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
   'TitleBar.handleClick': wrapCommand(ViewletTitleBarMenuBarHandleClick.handleClick),
