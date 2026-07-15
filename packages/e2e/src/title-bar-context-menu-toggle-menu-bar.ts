@@ -10,4 +10,9 @@ export const test: Test = async ({ ContextMenu, expect, Locator, TitleBarMenuBar
   await ContextMenu.selectItem('Menu Bar')
 
   await expect(menuBar).toHaveCount(0)
+
+  await TitleBarMenuBar.handleContextMenu(2, 0, 0)
+  await ContextMenu.selectItem('Menu Bar')
+
+  await expect(menuBar).toBeVisible()
 }
