@@ -2,14 +2,14 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar.context-menu'
 
-export const skip = 1
+export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
+  const commandCenter = Locator('.MenuItem', { hasText: 'Command Center' })
+  const layoutControls = Locator('.MenuItem', { hasText: 'Layout Controls' })
+  const menuBar = Locator('.MenuItem', { hasText: 'Menu Bar' })
 
-export const test: Test = async ({ Command }) => {
-  // arrange
+  await TitleBarMenuBar.handleContextMenu(2, 0, 0)
 
-  // act
-  await Command.execute('TitleBar.handleContextMenu', 0, 0, 0)
-
-  // assert
-  // TODO verify that context menu is visible
+  await expect(menuBar).toBeVisible()
+  await expect(commandCenter).toBeVisible()
+  await expect(layoutControls).toBeVisible()
 }

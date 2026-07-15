@@ -3,6 +3,7 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 export const isEqual = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState): boolean => {
   return (
     oldState.titleBarEntries === newState.titleBarEntries &&
+    oldState.titleBarMenuBarEnabled === newState.titleBarMenuBarEnabled &&
     oldState.width === newState.width &&
     oldState.focusedIndex === newState.focusedIndex &&
     oldState.isMenuOpen === newState.isMenuOpen &&

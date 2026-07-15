@@ -29,7 +29,7 @@ test('getMenuEntriesTitleBarContextMenu - both enabled', async () => {
       command: '',
       flags: MenuItemFlags.Checked,
       id: 'layout controls',
-      label: 'layout controls',
+      label: TitleBarStrings.layoutControls(),
     },
   ])
 })
@@ -58,7 +58,7 @@ test('getMenuEntriesTitleBarContextMenu - both disabled', async () => {
       command: '',
       flags: MenuItemFlags.Checked,
       id: 'layout controls',
-      label: 'layout controls',
+      label: TitleBarStrings.layoutControls(),
     },
   ])
 })
@@ -87,7 +87,7 @@ test('getMenuEntriesTitleBarContextMenu - menuBar enabled, commandCenter disable
       command: '',
       flags: MenuItemFlags.Checked,
       id: 'layout controls',
-      label: 'layout controls',
+      label: TitleBarStrings.layoutControls(),
     },
   ])
 })
@@ -116,7 +116,7 @@ test('getMenuEntriesTitleBarContextMenu - menuBar disabled, commandCenter enable
       command: '',
       flags: MenuItemFlags.Checked,
       id: 'layout controls',
-      label: 'layout controls',
+      label: TitleBarStrings.layoutControls(),
     },
   ])
 })

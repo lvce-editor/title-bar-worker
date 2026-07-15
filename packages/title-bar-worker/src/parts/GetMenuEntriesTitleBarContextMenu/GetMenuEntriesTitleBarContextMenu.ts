@@ -23,7 +23,7 @@ export const getMenuEntriesTitleBarContextMenu = async (state: TitleBarMenuBarSt
       command: '',
       flags: MenuItemFlags.Checked,
       id: 'layout controls',
-      label: 'layout controls',
+      label: TitleBarStrings.layoutControls(),
     },
   ]
 }

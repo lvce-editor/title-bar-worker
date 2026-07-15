@@ -31,6 +31,7 @@ test('renderEventListeners - should have correct structure for HandleContextMenu
   expect(contextMenuListener).toBeDefined()
   expect(contextMenuListener?.params.length).toBe(4)
   expect(contextMenuListener?.params[0]).toBe('handleContextMenu')
+  expect(contextMenuListener?.preventDefault).toBe(true)
 })
 
 test('renderEventListeners - should have correct structure for HandleTitleBarContextMenu', () => {
