@@ -21,6 +21,7 @@ export const getTitleBarMenuBarVirtualDom = (
       ariaActivedescendant: focusedIndex === -1 ? '' : activeId,
       childCount: visibleItems.length,
       className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.TitleBarMenuBar),
+      onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onFocusIn: DomEventListenerFunctions.HandleFocusIn,
       onFocusOut: DomEventListenerFunctions.HandleFocusOut,
       onMouseDown: DomEventListenerFunctions.HandleClick,

@@ -4,17 +4,19 @@ import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
 export const getMenuEntriesTitleBarContextMenu = async (state: TitleBarMenuBarState): Promise<readonly MenuEntry[]> => {
-  const { commandCenterEnabled, titleBarMenuBarEnabled } = state
+  const { commandCenterEnabled, titleBarMenuBarEnabled, uid } = state
   // TODO checked state should be depending on whether or not that feature is currently visible or not
   return [
     {
-      command: titleBarMenuBarEnabled ? 'TitleBar.hideMenuBar' : 'TitleBar.showMenuBar',
+      args: [uid, titleBarMenuBarEnabled ? 'hideMenuBar' : 'showMenuBar'],
+      command: 'Viewlet.executeViewletCommand',
       flags: titleBarMenuBarEnabled ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
       id: 'MenuBar',
       label: TitleBarStrings.menuBar(),
     },
     {
-      command: commandCenterEnabled ? 'TitleBar.hideCommandCenter' : 'TitleBar.showCommandCenter',
+      args: [uid, commandCenterEnabled ? 'hideCommandCenter' : 'showCommandCenter'],
+      command: 'Viewlet.executeViewletCommand',
       flags: commandCenterEnabled ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
       id: 'Command center',
       label: TitleBarStrings.commandCenter(),
@@ -23,7 +25,7 @@ export const getMenuEntriesTitleBarContextMenu = async (state: TitleBarMenuBarSt
       command: '',
       flags: MenuItemFlags.Checked,
       id: 'layout controls',
-      label: 'layout controls',
+      label: TitleBarStrings.layoutControls(),
     },
   ]
 }
