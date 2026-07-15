@@ -57,7 +57,7 @@ import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTit
 import { getCommandIds, wrapCommand, wrapGetter } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const commandMap = {
-  'TitleBar.closeMenu': CloseMenu.closeMenu,
+  'TitleBar.closeMenu': wrapCommand(CloseMenu.closeMenu),
   'TitleBar.create': TitleBarMenuBar.create,
   'TitleBar.create3': Create3.create3,
   'TitleBar.diff3': Diff3.diff3,
