@@ -26,8 +26,7 @@ test('getMenuEntries', () => {
         label: 'Switch Group',
       },
       {
-        args: [notImplementedMessage, ['OK']],
-        command: 'Dialog.showMessage',
+        command: 'QuickPick.showFile',
         flags: MenuItemFlags.None,
         id: 'goToFile',
         label: 'Go to File...',

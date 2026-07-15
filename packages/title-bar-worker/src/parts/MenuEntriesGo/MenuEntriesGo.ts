@@ -39,7 +39,12 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
       label: 'Switch Group',
     },
     menuEntrySeparator,
-    notImplementedEntry('goToFile', 'Go to File...'),
+    {
+      command: 'QuickPick.showFile',
+      flags: MenuItemFlags.None,
+      id: 'goToFile',
+      label: 'Go to File...',
+    },
     notImplementedEntry('goToSymbolInWorkspace', 'Go to Symbol in Workspace...'),
     menuEntrySeparator,
     notImplementedEntry('goToSymbolInEditor', 'Go to Symbol in Editor...'),
