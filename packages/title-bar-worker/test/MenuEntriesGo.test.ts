@@ -32,6 +32,13 @@ test('getMenuEntries', () => {
         label: 'Go to File...',
       },
       {
+        args: ['workspace-symbol'],
+        command: 'QuickPick.show',
+        flags: MenuItemFlags.None,
+        id: 'goToSymbolInWorkspace',
+        label: 'Go to Symbol in Workspace...',
+      },
+      {
         args: [notImplementedMessage, ['OK']],
         command: 'Dialog.showMessage',
         flags: MenuItemFlags.None,
