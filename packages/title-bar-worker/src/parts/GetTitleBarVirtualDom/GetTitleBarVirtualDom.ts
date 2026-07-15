@@ -38,11 +38,12 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
   }
   const iconSrc = getIcon(assetDir)
   const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
+  const childCount = Number(titleBarIconEnabled) + Number(titleBarMenuBarEnabled) + Number(titleBarTitleEnabled) + Number(titleBarButtonsEnabled)
 
   return [
     {
       ariaLabel: TitleBarStrings.titleBar(),
-      childCount: 4,
+      childCount,
       className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.TitleBar),
       id: 'TitleBar',
       onContextMenu: DomEventListenerFunctions.HandleTitleBarContextMenu,
