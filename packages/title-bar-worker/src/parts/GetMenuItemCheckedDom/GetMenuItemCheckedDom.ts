@@ -2,6 +2,7 @@ import { AriaRoles, mergeClassNames, VirtualDomElements } from '@lvce-editor/vir
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { getKeyDom } from '../GetKeyDom/GetKeyDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
@@ -11,13 +12,14 @@ const checkMark: VirtualDomNode = {
 }
 
 export const getMenuItemCheckedDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
-  const { isFocused, label } = menuItem
+  const { isFocused, key, label } = menuItem
   const baseClassName = MergeClassNames.mergeClassNames(ClassNames.MenuItem, ClassNames.MenuItemCheckMark)
   const className = isFocused ? mergeClassNames(baseClassName, ClassNames.MenuItemFocused) : baseClassName
+  const keyDom = key ? getKeyDom(key) : []
   return [
     {
       ariaChecked: true,
-      childCount: 2,
+      childCount: key ? 3 : 2,
       className,
       role: AriaRoles.MenuItemCheckBox,
       tabIndex: -1,
@@ -25,5 +27,6 @@ export const getMenuItemCheckedDom = (menuItem: VisibleMenuItem): readonly Virtu
     },
     checkMark,
     text(label),
+    ...keyDom,
   ]
 }

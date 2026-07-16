@@ -3,11 +3,16 @@ import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as GetKeyBindingsString from '../GetKeyBindingsString/GetKeyBindingsString.ts'
+import * as GetKeyLabel from '../GetKeyLabel/GetKeyLabel.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
+
+const altKeyMask = 1 << 9
 
 export const getKeyDom = (key: number): readonly VirtualDomNode[] => {
   const parsedKey = ParseKey.parseKey(key)
-  const keyBindingsString = GetKeyBindingsString.getKeyBindingString(parsedKey.key, false, parsedKey.isCtrl, parsedKey.isShift, false)
+  const isAlt = Boolean(key & altKeyMask)
+  const keyLabel = GetKeyLabel.getKeyLabel(key & 0xff, parsedKey.key)
+  const keyBindingsString = GetKeyBindingsString.getKeyBindingString(keyLabel, isAlt, parsedKey.isCtrl, parsedKey.isShift, false)
   return [
     {
       childCount: 1,

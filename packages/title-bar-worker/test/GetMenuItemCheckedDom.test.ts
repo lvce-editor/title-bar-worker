@@ -37,3 +37,19 @@ test('getMenuItemCheckedDom - focused', () => {
     type: VirtualDomElements.Div,
   })
 })
+
+test('getMenuItemCheckedDom - keybinding', () => {
+  const menuItem = {
+    ...createMenuItem(false),
+    key: 2048 + 38,
+    label: 'Panel',
+  }
+  const result = GetMenuItemCheckedDom.getMenuItemCheckedDom(menuItem)
+
+  expect(result[0].childCount).toBe(3)
+  expect(result.at(-1)).toEqual({
+    childCount: 0,
+    text: 'Ctrl+J',
+    type: VirtualDomElements.Text,
+  })
+})
