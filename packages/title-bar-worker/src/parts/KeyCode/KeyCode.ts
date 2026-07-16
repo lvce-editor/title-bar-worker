@@ -58,12 +58,15 @@ export const F3 = 59
 export const F4 = 60
 export const F5 = 61
 export const F6 = 62
+export const F11 = 67
 
 export const Equal = 84
 export const Comma = 85
 export const Minus = 86
+export const Slash = 88
 export const Backquote = 89
 export const Backslash = 91
+export const Numpad0 = 96
 
 export const Star = 131
 export const Plus = 132

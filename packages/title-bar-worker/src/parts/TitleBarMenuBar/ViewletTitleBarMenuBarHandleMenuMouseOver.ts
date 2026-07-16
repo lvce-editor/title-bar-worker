@@ -1,5 +1,6 @@
 import type { IMenu } from '../IMenu/IMenu.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as AddMenuEntryKeyBindings from '../AddMenuEntryKeyBindings/AddMenuEntryKeyBindings.ts'
 import * as Assert from '../Assert/Assert.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
@@ -44,7 +45,8 @@ const getNewMenus = async (menus: readonly IMenu[], level: number, index: number
     if (!item.id) {
       return menus
     }
-    const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
     const subMenu: IMenu = {
       focusedIndex: -1,
       items: subMenuEntries,

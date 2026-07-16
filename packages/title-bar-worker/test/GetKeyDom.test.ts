@@ -62,3 +62,27 @@ test('getKeyDom - shift key', () => {
     type: VirtualDomElements.Text,
   })
 })
+
+test('getKeyDom - alt+shift key', () => {
+  const result = getKeyDom(512 + 1024 + 29)
+  expect(result[1]).toEqual({
+    childCount: 0,
+    text: 'Alt+Shift+A',
+    type: VirtualDomElements.Text,
+  })
+})
+
+test.each([
+  [2048 + 88, 'Ctrl+/'],
+  [2048 + 89, 'Ctrl+`'],
+  [2048 + 91, 'Ctrl+\\'],
+  [2048 + 96, 'Ctrl+NumPad0'],
+  [67, 'F11'],
+])('getKeyDom - special key %s', (key, expected) => {
+  const result = getKeyDom(key)
+  expect(result[1]).toEqual({
+    childCount: 0,
+    text: expected,
+    type: VirtualDomElements.Text,
+  })
+})

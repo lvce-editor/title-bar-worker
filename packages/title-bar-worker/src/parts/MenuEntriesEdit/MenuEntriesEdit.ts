@@ -6,13 +6,13 @@ import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
-      command: /* TODO */ '-1',
+      command: 'Editor.undo',
       flags: MenuItemFlags.None,
       id: 'undo',
       label: EditorStrings.undo(),
     },
     {
-      command: /* TODO */ '-1',
+      command: 'Editor.redo',
       flags: MenuItemFlags.None,
       id: 'redo',
       label: EditorStrings.redo(),

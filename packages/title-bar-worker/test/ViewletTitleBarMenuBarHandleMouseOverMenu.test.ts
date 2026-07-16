@@ -152,7 +152,7 @@ test('handleMouseOverMenu - open sub menu', async () => {
   expect(result.menus[0].focusedIndex).toBe(2)
   expect(result.menus[1].level).toBe(1)
   expect(result.menus[1].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
 
 test('handleMouseOverMenu - unfocus sub menu', async () => {
@@ -536,7 +536,7 @@ test('handleMouseOverMenu - open submenu when already focused on different item'
   expect(result.menus).toHaveLength(2)
   expect(result.menus[0].focusedIndex).toBe(1)
   expect(result.menus[1].level).toBe(1)
-  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
 
 test('handleMouseOverMenu - hover over submenu item when submenu already open', async () => {
@@ -685,7 +685,7 @@ test('handleMouseOverMenu - hover over submenu item when not last menu', async (
   expect(result.menus[0].focusedIndex).toBe(-1)
   expect(result.menus[1].focusedIndex).toBe(0)
   expect(result.menus[2].level).toBe(2)
-  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
 
 test('handleMouseOverMenu - hover over submenu item when level is not second to last', async () => {
@@ -841,7 +841,7 @@ test('handleMouseOverMenu - multiple level submenu navigation', async () => {
   expect(result.menus[1].level).toBe(1)
   expect(result.menus[1].x).toBe(150)
   expect(result.menus[1].y).toBe(0)
-  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
 
 test('handleMouseOverMenu - submenu position calculation', async () => {
@@ -972,7 +972,7 @@ test('handleMouseOverMenu - replace existing submenu when hovering different sub
   expect(result.menus[0].focusedIndex).toBe(0)
   expect(result.menus[1].focusedIndex).toBe(1)
   expect(result.menus[2].level).toBe(2)
-  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
 
 test('handleMouseOverMenu - preserve menu properties when updating focus', async () => {
