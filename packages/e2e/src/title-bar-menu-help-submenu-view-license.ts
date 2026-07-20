@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-help-submenu-view-license'
 
-export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
+export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) => {
   // arrange
   await TitleBarMenuBar.focus()
   await TitleBarMenuBar.handleKeyEnd()
@@ -12,7 +12,7 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   await expect(viewLicenseItem).toBeVisible()
 
   // act
-  await viewLicenseItem.click()
+  await Command.execute('TitleBar.handleMenuClick', 0, 2)
 
   // assert
   const tabTitle = Locator('.MainTab .TabTitle')
