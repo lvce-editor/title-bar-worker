@@ -12,6 +12,11 @@ import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisib
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
+const emptyTitleBarNode: VirtualDomNode = {
+  childCount: 0,
+  type: VirtualDomElements.Div,
+}
+
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
   const {
     assetDir,
@@ -29,12 +34,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     width,
   } = state
   if (platform === PlatformType.Electron && !titleBarStyleCustom) {
-    return [
-      {
-        childCount: 0,
-        type: VirtualDomElements.Div,
-      },
-    ]
+    return [emptyTitleBarNode]
   }
   const iconSrc = getIcon(assetDir)
   const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
