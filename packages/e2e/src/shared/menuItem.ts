@@ -17,20 +17,20 @@ const expectMenuItem = async (api: TestApi, menuSelector: string, label: string)
   await api.expect(item).toHaveAttribute('role', 'menuitem')
 }
 
-const expectIndexedMenuItem = async (api: TestApi, menuSelector: string, itemIndex: number, label: string): Promise<void> => {
+const expectIndexedMenuItem = async (api: TestApi, menuSelector: string, itemIndex: number, label: string, role: string): Promise<void> => {
   const menu = api.Locator(menuSelector)
   await api.expect(menu).toBeVisible()
 
   const item = menu.locator('.MenuItem').nth(itemIndex)
   await api.expect(item).toBeVisible()
   await api.expect(item).toContainText(label)
-  await api.expect(item).toHaveAttribute('role', 'menuitem')
+  await api.expect(item).toHaveAttribute('role', role)
 }
 
-export const createMenuItemTest = (menuOffset: number, itemIndex: number, label: string): Test => {
+export const createMenuItemTest = (menuOffset: number, itemIndex: number, label: string, role = 'menuitem'): Test => {
   return async (api) => {
     await openMenu(api, menuOffset)
-    await expectIndexedMenuItem(api, '#Menu-0', itemIndex, label)
+    await expectIndexedMenuItem(api, '#Menu-0', itemIndex, label, role)
   }
 }
 
@@ -45,7 +45,7 @@ export const createSubmenuItemTest = (menuOffset: number, submenuIndex: number, 
   return async (api) => {
     await openMenu(api, menuOffset)
     await api.Command.execute('TitleBar.handleMenuClick', 0, submenuIndex)
-    await expectIndexedMenuItem(api, '#Menu-1', itemIndex, label)
+    await expectIndexedMenuItem(api, '#Menu-1', itemIndex, label, 'menuitem')
   }
 }
 
