@@ -1,5 +1,12 @@
 import type { Test, TestApi } from '@lvce-editor/test-with-playwright'
 
+const focusTopLevelMenu = async ({ TitleBarMenuBar }: TestApi, menuOffset: number): Promise<void> => {
+  await TitleBarMenuBar.focus()
+  for (let i = 0; i < menuOffset; i++) {
+    await TitleBarMenuBar.handleKeyArrowRight()
+  }
+}
+
 const openMenu = async ({ TitleBarMenuBar }: TestApi, menuOffset: number): Promise<void> => {
   await TitleBarMenuBar.focus()
   for (let i = 0; i < menuOffset; i++) {
@@ -69,5 +76,56 @@ export const createTopLevelMenuItemTest = (menuOffset: number, label: string): T
     await api.expect(item).toHaveAttribute('role', 'menuitem')
     await api.expect(item).toHaveAttribute('aria-haspopup', 'true')
     await api.expect(item).toHaveAttribute('aria-expanded', 'false')
+  }
+}
+
+const expectTopLevelMenuOpen = async (api: TestApi, label: string): Promise<void> => {
+  const item = api.Locator('.TitleBarTopLevelEntry', { hasText: label })
+  await api.expect(item).toHaveAttribute('aria-expanded', 'true')
+  await api.expect(item).toHaveAttribute('aria-owns', 'Menu-0')
+  await api.expect(api.Locator('#Menu-0')).toBeVisible()
+}
+
+const expectTopLevelMenuClosed = async (api: TestApi, label: string): Promise<void> => {
+  const item = api.Locator('.TitleBarTopLevelEntry', { hasText: label })
+  await api.expect(item).toHaveAttribute('id', 'TitleBarEntryActive')
+  await api.expect(item).toHaveAttribute('aria-expanded', 'false')
+  await api.expect(api.Locator('#Menu-0')).toBeHidden()
+}
+
+export const createSpaceOpensMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await focusTopLevelMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeySpace()
+    await expectTopLevelMenuOpen(api, label)
+  }
+}
+
+export const createEscapeClosesMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await focusTopLevelMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeySpace()
+    await expectTopLevelMenuOpen(api, label)
+    await api.TitleBarMenuBar.handleKeyEscape()
+    await expectTopLevelMenuClosed(api, label)
+  }
+}
+
+export const createIndexToggleMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await api.TitleBarMenuBar.toggleIndex(menuOffset)
+    await expectTopLevelMenuOpen(api, label)
+    await api.TitleBarMenuBar.toggleIndex(menuOffset)
+    await expectTopLevelMenuClosed(api, label)
+  }
+}
+
+export const createFocusedToggleMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await focusTopLevelMenu(api, menuOffset)
+    await api.TitleBarMenuBar.toggleMenu()
+    await expectTopLevelMenuOpen(api, label)
+    await api.TitleBarMenuBar.toggleMenu()
+    await expectTopLevelMenuClosed(api, label)
   }
 }
