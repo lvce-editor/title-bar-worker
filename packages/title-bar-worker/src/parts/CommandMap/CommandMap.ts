@@ -27,6 +27,7 @@ import { setTitleTemplate } from '../SetTitleTemplate/SetTitleTemplate.ts'
 import { setWidth } from '../SetWidth/SetWidth.ts'
 import { showCommandCenter } from '../ShowCommandCenter/ShowCommandCenter.ts'
 import { showMenuBar } from '../ShowMenuBar/ShowMenuBar.ts'
+import { sleep } from '../Sleep/Sleep.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as CloseMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
 import * as Focus from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocus.ts'
@@ -55,6 +56,7 @@ import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/Viewl
 import * as ViewletTitleBarMenuBarToggleIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
 import { getCommandIds, wrapCommand, wrapGetter } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+import { wakeUp } from '../WakeUp/WakeUp.ts'
 
 export const commandMap = {
   'TitleBar.closeMenu': wrapCommand(CloseMenu.closeMenu),
@@ -113,7 +115,9 @@ export const commandMap = {
   'TitleBar.setWidth': wrapCommand(setWidth),
   'TitleBar.showCommandCenter': wrapCommand(showCommandCenter),
   'TitleBar.showMenuBar': wrapCommand(showMenuBar),
+  'TitleBar.sleep': sleep,
   'TitleBar.terminate': terminate,
   'TitleBar.toggleIndex': wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBar.toggleMenu': wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
+  'TitleBar.wakeUp': wakeUp,
 }
