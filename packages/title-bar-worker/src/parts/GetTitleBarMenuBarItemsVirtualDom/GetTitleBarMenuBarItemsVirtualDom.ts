@@ -9,6 +9,13 @@ const activeEntryLabelNode: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
+const getActiveEntryLabelDom = (isFocused: boolean): readonly VirtualDomNode[] => {
+  if (!isFocused) {
+    return []
+  }
+  return [activeEntryLabelNode]
+}
+
 const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
   // @ts-ignore
   const { ariaLabel, isFocused, isOpen, keyboardShortCut, label } = item
@@ -27,7 +34,7 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
       role: AriaRoles.MenuItem,
       type: VirtualDomElements.Button,
     },
-    ...(isFocused ? [activeEntryLabelNode] : []),
+    ...getActiveEntryLabelDom(isFocused),
     text(label),
   ]
 }
