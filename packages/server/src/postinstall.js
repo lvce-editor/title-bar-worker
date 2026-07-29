@@ -1,8 +1,10 @@
 import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
+import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+const require = createRequire(import.meta.url)
 
 const root = join(__dirname, '..', '..', '..')
 
@@ -11,15 +13,17 @@ export const getRemoteUrl = (path) => {
   return `/remote/${url}`
 }
 
-const nodeModulesPath = join(root, 'packages', 'server', 'node_modules')
-
 const workerPath = join(root, '.tmp', 'dist', 'dist', 'titleBarWorkerMain.js')
 
-const serverStaticPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'static')
+const staticServerPath = dirname(require.resolve('@lvce-editor/static-server/package.json'))
 
-const staticServerConfigPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'config.json')
+const sharedProcessPath = dirname(require.resolve('@lvce-editor/shared-process/package.json'))
 
-const sharedProcessConfigPath = join(nodeModulesPath, '@lvce-editor', 'shared-process', 'config.json')
+const serverStaticPath = join(staticServerPath, 'static')
+
+const staticServerConfigPath = join(staticServerPath, 'config.json')
+
+const sharedProcessConfigPath = join(sharedProcessPath, 'config.json')
 
 const RE_COMMIT_HASH = /^[a-z\d]+$/
 const isCommitHash = (dirent) => {

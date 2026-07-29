@@ -9,7 +9,7 @@ export const showCommandCenter = async ({ Command, expect, Locator }: TestApi): 
 
 export const openCommandCenter = async (api: TestApi): Promise<void> => {
   await showCommandCenter(api)
-  void api.Command.execute('TitleBar.handleCommandCenterClick', 0)
+  await api.Command.execute('TitleBar.handleCommandCenterClick', 0)
   await api.expect(api.Locator('.QuickPick')).toBeVisible()
   await api.expect(api.Locator('.QuickPickItem', { hasText: 'Go to File' })).toBeVisible()
 }

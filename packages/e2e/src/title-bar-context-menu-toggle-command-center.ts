@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar.context-menu-toggle-command-center'
 
-export const test: Test = async ({ Command, ContextMenu, expect, KeyBoard, Locator, TitleBarMenuBar }) => {
+export const test: Test = async ({ Command, ContextMenu, expect, Locator, TitleBarMenuBar }) => {
   await Command.execute('TitleBar.hideCommandCenter', 0)
 
   const commandCenter = Locator('.MenuItem', { hasText: 'Command Center' })
@@ -19,6 +19,6 @@ export const test: Test = async ({ Command, ContextMenu, expect, KeyBoard, Locat
   await TitleBarMenuBar.handleContextMenu(2, 0, 0)
   await expect(commandCenter).toHaveAttribute('aria-checked', 'false')
 
-  await KeyBoard.press('Escape')
+  await Command.execute('Menu.hide')
   await expect(commandCenter).toBeHidden()
 }

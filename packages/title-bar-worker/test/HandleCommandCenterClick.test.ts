@@ -30,6 +30,7 @@ test('handleCommandCenterClick opens the command center quick pick with executab
         executeItemCommand: true,
         mode: 'quickPick',
         placeholder: 'Search files by name (append : to go to line or @ to go to symbol)',
+        waitUntil: 'visible',
       },
     ],
   ])

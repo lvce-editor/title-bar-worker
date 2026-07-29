@@ -40,6 +40,7 @@ export const handleCommandCenterClick = async (state: TitleBarMenuBarState): Pro
     executeItemCommand: true,
     mode: 'quickPick',
     placeholder: 'Search files by name (append : to go to line or @ to go to symbol)',
+    waitUntil: 'visible',
   })
   return state
 }

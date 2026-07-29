@@ -6,7 +6,7 @@ export const name = 'title-bar.command-center-space'
 export const test: Test = async (api) => {
   await showCommandCenter(api)
 
-  void api.Command.execute('TitleBar.handleCommandCenterKeyDown', ' ')
+  await api.Command.execute('TitleBar.handleCommandCenterKeyDown', ' ')
 
   await api.expect(api.Locator('.QuickPick')).toBeVisible()
   await api.Command.execute('QuickPick.close')
