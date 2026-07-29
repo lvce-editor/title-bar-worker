@@ -38,6 +38,11 @@ test('getTitle - file protocol uri with trailing slash', () => {
   expect(result).toBe('problems-view')
 })
 
+test('getTitle - file protocol uri with multiple trailing slashes', () => {
+  const result: string = GetTitle.getTitle('file:///path/to/problems-view///', '${folderName}', APP_NAME)
+  expect(result).toBe('problems-view')
+})
+
 test('getTitle - file protocol uri', () => {
   const result: string = GetTitle.getTitle('file:///path/to/workspace', '${folderName}', APP_NAME)
   expect(result).toBe('workspace')
