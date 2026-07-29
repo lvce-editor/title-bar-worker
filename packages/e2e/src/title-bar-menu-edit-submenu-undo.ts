@@ -25,5 +25,5 @@ export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) 
   await Command.execute('TitleBar.handleMenuClick', 0, 0)
 
   // assert - verify action was triggered
-  await expect(menuItemUndo).not.toBeVisible()
+  await expect(menuItemUndo).toBeHidden()
 }

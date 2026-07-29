@@ -150,7 +150,8 @@ test('handleWorkspaceChange - should handle workspace URI with trailing slash', 
   const result = await HandleWorkspaceChange.handleWorkspaceChange(initialState, '/home/user/project/')
 
   expect(result.workspaceUri).toBe('/home/user/project/')
-  expect(result.title).toBe('')
+  expect(result.title).toBe('project')
+  expect(result.titleWidth).toBe(70)
 })
 
 test('handleWorkspaceChange - should handle root path', async () => {

@@ -17,3 +17,13 @@ test('isEqual - menu bar visibility changed', () => {
 
   expect(isEqual(oldState, newState)).toBe(false)
 })
+
+test('isEqual - command center visibility changed', () => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    commandCenterEnabled: true,
+  }
+
+  expect(isEqual(oldState, newState)).toBe(false)
+})

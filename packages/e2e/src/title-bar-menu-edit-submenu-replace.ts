@@ -26,5 +26,5 @@ export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) 
   await TitleBarMenuBar.handleKeyEscape()
 
   // assert - verify action was triggered
-  await expect(menuItemReplace).not.toBeVisible()
+  await expect(menuItemReplace).toBeHidden()
 }

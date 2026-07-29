@@ -9,6 +9,8 @@ import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts
 import { handleClickClose } from '../HandleClickClose/HandleClickClose.ts'
 import { handleClickMinimize } from '../HandleClickMinimize/HandleClickMinimize.ts'
 import { handleClickToggleMaximize } from '../HandleClickToggleMaximize/HandleClickToggleMaximize.ts'
+import * as HandleCommandCenterClick from '../HandleCommandCenterClick/HandleCommandCenterClick.ts'
+import * as HandleCommandCenterKeyDown from '../HandleCommandCenterKeyDown/HandleCommandCenterKeyDown.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleElectronMenuClick } from '../HandleElectronMenuClick/HandleElectronMenuClick.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
@@ -81,6 +83,8 @@ export const commandMap = {
   'TitleBar.handleClickClose': wrapCommand(handleClickClose),
   'TitleBar.handleClickMinimize': wrapCommand(handleClickMinimize),
   'TitleBar.handleClickToggleMaximize': wrapCommand(handleClickToggleMaximize),
+  'TitleBar.handleCommandCenterClick': wrapCommand(HandleCommandCenterClick.handleCommandCenterClick),
+  'TitleBar.handleCommandCenterKeyDown': wrapCommand(HandleCommandCenterKeyDown.handleCommandCenterKeyDown),
   'TitleBar.handleContextMenu': wrapCommand(HandleContextMenu.handleContextMenu),
   'TitleBar.handleElectronMenuClick': wrapCommand(handleElectronMenuClick),
   'TitleBar.handleFocus': wrapCommand(ViewletTitleBarMenuBarHandleFocus.handleFocus),

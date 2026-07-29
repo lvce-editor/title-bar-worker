@@ -42,6 +42,15 @@ test('renderEventListeners - should have correct structure for HandleTitleBarCon
   expect(contextMenuListener?.preventDefault).toBe(true)
 })
 
+test('renderEventListeners - should register command center click and keyboard listeners', () => {
+  const result = RenderEventListeners.renderEventListeners()
+  const clickListener = result.find((listener) => listener.name === DomEventListenerFunctions.HandleCommandCenterClick)
+  const keyDownListener = result.find((listener) => listener.name === DomEventListenerFunctions.HandleCommandCenterKeyDown)
+
+  expect(clickListener?.params).toEqual(['handleCommandCenterClick'])
+  expect(keyDownListener?.params).toEqual(['handleCommandCenterKeyDown', 'event.key'])
+})
+
 test('renderEventListeners - should return the same result on multiple calls', () => {
   const result1 = RenderEventListeners.renderEventListeners()
   const result2 = RenderEventListeners.renderEventListeners()
