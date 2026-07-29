@@ -97,7 +97,7 @@ test('openMenuAtIndex opens overflow menu with hidden top-level entries', async 
   expect(result.menus[0].x).toBe(140)
   expect(result.menus[0].y).toBe(30)
   expect(result.menus[0].items).toEqual([
-    { command: '', flags: MenuItemFlags.SubMenu, id: 'View', label: 'View' },
-    { command: '', flags: MenuItemFlags.SubMenu, id: 'Help', label: 'Help' },
+    { command: '', flags: MenuItemFlags.SubMenu, id: MenuEntryId.View, label: 'View' },
+    { command: '', flags: MenuItemFlags.SubMenu, id: MenuEntryId.Help, label: 'Help' },
   ])
 })
