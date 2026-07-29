@@ -5,14 +5,14 @@ import * as HandleCommandCenterKeyDown from '../src/parts/HandleCommandCenterKey
 
 test.each(['Enter', ' ', 'Space'])('handleCommandCenterKeyDown opens the quick pick for %s', async (key) => {
   using mockRpc = RendererWorker.registerMockRpc({
-    'QuickPick.showCustom'() {},
+    'QuickPick.show'() {},
   })
   const state = createDefaultState()
 
   const result = await HandleCommandCenterKeyDown.handleCommandCenterKeyDown(state, key)
 
   expect(result).toBe(state)
-  expect(mockRpc.invocations[0][0]).toBe('QuickPick.showCustom')
+  expect(mockRpc.invocations[0][0]).toBe('QuickPick.show')
 })
 
 test('handleCommandCenterKeyDown ignores other keys', async () => {
