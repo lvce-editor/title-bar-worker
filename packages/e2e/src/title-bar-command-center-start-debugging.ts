@@ -6,5 +6,7 @@ export const name = 'title-bar.command-center-start-debugging'
 export const test: Test = async (api) => {
   await openCommandCenter(api)
 
-  await api.expect(api.Locator('.QuickPickItem', { hasText: 'Start Debugging' })).toBeVisible()
+  await api.QuickPick.selectItem('Start Debugging')
+
+  await api.expect(api.Locator('.RunAndDebug')).toBeVisible()
 }

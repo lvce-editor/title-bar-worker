@@ -6,5 +6,8 @@ export const name = 'title-bar.command-center-more'
 export const test: Test = async (api) => {
   await openCommandCenter(api)
 
-  await api.expect(api.Locator('.QuickPickItem', { hasText: 'More' })).toBeVisible()
+  await api.QuickPick.selectItem('More', { waitUntil: 'quickPick' })
+
+  await api.expect(api.Locator('.QuickPick')).toBeVisible()
+  await api.Command.execute('QuickPick.close')
 }
