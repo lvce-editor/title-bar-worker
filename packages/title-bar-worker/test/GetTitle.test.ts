@@ -30,7 +30,12 @@ test('getTitle - path with multiple slashes', () => {
 
 test('getTitle - path with trailing slash', () => {
   const result: string = GetTitle.getTitle('/home/user/project/', '${folderName}', APP_NAME)
-  expect(result).toBe('')
+  expect(result).toBe('project')
+})
+
+test('getTitle - file protocol uri with trailing slash', () => {
+  const result: string = GetTitle.getTitle('file:///path/to/problems-view/', '${folderName}', APP_NAME)
+  expect(result).toBe('problems-view')
 })
 
 test('getTitle - file protocol uri', () => {

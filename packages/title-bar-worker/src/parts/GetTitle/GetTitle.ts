@@ -4,11 +4,13 @@ export const getTitle = (workspaceUri: string, titleTemplate: string, appName: s
   if (!workspaceUri) {
     return ''
   }
-  const slashIndex = workspaceUri.lastIndexOf('/')
+  const trailingSlashIndex = workspaceUri.search(/\/+$/)
+  const endIndex = trailingSlashIndex === -1 ? workspaceUri.length : trailingSlashIndex
+  const slashIndex = workspaceUri.lastIndexOf('/', endIndex - 1)
   if (slashIndex === -1) {
     return ''
   }
-  const folderName = workspaceUri.slice(slashIndex + 1)
+  const folderName = workspaceUri.slice(slashIndex + 1, endIndex)
 
   // If titleTemplate is empty, return folderName directly
   if (!titleTemplate) {
