@@ -9,8 +9,9 @@ export const test: Test = async (api) => {
   await api.Workspace.setPath(tmpDir)
   await openCommandCenter(api)
 
-  await api.QuickPick.selectItem('Go to File', { waitUntil: 'quickPick' })
+  await api.QuickPick.selectItem('Go to File')
   await api.QuickPick.setValue('command-center-file')
+  await api.expect(api.Locator('.QuickPickItemLabel', { hasText: 'command-center-file.txt' })).toBeVisible()
   await api.QuickPick.selectItem('command-center-file.txt')
 
   await api.expect(api.Locator('.MainTabSelected[title$="command-center-file.txt"]')).toBeVisible()

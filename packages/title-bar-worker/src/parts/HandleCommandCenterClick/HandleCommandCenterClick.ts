@@ -1,75 +1,45 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
-interface CommandCenterAction {
-  readonly args?: readonly unknown[]
-  readonly command: string
-}
-
 const commandCenterItems = [
   {
+    command: 'QuickPick.showFile',
     label: 'Go to File',
-    value: 'file',
   },
   {
+    command: 'QuickPick.showCommands',
     label: 'Show and Run Commands',
-    value: 'commands',
   },
   {
+    args: ['Search'],
+    command: 'Layout.openSideBarViewlet',
     label: 'Search for Text',
-    value: 'search',
   },
   {
+    args: ['symbol'],
+    command: 'QuickPick.show',
     label: 'Go to Symbol in Editor',
-    value: 'symbol',
   },
   {
+    args: ['Run And Debug'],
+    command: 'Layout.openSideBarViewlet',
     label: 'Start Debugging',
-    value: 'debug',
   },
   {
+    command: 'QuickPick.showCommands',
     label: 'Run Task',
-    value: 'task',
   },
   {
+    command: 'QuickPick.showEverything',
     label: 'More',
-    value: 'more',
   },
 ]
 
-const commandCenterActions: Record<string, CommandCenterAction> = {
-  commands: {
-    command: 'QuickPick.showCommands',
-  },
-  debug: {
-    command: 'Run.focus',
-  },
-  file: {
-    command: 'QuickPick.showFile',
-  },
-  more: {
-    command: 'QuickPick.showEverything',
-  },
-  search: {
-    command: 'Search.focus',
-  },
-  symbol: {
-    args: ['symbol'],
-    command: 'QuickPick.show',
-  },
-  task: {
-    command: 'QuickPick.showCommands',
-  },
-}
-
 export const handleCommandCenterClick = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
-  const selectedValue = (await RendererWorker.invoke('QuickPick.showCustom', commandCenterItems, {
+  await RendererWorker.invoke('QuickPick.show', 'custom', commandCenterItems, undefined, {
+    executeItemCommand: true,
     mode: 'quickPick',
     placeholder: 'Search files by name (append : to go to line or @ to go to symbol)',
-  })) as string | undefined
-  const action = selectedValue ? commandCenterActions[selectedValue] : undefined
-  if (action) {
-    await RendererWorker.invoke(action.command, ...(action.args || []))
-  }
+  })
   return state
 }
