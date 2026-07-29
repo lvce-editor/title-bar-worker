@@ -6,5 +6,9 @@ export const name = 'title-bar.command-center-show-run-commands'
 export const test: Test = async (api) => {
   await openCommandCenter(api)
 
-  await api.expect(api.Locator('.QuickPickItem', { hasText: 'Show and Run Commands' })).toBeVisible()
+  await api.QuickPick.selectItem('Show and Run Commands')
+
+  await api.QuickPick.setValue('>Help: About')
+  await api.expect(api.Locator('.QuickPickItem', { hasText: 'Help: About' })).toBeVisible()
+  await api.Command.execute('QuickPick.close')
 }

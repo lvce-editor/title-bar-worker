@@ -9,4 +9,5 @@ export const test: Test = async (api) => {
   await api.Command.execute('TitleBar.handleCommandCenterKeyDown', ' ')
 
   await api.expect(api.Locator('.QuickPick')).toBeVisible()
+  await api.Command.execute('QuickPick.close')
 }

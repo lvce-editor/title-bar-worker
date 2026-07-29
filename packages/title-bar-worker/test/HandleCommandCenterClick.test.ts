@@ -3,9 +3,9 @@ import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as HandleCommandCenterClick from '../src/parts/HandleCommandCenterClick/HandleCommandCenterClick.ts'
 
-test('handleCommandCenterClick opens the command center quick pick', async () => {
+test('handleCommandCenterClick opens the command center quick pick with executable items', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
-    'QuickPick.showCustom'() {},
+    'QuickPick.show'() {},
   })
   const state = createDefaultState()
 
@@ -14,17 +14,20 @@ test('handleCommandCenterClick opens the command center quick pick', async () =>
   expect(result).toBe(state)
   expect(mockRpc.invocations).toEqual([
     [
-      'QuickPick.showCustom',
+      'QuickPick.show',
+      'custom',
       [
-        { label: 'Go to File', value: 'file' },
-        { label: 'Show and Run Commands', value: 'commands' },
-        { label: 'Search for Text', value: 'search' },
-        { label: 'Go to Symbol in Editor', value: 'symbol' },
-        { label: 'Start Debugging', value: 'debug' },
-        { label: 'Run Task', value: 'task' },
-        { label: 'More', value: 'more' },
+        { command: 'QuickPick.showFile', label: 'Go to File' },
+        { command: 'QuickPick.showCommands', label: 'Show and Run Commands' },
+        { args: ['Search'], command: 'Layout.openSideBarViewlet', label: 'Search for Text' },
+        { args: ['symbol'], command: 'QuickPick.show', label: 'Go to Symbol in Editor' },
+        { args: ['Run And Debug'], command: 'Layout.openSideBarViewlet', label: 'Start Debugging' },
+        { command: 'QuickPick.showCommands', label: 'Run Task' },
+        { command: 'QuickPick.showEverything', label: 'More' },
       ],
+      undefined,
       {
+        executeItemCommand: true,
         mode: 'quickPick',
         placeholder: 'Search files by name (append : to go to line or @ to go to symbol)',
         waitUntil: 'visible',

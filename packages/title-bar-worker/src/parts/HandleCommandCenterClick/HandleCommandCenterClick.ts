@@ -3,37 +3,41 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 
 const commandCenterItems = [
   {
+    command: 'QuickPick.showFile',
     label: 'Go to File',
-    value: 'file',
   },
   {
+    command: 'QuickPick.showCommands',
     label: 'Show and Run Commands',
-    value: 'commands',
   },
   {
+    args: ['Search'],
+    command: 'Layout.openSideBarViewlet',
     label: 'Search for Text',
-    value: 'search',
   },
   {
+    args: ['symbol'],
+    command: 'QuickPick.show',
     label: 'Go to Symbol in Editor',
-    value: 'symbol',
   },
   {
+    args: ['Run And Debug'],
+    command: 'Layout.openSideBarViewlet',
     label: 'Start Debugging',
-    value: 'debug',
   },
   {
+    command: 'QuickPick.showCommands',
     label: 'Run Task',
-    value: 'task',
   },
   {
+    command: 'QuickPick.showEverything',
     label: 'More',
-    value: 'more',
   },
 ]
 
 export const handleCommandCenterClick = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
-  await RendererWorker.invoke('QuickPick.showCustom', commandCenterItems, {
+  await RendererWorker.invoke('QuickPick.show', 'custom', commandCenterItems, undefined, {
+    executeItemCommand: true,
     mode: 'quickPick',
     placeholder: 'Search files by name (append : to go to line or @ to go to symbol)',
     waitUntil: 'visible',

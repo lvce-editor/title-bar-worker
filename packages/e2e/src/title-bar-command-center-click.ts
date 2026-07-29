@@ -5,4 +5,6 @@ export const name = 'title-bar.command-center-click'
 
 export const test: Test = async (api) => {
   await openCommandCenter(api)
+
+  await api.Command.execute('QuickPick.close')
 }

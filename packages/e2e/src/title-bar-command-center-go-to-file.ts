@@ -4,7 +4,15 @@ import { openCommandCenter } from './shared/commandCenter.ts'
 export const name = 'title-bar.command-center-go-to-file'
 
 export const test: Test = async (api) => {
+  const tmpDir = await api.FileSystem.getTmpDir()
+  await api.FileSystem.writeFile(`${tmpDir}/command-center-file.txt`, 'content')
+  await api.Workspace.setPath(tmpDir)
   await openCommandCenter(api)
 
-  await api.expect(api.Locator('.QuickPickItem', { hasText: 'Go to File' })).toBeVisible()
+  await api.QuickPick.selectItem('Go to File')
+  await api.QuickPick.setValue('command-center-file')
+  await api.expect(api.Locator('.QuickPickItemLabel', { hasText: 'command-center-file.txt' })).toBeVisible()
+  await api.QuickPick.selectItem('command-center-file.txt')
+
+  await api.expect(api.Locator('.MainTabSelected[title$="command-center-file.txt"]')).toBeVisible()
 }

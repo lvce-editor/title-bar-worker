@@ -7,4 +7,5 @@ export const test: Test = async (api) => {
   await openCommandCenter(api)
 
   await api.expect(api.Locator('.QuickPickItem')).toHaveCount(7)
+  await api.Command.execute('QuickPick.close')
 }
