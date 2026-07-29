@@ -1,7 +1,14 @@
 import { AriaRoles, mergeClassNames, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
-import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+
+interface RenderedTitleBarEntry {
+  readonly ariaLabel?: string
+  readonly isFocused: boolean
+  readonly isOpen?: boolean
+  readonly keyboardShortCut?: string
+  readonly label: string
+}
 
 const activeEntryLabelNode: VirtualDomNode = {
   childCount: 1,
@@ -16,8 +23,7 @@ const getActiveEntryLabelDom = (isFocused: boolean): readonly VirtualDomNode[] =
   return [activeEntryLabelNode]
 }
 
-const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
-  // @ts-ignore
+const getItemVirtualDom = (item: RenderedTitleBarEntry): readonly VirtualDomNode[] => {
   const { ariaLabel, isFocused, isOpen, keyboardShortCut, label } = item
   const className = isFocused ? mergeClassNames(ClassNames.TitleBarTopLevelEntry, ClassNames.TitleBarEntryActive) : ClassNames.TitleBarTopLevelEntry
   return [
@@ -39,7 +45,7 @@ const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => 
   ]
 }
 
-export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: readonly VisibleMenuItem[]): readonly VirtualDomNode[] => {
+export const getTitleBarMenuBarItemsVirtualDom = (visibleItems: readonly RenderedTitleBarEntry[]): readonly VirtualDomNode[] => {
   const dom = visibleItems.flatMap(getItemVirtualDom)
   return dom
 }
