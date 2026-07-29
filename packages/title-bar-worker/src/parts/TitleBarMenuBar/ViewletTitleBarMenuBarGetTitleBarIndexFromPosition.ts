@@ -1,4 +1,8 @@
-export const getTitleBarIndexFromPosition = (titleBarEntries: readonly any[], x: number, y: number): number => {
+interface EntryWithWidth {
+  readonly width: number
+}
+
+export const getTitleBarIndexFromPosition = (titleBarEntries: readonly EntryWithWidth[], x: number, y: number): number => {
   let currentX = 0
 
   for (let i = 0; i < titleBarEntries.length; i++) {
