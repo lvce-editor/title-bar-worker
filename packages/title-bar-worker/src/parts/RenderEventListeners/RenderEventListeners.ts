@@ -11,6 +11,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     {
       name: DomEventListenerFunctions.HandleContextMenu,
       params: ['handleContextMenu', EventExpression.Button, EventExpression.ClientX, EventExpression.ClientY],
+      preventDefault: true,
     },
     {
       name: DomEventListenerFunctions.HandleTitleBarContextMenu,
@@ -24,6 +25,14 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     {
       name: DomEventListenerFunctions.HandleClickToggleMaximize,
       params: ['handleClickToggleMaximize'],
+    },
+    {
+      name: DomEventListenerFunctions.HandleCommandCenterClick,
+      params: ['handleCommandCenterClick'],
+    },
+    {
+      name: DomEventListenerFunctions.HandleCommandCenterKeyDown,
+      params: ['handleCommandCenterKeyDown', EventExpression.Key],
     },
     {
       name: DomEventListenerFunctions.HandleFocusIn,

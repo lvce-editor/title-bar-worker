@@ -32,7 +32,7 @@ test('should handle simple menu items with commands', () => {
     args: [],
     command: 'edit.cut',
   })
-  expect(electronMenu.length).toBe(2)
+  expect(electronMenu).toHaveLength(2)
 })
 
 test('should handle menu items without commands', () => {
@@ -50,7 +50,7 @@ test('should handle menu items without commands', () => {
   ToElectronMenuInternal.toElectronMenuInternal(commandMap, map, 1, electronMenu)
 
   expect(commandMap['File']).toBeUndefined()
-  expect(electronMenu.length).toBe(1)
+  expect(electronMenu).toHaveLength(1)
 })
 
 test('should handle submenu items recursively', () => {
@@ -90,7 +90,7 @@ test('should handle submenu items recursively', () => {
     args: [],
     command: 'file.open',
   })
-  expect(electronMenu.length).toBe(1)
+  expect(electronMenu).toHaveLength(1)
 })
 
 test('should handle nested submenus', () => {
@@ -127,7 +127,7 @@ test('should handle nested submenus', () => {
     args: ['file.txt'],
     command: 'file.openRecent',
   })
-  expect(electronMenu.length).toBe(1)
+  expect(electronMenu).toHaveLength(1)
 })
 
 test('should handle mixed menu items and submenus', () => {
@@ -177,7 +177,7 @@ test('should handle mixed menu items and submenus', () => {
     args: [],
     command: 'app.exit',
   })
-  expect(electronMenu.length).toBe(3)
+  expect(electronMenu).toHaveLength(3)
 })
 
 test('should return commandMap and electronMenu', () => {
@@ -255,7 +255,7 @@ test('should handle menu with submenu that has no entries', () => {
 
   ToElectronMenuInternal.toElectronMenuInternal(commandMap, map, 1, electronMenu)
 
-  expect(electronMenu.length).toBe(1)
+  expect(electronMenu).toHaveLength(1)
 })
 
 test('should push menu items to electronMenu array', () => {

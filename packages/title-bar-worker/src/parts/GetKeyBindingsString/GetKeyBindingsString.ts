@@ -9,6 +9,6 @@ export const getKeyBindingString = (key: string, altKey: boolean, ctrlKey: boole
   if (shiftKey) {
     string += 'Shift+'
   }
-  string += key.toUpperCase()
+  string += key.length === 1 ? key.toUpperCase() : key
   return string
 }

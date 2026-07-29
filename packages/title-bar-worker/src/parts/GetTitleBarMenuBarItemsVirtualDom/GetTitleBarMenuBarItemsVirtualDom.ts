@@ -1,14 +1,24 @@
-import { AriaRoles, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { AriaRoles, mergeClassNames, text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { ComputedTitleBarEntry } from '../TitleBarEntry/TitleBarEntry.ts'
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 
+const activeEntryLabelNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.TitleBarTopLevelEntryLabel,
+  type: VirtualDomElements.Div,
+}
+
+const getActiveEntryLabelDom = (isFocused: boolean): readonly VirtualDomNode[] => {
+  if (!isFocused) {
+    return []
+  }
+  return [activeEntryLabelNode]
+}
+
 const getItemVirtualDom = (item: ComputedTitleBarEntry): readonly VirtualDomNode[] => {
   const { ariaLabel, isFocused, isOpen, keyboardShortCut, label } = item
-  let className = ClassNames.TitleBarTopLevelEntry
-  if (isFocused) {
-    className += ' ' + ClassNames.TitleBarEntryActive
-  }
+  const className = isFocused ? mergeClassNames(ClassNames.TitleBarTopLevelEntry, ClassNames.TitleBarEntryActive) : ClassNames.TitleBarTopLevelEntry
   return [
     {
       ariaExpanded: isOpen,
@@ -23,7 +33,7 @@ const getItemVirtualDom = (item: ComputedTitleBarEntry): readonly VirtualDomNode
       role: AriaRoles.MenuItem,
       type: VirtualDomElements.Button,
     },
-    ...(isFocused ? [{ childCount: 1, className: ClassNames.TitleBarTopLevelEntryLabel, type: VirtualDomElements.Div }] : []),
+    ...getActiveEntryLabelDom(isFocused),
     text(label),
   ]
 }

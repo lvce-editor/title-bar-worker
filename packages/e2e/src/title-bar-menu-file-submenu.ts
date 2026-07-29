@@ -41,6 +41,9 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   const saveAllItem = Locator('.MenuItem', { hasText: 'Save All' })
   await expect(saveAllItem).toBeVisible()
 
+  const closeFolderItem = Locator('.MenuItem', { hasText: 'Close Folder' })
+  await expect(closeFolderItem).toBeVisible()
+
   // Close the menu
   await TitleBarMenuBar.handleKeyEscape()
 

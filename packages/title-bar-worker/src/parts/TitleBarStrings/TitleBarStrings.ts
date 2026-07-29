@@ -17,6 +17,10 @@ export const view = (): string => {
   return I18nString.i18nString(UiStrings.View)
 }
 
+export const fullScreen = (): string => {
+  return I18nString.i18nString(UiStrings.FullScreen)
+}
+
 export const go = (): string => {
   return I18nString.i18nString(UiStrings.Go)
 }
@@ -59,6 +63,10 @@ export const menuBar = (): string => {
 
 export const commandCenter = (): string => {
   return I18nString.i18nString(UiStrings.CommandCenter)
+}
+
+export const search = (): string => {
+  return I18nString.i18nString(UiStrings.Search)
 }
 
 export const layoutControls = (): string => {

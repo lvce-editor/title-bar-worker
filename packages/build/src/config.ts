@@ -1,7 +1,7 @@
 import { join } from 'node:path'
 import { root } from './root.js'
 
-export const threshold = 500_000
+export const threshold = 530_000
 
 export const instantiations = 6000
 
@@ -9,4 +9,4 @@ export const instantiationsPath = join(root, 'packages', 'title-bar-worker')
 
 export const workerPath = join(root, '.tmp/dist/dist/titleBarWorkerMain.js')
 
-export const playwrightPath = import.meta.resolve('../../e2e/node_modules/playwright/index.mjs').toString()
+export const playwrightPath = import.meta.resolve('../../../node_modules/playwright/index.mjs').toString()

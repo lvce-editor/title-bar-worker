@@ -62,6 +62,17 @@ test('file - should return menu item with FileMenu role and empty submenu', () =
   })
 })
 
+test('fullScreen - should return menu item with Togglefullscreen role', () => {
+  const entry = {
+    label: TitleBarStrings.fullScreen(),
+  }
+  const result = ToElectronMenuItem.toElectronMenuItem(entry)
+  expect(result).toEqual({
+    label: TitleBarStrings.fullScreen(),
+    role: ElectronMenuItemRole.Togglefullscreen,
+  })
+})
+
 test('help - should return menu item with Help role and empty submenu', () => {
   const entry = {
     label: TitleBarStrings.help(),

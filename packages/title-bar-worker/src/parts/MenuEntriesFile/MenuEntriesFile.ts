@@ -1,3 +1,4 @@
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import * as FileStrings from '../FileStrings/FileStrings.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
@@ -5,7 +6,28 @@ import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as PlatformType from '../PlatformType/PlatformType.ts'
 
-export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
+const getAutoSave = async (): Promise<string> => {
+  try {
+    return await RendererWorker.invoke('Preferences.get', 'files.autoSave')
+  } catch {
+    return 'off'
+  }
+}
+
+const isAutoSaveEnabled = (autoSave: string): boolean => {
+  return autoSave !== 'off'
+}
+
+const getSaveFlags = (hasActiveTextEditor: boolean): number => {
+  if (hasActiveTextEditor) {
+    return MenuItemFlags.None
+  }
+  return MenuItemFlags.Disabled
+}
+
+export const getMenuEntries = async (platform: number, autoSave?: string, hasActiveTextEditor: boolean = false): Promise<readonly MenuEntry[]> => {
+  const autoSaveValue = autoSave ?? (await getAutoSave())
+  const saveFlags = getSaveFlags(hasActiveTextEditor)
   const entries: MenuEntry[] = [
     {
       command: 'Main.newFile',
@@ -41,15 +63,29 @@ export const getMenuEntries = (platform: number): readonly MenuEntry[] => {
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: 'Main.save',
-      flags: MenuItemFlags.None,
+      flags: saveFlags,
       id: 'save',
       label: FileStrings.save(),
     },
     {
       command: 'Main.saveAll',
-      flags: MenuItemFlags.None,
+      flags: saveFlags,
       id: 'saveAll',
       label: FileStrings.saveAll(),
+    },
+    MenuEntrySeparator.menuEntrySeparator,
+    {
+      command: 'Preferences.toggleAutoSave',
+      flags: isAutoSaveEnabled(autoSaveValue) ? MenuItemFlags.Checked : MenuItemFlags.Unchecked,
+      id: 'autoSave',
+      label: FileStrings.autoSave(),
+    },
+    MenuEntrySeparator.menuEntrySeparator,
+    {
+      command: 'Workspace.close',
+      flags: MenuItemFlags.RestoreFocus,
+      id: 'closeFolder',
+      label: FileStrings.closeFolder(),
     },
   ]
   if (platform === PlatformType.Electron) {

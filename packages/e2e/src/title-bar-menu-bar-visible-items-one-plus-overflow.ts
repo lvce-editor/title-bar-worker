@@ -10,8 +10,11 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspa
   await Command.execute('TitleBar.setWidth', 240)
 
   const titleBarEntries = Locator('.TitleBarTopLevelEntry')
+  const fileEntry = Locator('.TitleBarTopLevelEntry[name="File"]')
+  const editEntry = Locator('.TitleBarTopLevelEntry[name="Edit"]')
+  const overflowEntry = Locator('.TitleBarTopLevelEntry[name="..."]')
   await expect(titleBarEntries).toHaveCount(2)
-  await expect(Locator('.TitleBarTopLevelEntry[name="File"]')).toHaveCount(1)
-  await expect(Locator('.TitleBarTopLevelEntry[name="Edit"]')).toHaveCount(0)
-  await expect(Locator('.TitleBarTopLevelEntry[name="..."]')).toHaveCount(1)
+  await expect(fileEntry).toHaveCount(1)
+  await expect(editEntry).toHaveCount(0)
+  await expect(overflowEntry).toHaveCount(1)
 }

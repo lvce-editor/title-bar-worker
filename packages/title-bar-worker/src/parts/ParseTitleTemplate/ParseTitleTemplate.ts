@@ -10,5 +10,5 @@
  * @returns The parsed title string
  */
 export const parseTitleTemplate = (template: string, folderName: string, appName: string): string => {
-  return template.replaceAll('${folderName}', folderName).replaceAll('${appName}', appName)
+  return template.replaceAll('${folderName}', () => folderName).replaceAll('${appName}', () => appName)
 }

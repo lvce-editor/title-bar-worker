@@ -67,7 +67,7 @@ test('getMenuItemDisabledDom - ignores other menuItem properties', () => {
     flags: 123,
     isExpanded: true,
     isFocused: true,
-    key: 999,
+    key: 0,
     label: 'Test Item',
     level: 5,
   }
@@ -125,7 +125,7 @@ test('getMenuItemDisabledDom - returns same structure regardless of input', () =
     flags: 1,
     isExpanded: true,
     isFocused: true,
-    key: 10,
+    key: 0,
     label: 'Item 1',
     level: 2,
   }
@@ -134,7 +134,7 @@ test('getMenuItemDisabledDom - returns same structure regardless of input', () =
     flags: 0,
     isExpanded: false,
     isFocused: false,
-    key: 5,
+    key: 0,
     label: 'Item 2',
     level: 0,
   }
@@ -148,4 +148,24 @@ test('getMenuItemDisabledDom - returns same structure regardless of input', () =
   expect(result1[0]).toEqual(result2[0]) // Same div structure
   expect(result1[1].text).toBe('Item 1')
   expect(result2[1].text).toBe('Item 2')
+})
+
+test('getMenuItemDisabledDom - keybinding', () => {
+  const menuItem: VisibleMenuItem = {
+    flags: 0,
+    isExpanded: false,
+    isFocused: false,
+    key: 2048 + 47,
+    label: 'Save',
+    level: 0,
+  }
+
+  const result = GetMenuItemDisabledDom.getMenuItemDisabledDom(menuItem)
+
+  expect(result[0].childCount).toBe(2)
+  expect(result.at(-1)).toEqual({
+    childCount: 0,
+    text: 'Ctrl+S',
+    type: VirtualDomElements.Text,
+  })
 })

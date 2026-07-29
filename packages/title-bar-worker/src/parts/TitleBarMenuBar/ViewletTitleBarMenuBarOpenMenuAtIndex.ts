@@ -1,6 +1,7 @@
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import type { TitleBarEntry, TitleBarEntryId } from '../TitleBarEntry/TitleBarEntry.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as AddMenuEntryKeyBindings from '../AddMenuEntryKeyBindings/AddMenuEntryKeyBindings.ts'
 import * as GetMenuEntries2 from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as GetNavigableTitleBarEntries from '../GetNavigableTitleBarEntries/GetNavigableTitleBarEntries.ts'
 import * as GetTotalWidth from '../GetTotalWidth/GetTotalWidth.ts'
@@ -28,10 +29,11 @@ export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number
   if (!titleBarEntry) {
     return state
   }
-  let items: readonly MenuEntry[]
+  let rawItems: readonly MenuEntry[]
   let menuId: TitleBarEntryId | undefined
-  if (isOverflowTitleBarEntry(titleBarEntry)) {
-    items = getOverflowMenuItems(titleBarEntry.hiddenEntries)
+  const isOverflow = isOverflowTitleBarEntry(titleBarEntry)
+  if (isOverflow) {
+    rawItems = getOverflowMenuItems(titleBarEntry.hiddenEntries)
     menuId = undefined
   } else {
     if (titleBarEntry.id === undefined) {
@@ -42,12 +44,13 @@ export const openMenuAtIndex = async (state: TitleBarMenuBarState, index: number
         menus: [],
       }
     }
-    items = await GetMenuEntries2.getMenuEntries2(state, {
+    rawItems = await GetMenuEntries2.getMenuEntries2(state, {
       menuId: titleBarEntry.id,
       platform,
     })
     menuId = titleBarEntry.id
   }
+  const items = isOverflow ? rawItems : await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawItems)
   const relevantEntries = titleBarEntries.slice(0, index)
   const totalWidths = GetTotalWidth.getTotalWidth(relevantEntries)
   const offset = totalWidths

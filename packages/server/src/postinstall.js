@@ -17,6 +17,10 @@ const workerPath = join(root, '.tmp', 'dist', 'dist', 'titleBarWorkerMain.js')
 
 const serverStaticPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'static')
 
+const staticServerConfigPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'config.json')
+
+const sharedProcessConfigPath = join(nodeModulesPath, '@lvce-editor', 'shared-process', 'config.json')
+
 const RE_COMMIT_HASH = /^[a-z\d]+$/
 const isCommitHash = (dirent) => {
   return dirent.length === 7 && dirent.match(RE_COMMIT_HASH)
@@ -32,8 +36,10 @@ if (!content.includes('// const titleBarWorkerUrl = ')) {
   await cp(rendererWorkerMainPath, rendererWorkerMainPath + '.original')
   const occurrence = `const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\``
   const replacement = `// const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\`
-  const titleBarWorkerUrl = \`${remoteUrl}\``
+const titleBarWorkerUrl = \`${remoteUrl}\``
 
   const newContent = content.replace(occurrence, replacement)
   await writeFile(rendererWorkerMainPath, newContent)
 }
+
+await cp(staticServerConfigPath, sharedProcessConfigPath)

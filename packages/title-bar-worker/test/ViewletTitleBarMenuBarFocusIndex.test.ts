@@ -128,7 +128,7 @@ test('focusIndex - when opening different index', async () => {
   expect(result.menus).toHaveLength(1)
   expect(result.menus[0].level).toBe(0)
   expect(result.menus[0].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations).toEqual([])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['Layout.getKeyBindings'])
 })
 
 test('focusIndex - when open - race condition', async () => {
@@ -166,7 +166,7 @@ test('focusIndex - when open - race condition', async () => {
   expect(result.menus).toHaveLength(1)
   expect(result.menus[0].level).toBe(0)
   expect(result.menus[0].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations).toEqual([])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['Layout.getKeyBindings'])
 })
 
 test('focusIndex - when closed - when same index', async () => {

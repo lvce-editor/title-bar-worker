@@ -3,6 +3,7 @@ export interface MenuEntry {
   readonly command: string
   readonly flags: number
   readonly id?: string | number
+  readonly key?: number
   readonly keyboardShortCut?: string
   readonly label: string
 }

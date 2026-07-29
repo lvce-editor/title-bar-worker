@@ -10,14 +10,7 @@ const CONTEXT_MENU_PADDING = 8
 export const getMenuHeight = (items: readonly (MenuEntry | VisibleMenuItem)[]): number => {
   let height = CONTEXT_MENU_PADDING
   for (const item of items) {
-    switch (item.flags) {
-      case MenuItemFlags.Separator:
-        height += CONTEXT_MENU_SEPARATOR_HEIGHT
-        break
-      default:
-        height += CONTEXT_MENU_ITEM_HEIGHT
-        break
-    }
+    height += item.flags === MenuItemFlags.Separator ? CONTEXT_MENU_SEPARATOR_HEIGHT : CONTEXT_MENU_ITEM_HEIGHT
   }
   return height
 }

@@ -3,6 +3,7 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import { getCommandCenterVirtualDom } from '../GetCommandCenterVirtualDom/GetCommandCenterVirtualDom.ts'
 import { getIcon } from '../GetIcon/GetIcon.ts'
 import * as GetTitleBarButtonsVirtualDom from '../GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 import { getTitleBarIconVirtualDom } from '../GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
@@ -12,9 +13,15 @@ import { getVisibleTitleBarEntries } from '../GetVisibleTitleBarEntries/GetVisib
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
 
+const emptyTitleBarNode: VirtualDomNode = {
+  childCount: 0,
+  type: VirtualDomElements.Div,
+}
+
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
   const {
     assetDir,
+    commandCenterEnabled,
     focusedIndex,
     isMenuOpen,
     platform,
@@ -29,20 +36,22 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     width,
   } = state
   if (platform === PlatformType.Electron && !titleBarStyleCustom) {
-    return [
-      {
-        childCount: 0,
-        type: VirtualDomElements.Div,
-      },
-    ]
+    return [emptyTitleBarNode]
   }
   const iconSrc = getIcon(assetDir)
   const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
+  const titleEnabled = titleBarTitleEnabled && !commandCenterEnabled
+  const childCount =
+    Number(titleBarIconEnabled) +
+    Number(titleBarMenuBarEnabled) +
+    Number(commandCenterEnabled) +
+    Number(titleEnabled) +
+    Number(titleBarButtonsEnabled)
 
   return [
     {
       ariaLabel: TitleBarStrings.titleBar(),
-      childCount: 4,
+      childCount,
       className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.TitleBar),
       id: 'TitleBar',
       onContextMenu: DomEventListenerFunctions.HandleTitleBarContextMenu,
@@ -51,7 +60,8 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     },
     ...getTitleBarIconVirtualDom(titleBarIconEnabled, iconSrc),
     ...GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(titleBarMenuBarEnabled, visibleEntries, focusedIndex),
-    ...getTitleVirtualDom(titleBarTitleEnabled, title),
+    ...getCommandCenterVirtualDom(commandCenterEnabled),
+    ...getTitleVirtualDom(titleEnabled, title),
     ...GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(titleBarButtonsEnabled, titleBarButtons),
   ]
 }

@@ -3,6 +3,7 @@ import * as PlatformType from '../PlatformType/PlatformType.ts'
 
 const DEFAULT_UID = 1
 const DEFAULT_APP_NAME = 'Lvce Editor'
+const DEFAULT_MAIN_AREA_UID = 2
 
 export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarState => ({
   appName: DEFAULT_APP_NAME,
@@ -22,6 +23,7 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   labelLetterSpacing: 0,
   labelPadding: 8,
   layoutControlsEnabled: false,
+  mainAreaUid: DEFAULT_MAIN_AREA_UID,
   menus: [],
   platform: PlatformType.Electron,
   title: '',

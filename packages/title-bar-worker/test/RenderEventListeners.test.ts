@@ -31,6 +31,7 @@ test('renderEventListeners - should have correct structure for HandleContextMenu
   expect(contextMenuListener).toBeDefined()
   expect(contextMenuListener?.params.length).toBe(4)
   expect(contextMenuListener?.params[0]).toBe('handleContextMenu')
+  expect(contextMenuListener?.preventDefault).toBe(true)
 })
 
 test('renderEventListeners - should have correct structure for HandleTitleBarContextMenu', () => {
@@ -39,6 +40,15 @@ test('renderEventListeners - should have correct structure for HandleTitleBarCon
   expect(contextMenuListener).toBeDefined()
   expect(contextMenuListener?.params).toEqual(['handleTitleBarContextMenu'])
   expect(contextMenuListener?.preventDefault).toBe(true)
+})
+
+test('renderEventListeners - should register command center click and keyboard listeners', () => {
+  const result = RenderEventListeners.renderEventListeners()
+  const clickListener = result.find((listener) => listener.name === DomEventListenerFunctions.HandleCommandCenterClick)
+  const keyDownListener = result.find((listener) => listener.name === DomEventListenerFunctions.HandleCommandCenterKeyDown)
+
+  expect(clickListener?.params).toEqual(['handleCommandCenterClick'])
+  expect(keyDownListener?.params).toEqual(['handleCommandCenterKeyDown', 'event.key'])
 })
 
 test('renderEventListeners - should return the same result on multiple calls', () => {

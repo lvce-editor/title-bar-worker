@@ -9,6 +9,8 @@ import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts
 import { handleClickClose } from '../HandleClickClose/HandleClickClose.ts'
 import { handleClickMinimize } from '../HandleClickMinimize/HandleClickMinimize.ts'
 import { handleClickToggleMaximize } from '../HandleClickToggleMaximize/HandleClickToggleMaximize.ts'
+import * as HandleCommandCenterClick from '../HandleCommandCenterClick/HandleCommandCenterClick.ts'
+import * as HandleCommandCenterKeyDown from '../HandleCommandCenterKeyDown/HandleCommandCenterKeyDown.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleElectronMenuClick } from '../HandleElectronMenuClick/HandleElectronMenuClick.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
@@ -17,7 +19,7 @@ import * as HandleTitleBarContextMenu from '../HandleTitleBarContextMenu/HandleT
 import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
 import { hideCommandCenter } from '../HideCommandCenter/HideCommandCenter.ts'
 import { hideMenuBar } from '../HideMenuBar/HideMenuBar.ts'
-import { loadContent2 } from '../LoadContent2/LoadContent2.ts'
+import { loadContent2Command } from '../LoadContent2Command/LoadContent2Command.ts'
 import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import { resize } from '../Resize/Resize.ts'
@@ -27,6 +29,7 @@ import { setTitleTemplate } from '../SetTitleTemplate/SetTitleTemplate.ts'
 import { setWidth } from '../SetWidth/SetWidth.ts'
 import { showCommandCenter } from '../ShowCommandCenter/ShowCommandCenter.ts'
 import { showMenuBar } from '../ShowMenuBar/ShowMenuBar.ts'
+import { sleep } from '../Sleep/Sleep.ts'
 import * as TitleBarMenuBar from '../TitleBarMenuBar/TitleBarMenuBar.ts'
 import * as CloseMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarCloseMenu.ts'
 import * as Focus from '../TitleBarMenuBar/ViewletTitleBarMenuBarFocus.ts'
@@ -55,9 +58,10 @@ import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/Viewl
 import * as ViewletTitleBarMenuBarToggleIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
 import { getCommandIds, wrapCommand, wrapGetter } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+import { wakeUp } from '../WakeUp/WakeUp.ts'
 
 export const commandMap = {
-  'TitleBar.closeMenu': CloseMenu.closeMenu,
+  'TitleBar.closeMenu': wrapCommand(CloseMenu.closeMenu),
   'TitleBar.create': TitleBarMenuBar.create,
   'TitleBar.create3': Create3.create3,
   'TitleBar.diff3': Diff3.diff3,
@@ -71,7 +75,7 @@ export const commandMap = {
   'TitleBar.getCommandIds': getCommandIds,
   'TitleBar.getCommands': getCommandIds,
   'TitleBar.getKeyBindings': GetKeyBindings.getKeyBindings,
-  'TitleBar.getMenuEntries2': getMenuEntries2,
+  'TitleBar.getMenuEntries2': wrapGetter(getMenuEntries2),
   'TitleBar.getMenuIds': GetMenuIds.getMenuIds,
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
   'TitleBar.handleClick': wrapCommand(ViewletTitleBarMenuBarHandleClick.handleClick),
@@ -79,6 +83,8 @@ export const commandMap = {
   'TitleBar.handleClickClose': wrapCommand(handleClickClose),
   'TitleBar.handleClickMinimize': wrapCommand(handleClickMinimize),
   'TitleBar.handleClickToggleMaximize': wrapCommand(handleClickToggleMaximize),
+  'TitleBar.handleCommandCenterClick': wrapCommand(HandleCommandCenterClick.handleCommandCenterClick),
+  'TitleBar.handleCommandCenterKeyDown': wrapCommand(HandleCommandCenterKeyDown.handleCommandCenterKeyDown),
   'TitleBar.handleContextMenu': wrapCommand(HandleContextMenu.handleContextMenu),
   'TitleBar.handleElectronMenuClick': wrapCommand(handleElectronMenuClick),
   'TitleBar.handleFocus': wrapCommand(ViewletTitleBarMenuBarHandleFocus.handleFocus),
@@ -103,7 +109,7 @@ export const commandMap = {
   'TitleBar.hideCommandCenter': wrapCommand(hideCommandCenter),
   'TitleBar.hideMenuBar': wrapCommand(hideMenuBar),
   'TitleBar.hydrateElectronApplicationMenu': wrapCommand(hydrate),
-  'TitleBar.loadContent2': wrapCommand(loadContent2),
+  'TitleBar.loadContent2': loadContent2Command,
   'TitleBar.render3': Render3.render3,
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBar.resize': wrapCommand(resize),
@@ -113,7 +119,9 @@ export const commandMap = {
   'TitleBar.setWidth': wrapCommand(setWidth),
   'TitleBar.showCommandCenter': wrapCommand(showCommandCenter),
   'TitleBar.showMenuBar': wrapCommand(showMenuBar),
+  'TitleBar.sleep': sleep,
   'TitleBar.terminate': terminate,
   'TitleBar.toggleIndex': wrapCommand(ViewletTitleBarMenuBarToggleIndex.toggleIndex),
   'TitleBar.toggleMenu': wrapCommand(ViewletTitleBarMenuBarToggleMenu.toggleMenu),
+  'TitleBar.wakeUp': wakeUp,
 }

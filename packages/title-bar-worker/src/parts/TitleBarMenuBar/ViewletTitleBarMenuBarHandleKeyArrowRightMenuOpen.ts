@@ -1,5 +1,6 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 // TODO menu should not be needed initially, only when item is selected and menu is opened
+import * as AddMenuEntryKeyBindings from '../AddMenuEntryKeyBindings/AddMenuEntryKeyBindings.ts'
 import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
@@ -18,7 +19,8 @@ export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): 
   }
   const item = items[focusedIndex]
   if (item.flags === MenuItemFlags.SubMenu && item.id !== undefined) {
-    const subMenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
     const subMenu = {
       focusedIndex: 0,
       items: subMenuEntries,

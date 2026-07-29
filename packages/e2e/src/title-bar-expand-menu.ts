@@ -4,7 +4,7 @@ export const name = 'viewlet.title-bar-expand-menu'
 
 export const skip = true
 
-export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.txt`, 'div')
 
@@ -19,8 +19,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => 
   await expect(menuItemFile).toHaveAttribute('aria-haspopup', 'true')
   await expect(menuItemFile).toHaveAttribute('aria-expanded', 'false')
   await expect(menuItemFile).toHaveAttribute('role', 'menuitem')
-  // @ts-ignore
-  await menuItemFile.click()
+  await Command.execute('TitleBar.handleClick', 0, 0)
 
   await expect(menuItemFile).toHaveAttribute('aria-expanded', 'true')
 
