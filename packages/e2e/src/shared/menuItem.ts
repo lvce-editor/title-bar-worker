@@ -93,6 +93,53 @@ const expectTopLevelMenuClosed = async (api: TestApi, label: string): Promise<vo
   await api.expect(api.Locator('#Menu-0')).toBeHidden()
 }
 
+const expectTopLevelMenuFocused = async (api: TestApi, label: string): Promise<void> => {
+  const item = api.Locator('.TitleBarTopLevelEntry', { hasText: label })
+  await api.expect(item).toHaveAttribute('id', 'TitleBarEntryActive')
+  await api.expect(item).toHaveAttribute('aria-expanded', 'false')
+}
+
+export const createEnterOpensMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await focusTopLevelMenu(api, menuOffset)
+    await api.Command.execute('TitleBar.handleKeyEnter')
+    await expectTopLevelMenuOpen(api, label)
+  }
+}
+
+export const createArrowDownOpensMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await focusTopLevelMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyArrowDown()
+    await expectTopLevelMenuOpen(api, label)
+  }
+}
+
+export const createClickTogglesMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await api.Command.execute('TitleBar.handleClick', 0, menuOffset)
+    await expectTopLevelMenuOpen(api, label)
+    await api.Command.execute('TitleBar.handleClick', 0, menuOffset)
+    await expectTopLevelMenuClosed(api, label)
+  }
+}
+
+export const createArrowLeftFocusesMenuTest = (menuOffset: number, expectedLabel: string): Test => {
+  return async (api) => {
+    await focusTopLevelMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyArrowLeft()
+    await expectTopLevelMenuFocused(api, expectedLabel)
+  }
+}
+
+export const createArrowRightFocusesMenuTest = (menuOffset: number, expectedLabel: string): Test => {
+  return async (api) => {
+    await focusTopLevelMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyArrowRight()
+    await expectTopLevelMenuFocused(api, expectedLabel)
+  }
+}
+
 export const createSpaceOpensMenuTest = (menuOffset: number, label: string): Test => {
   return async (api) => {
     await focusTopLevelMenu(api, menuOffset)
