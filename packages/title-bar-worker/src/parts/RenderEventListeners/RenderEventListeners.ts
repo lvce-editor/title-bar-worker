@@ -27,6 +27,14 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleClickToggleMaximize'],
     },
     {
+      name: DomEventListenerFunctions.HandleCommandCenterClick,
+      params: ['handleCommandCenterClick'],
+    },
+    {
+      name: DomEventListenerFunctions.HandleCommandCenterKeyDown,
+      params: ['handleCommandCenterKeyDown', EventExpression.Key],
+    },
+    {
       name: DomEventListenerFunctions.HandleFocusIn,
       params: ['handleFocus'],
     },

@@ -3,6 +3,7 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import { getCommandCenterVirtualDom } from '../GetCommandCenterVirtualDom/GetCommandCenterVirtualDom.ts'
 import { getIcon } from '../GetIcon/GetIcon.ts'
 import * as GetTitleBarButtonsVirtualDom from '../GetTitleBarButtonsVirtualDom/GetTitleBarButtonsVirtualDom.ts'
 import { getTitleBarIconVirtualDom } from '../GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
@@ -20,6 +21,7 @@ const emptyTitleBarNode: VirtualDomNode = {
 export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly VirtualDomNode[] => {
   const {
     assetDir,
+    commandCenterEnabled,
     focusedIndex,
     isMenuOpen,
     platform,
@@ -38,7 +40,13 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
   }
   const iconSrc = getIcon(assetDir)
   const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
-  const childCount = Number(titleBarIconEnabled) + Number(titleBarMenuBarEnabled) + Number(titleBarTitleEnabled) + Number(titleBarButtonsEnabled)
+  const titleEnabled = titleBarTitleEnabled && !commandCenterEnabled
+  const childCount =
+    Number(titleBarIconEnabled) +
+    Number(titleBarMenuBarEnabled) +
+    Number(commandCenterEnabled) +
+    Number(titleEnabled) +
+    Number(titleBarButtonsEnabled)
 
   return [
     {
@@ -52,7 +60,8 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     },
     ...getTitleBarIconVirtualDom(titleBarIconEnabled, iconSrc),
     ...GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(titleBarMenuBarEnabled, visibleEntries, focusedIndex),
-    ...getTitleVirtualDom(titleBarTitleEnabled, title),
+    ...getCommandCenterVirtualDom(commandCenterEnabled),
+    ...getTitleVirtualDom(titleEnabled, title),
     ...GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(titleBarButtonsEnabled, titleBarButtons),
   ]
 }
