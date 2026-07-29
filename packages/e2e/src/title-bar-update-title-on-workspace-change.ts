@@ -16,7 +16,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => 
   await expect(title).toHaveText('folder-1')
 
   // act
-  await Workspace.setPath(`${tmpDir2}/folder-2`)
+  await Workspace.setPath(`${tmpDir2}/folder-2/`)
 
   // assert
   await expect(title).toHaveText('folder-2')
