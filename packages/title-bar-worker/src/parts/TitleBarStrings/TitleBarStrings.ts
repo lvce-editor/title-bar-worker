@@ -65,6 +65,10 @@ export const commandCenter = (): string => {
   return I18nString.i18nString(UiStrings.CommandCenter)
 }
 
+export const search = (): string => {
+  return I18nString.i18nString(UiStrings.Search)
+}
+
 export const layoutControls = (): string => {
   return I18nString.i18nString(UiStrings.LayoutControls)
 }
