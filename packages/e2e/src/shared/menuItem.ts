@@ -210,7 +210,7 @@ export const createArrowLeftSwitchesOpenMenuTest = (menuOffset: number, expected
   }
 }
 
-const getEnabledMenuItems = (api: TestApi) => {
+const getEnabledMenuItems = (api: TestApi): ReturnType<TestApi['Locator']> => {
   return api.Locator('#Menu-0 .MenuItem:not([disabled])')
 }
 
