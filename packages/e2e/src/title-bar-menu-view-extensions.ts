@@ -7,5 +7,5 @@ export const test: Test = async (api) => {
   await selectViewMenuItem(api, 10, 'Extensions')
 
   await api.expect(api.Locator('.SideBar:not(.SecondarySideBar)')).toBeVisible()
-  await api.expect(api.Locator('.SideBarTitleAreaTitle')).toHaveText('Extensions')
+  await api.expect(api.Locator('.SideBarTitleAreaTitle')).toHaveText('Extensions: Installed')
 }
