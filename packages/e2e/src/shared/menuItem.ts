@@ -176,3 +176,98 @@ export const createFocusedToggleMenuTest = (menuOffset: number, label: string): 
     await expectTopLevelMenuClosed(api, label)
   }
 }
+
+export const createMouseOverFocusesMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await api.TitleBarMenuBar.focus()
+    await api.Command.execute('TitleBar.handleMouseOver', menuOffset)
+    await expectTopLevelMenuFocused(api, label)
+  }
+}
+
+export const createMouseOverSwitchesOpenMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    const initialMenuOffset = menuOffset === 0 ? 1 : 0
+    await openMenu(api, initialMenuOffset)
+    await api.Command.execute('TitleBar.handleMouseOver', menuOffset)
+    await expectTopLevelMenuOpen(api, label)
+  }
+}
+
+export const createArrowRightSwitchesOpenMenuTest = (menuOffset: number, expectedLabel: string): Test => {
+  return async (api) => {
+    await openMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyArrowRight()
+    await expectTopLevelMenuOpen(api, expectedLabel)
+  }
+}
+
+export const createArrowLeftSwitchesOpenMenuTest = (menuOffset: number, expectedLabel: string): Test => {
+  return async (api) => {
+    await openMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyArrowLeft()
+    await expectTopLevelMenuOpen(api, expectedLabel)
+  }
+}
+
+const expectFocusedMenuItem = async (api: TestApi, label: string): Promise<void> => {
+  const item = api.Locator('#Menu-0 .MenuItem.MenuItemFocused', { hasText: label })
+  await api.expect(item).toBeFocused()
+}
+
+export const createHomeFocusesFirstMenuItemTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await openMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyEnd()
+    await api.TitleBarMenuBar.handleKeyHome()
+    await expectFocusedMenuItem(api, label)
+  }
+}
+
+export const createEndFocusesLastMenuItemTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await openMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyEnd()
+    await expectFocusedMenuItem(api, label)
+  }
+}
+
+export const createArrowDownWrapsMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await openMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyEnd()
+    await api.TitleBarMenuBar.handleKeyArrowDown()
+    await expectFocusedMenuItem(api, label)
+  }
+}
+
+export const createArrowUpWrapsMenuTest = (menuOffset: number, label: string): Test => {
+  return async (api) => {
+    await openMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyHome()
+    await api.TitleBarMenuBar.handleKeyArrowUp()
+    await expectFocusedMenuItem(api, label)
+  }
+}
+
+const expectEmptyMenuFocused = async (api: TestApi): Promise<void> => {
+  const menu = api.Locator('#Menu-0')
+  await api.expect(menu).toBeFocused()
+  await api.expect(menu.locator('.MenuItem')).toHaveCount(0)
+}
+
+export const createHomeKeepsEmptyMenuFocusedTest = (menuOffset: number): Test => {
+  return async (api) => {
+    await openMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyHome()
+    await expectEmptyMenuFocused(api)
+  }
+}
+
+export const createEndKeepsEmptyMenuFocusedTest = (menuOffset: number): Test => {
+  return async (api) => {
+    await openMenu(api, menuOffset)
+    await api.TitleBarMenuBar.handleKeyEnd()
+    await expectEmptyMenuFocused(api)
+  }
+}
