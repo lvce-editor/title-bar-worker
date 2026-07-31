@@ -1,12 +1,11 @@
 import * as config from '@lvce-editor/eslint-config'
-import * as actions from '@lvce-editor/eslint-plugin-github-actions'
-import * as regex from '@lvce-editor/eslint-plugin-regex'
+import { defineConfig } from 'eslint/config'
 
-export default [
+export default defineConfig([
   ...config.default,
   ...config.recommendedVirtualDom,
-  ...actions.default,
-  ...regex.default,
+  ...config.recommendedActions,
+  ...config.recommendedRegex,
   {
     rules: {
       '@cspell/spellchecker': 'off',
@@ -61,4 +60,4 @@ export default [
       'virtual-dom/prefer-constants': 'off',
     },
   },
-]
+])
