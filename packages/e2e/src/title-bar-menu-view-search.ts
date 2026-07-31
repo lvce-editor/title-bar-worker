@@ -1,4 +1,11 @@
-import { createMenuItemTest } from './shared/menuItem.ts'
+import type { Test } from '@lvce-editor/test-with-playwright'
+import { selectViewMenuItem } from './shared/viewMenu.ts'
 
 export const name = 'title-bar-menu-view-search'
-export const test = createMenuItemTest(3, 5, 'Search')
+
+export const test: Test = async (api) => {
+  await selectViewMenuItem(api, 7, 'Search')
+
+  await api.expect(api.Locator('.SideBar:not(.SecondarySideBar)')).toBeVisible()
+  await api.expect(api.Locator('.SideBarTitleAreaTitle')).toHaveText('Search')
+}
