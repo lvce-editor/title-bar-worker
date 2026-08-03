@@ -5,7 +5,11 @@ import * as ExecuteMenuItemCommand from '../ExecuteMenuItemCommand/ExecuteMenuIt
 
 export const selectIndexRestoreEditorFocus = async (state: TitleBarMenuBarState, item: MenuEntry): Promise<TitleBarMenuBarState> => {
   await ExecuteMenuItemCommand.executeMenuItemCommand(item)
-  await RendererWorker.invoke('Main.focus')
+  try {
+    await RendererWorker.invoke('Main.focus')
+  } catch {
+    // Focus restoration is best effort and must not turn a successful command into a failure.
+  }
   return {
     ...state,
     focusedIndex: -1,
