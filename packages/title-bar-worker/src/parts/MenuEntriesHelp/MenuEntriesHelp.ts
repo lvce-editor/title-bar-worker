@@ -45,7 +45,7 @@ export const getMenuEntries = async (platform: number): Promise<readonly MenuEnt
   }
   entries.push({
     command: 'License.openLicense',
-    flags: MenuItemFlags.None,
+    flags: MenuItemFlags.RestoreEditorFocus,
     id: 'viewLicense',
     label: HelpStrings.viewLicense(),
   })

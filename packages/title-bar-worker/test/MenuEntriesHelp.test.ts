@@ -17,7 +17,7 @@ test('getMenuEntries - Web platform with auto update not supported', async () =>
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: 'License.openLicense',
-      flags: MenuItemFlags.None,
+      flags: MenuItemFlags.RestoreEditorFocus,
       id: 'viewLicense',
       label: HelpStrings.viewLicense(),
     },
@@ -55,7 +55,7 @@ test('getMenuEntries - Electron platform with auto update not supported', async 
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: 'License.openLicense',
-      flags: MenuItemFlags.None,
+      flags: MenuItemFlags.RestoreEditorFocus,
       id: 'viewLicense',
       label: HelpStrings.viewLicense(),
     },
@@ -93,7 +93,7 @@ test('getMenuEntries - Remote platform with auto update not supported', async ()
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: 'License.openLicense',
-      flags: MenuItemFlags.None,
+      flags: MenuItemFlags.RestoreEditorFocus,
       id: 'viewLicense',
       label: HelpStrings.viewLicense(),
     },
