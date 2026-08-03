@@ -1,7 +1,5 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import { handleKeyEnterMenuOpen } from './ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.ts'
 
-export const handleKeySpaceMenuOpen = (state: TitleBarMenuBarState): TitleBarMenuBarState => {
-  // TODO
-  // await Menu.selectCurrent()
-  return state
-}
+export const handleKeySpaceMenuOpen = (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> | TitleBarMenuBarState =>
+  handleKeyEnterMenuOpen(state)
