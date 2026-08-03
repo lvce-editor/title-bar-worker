@@ -6,8 +6,8 @@ import * as UiStrings from '../UiStrings/UiStrings.ts'
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
-      args: ['Terminal'],
-      command: 'Layout.togglePanel',
+      args: [''],
+      command: 'Layout.openIntegratedTerminal',
       flags: MenuItemFlags.None,
       id: 'newTerminal',
       label: I18NString.i18nString(UiStrings.NewTerminal),
