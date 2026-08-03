@@ -25,6 +25,11 @@ export const getKeyBindings = (): readonly KeyBinding[] => {
       when: WhenExpression.FocusTitleBarMenuBar,
     },
     {
+      command: 'TitleBar.handleKeyEnter',
+      key: KeyCode.Enter,
+      when: WhenExpression.FocusTitleBarMenuBar,
+    },
+    {
       command: 'TitleBar.handleKeySpace',
       key: KeyCode.Space,
       when: WhenExpression.FocusTitleBarMenuBar,
