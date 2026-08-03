@@ -14,16 +14,24 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, QuickPi
   await TitleBarMenuBar.handleKeyArrowRight()
   await TitleBarMenuBar.handleKeyArrowRight()
   await TitleBarMenuBar.handleKeyArrowDown()
+  await TitleBarMenuBar.handleKeyArrowDown()
+  await TitleBarMenuBar.handleKeyArrowDown()
+  await TitleBarMenuBar.handleKeyArrowDown()
+  await TitleBarMenuBar.handleKeyArrowDown()
+  await TitleBarMenuBar.handleKeyArrowDown()
 
   const goToFileItem = Locator('.MenuItem', { hasText: 'Go to File...' })
   await expect(goToFileItem).toBeVisible()
+  await expect(goToFileItem).toBeFocused()
 
   // act
-  await Command.execute('TitleBar.handleMenuClick', 0, 7)
+  await Command.execute('TitleBar.handleKeyEnter')
 
   // assert
   const quickPick = Locator('.QuickPick')
   await expect(quickPick).toBeVisible()
+  const quickPickInput = Locator('[name="QuickPickInput"]')
+  await expect(quickPickInput).toBeFocused()
   await QuickPick.setValue('menu-file')
 
   const quickPickItem = Locator('.QuickPickItemLabel').first()
