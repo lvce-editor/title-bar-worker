@@ -2,6 +2,7 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import { selectIndexIgnore } from './ViewletTitleBarMenuBarSelectIndexIgnore.ts'
 import { selectIndexNone } from './ViewletTitleBarMenuBarSelectIndexNone.ts'
+import { selectIndexRestoreEditorFocus } from './ViewletTitleBarMenuBarSelectIndexRestoreEditorFocus.ts'
 import { selectIndexRestoreFocus } from './ViewletTitleBarMenuBarSelectIndexRestoreFocus.ts'
 import { selectIndexSubMenu } from './ViewletTitleBarMenuBarSelectIndexSubMenu.ts'
 
@@ -19,6 +20,8 @@ export const handleMenuClick = async (state: TitleBarMenuBarState, level: number
       return selectIndexIgnore(state, item)
     case MenuItemFlags.None:
       return selectIndexNone(state, item)
+    case MenuItemFlags.RestoreEditorFocus:
+      return selectIndexRestoreEditorFocus(state, item)
     case MenuItemFlags.RestoreFocus:
       return selectIndexRestoreFocus(state, item)
     case MenuItemFlags.SubMenu:

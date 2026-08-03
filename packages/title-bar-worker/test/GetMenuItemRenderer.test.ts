@@ -19,6 +19,11 @@ test('getMenuItemRenderer returns getMenuItemDefaultDom for RestoreFocus flag', 
   expect(renderer).toBe(getMenuItemDefaultDom)
 })
 
+test('getMenuItemRenderer returns getMenuItemDefaultDom for RestoreEditorFocus flag', () => {
+  const renderer = GetMenuItemRenderer.getMenuItemRenderer(MenuItemFlags.RestoreEditorFocus)
+  expect(renderer).toBe(getMenuItemDefaultDom)
+})
+
 test('getMenuItemRenderer returns getMenuItemDefaultDom for Ignore flag', () => {
   const renderer = GetMenuItemRenderer.getMenuItemRenderer(MenuItemFlags.Ignore)
   expect(renderer).toBe(getMenuItemDefaultDom)

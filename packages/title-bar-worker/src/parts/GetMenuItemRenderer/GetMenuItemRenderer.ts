@@ -16,6 +16,7 @@ export const getMenuItemRenderer = (flags: number): MenuItemRenderer => {
       return getMenuItemDisabledDom
     case MenuItemFlags.Ignore:
     case MenuItemFlags.None:
+    case MenuItemFlags.RestoreEditorFocus:
     case MenuItemFlags.RestoreFocus:
       return getMenuItemDefaultDom
     case MenuItemFlags.Separator:

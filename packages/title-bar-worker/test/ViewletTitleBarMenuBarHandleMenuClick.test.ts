@@ -37,3 +37,37 @@ test('handleMenuClick executes checked menu item command', async () => {
   expect(result.isMenuOpen).toBe(false)
   expect(mockRpc.invocations).toEqual([['Dialog.showMessage', { message: 'not implemented' }]])
 })
+
+test('handleMenuClick restores editor focus for editor menu items', async () => {
+  using mockRpc = RendererWorker.registerMockRpc({
+    'Editor.selectAll'() {},
+    'Main.focus'() {},
+  })
+
+  const state = {
+    ...createDefaultState(),
+    isMenuOpen: true,
+    menus: [
+      {
+        focusedIndex: 0,
+        items: [
+          {
+            command: 'Editor.selectAll',
+            flags: MenuItemFlags.RestoreEditorFocus,
+            id: 'selectAll',
+            label: 'Select All',
+          },
+        ],
+        level: 1,
+        x: 0,
+        y: 0,
+      },
+    ],
+  }
+
+  const result = await ViewletTitleBarMenuBarHandleMenuClick.handleMenuClick(state, 0, 0)
+
+  expect(result.menus).toEqual([])
+  expect(result.isMenuOpen).toBe(false)
+  expect(mockRpc.invocations).toEqual([['Editor.selectAll'], ['Main.focus']])
+})
