@@ -535,6 +535,7 @@ test('handleMouseOverMenu - open submenu when already focused on different item'
   const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 1)
   expect(result.menus).toHaveLength(2)
   expect(result.menus[0].focusedIndex).toBe(1)
+  expect(result.menus[0].expanded).toBe(true)
   expect(result.menus[1].level).toBe(1)
   expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
@@ -643,7 +644,7 @@ test('handleMouseOverMenu - hover over submenu item when submenu has focused ite
   expect(result.menus[0].focusedIndex).toBe(2)
 })
 
-test('handleMouseOverMenu - hover over submenu item when not last menu', async () => {
+test('handleMouseOverMenu - replace stale submenu when parent was not focused', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
@@ -681,10 +682,10 @@ test('handleMouseOverMenu - hover over submenu item when not last menu', async (
     ],
   }
   const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 0)
-  expect(result.menus).toHaveLength(3)
-  expect(result.menus[0].focusedIndex).toBe(-1)
-  expect(result.menus[1].focusedIndex).toBe(0)
-  expect(result.menus[2].level).toBe(2)
+  expect(result.menus).toHaveLength(2)
+  expect(result.menus[0].focusedIndex).toBe(0)
+  expect(result.menus[0].expanded).toBe(true)
+  expect(result.menus[1].level).toBe(1)
   expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
 
@@ -968,14 +969,49 @@ test('handleMouseOverMenu - replace existing submenu when hovering different sub
     ],
   }
   const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 1)
-  expect(result.menus).toHaveLength(3)
-  expect(result.menus[0].focusedIndex).toBe(0)
-  expect(result.menus[1].focusedIndex).toBe(1)
-  expect(result.menus[2].level).toBe(2)
+  expect(result.menus).toHaveLength(2)
+  expect(result.menus[0].focusedIndex).toBe(1)
+  expect(result.menus[0].expanded).toBe(true)
+  expect(result.menus[1].level).toBe(1)
   expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
 
-test('handleMouseOverMenu - preserve menu properties when updating focus', async () => {
+test('handleMouseOverMenu - retain ancestors when opening a nested submenu', async () => {
+  using mockRpc = RendererWorker.registerMockRpc({
+    'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
+  })
+  const rootMenu = {
+    expanded: true,
+    focusedIndex: 0,
+    items: [{ command: '', flags: MenuItemFlags.SubMenu, label: 'Root submenu' }],
+    level: 0,
+    x: 0,
+    y: 0,
+  }
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
+    menus: [
+      rootMenu,
+      {
+        focusedIndex: -1,
+        items: [{ command: '', flags: MenuItemFlags.SubMenu, id: MenuEntryId.OpenRecent, label: 'Open Recent' }],
+        level: 1,
+        x: 150,
+        y: 0,
+      },
+    ],
+  }
+
+  const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 1, 0)
+
+  expect(result.menus).toHaveLength(3)
+  expect(result.menus[0]).toBe(rootMenu)
+  expect(result.menus[1]).toMatchObject({ expanded: true, focusedIndex: 0, level: 1 })
+  expect(result.menus[2]).toMatchObject({ focusedIndex: -1, level: 2, x: 300, y: 0 })
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+})
+
+test('handleMouseOverMenu - close submenu and preserve menu properties when updating focus', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     menus: [
@@ -994,10 +1030,18 @@ test('handleMouseOverMenu - preserve menu properties when updating focus', async
         x: 50,
         y: 100,
       },
+      {
+        focusedIndex: -1,
+        items: [],
+        level: 1,
+        x: 200,
+        y: 100,
+      },
     ],
   }
   const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 0)
-  expect(result.menus[0].expanded).toBe(true)
+  expect(result.menus).toHaveLength(1)
+  expect(result.menus[0].expanded).toBe(false)
   expect(result.menus[0].id).toBe(123)
   expect(result.menus[0].x).toBe(50)
   expect(result.menus[0].y).toBe(100)

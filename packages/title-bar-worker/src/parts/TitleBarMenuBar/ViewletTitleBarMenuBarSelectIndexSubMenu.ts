@@ -16,15 +16,16 @@ export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMen
   const subMenu = {
     focusedIndex: -1,
     items: subMenuEntries,
-    level: menus.length,
+    level: level + 1,
     x: x + Menu.MENU_WIDTH,
     y: y + index * 25,
   }
   const newParentMenu = {
     ...menu,
+    expanded: true,
     focusedIndex: index,
   }
-  const newMenus = [...menus.slice(0, level - 1), newParentMenu, subMenu]
+  const newMenus = [...menus.slice(0, level), newParentMenu, subMenu]
   return {
     ...state,
     menus: newMenus,
