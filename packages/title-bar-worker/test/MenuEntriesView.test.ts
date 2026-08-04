@@ -47,21 +47,21 @@ test('getMenuEntries', () => {
       label: 'Search',
     },
     {
-      args: ['Source Control'],
+      args: ['Source Control', true],
       command: 'Layout.openSideBarViewlet',
       flags: MenuItemFlags.None,
       id: 'sourceControl',
       label: 'Source Control',
     },
     {
-      args: ['Run And Debug'],
+      args: ['Run And Debug', true],
       command: 'Layout.openSideBarViewlet',
       flags: MenuItemFlags.None,
       id: 'run',
       label: 'Run',
     },
     {
-      args: ['Extensions'],
+      args: ['Extensions', true],
       command: 'Layout.openSideBarViewlet',
       flags: MenuItemFlags.None,
       id: 'extensions',
@@ -69,6 +69,7 @@ test('getMenuEntries', () => {
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
+      args: [true],
       command: 'Layout.openChat',
       flags: MenuItemFlags.None,
       id: 'chat',

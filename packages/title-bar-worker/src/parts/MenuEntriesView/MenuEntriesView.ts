@@ -47,21 +47,21 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
       label: I18NString.i18nString(UiStrings.Search),
     },
     {
-      args: ['Source Control'],
+      args: ['Source Control', true],
       command: 'Layout.openSideBarViewlet',
       flags: MenuItemFlags.None,
       id: 'sourceControl',
       label: I18NString.i18nString(UiStrings.SourceControl),
     },
     {
-      args: ['Run And Debug'],
+      args: ['Run And Debug', true],
       command: 'Layout.openSideBarViewlet',
       flags: MenuItemFlags.None,
       id: 'run',
       label: I18NString.i18nString(UiStrings.Run),
     },
     {
-      args: ['Extensions'],
+      args: ['Extensions', true],
       command: 'Layout.openSideBarViewlet',
       flags: MenuItemFlags.None,
       id: 'extensions',
@@ -69,6 +69,7 @@ export const getMenuEntries = (): readonly MenuEntry[] => {
     },
     MenuEntrySeparator.menuEntrySeparator,
     {
+      args: [true],
       command: 'Layout.openChat',
       flags: MenuItemFlags.None,
       id: 'chat',
