@@ -39,7 +39,7 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     case MenuEntryId.Run:
       return MenuEntriesRun.getMenuEntries()
     case MenuEntryId.Selection:
-      return MenuEntriesSelection.getMenuEntries()
+      return MenuEntriesSelection.getMenuEntries(await HasActiveTextEditor.hasActiveTextEditor(state.mainAreaUid ?? DEFAULT_MAIN_AREA_UID))
     case MenuEntryId.Terminal:
       return MenuEntriesTerminal.getMenuEntries()
     case MenuEntryId.TitleBar:
