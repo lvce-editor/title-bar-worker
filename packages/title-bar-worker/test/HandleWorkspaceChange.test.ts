@@ -139,7 +139,8 @@ test('handleWorkspaceChange - should handle empty workspace URI', async () => {
   const result = await HandleWorkspaceChange.handleWorkspaceChange(initialState, '')
 
   expect(result.workspaceUri).toBe('')
-  expect(result.title).toBe('')
+  expect(result.title).toBe('Lvce Editor')
+  expect(result.titleWidth).toBe(110)
 })
 
 test('handleWorkspaceChange - should handle workspace URI with trailing slash', async () => {
@@ -162,7 +163,8 @@ test('handleWorkspaceChange - should handle root path', async () => {
   const result = await HandleWorkspaceChange.handleWorkspaceChange(initialState, '/')
 
   expect(result.workspaceUri).toBe('/')
-  expect(result.title).toBe('')
+  expect(result.title).toBe('Lvce Editor')
+  expect(result.titleWidth).toBe(110)
 })
 
 test('handleWorkspaceChange - should not mutate original state', async () => {
@@ -212,5 +214,5 @@ test('handleWorkspaceChange - should handle single segment path', async () => {
   const result = await HandleWorkspaceChange.handleWorkspaceChange(initialState, 'workspace')
 
   expect(result.workspaceUri).toBe('workspace')
-  expect(result.title).toBe('')
+  expect(result.title).toBe('workspace')
 })

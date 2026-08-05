@@ -30,10 +30,7 @@ const getRemoteSshWorkspace = (workspaceUri: string): RemoteSshWorkspace | undef
 
 const getWorkspaceTitle = (workspacePath: string, titleTemplate: string, appName: string): string => {
   const endIndex = getEndIndex(workspacePath)
-  const slashIndex = workspacePath.lastIndexOf('/', endIndex - 1)
-  if (slashIndex === -1) {
-    return ''
-  }
+  const slashIndex = Math.max(workspacePath.lastIndexOf('/', endIndex - 1), workspacePath.lastIndexOf('\\', endIndex - 1))
   const folderName = workspacePath.slice(slashIndex + 1, endIndex)
 
   // If titleTemplate is empty, return folderName directly
@@ -51,13 +48,13 @@ const getWorkspaceTitle = (workspacePath: string, titleTemplate: string, appName
 
 export const getTitle = (workspaceUri: string, titleTemplate: string, appName: string): string => {
   if (!workspaceUri) {
-    return ''
+    return appName
   }
   const remoteSshWorkspace = getRemoteSshWorkspace(workspaceUri)
   const workspacePath = remoteSshWorkspace?.path ?? workspaceUri
   const title = getWorkspaceTitle(workspacePath, titleTemplate, appName)
   if (!remoteSshWorkspace) {
-    return title
+    return title || appName
   }
   const remoteSuffix = `[SSH: ${remoteSshWorkspace.host}]`
   return title ? `${title} ${remoteSuffix}` : remoteSuffix

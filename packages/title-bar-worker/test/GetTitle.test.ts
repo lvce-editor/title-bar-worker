@@ -5,17 +5,17 @@ const APP_NAME = 'Lvce Editor'
 
 test('getTitle - empty string', () => {
   const result: string = GetTitle.getTitle('', '${folderName}', APP_NAME)
-  expect(result).toBe('')
+  expect(result).toBe('Lvce Editor')
 })
 
 test('getTitle - no slashes', () => {
   const result: string = GetTitle.getTitle('workspace', '${folderName}', APP_NAME)
-  expect(result).toBe('')
+  expect(result).toBe('workspace')
 })
 
 test('getTitle - single slash at end', () => {
   const result: string = GetTitle.getTitle('/', '${folderName}', APP_NAME)
-  expect(result).toBe('')
+  expect(result).toBe('Lvce Editor')
 })
 
 test('getTitle - path with single slash', () => {
@@ -50,7 +50,7 @@ test('getTitle - file protocol uri', () => {
 
 test('getTitle - windows path', () => {
   const result: string = GetTitle.getTitle('C:\\Users\\user\\project', '${folderName}', APP_NAME)
-  expect(result).toBe('')
+  expect(result).toBe('project')
 })
 
 test('getTitle - with titleTemplate containing appName', () => {
