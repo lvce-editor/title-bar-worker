@@ -1,7 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { VirtualDomElements, AriaRoles } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleMenuItem } from '../src/parts/VisibleMenuItem/VisibleMenuItem.ts'
-import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import * as GetMenuItemDisabledDom from '../src/parts/GetMenuItemDisabledDom/GetMenuItemDisabledDom.ts'
 
 test('getMenuItemDisabledDom - basic disabled menu item', () => {
@@ -18,8 +17,9 @@ test('getMenuItemDisabledDom - basic disabled menu item', () => {
 
   expect(result).toEqual([
     {
+      ariaDisabled: true,
       childCount: 1,
-      className: ClassNames.MenuItem,
+      className: 'MenuItem MenuItemDisabled',
       disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
@@ -47,8 +47,9 @@ test('getMenuItemDisabledDom - disabled menu item with different label', () => {
 
   expect(result).toEqual([
     {
+      ariaDisabled: true,
       childCount: 1,
-      className: ClassNames.MenuItem,
+      className: 'MenuItem MenuItemDisabled',
       disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
@@ -76,8 +77,9 @@ test('getMenuItemDisabledDom - ignores other menuItem properties', () => {
 
   expect(result).toEqual([
     {
+      ariaDisabled: true,
       childCount: 1,
-      className: ClassNames.MenuItem,
+      className: 'MenuItem MenuItemDisabled',
       disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,
@@ -105,8 +107,9 @@ test('getMenuItemDisabledDom - empty label', () => {
 
   expect(result).toEqual([
     {
+      ariaDisabled: true,
       childCount: 1,
-      className: ClassNames.MenuItem,
+      className: 'MenuItem MenuItemDisabled',
       disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,

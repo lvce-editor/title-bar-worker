@@ -2,7 +2,10 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-selection-submenu'
 
-export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
+export const test: Test = async ({ expect, Locator, Main, TitleBarMenuBar }) => {
+  // arrange - ensure there is no active text editor
+  await Main.closeAllEditors()
+
   // act - focus menu bar
   await TitleBarMenuBar.focus()
 
@@ -22,6 +25,14 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   // assert - Selection submenu is visible
   const menu = Locator('#Menu-0')
   await expect(menu).toBeVisible()
+
+  const commandItems = Locator('#Menu-0 .MenuItem')
+  await expect(commandItems).toHaveCount(14)
+  for (let index = 0; index < 14; index++) {
+    const commandItem = commandItems.nth(index)
+    await expect(commandItem).toHaveAttribute('aria-disabled', 'true')
+    await expect(commandItem).toHaveClass('MenuItemDisabled')
+  }
 
   // assert - verify expected menu items in Selection submenu
   const selectAllItem = Locator('.MenuItem', { hasText: 'Select All' })

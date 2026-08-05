@@ -3,6 +3,7 @@ import type { VirtualDomNode } from '../VirtualDomNode/VirtualDomNode.ts'
 import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getKeyDom } from '../GetKeyDom/GetKeyDom.ts'
+import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 import { text } from '../VirtualDomHelpers/VirtualDomHelpers.ts'
 
 export const getMenuItemDisabledDom = (menuItem: VisibleMenuItem): readonly VirtualDomNode[] => {
@@ -10,8 +11,9 @@ export const getMenuItemDisabledDom = (menuItem: VisibleMenuItem): readonly Virt
   const keyDom = key ? getKeyDom(key) : []
   return [
     {
+      ariaDisabled: true,
       childCount: key ? 2 : 1,
-      className: ClassNames.MenuItem,
+      className: mergeClassNames(ClassNames.MenuItem, ClassNames.MenuItemDisabled),
       disabled: true,
       role: AriaRoles.MenuItem,
       tabIndex: -1,

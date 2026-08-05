@@ -5,6 +5,7 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import { getMenuEntriesTitleBarContextMenu } from '../GetMenuEntriesTitleBarContextMenu/GetMenuEntriesTitleBarContextMenu.ts'
 import { MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup, MenuIdTitleBarContextMenu } from '../GetMenuIds/GetMenuIds.ts'
 import * as HasActiveTextEditor from '../HasActiveTextEditor/HasActiveTextEditor.ts'
+import * as HasOpenTextEditor from '../HasOpenTextEditor/HasOpenTextEditor.ts'
 import * as MenuEntriesAppearance from '../MenuEntriesAppearance/MenuEntriesAppearance.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
 import * as MenuEntriesEditorLayout from '../MenuEntriesEditorLayout/MenuEntriesEditorLayout.ts'
@@ -39,7 +40,7 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     case MenuEntryId.Run:
       return MenuEntriesRun.getMenuEntries()
     case MenuEntryId.Selection:
-      return MenuEntriesSelection.getMenuEntries()
+      return MenuEntriesSelection.getMenuEntries(await HasOpenTextEditor.hasOpenTextEditor())
     case MenuEntryId.Terminal:
       return MenuEntriesTerminal.getMenuEntries()
     case MenuEntryId.TitleBar:
