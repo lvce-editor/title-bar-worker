@@ -23,5 +23,5 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   await Command.execute('TitleBar.handleMenuClick', 0, closeFolderIndex)
 
   // assert
-  await expect(title).toHaveText('')
+  await expect(title).toHaveText('Lvce Editor')
 }

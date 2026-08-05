@@ -185,7 +185,8 @@ test('loadContent2 - handles empty workspace URI', async () => {
 
   const result = await LoadContent2.loadContent2(mockState)
 
-  expect(result.title).toBe('')
+  expect(result.title).toBe('Lvce Editor')
+  expect(result.titleWidth).toBe(110)
   expect(result.iconWidth).toBe(30)
 })
 
