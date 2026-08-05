@@ -67,3 +67,28 @@ test('getTitle - with titleTemplate without variables', () => {
   const result: string = GetTitle.getTitle('/home/user/project', 'My Custom Title', APP_NAME)
   expect(result).toBe('My Custom Title')
 })
+
+test('getTitle - remote ssh workspace', () => {
+  const result: string = GetTitle.getTitle('remote-ssh://example.com/home/user/project', '${folderName}', APP_NAME)
+  expect(result).toBe('project [SSH: example.com]')
+})
+
+test('getTitle - remote ssh workspace with user and port', () => {
+  const result: string = GetTitle.getTitle('remote-ssh://user@example.com:2222/home/user/project', '${folderName}', APP_NAME)
+  expect(result).toBe('project [SSH: example.com]')
+})
+
+test('getTitle - remote ssh root workspace', () => {
+  const result: string = GetTitle.getTitle('remote-ssh://example.com/', '${folderName}', APP_NAME)
+  expect(result).toBe('[SSH: example.com]')
+})
+
+test('getTitle - remote ssh workspace with custom title', () => {
+  const result: string = GetTitle.getTitle('remote-ssh://example.com/home/user/project', 'My Custom Title', APP_NAME)
+  expect(result).toBe('My Custom Title [SSH: example.com]')
+})
+
+test('getTitle - malformed remote ssh workspace without host', () => {
+  const result: string = GetTitle.getTitle('remote-ssh:///home/user/project', '${folderName}', APP_NAME)
+  expect(result).toBe('project')
+})
