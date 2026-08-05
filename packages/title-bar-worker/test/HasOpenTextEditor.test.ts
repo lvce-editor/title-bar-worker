@@ -57,5 +57,16 @@ test('hasOpenTextEditor - unavailable getter', async () => {
   using mockRpc = RendererWorker.registerMockRpc({})
 
   await expect(hasOpenTextEditor()).resolves.toBe(false)
-  expect(mockRpc.invocations).toEqual([['GetActiveEditor.getOpenEditorUris']])
+  expect(mockRpc.invocations).toEqual([['GetActiveEditor.getOpenEditorUris'], ['GetActiveEditor.getActiveEditorId']])
+})
+
+test('hasOpenTextEditor - active text editor fallback', async () => {
+  using mockRpc = RendererWorker.registerMockRpc({
+    'GetActiveEditor.getActiveEditorId'() {
+      return 42
+    },
+  })
+
+  await expect(hasOpenTextEditor()).resolves.toBe(true)
+  expect(mockRpc.invocations).toEqual([['GetActiveEditor.getOpenEditorUris'], ['GetActiveEditor.getActiveEditorId']])
 })

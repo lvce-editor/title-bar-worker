@@ -49,11 +49,23 @@ const isTextEditorUri = (uri: unknown): boolean => {
   return !nonTextEditorExtensions.has(extension)
 }
 
-export const hasOpenTextEditor = async (): Promise<boolean> => {
+const hasActiveTextEditor = async (): Promise<boolean> => {
   try {
-    const openEditorUris = await RendererWorker.invoke('GetActiveEditor.getOpenEditorUris')
-    return Array.isArray(openEditorUris) && openEditorUris.some(isTextEditorUri)
+    const activeEditorId = await RendererWorker.invoke('GetActiveEditor.getActiveEditorId')
+    return typeof activeEditorId === 'number' && activeEditorId >= 0
   } catch {
     return false
   }
+}
+
+export const hasOpenTextEditor = async (): Promise<boolean> => {
+  try {
+    const openEditorUris = await RendererWorker.invoke('GetActiveEditor.getOpenEditorUris')
+    if (Array.isArray(openEditorUris)) {
+      return openEditorUris.some(isTextEditorUri)
+    }
+  } catch {
+    // Older renderer workers do not expose the open editor URI list.
+  }
+  return hasActiveTextEditor()
 }
