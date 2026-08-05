@@ -2,7 +2,10 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-selection-submenu'
 
-export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
+export const test: Test = async ({ expect, Locator, Main, TitleBarMenuBar }) => {
+  // arrange - ensure there is no active text editor
+  await Main.closeAllEditors()
+
   // act - focus menu bar
   await TitleBarMenuBar.focus()
 
