@@ -30,7 +30,8 @@ export const test: Test = async ({ expect, Locator, Main, TitleBarMenuBar }) => 
   await expect(commandItems).toHaveCount(14)
   for (let index = 0; index < 14; index++) {
     const commandItem = commandItems.nth(index)
-    await expect(commandItem).toHaveAttribute('disabled', '')
+    await expect(commandItem).toHaveAttribute('aria-disabled', 'true')
+    await expect(commandItem).toHaveClass('MenuItemDisabled')
   }
 
   // assert - verify expected menu items in Selection submenu
