@@ -7,7 +7,7 @@ export const test: Test = async ({ Command, expect, Locator }) => {
   const title = Locator('.TitleBarTitle')
 
   // act
-  await Command.execute('Workspace.setUri', 'remote-ssh://user@example.com/home/user/my-project', '/')
+  await Command.execute('TitleBar.handleWorkspaceChange', 'remote-ssh://user@example.com/home/user/my-project')
 
   // assert
   await expect(title).toBeVisible()
