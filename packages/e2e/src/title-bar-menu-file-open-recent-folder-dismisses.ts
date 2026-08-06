@@ -3,7 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'title-bar-menu-file-open-recent-folder-dismisses'
 
 export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
-  const tmpDir = await FileSystem.getTmpDir({ scheme: 'memfs' })
+  const tmpDir = await FileSystem.getTmpDir()
   const recentFolder = `${tmpDir}/recent-folder`
   const currentFolder = `${tmpDir}/current-folder`
   await Workspace.setPath(currentFolder)
