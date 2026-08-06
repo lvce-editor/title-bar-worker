@@ -3,8 +3,8 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'title-bar-menu-file-open-recent-folder-dismisses'
 
 // Persisting recently-opened.json is not supported by the Windows E2E file-system fixture.
-const runtime = globalThis as typeof globalThis & { process?: { platform?: string } }
-export const skip = runtime.process?.platform === 'win32'
+const runtime = globalThis as typeof globalThis & { navigator?: { platform?: string } }
+export const skip = runtime.navigator?.platform === 'Win32'
 
 export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
