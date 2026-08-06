@@ -27,7 +27,7 @@ test('selectIndexNone executes command and closes menu', async () => {
   expect(mockRpc.invocations).toEqual([['Editor.cut']])
 })
 
-test('selectIndexNone preserves a workspace title changed by the command', async () => {
+test('selectIndexNone closes the latest state after a workspace change', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     isMenuOpen: true,
@@ -58,5 +58,12 @@ test('selectIndexNone preserves a workspace title changed by the command', async
   expect(result.menus).toEqual([])
   expect(result.title).toBe('titlebar-alpha')
   expect(result.workspaceUri).toBe('/tmp/titlebar-alpha')
+  expect(TitleBarMenuBarStates.get(state.uid).newState).toMatchObject({
+    focusedIndex: -1,
+    isMenuOpen: false,
+    menus: [],
+    title: 'titlebar-alpha',
+    workspaceUri: '/tmp/titlebar-alpha',
+  })
   expect(mockRpc.invocations).toEqual([['Workspace.setPath', '/tmp/titlebar-alpha']])
 })

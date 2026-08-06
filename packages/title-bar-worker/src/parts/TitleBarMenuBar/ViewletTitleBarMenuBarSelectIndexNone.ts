@@ -6,11 +6,16 @@ import * as TitleBarMenuBarStates from '../TitleBarMenuBarStates/TitleBarMenuBar
 export const selectIndexNone = async (state: TitleBarMenuBarState, item: MenuEntry): Promise<TitleBarMenuBarState> => {
   const { uid } = state
   await ExecuteMenuItemcommand.executeMenuItemCommand(item)
-  const latestState = TitleBarMenuBarStates.get(uid)?.newState ?? state
-  return {
+  const storedState = TitleBarMenuBarStates.get(uid)
+  const latestState = storedState?.newState ?? state
+  const newState = {
     ...latestState,
     focusedIndex: -1,
     isMenuOpen: false,
     menus: [],
   }
+  if (storedState) {
+    TitleBarMenuBarStates.set(uid, storedState.oldState, newState, newState)
+  }
+  return newState
 }
