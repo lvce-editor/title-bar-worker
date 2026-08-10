@@ -69,7 +69,7 @@ export const getMenuEntries = async (platform: number, autoSave?: string, hasAct
     },
     {
       command: 'Main.saveAll',
-      flags: saveFlags,
+      flags: MenuItemFlags.Disabled,
       id: 'saveAll',
       label: FileStrings.saveAll(),
     },

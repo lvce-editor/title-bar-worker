@@ -43,7 +43,7 @@ test('getMenuEntries - save commands are disabled by default', async () => {
   )
 })
 
-test('getMenuEntries - save commands are enabled with active text editor', async () => {
+test('getMenuEntries - save is enabled with active text editor', async () => {
   const entries = await getMenuEntries(PlatformType.Web, 'off', true)
   expect(entries).toEqual(
     expect.arrayContaining([
@@ -52,7 +52,7 @@ test('getMenuEntries - save commands are enabled with active text editor', async
         id: 'save',
       }),
       expect.objectContaining({
-        flags: MenuItemFlags.None,
+        flags: MenuItemFlags.Disabled,
         id: 'saveAll',
       }),
     ]),
