@@ -1,8 +1,11 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
+import { WhenExpression } from '@lvce-editor/constants'
+import { createMockRpc } from '@lvce-editor/rpc'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
 import * as Render3 from '../src/parts/Render3/Render3.ts'
+import * as RendererProcess from '../src/parts/RendererProcess/RendererProcess.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 test('render3 - should return empty array when diffResult is empty', async () => {
@@ -40,4 +43,33 @@ test('render3 - should update state after rendering', async () => {
   // Verify that the state was updated (oldState should now equal newState)
   const { newState: updatedNewState, oldState: updatedOldState } = TitleBarMenuBarStates.get(uid)
   expect(updatedOldState).toBe(updatedNewState)
+})
+
+test('render3 queues renderer commands and returns a lightweight commit marker', async () => {
+  const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 17)
+  RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
+  const uid = 4
+  const state = { ...CreateDefaultState.createDefaultState(), uid }
+  TitleBarMenuBarStates.set(uid, state, state)
+
+  const result = await Render3.render3(uid, [DiffType.RenderMenus])
+
+  expect(queueCommands).toHaveBeenCalledWith(uid, [['Viewlet.send', uid, 'setMenus', [], uid]])
+  expect(result).toEqual([['Viewlet.commitPending', uid, 17]])
+})
+
+test('render3 leaves focus context management with the renderer worker', async () => {
+  const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 23)
+  RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
+  const uid = 5
+  const state = { ...CreateDefaultState.createDefaultState(), uid }
+  TitleBarMenuBarStates.set(uid, state, state)
+
+  const result = await Render3.render3(uid, [DiffType.RenderFocusContext])
+
+  expect(queueCommands).toHaveBeenCalledWith(uid, [])
+  expect(result).toEqual([
+    ['Viewlet.setFocusContext', uid, WhenExpression.FocusTitleBarMenuBar],
+    ['Viewlet.commitPending', uid, 23],
+  ])
 })

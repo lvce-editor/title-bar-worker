@@ -13,6 +13,7 @@ import * as HandleCommandCenterClick from '../HandleCommandCenterClick/HandleCom
 import * as HandleCommandCenterKeyDown from '../HandleCommandCenterKeyDown/HandleCommandCenterKeyDown.ts'
 import * as HandleContextMenu from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleElectronMenuClick } from '../HandleElectronMenuClick/HandleElectronMenuClick.ts'
+import * as HandleMessagePort from '../HandleMessagePort/HandleMessagePort.ts'
 import * as HandlePointerOut from '../HandlePointerOut/HandlePointerOut.ts'
 import * as HandlePointerOver from '../HandlePointerOver/HandlePointerOver.ts'
 import * as HandleTitleBarContextMenu from '../HandleTitleBarContextMenu/HandleTitleBarContextMenu.ts'
@@ -100,6 +101,7 @@ export const commandMap = {
   'TitleBar.handleKeySpace': wrapCommand(ViewletTitleBarMenuBarHandleKeySpace.handleKeySpace),
   'TitleBar.handleMenuClick': wrapCommand(ViewletTitleBarMenuBarHandleMenuClick.handleMenuClick),
   'TitleBar.handleMenuMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver),
+  'TitleBar.handleMessagePort': HandleMessagePort.handleMessagePort,
   'TitleBar.handleMouseOut': wrapCommand(ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut),
   'TitleBar.handleMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBar.handlePointerOut': wrapCommand(HandlePointerOut.handlePointerOut),
