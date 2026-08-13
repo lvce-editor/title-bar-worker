@@ -73,3 +73,17 @@ test('render3 leaves focus context management with the renderer worker', async (
     ['Viewlet.commitPending', uid, 23],
   ])
 })
+
+test('render3 queues focused index commands with the view id', async () => {
+  const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 29)
+  RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
+  const uid = 6
+  const oldState = { ...CreateDefaultState.createDefaultState(), uid }
+  const newState = { ...oldState, focusedIndex: 1 }
+  TitleBarMenuBarStates.set(uid, oldState, newState)
+
+  const result = await Render3.render3(uid, [DiffType.RenderFocusedIndex])
+
+  expect(queueCommands).toHaveBeenCalledWith(uid, [['Viewlet.focusSelector', uid, '.ViewletTitleBarMenuBar']])
+  expect(result).toEqual([['Viewlet.commitPending', uid, 29]])
+})
