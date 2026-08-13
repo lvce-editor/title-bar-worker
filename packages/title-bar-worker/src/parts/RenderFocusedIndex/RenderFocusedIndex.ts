@@ -5,5 +5,5 @@ export const renderFocusedIndex = (oldState: TitleBarMenuBarState, newState: Tit
   if (newState.focusedIndex === -1) {
     return []
   }
-  return [ViewletCommand.FocusSelector, '.ViewletTitleBarMenuBar']
+  return [ViewletCommand.FocusSelector, newState.uid, '.ViewletTitleBarMenuBar']
 }
