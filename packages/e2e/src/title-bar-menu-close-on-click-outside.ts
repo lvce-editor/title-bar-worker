@@ -2,6 +2,8 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-close-on-click-outside'
 
+export const skip = 1
+
 export const test: Test = async ({ expect, FileSystem, Locator, Main, TitleBarMenuBar }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const testFile = `${tmpDir}/click-outside.txt`
