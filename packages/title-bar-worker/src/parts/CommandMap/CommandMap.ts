@@ -61,6 +61,8 @@ import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTit
 import { getCommandIds, wrapCommand, wrapGetter } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 import { wakeUp } from '../WakeUp/WakeUp.ts'
 
+const handleDirectMessagePort = (port: MessagePort): Promise<void> => HandleMessagePort.handleMessagePort(port, commandMap)
+
 export const commandMap = {
   'TitleBar.closeMenu': wrapCommand(CloseMenu.closeMenu),
   'TitleBar.create': TitleBarMenuBar.create,
@@ -101,7 +103,7 @@ export const commandMap = {
   'TitleBar.handleKeySpace': wrapCommand(ViewletTitleBarMenuBarHandleKeySpace.handleKeySpace),
   'TitleBar.handleMenuClick': wrapCommand(ViewletTitleBarMenuBarHandleMenuClick.handleMenuClick),
   'TitleBar.handleMenuMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver),
-  'TitleBar.handleMessagePort': HandleMessagePort.handleMessagePort,
+  'TitleBar.handleMessagePort': handleDirectMessagePort,
   'TitleBar.handleMouseOut': wrapCommand(ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut),
   'TitleBar.handleMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMouseOver.handleMouseOver),
   'TitleBar.handlePointerOut': wrapCommand(HandlePointerOut.handlePointerOut),
