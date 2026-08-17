@@ -13,8 +13,8 @@
   "dependencies": {
     "@lvce-editor/quick-pick-worker": "4.9.0",
     "@lvce-editor/server": "0.103.19",
-    "@lvce-editor/shared-process": "0.92.0",
-    "@lvce-editor/static-server": "0.92.0"
+    "@lvce-editor/shared-process": "0.103.19",
+    "@lvce-editor/static-server": "0.103.19"
   },
   "devDependencies": {
     "@types/node": "^26.0.0"
