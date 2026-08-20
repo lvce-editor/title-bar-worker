@@ -48,6 +48,11 @@ test('getTitle - file protocol uri', () => {
   expect(result).toBe('workspace')
 })
 
+test('getTitle - decodes file protocol uri folder name', () => {
+  const result: string = GetTitle.getTitle('file:///path/to/workspace%20%E2%80%93%20%C3%BC', '${folderName}', APP_NAME)
+  expect(result).toBe('workspace – ü')
+})
+
 test('getTitle - windows path', () => {
   const result: string = GetTitle.getTitle('C:\\Users\\user\\project', '${folderName}', APP_NAME)
   expect(result).toBe('project')

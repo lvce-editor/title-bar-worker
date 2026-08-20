@@ -8,7 +8,12 @@ const startsWithHomeDir = (homeDir: string, path: string): boolean => {
 
 export const getPath = (uri: string): string => {
   if (uri.startsWith(Protocol.File)) {
-    return uri.slice(Protocol.File.length)
+    const path = uri.slice(Protocol.File.length)
+    try {
+      return decodeURIComponent(path)
+    } catch {
+      return path
+    }
   }
   return uri
 }
