@@ -1,0 +1,36 @@
+[
+  {
+    "category": "window",
+    "description": "Controls whether the active workspace or editor title is shown in the title bar.",
+    "heading": "Show Window Title",
+    "id": "titleBar.titleEnabled",
+    "type": 3,
+    "value": "false"
+  },
+  {
+    "category": "window",
+    "description": "Controls whether the native window controls are overlaid on the custom title bar.",
+    "heading": "Window Controls Overlay",
+    "id": "window.controlsOverlay.enabled",
+    "type": 3,
+    "value": "true"
+  },
+  {
+    "category": "window",
+    "description": "Controls whether the window uses the native or custom title bar.",
+    "heading": "Title Bar Style",
+    "id": "window.titleBarStyle",
+    "options": [
+      {
+        "id": "native",
+        "label": "Native"
+      },
+      {
+        "id": "custom",
+        "label": "Custom"
+      }
+    ],
+    "type": 1,
+    "value": "custom"
+  }
+]
