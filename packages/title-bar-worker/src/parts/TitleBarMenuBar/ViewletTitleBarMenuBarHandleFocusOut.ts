@@ -2,7 +2,8 @@ import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuB
 import { closeMenu } from './ViewletTitleBarMenuBarCloseMenu.ts'
 
 export const handleFocusOut = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
-  if (state.isMenuOpen) {
+  const { isMenuOpen } = state
+  if (isMenuOpen) {
     return state
   }
   const closedState = closeMenu(state, /* keepFocus */ false)
