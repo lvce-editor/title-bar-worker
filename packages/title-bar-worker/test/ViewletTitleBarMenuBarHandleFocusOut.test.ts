@@ -9,6 +9,23 @@ test('handleFocusOut returns same state', async () => {
   expect(result).toBe(state)
 })
 
+test('handleFocusOut clears focus after a menu has closed', async () => {
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
+    focused: true,
+    focusedIndex: 1,
+  }
+
+  const result = await ViewletTitleBarMenuBarHandleFocusOut.handleFocusOut(state)
+
+  expect(result).toMatchObject({
+    focused: false,
+    focusedIndex: -1,
+    isMenuOpen: false,
+    menus: [],
+  })
+})
+
 test('handleFocusOut keeps an open menu unchanged while renderer focus filtering decides whether to close it', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
