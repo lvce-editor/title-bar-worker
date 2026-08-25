@@ -12,6 +12,9 @@ const getNewMenus = async (menus: readonly IMenu[], level: number, index: number
     return menus
   }
   const { focusedIndex, items, x, y } = menu
+  if (flags === MenuItemFlags.Separator) {
+    return menus
+  }
   const item = items[index]
   if (focusedIndex === index) {
     if (index === -1) {
