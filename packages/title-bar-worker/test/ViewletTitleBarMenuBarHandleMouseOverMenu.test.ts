@@ -766,17 +766,22 @@ test('handleMouseOverMenu - focus disabled item', async () => {
   expect(result.menus[0].focusedIndex).toBe(0)
 })
 
-test('handleMouseOverMenu - focus separator item', async () => {
+test('handleMouseOverMenu - preserve focused item when hovering separator', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     menus: [
       {
-        focusedIndex: -1,
+        focusedIndex: 1,
         items: [
           {
             command: '',
             flags: MenuItemFlags.Separator,
             label: '',
+          },
+          {
+            command: 'newFile',
+            flags: MenuItemFlags.None,
+            label: 'New File',
           },
         ],
         level: 0,
@@ -786,7 +791,7 @@ test('handleMouseOverMenu - focus separator item', async () => {
     ],
   }
   const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 0)
-  expect(result.menus[0].focusedIndex).toBe(0)
+  expect(result).toBe(state)
 })
 
 test('handleMouseOverMenu - focus checked item', async () => {
