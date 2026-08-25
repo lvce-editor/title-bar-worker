@@ -9,5 +9,9 @@ export const handleClick = async (state: TitleBarMenuBarState, button: number, i
   if (index === -1) {
     return state
   }
-  return ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, index)
+  const newState = await ViewletTitleBarMenuBarToggleIndex.toggleIndex(state, index)
+  return {
+    ...newState,
+    focused: true,
+  }
 }
