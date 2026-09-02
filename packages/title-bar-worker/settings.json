@@ -4,7 +4,7 @@
     "description": "Controls whether the active workspace or editor title is shown in the title bar.",
     "heading": "Show Window Title",
     "id": "titleBar.titleEnabled",
-    "type": 3,
+    "type": "boolean",
     "value": "false"
   },
   {
@@ -12,7 +12,7 @@
     "description": "Controls whether the native window controls are overlaid on the custom title bar.",
     "heading": "Window Controls Overlay",
     "id": "window.controlsOverlay.enabled",
-    "type": 3,
+    "type": "boolean",
     "value": "true"
   },
   {
@@ -30,7 +30,7 @@
         "label": "Custom"
       }
     ],
-    "type": 1,
+    "type": "enum",
     "value": "custom"
   }
 ]
