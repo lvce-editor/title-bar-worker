@@ -7,7 +7,7 @@ import * as UiStrings from '../UiStrings/UiStrings.ts'
 export const getMenuEntries = (): readonly MenuEntry[] => {
   return [
     {
-      command: 'Command.openCommandPalette',
+      command: 'QuickPick.showCommands',
       flags: MenuItemFlags.None,
       id: 'commandPalette',
       label: I18NString.i18nString(UiStrings.CommandPalette),

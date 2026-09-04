@@ -7,7 +7,7 @@ test('getMenuEntries', () => {
   const result = getMenuEntries()
   expect(result).toEqual([
     {
-      command: 'Command.openCommandPalette',
+      command: 'QuickPick.showCommands',
       flags: MenuItemFlags.None,
       id: 'commandPalette',
       label: 'Command Palette',
