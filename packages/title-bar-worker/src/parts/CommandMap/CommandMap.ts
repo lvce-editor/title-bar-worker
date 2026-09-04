@@ -2,8 +2,8 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create3 from '../Create3/Create3.ts'
 import * as Diff3 from '../Diff3/Diff3.ts'
 import { hydrate } from '../ElectronApplicationMenu/ElectronApplicationMenu.ts'
-import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import * as GetComponentState from '../GetComponentState/GetComponentState.ts'
+import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
 import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts'
@@ -26,8 +26,8 @@ import * as Render3 from '../Render3/Render3.ts'
 import * as RenderEventListeners from '../RenderEventListeners/RenderEventListeners.ts'
 import { resize } from '../Resize/Resize.ts'
 import * as SaveState from '../SaveState/SaveState.ts'
-import { setPlatform } from '../SetPlatform/SetPlatform.ts'
 import * as SetComponentState from '../SetComponentState/SetComponentState.ts'
+import { setPlatform } from '../SetPlatform/SetPlatform.ts'
 import { setTitleTemplate } from '../SetTitleTemplate/SetTitleTemplate.ts'
 import { setWidth } from '../SetWidth/SetWidth.ts'
 import { showCommandCenter } from '../ShowCommandCenter/ShowCommandCenter.ts'
@@ -122,8 +122,8 @@ export const commandMap = {
   'TitleBar.renderEventListeners': RenderEventListeners.renderEventListeners,
   'TitleBar.resize': wrapCommand(resize),
   'TitleBar.saveState': wrapGetter(SaveState.saveState),
-  'TitleBar.setPlatform': wrapCommand(setPlatform),
   'TitleBar.setComponentState': SetComponentState.setComponentState,
+  'TitleBar.setPlatform': wrapCommand(setPlatform),
   'TitleBar.setTitleTemplate': wrapCommand(setTitleTemplate),
   'TitleBar.setWidth': wrapCommand(setWidth),
   'TitleBar.showCommandCenter': wrapCommand(showCommandCenter),
