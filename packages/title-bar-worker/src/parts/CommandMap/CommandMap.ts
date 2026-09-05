@@ -2,6 +2,7 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create3 from '../Create3/Create3.ts'
 import * as Diff3 from '../Diff3/Diff3.ts'
 import { hydrate } from '../ElectronApplicationMenu/ElectronApplicationMenu.ts'
+import { getComponentDom } from '../GetComponentDom/GetComponentDom.ts'
 import * as GetComponentState from '../GetComponentState/GetComponentState.ts'
 import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
@@ -80,6 +81,7 @@ export const commandMap = {
   'TitleBar.focusPrevious': wrapCommand(ViewletTitleBarMenuBarFocusPrevious.focusPrevious),
   'TitleBar.getCommandIds': getCommandIds,
   'TitleBar.getCommands': getCommandIds,
+  'TitleBar.getComponentDom': getComponentDom,
   'TitleBar.getComponentState': GetComponentState.getComponentState,
   'TitleBar.getKeyBindings': GetKeyBindings.getKeyBindings,
   'TitleBar.getMenuEntries2': wrapGetter(getMenuEntries2),
