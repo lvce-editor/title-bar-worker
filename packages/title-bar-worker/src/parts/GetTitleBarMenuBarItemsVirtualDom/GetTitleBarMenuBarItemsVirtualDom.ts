@@ -4,7 +4,6 @@ import type { VisibleMenuItem } from '../VisibleMenuItem/VisibleMenuItem.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 
 const getItemVirtualDom = (item: VisibleMenuItem): readonly VirtualDomNode[] => {
-  // @ts-ignore
   const { ariaLabel, isFocused, isOpen, keyboardShortCut, label } = item
   let className = ClassNames.TitleBarTopLevelEntry
   if (isFocused) {
