@@ -175,7 +175,10 @@ test('focusIndex - when open - race condition', async () => {
   expect(result.menus).toHaveLength(1)
   expect(result.menus[0].level).toBe(0)
   expect(result.menus[0].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('focusIndex - when closed - when same index', async () => {

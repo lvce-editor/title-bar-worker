@@ -80,3 +80,23 @@ export const toggleDeveloperTools = (): string => {
 export const undo = (): string => {
   return I18nString.i18nString(UiStrings.Undo)
 }
+
+export const selection = (): string => {
+  return I18nString.i18nString(UiStrings.Selection)
+}
+
+export const view = (): string => {
+  return I18nString.i18nString(UiStrings.View)
+}
+
+export const go = (): string => {
+  return I18nString.i18nString(UiStrings.Go)
+}
+
+export const run = (): string => {
+  return I18nString.i18nString(UiStrings.Run)
+}
+
+export const terminal = (): string => {
+  return I18nString.i18nString(UiStrings.Terminal)
+}

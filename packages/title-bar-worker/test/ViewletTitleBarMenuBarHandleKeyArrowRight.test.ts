@@ -73,5 +73,8 @@ test('handleKeyArrowRight - open sub menu', async () => {
   expect(result.menus[0].focusedIndex).toBe(1)
   expect(result.menus[1].level).toBe(1)
   expect(result.menus[1].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
