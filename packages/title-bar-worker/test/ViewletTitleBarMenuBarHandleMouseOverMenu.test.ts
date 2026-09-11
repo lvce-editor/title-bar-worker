@@ -1,12 +1,14 @@
 import { expect, test } from '@jest/globals'
-import '../test-support/MockMenuWorker.ts'
+
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleMenuMouseOver from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
-import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('handleMouseOverMenu - focus item', async () => {
   const state: TitleBarMenuBarState = {
@@ -155,7 +157,10 @@ test('handleMouseOverMenu - open sub menu', async () => {
   expect(result.menus[0].focusedIndex).toBe(2)
   expect(result.menus[1].level).toBe(1)
   expect(result.menus[1].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('handleMouseOverMenu - unfocus sub menu', async () => {
@@ -541,7 +546,10 @@ test('handleMouseOverMenu - open submenu when already focused on different item'
   expect(result.menus[0].focusedIndex).toBe(1)
   expect(result.menus[0].expanded).toBe(true)
   expect(result.menus[1].level).toBe(1)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('handleMouseOverMenu - hover over submenu item when submenu already open', async () => {
@@ -691,7 +699,10 @@ test('handleMouseOverMenu - replace stale submenu when parent was not focused', 
   expect(result.menus[0].focusedIndex).toBe(0)
   expect(result.menus[0].expanded).toBe(true)
   expect(result.menus[1].level).toBe(1)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('handleMouseOverMenu - hover over submenu item when level is not second to last', async () => {
@@ -854,7 +865,10 @@ test('handleMouseOverMenu - multiple level submenu navigation', async () => {
   expect(result.menus[1].level).toBe(1)
   expect(result.menus[1].x).toBe(150)
   expect(result.menus[1].y).toBe(0)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('handleMouseOverMenu - submenu position calculation', async () => {
@@ -987,7 +1001,10 @@ test('handleMouseOverMenu - replace existing submenu when hovering different sub
   expect(result.menus[0].focusedIndex).toBe(1)
   expect(result.menus[0].expanded).toBe(true)
   expect(result.menus[1].level).toBe(1)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('handleMouseOverMenu - retain ancestors when opening a nested submenu', async () => {
@@ -1023,7 +1040,10 @@ test('handleMouseOverMenu - retain ancestors when opening a nested submenu', asy
   expect(result.menus[0]).toBe(rootMenu)
   expect(result.menus[1]).toMatchObject({ expanded: true, focusedIndex: 0, level: 1 })
   expect(result.menus[2]).toMatchObject({ focusedIndex: -1, level: 2, x: 300, y: 0 })
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('handleMouseOverMenu - close submenu and preserve menu properties when updating focus', async () => {

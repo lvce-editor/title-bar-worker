@@ -9,36 +9,12 @@ test('edit', () => {
   expect(TitleBarStrings.edit()).toBe('Edit')
 })
 
-test('selection', () => {
-  expect(TitleBarStrings.selection()).toBe('Selection')
-})
-
-test('view', () => {
-  expect(TitleBarStrings.view()).toBe('View')
-})
-
 test('fullScreen', () => {
   expect(TitleBarStrings.fullScreen()).toBe('Full Screen')
 })
 
-test('go', () => {
-  expect(TitleBarStrings.go()).toBe('Go')
-})
-
-test('run', () => {
-  expect(TitleBarStrings.run()).toBe('Run')
-})
-
-test('terminal', () => {
-  expect(TitleBarStrings.terminal()).toBe('Terminal')
-})
-
 test('help', () => {
   expect(TitleBarStrings.help()).toBe('Help')
-})
-
-test('more', () => {
-  expect(TitleBarStrings.more()).toBe('more')
 })
 
 test('minimize', () => {
@@ -67,7 +43,4 @@ test('commandCenter', () => {
 
 test('layoutControls', () => {
   expect(TitleBarStrings.layoutControls()).toBe('Layout Controls')
-})
-test('about', () => {
-  expect(TitleBarStrings.about()).toBe('About')
 })

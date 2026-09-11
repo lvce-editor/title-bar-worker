@@ -7,16 +7,19 @@ export const menuWorkerCommands = {
   async 'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker'(port: MessagePort): Promise<void> {
     const rpc = await PlainMessagePortRpc.create({
       commandMap: {
-        'Menu.getTitleBarMenuEntries': () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
+        'Menu.getTitleBarMenuEntries': (id: string | number) => (id === -1 ? [] : [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }]),
       },
       messagePort: port,
     })
     connections.push(rpc)
   },
 }
-beforeEach(() => {
-  RendererWorker.registerMockRpc(menuWorkerCommands)
-})
-afterEach(async () => {
-  await Promise.all(connections.splice(0).map((rpc) => rpc.dispose()))
-})
+export const setupMenuWorker = (): void => {
+  beforeEach(() => {
+    RendererWorker.registerMockRpc(menuWorkerCommands)
+  })
+  afterEach(async () => {
+    await Promise.all(connections.map((rpc) => rpc.dispose()))
+    connections.length = 0
+  })
+}

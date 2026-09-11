@@ -1,9 +1,12 @@
-import '../test-support/MockMenuWorker.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
 import { expect, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowDownMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowDownMenuOpen.ts'
+
+setupMenuWorker()
 
 test('handleKeyArrowDownMenuOpen - focus next item', () => {
   const state: TitleBarMenuBarState = {

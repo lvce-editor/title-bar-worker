@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import '../test-support/MockMenuWorker.ts'
+
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
@@ -12,7 +12,9 @@ import { handleMenuClick } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMen
 import { handleMenuMouseOver } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
 import { handleMouseOverMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOverMenuOpen.ts'
 import { openMenuAtIndex } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
-import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 const menu = { focusedIndex: -1, items: [], level: 0, x: 0, y: 0 }
 

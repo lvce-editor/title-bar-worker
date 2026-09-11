@@ -1,10 +1,12 @@
 import { expect, test } from '@jest/globals'
-import '../test-support/MockMenuWorker.ts'
+
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ElectronApplicationMenu from '../src/parts/ElectronApplicationMenu/ElectronApplicationMenu.ts'
-import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('hydrate - basic state with empty menu', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({

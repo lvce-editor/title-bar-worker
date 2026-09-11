@@ -1,11 +1,13 @@
 import { expect, test } from '@jest/globals'
-import '../test-support/MockMenuWorker.ts'
+
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarSelectIndexRestoreFocus from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexRestoreFocus.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
-import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('selectIndexRestoreFocus executes command and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({

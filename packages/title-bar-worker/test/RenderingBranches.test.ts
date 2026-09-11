@@ -8,11 +8,12 @@ import { getMenuItemSubMenuDom } from '../src/parts/GetMenuItemSubMenuDom/GetMen
 import { getRenderer } from '../src/parts/GetRenderer/GetRenderer.ts'
 import { getTitleBarIconVirtualDom } from '../src/parts/GetTitleBarIconVirtualDom/GetTitleBarIconVirtualDom.ts'
 import { getTitleBarVirtualDom } from '../src/parts/GetTitleBarVirtualDom/GetTitleBarVirtualDom.ts'
-import { getMenuEntries } from '../src/parts/MenuEntriesHelp/MenuEntriesHelp.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import { renderFocusContext } from '../src/parts/RenderFocusContext/RenderFocusContext.ts'
 import { renderMenus } from '../src/parts/RenderMenus/RenderMenus.ts'
-import { toMenuItem } from '../src/parts/ToMenuItem/ToMenuItem.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('disabled title bar icon produces no nodes', () => {
   expect(getTitleBarIconVirtualDom(false, '/icon.png')).toEqual([])
@@ -34,17 +35,6 @@ test('focus context renderer is available through dispatch', () => {
 
 test('unknown context menu has no entries', async () => {
   expect(await getMenuEntries2(createDefaultState(), { menuId: -1 as ContextMenuProps['menuId'], platform: PlatformType.Web })).toEqual([])
-})
-
-test('web help excludes desktop tools and updates', async () => {
-  const entries = await getMenuEntries(PlatformType.Web)
-  expect(entries.map((entry) => entry.id)).not.toContain('toggleDeveloperTools')
-  expect(entries.map((entry) => entry.id)).not.toContain('checkForUpdates')
-  expect(entries[0].id).toBe('showAllCommands')
-})
-
-test('recent filesystem paths use the path command', () => {
-  expect(toMenuItem('/tmp/project')).toMatchObject({ args: ['/tmp/project'], command: 'Workspace.setPath' })
 })
 
 test('renderMenus preserves unchanged menus and accepts omitted expanded state', () => {

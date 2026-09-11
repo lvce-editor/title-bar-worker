@@ -1,12 +1,14 @@
 import { expect, test } from '@jest/globals'
-import '../test-support/MockMenuWorker.ts'
+
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarFocusIndex from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarFocusIndex.ts'
-import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('focusIndex - when open - when same index', async () => {
   const state: TitleBarMenuBarState = {
@@ -131,7 +133,10 @@ test('focusIndex - when opening different index', async () => {
   expect(result.menus).toHaveLength(1)
   expect(result.menus[0].level).toBe(0)
   expect(result.menus[0].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('focusIndex - when open - race condition', async () => {

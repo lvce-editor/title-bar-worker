@@ -1,12 +1,14 @@
 import { expect, test } from '@jest/globals'
-import '../test-support/MockMenuWorker.ts'
+
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyEnterMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.ts'
 import * as ViewletTitleBarMenuBarHandleKeySpaceMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpaceMenuOpen.ts'
-import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 const handlers = [
   ['Enter', ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.handleKeyEnterMenuOpen],

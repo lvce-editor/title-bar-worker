@@ -1,4 +1,7 @@
-import '../test-support/MockMenuWorker.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
+
 /* eslint-disable jest/no-restricted-jest-methods */
 import { expect, jest, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
