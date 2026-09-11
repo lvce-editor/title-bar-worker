@@ -2,10 +2,12 @@ import { MainProcess } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { getEntryMap } from '../GetMenuEntryMap/GetMenuEntryMap.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
+import { initializeMainProcess } from '../InitializeMainProcess/InitializeMainProcess.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as ToElectronMenu from '../ToElectronMenu/ToElectronMenu.ts'
 
 const setItems = async (items: readonly any[]): Promise<void> => {
+  await initializeMainProcess()
   return MainProcess.invoke('ElectronApplicationMenu.setItems', items)
 }
 

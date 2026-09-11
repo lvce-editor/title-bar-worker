@@ -1,5 +1,6 @@
+import { RpcId } from '@lvce-editor/constants'
 import { LazyTransferMessagePortRpcParent } from '@lvce-editor/rpc'
-import { MainProcess, RendererWorker } from '@lvce-editor/rpc-registry'
+import { get, MainProcess, RendererWorker } from '@lvce-editor/rpc-registry'
 
 const send = async (port: MessagePort): Promise<void> => {
   await RendererWorker.invokeAndTransfer(
@@ -11,6 +12,9 @@ const send = async (port: MessagePort): Promise<void> => {
 }
 
 export const initializeMainProcess = async (): Promise<void> => {
+  if (get(RpcId.MainProcess)) {
+    return
+  }
   const rpc = await LazyTransferMessagePortRpcParent.create({
     commandMap: {},
     send,

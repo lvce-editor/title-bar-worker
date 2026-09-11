@@ -1,7 +1,6 @@
 import { WebWorkerRpcClient } from '@lvce-editor/rpc'
 import { RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
 import * as CommandMap from '../CommandMap/CommandMap.ts'
-import { initializeMainProcess } from '../InitializeMainProcess/InitializeMainProcess.ts'
 import { registerCommands } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 export const listen = async (): Promise<void> => {
@@ -10,5 +9,4 @@ export const listen = async (): Promise<void> => {
     commandMap: CommandMap.commandMap,
   })
   ParentRpc.set(rpc)
-  await initializeMainProcess()
 }
