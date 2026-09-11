@@ -1,16 +1,14 @@
-import { expect, jest, test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
+import '../test-support/MockMenuWorker.ts'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
-  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
-}))
-
-const ElectronApplicationMenu = await import('../src/parts/ElectronApplicationMenu/ElectronApplicationMenu.ts')
+import * as ElectronApplicationMenu from '../src/parts/ElectronApplicationMenu/ElectronApplicationMenu.ts'
+import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
 
 test('hydrate - basic state with empty menu', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -38,6 +36,7 @@ test('hydrate - basic state with empty menu', async () => {
 
 test('hydrate - preserves state properties', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -65,6 +64,7 @@ test('hydrate - preserves state properties', async () => {
 
 test('hydrate - calls setItems with correct window id', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -92,6 +92,7 @@ test('hydrate - calls setItems with correct window id', async () => {
 
 test('hydrate - returns command map in result', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -116,6 +117,7 @@ test('hydrate - returns command map in result', async () => {
 
 test('hydrate - with different window ids', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -143,6 +145,7 @@ test('hydrate - with different window ids', async () => {
 
 test('hydrate - with different platforms', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -169,6 +172,7 @@ test('hydrate - with different platforms', async () => {
 
 test('hydrate - merges command map into state', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },

@@ -1,15 +1,12 @@
-import { expect, jest, test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
+import '../test-support/MockMenuWorker.ts'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
-  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
-}))
-
-const ViewletTitleBarMenuBarHandleMenuMouseOver = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts')
+import * as ViewletTitleBarMenuBarHandleMenuMouseOver from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
+import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
 
 test('handleMouseOverMenu - focus item', async () => {
   const state: TitleBarMenuBarState = {
@@ -116,6 +113,7 @@ test('handleMouseOverMenu - focus item - already focused', async () => {
 
 test('handleMouseOverMenu - open sub menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt', 'file:///home/user/file-2.txt'],
   })
 
@@ -509,6 +507,7 @@ test('handleMouseOverMenu - change focus to different item', async () => {
 
 test('handleMouseOverMenu - open submenu when already focused on different item', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt', 'file:///home/user/file-2.txt'],
   })
 
@@ -651,6 +650,7 @@ test('handleMouseOverMenu - hover over submenu item when submenu has focused ite
 
 test('handleMouseOverMenu - replace stale submenu when parent was not focused', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
@@ -696,6 +696,7 @@ test('handleMouseOverMenu - replace stale submenu when parent was not focused', 
 
 test('handleMouseOverMenu - hover over submenu item when level is not second to last', async () => {
   RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
@@ -824,6 +825,7 @@ test('handleMouseOverMenu - focus checked item', async () => {
 
 test('handleMouseOverMenu - multiple level submenu navigation', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
@@ -857,6 +859,7 @@ test('handleMouseOverMenu - multiple level submenu navigation', async () => {
 
 test('handleMouseOverMenu - submenu position calculation', async () => {
   RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
@@ -937,6 +940,7 @@ test('handleMouseOverMenu - hover over index -1 when focused', async () => {
 
 test('handleMouseOverMenu - replace existing submenu when hovering different submenu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
 
@@ -988,6 +992,7 @@ test('handleMouseOverMenu - replace existing submenu when hovering different sub
 
 test('handleMouseOverMenu - retain ancestors when opening a nested submenu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt'],
   })
   const rootMenu = {

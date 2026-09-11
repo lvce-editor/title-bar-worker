@@ -1,12 +1,8 @@
-import { expect, jest, test } from '@jest/globals'
+import '../test-support/MockMenuWorker.ts'
+import { expect, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
-  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
-}))
-
-const ViewletTitleBarMenuBarToggleIndex = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts')
+import * as ViewletTitleBarMenuBarToggleIndex from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 
 test('toggleIndex with menu closed opens menu at index', async () => {
   const state: TitleBarMenuBarState = {

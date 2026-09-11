@@ -1,13 +1,9 @@
-import { expect, jest, test } from '@jest/globals'
+import '../test-support/MockMenuWorker.ts'
+import { expect, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
-  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
-}))
-
-const ViewletTitleBarMenuBarHandleKeyHomeMenuOpen = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyHomeMenuOpen.ts')
+import * as ViewletTitleBarMenuBarHandleKeyHomeMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyHomeMenuOpen.ts'
 
 test('handleKeyHomeMenuOpen - focus first item', () => {
   const state: TitleBarMenuBarState = {

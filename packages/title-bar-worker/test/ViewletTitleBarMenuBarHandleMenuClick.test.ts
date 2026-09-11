@@ -1,16 +1,14 @@
-import { expect, jest, test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
+import '../test-support/MockMenuWorker.ts'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
-  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
-}))
-
-const ViewletTitleBarMenuBarHandleMenuClick = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuClick.ts')
+import * as ViewletTitleBarMenuBarHandleMenuClick from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuClick.ts'
+import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
 
 test('handleMenuClick executes checked menu item command', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Dialog.showMessage'() {},
   })
 
@@ -45,6 +43,7 @@ test('handleMenuClick executes checked menu item command', async () => {
 
 test('handleMenuClick restores editor focus for editor menu items', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Editor.selectAll'() {},
     'Main.focus'() {},
   })

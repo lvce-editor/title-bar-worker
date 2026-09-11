@@ -1,15 +1,12 @@
-import { expect, jest, test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
+import '../test-support/MockMenuWorker.ts'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
-  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
-}))
-
-const ViewletTitleBarMenuBarHandleKeyEnterMenuOpen = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.ts')
-const ViewletTitleBarMenuBarHandleKeySpaceMenuOpen = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpaceMenuOpen.ts')
+import * as ViewletTitleBarMenuBarHandleKeyEnterMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.ts'
+import * as ViewletTitleBarMenuBarHandleKeySpaceMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpaceMenuOpen.ts'
+import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
 
 const handlers = [
   ['Enter', ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.handleKeyEnterMenuOpen],
@@ -39,6 +36,7 @@ const createOpenState = (): TitleBarMenuBarState => ({
 
 test.each(handlers)('%s activates the focused menu item', async (key, handleKey) => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'QuickPick.showFile'() {},
   })
   const state = createOpenState()
@@ -62,6 +60,7 @@ test.each(handlers)('%s returns the same state when no menu is open', async (key
 
 test.each(handlers)('%s activates the focused item in the deepest menu', async (key, handleKey) => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'QuickPick.showFile'() {},
   })
   const state: TitleBarMenuBarState = {

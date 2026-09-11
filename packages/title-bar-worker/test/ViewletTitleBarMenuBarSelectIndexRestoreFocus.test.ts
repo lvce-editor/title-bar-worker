@@ -1,17 +1,15 @@
-import { expect, jest, test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
+import '../test-support/MockMenuWorker.ts'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as ViewletTitleBarMenuBarSelectIndexRestoreFocus from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexRestoreFocus.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
-  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
-}))
-
-const ViewletTitleBarMenuBarSelectIndexRestoreFocus = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexRestoreFocus.ts')
+import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
 
 test('selectIndexRestoreFocus executes command and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Editor.cut'() {},
   })
 
@@ -50,6 +48,7 @@ test('selectIndexRestoreFocus preserves state changes made by the command', asyn
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.close'() {
       const workspaceClosedState = {
         ...state,

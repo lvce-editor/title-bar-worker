@@ -1,22 +1,42 @@
 import { expect, jest, test } from '@jest/globals'
+import { PlainMessagePortRpc } from '@lvce-editor/rpc'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { getMenuEntries } from '../src/parts/MenuEntries/MenuEntries.ts'
 
-const invoke = jest.fn<(...args: readonly unknown[]) => Promise<unknown>>()
-const dispose = jest.fn<() => Promise<void>>()
-jest.unstable_mockModule('../src/parts/LaunchMenuWorker/LaunchMenuWorker.ts', () => ({
-  launchMenuWorker: async () => ({ invoke, [Symbol.asyncDispose]: dispose }),
-}))
-const { getMenuEntries } = await import('../src/parts/MenuEntries/MenuEntries.ts')
-
-test('loads submenu entries from menu worker and closes the connection', async () => {
+test('requests menu worker entries over a direct connection', async () => {
   const entries = [{ command: 'Editor.undo', flags: 0, label: 'Undo' }]
-  invoke.mockResolvedValueOnce(entries)
-  expect(await getMenuEntries('switchEditor', 2)).toBe(entries)
-  expect(invoke).toHaveBeenLastCalledWith('Menu.getTitleBarMenuEntries', 'switchEditor', 2)
-  expect(dispose).toHaveBeenCalledTimes(1)
+  const getEntries = jest.fn(() => entries)
+  let peer: Awaited<ReturnType<typeof PlainMessagePortRpc.create>> | undefined
+  using _mockRpc = RendererWorker.registerMockRpc({
+    async 'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker'(port: MessagePort) {
+      peer = await PlainMessagePortRpc.create({ commandMap: { 'Menu.getTitleBarMenuEntries': getEntries }, messagePort: port })
+    },
+  })
+  try {
+    expect(await getMenuEntries('switchEditor', 2)).toEqual(entries)
+    expect(getEntries).toHaveBeenCalledWith('switchEditor', 2)
+  } finally {
+    await peer?.dispose()
+  }
 })
 
-test('closes the connection when loading fails', async () => {
-  invoke.mockRejectedValueOnce(new Error('menu unavailable'))
-  await expect(getMenuEntries('switchGroup')).rejects.toThrow('menu unavailable')
-  expect(dispose).toHaveBeenCalledTimes(2)
+test('propagates a menu worker failure', async () => {
+  let peer: Awaited<ReturnType<typeof PlainMessagePortRpc.create>> | undefined
+  using _mockRpc = RendererWorker.registerMockRpc({
+    async 'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker'(port: MessagePort) {
+      peer = await PlainMessagePortRpc.create({
+        commandMap: {
+          'Menu.getTitleBarMenuEntries': () => {
+            throw new Error('menu unavailable')
+          },
+        },
+        messagePort: port,
+      })
+    },
+  })
+  try {
+    await expect(getMenuEntries('switchGroup')).rejects.toThrow('menu unavailable')
+  } finally {
+    await peer?.dispose()
+  }
 })

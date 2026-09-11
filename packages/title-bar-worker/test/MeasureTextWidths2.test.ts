@@ -1,3 +1,4 @@
+import '../test-support/MockMenuWorker.ts'
 /* eslint-disable jest/no-restricted-jest-methods */
 import { beforeEach, expect, jest, test } from '@jest/globals'
 

@@ -1,17 +1,15 @@
-import { expect, jest, test } from '@jest/globals'
+import { expect, test } from '@jest/globals'
+import '../test-support/MockMenuWorker.ts'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as ViewletTitleBarMenuBarSelectIndexNone from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexNone.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
-
-jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
-  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
-}))
-
-const ViewletTitleBarMenuBarSelectIndexNone = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexNone.ts')
+import { menuWorkerCommands } from '../test-support/MockMenuWorker.ts'
 
 test('selectIndexNone executes command and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Editor.cut'() {},
   })
 
@@ -41,6 +39,7 @@ test('selectIndexNone closes the latest state after a workspace change', async (
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.setPath'() {
       const newWorkspaceState = {
         ...state,

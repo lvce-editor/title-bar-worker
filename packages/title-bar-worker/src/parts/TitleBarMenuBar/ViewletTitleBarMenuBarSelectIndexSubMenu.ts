@@ -5,13 +5,14 @@ import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
 export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMenu, index: number): Promise<TitleBarMenuBarState> => {
+  const { platform } = state
   const { menus } = state
   const { items, level, x, y } = menu
   const item = items[index]
   if (!item.id) {
     return state
   }
-  const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id, state.platform)
+  const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id, platform)
   const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
   const subMenu = {
     focusedIndex: -1,
