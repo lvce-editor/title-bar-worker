@@ -4,7 +4,7 @@ setupMenuWorker()
 
 /* eslint-disable jest/no-restricted-jest-methods */
 import { PlatformType } from '@lvce-editor/constants'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { MainProcess, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
 
@@ -281,6 +281,10 @@ test('loadContent2 - respects titleBarStyleCustom setting', async () => {
 })
 
 test('loadContent2 - calls hydrate for Electron platform with titleBarStyleCustom false', async () => {
+  using mainProcess = MainProcess.registerMockRpc({
+    'ElectronApplicationMenu.setItems'() {},
+  })
+
   const mockState = createMockState({
     platform: PlatformType.Electron,
     titleBarStyleCustom: false,
@@ -288,14 +292,8 @@ test('loadContent2 - calls hydrate for Electron platform with titleBarStyleCusto
 
   using _mockRpc = RendererWorker.registerMockRpc({
     ...menuWorkerCommands,
-    'GetWindowId.getWindowId'() {
-      return 1
-    },
     'RecentlyOpened.getRecentlyOpened'() {
       return []
-    },
-    'WebView.compatSharedProcessInvoke'() {
-      return undefined
     },
     'Workspace.getUri'() {
       return '/home/user/project'
@@ -303,6 +301,8 @@ test('loadContent2 - calls hydrate for Electron platform with titleBarStyleCusto
   })
 
   const result = await LoadContent2.loadContent2(mockState)
+
+  expect(mainProcess.invocations).toEqual([['ElectronApplicationMenu.setItems', expect.any(Array)]])
 
   // When hydrate is called, it should still return a TitleBarMenuBarState
   expect(result).toBeDefined()
