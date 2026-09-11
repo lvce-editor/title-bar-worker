@@ -1,14 +1,12 @@
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { MainProcess } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { getEntryMap } from '../GetMenuEntryMap/GetMenuEntryMap.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
-import { getWindowId } from '../GetWindowId/GetWindowId.ts'
 import * as MenuEntryId from '../MenuEntryId/MenuEntryId.ts'
 import * as ToElectronMenu from '../ToElectronMenu/ToElectronMenu.ts'
 
 const setItems = async (items: readonly any[]): Promise<void> => {
-  const windowId = await getWindowId()
-  return RendererWorker.invoke('WebView.compatSharedProcessInvoke', 'ElectronApplicationMenu.setItems', windowId, items)
+  return MainProcess.invoke('ElectronApplicationMenu.setItems', items)
 }
 
 export const hydrate = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {

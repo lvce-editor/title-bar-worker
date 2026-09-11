@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { MainProcess, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ElectronApplicationMenu from '../src/parts/ElectronApplicationMenu/ElectronApplicationMenu.ts'
@@ -9,15 +9,13 @@ test('hydrate - basic state with empty menu', async () => {
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
-    'GetWindowId.getWindowId'() {
-      return 1
-    },
     'RecentlyOpened.getRecentlyOpened'() {
       return []
     },
-    'WebView.compatSharedProcessInvoke'() {
-      return undefined
-    },
+  })
+
+  using _mainProcess = MainProcess.registerMockRpc({
+    'ElectronApplicationMenu.setItems'() {},
   })
 
   const state: TitleBarMenuBarState = {
@@ -36,15 +34,13 @@ test('hydrate - preserves state properties', async () => {
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
-    'GetWindowId.getWindowId'() {
-      return 1
-    },
     'RecentlyOpened.getRecentlyOpened'() {
       return []
     },
-    'WebView.compatSharedProcessInvoke'() {
-      return undefined
-    },
+  })
+
+  using _mainProcess = MainProcess.registerMockRpc({
+    'ElectronApplicationMenu.setItems'() {},
   })
 
   const state: TitleBarMenuBarState = {
@@ -58,31 +54,27 @@ test('hydrate - preserves state properties', async () => {
   expect(result).toHaveProperty('menus')
 })
 
-test('hydrate - calls setItems with correct window id', async () => {
+test('hydrate - sends menu items directly to the main process', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
-    'GetWindowId.getWindowId'() {
-      return 5
-    },
     'RecentlyOpened.getRecentlyOpened'() {
       return []
     },
-    'WebView.compatSharedProcessInvoke'(methodName: string, rpcMethod: string, windowId: number) {
-      return undefined
-    },
+  })
+
+  using _mainProcess = MainProcess.registerMockRpc({
+    'ElectronApplicationMenu.setItems'() {},
   })
 
   const state: TitleBarMenuBarState = createDefaultState()
 
   await ElectronApplicationMenu.hydrate(state)
 
-  // Check that WebView.compatSharedProcessInvoke was called with correct arguments
-  const invocations = mockRpc.invocations.filter((inv) => inv[0] === 'WebView.compatSharedProcessInvoke')
-  expect(invocations).toHaveLength(1)
-  expect(invocations[0][1]).toBe('ElectronApplicationMenu.setItems')
-  expect(invocations[0][2]).toBe(5)
+  expect(_mainProcess.invocations).toEqual([['ElectronApplicationMenu.setItems', expect.arrayContaining([expect.objectContaining({ label: 'File' })])]])
+  expect(mockRpc.invocations.some((invocation) => invocation[0] === 'GetWindowId.getWindowId')).toBe(false)
+  expect(mockRpc.invocations.some((invocation) => invocation[0] === 'WebView.compatSharedProcessInvoke')).toBe(false)
 })
 
 test('hydrate - returns command map in result', async () => {
@@ -90,15 +82,13 @@ test('hydrate - returns command map in result', async () => {
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
-    'GetWindowId.getWindowId'() {
-      return 1
-    },
     'RecentlyOpened.getRecentlyOpened'() {
       return []
     },
-    'WebView.compatSharedProcessInvoke'() {
-      return undefined
-    },
+  })
+
+  using _mainProcess = MainProcess.registerMockRpc({
+    'ElectronApplicationMenu.setItems'() {},
   })
 
   const state: TitleBarMenuBarState = createDefaultState()
@@ -109,47 +99,18 @@ test('hydrate - returns command map in result', async () => {
   expect(typeof result.commandMap).toBe('object')
 })
 
-test('hydrate - with different window ids', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
-    'GetMenuEntries2.getMenuEntries2'() {
-      return []
-    },
-    'GetWindowId.getWindowId'() {
-      return 42
-    },
-    'RecentlyOpened.getRecentlyOpened'() {
-      return []
-    },
-    'WebView.compatSharedProcessInvoke'(methodName: string, rpcMethod: string, windowId: number) {
-      return undefined
-    },
-  })
-
-  const state: TitleBarMenuBarState = createDefaultState()
-
-  await ElectronApplicationMenu.hydrate(state)
-
-  // Check that WebView.compatSharedProcessInvoke was called with correct window id
-  const invocations = mockRpc.invocations.filter((inv) => inv[0] === 'WebView.compatSharedProcessInvoke')
-  expect(invocations).toHaveLength(1)
-  expect(invocations[0][1]).toBe('ElectronApplicationMenu.setItems')
-  expect(invocations[0][2]).toBe(42)
-})
-
 test('hydrate - with different platforms', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
-    'GetWindowId.getWindowId'() {
-      return 1
-    },
     'RecentlyOpened.getRecentlyOpened'() {
       return []
     },
-    'WebView.compatSharedProcessInvoke'() {
-      return undefined
-    },
+  })
+
+  using _mainProcess = MainProcess.registerMockRpc({
+    'ElectronApplicationMenu.setItems'() {},
   })
 
   const state: TitleBarMenuBarState = {
@@ -167,15 +128,13 @@ test('hydrate - merges command map into state', async () => {
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
-    'GetWindowId.getWindowId'() {
-      return 1
-    },
     'RecentlyOpened.getRecentlyOpened'() {
       return []
     },
-    'WebView.compatSharedProcessInvoke'() {
-      return undefined
-    },
+  })
+
+  using _mainProcess = MainProcess.registerMockRpc({
+    'ElectronApplicationMenu.setItems'() {},
   })
 
   const state: TitleBarMenuBarState = {
