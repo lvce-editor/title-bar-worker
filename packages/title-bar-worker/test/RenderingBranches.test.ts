@@ -1,5 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { PlatformType, VirtualDomElements } from '@lvce-editor/constants'
+import type { ContextMenuProps } from '../src/parts/ContextMenuProps/ContextMenuProps.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
 import { getMenuEntries2 } from '../src/parts/GetMenuEntries2/GetMenuEntries2.ts'
@@ -32,7 +33,7 @@ test('focus context renderer is available through dispatch', () => {
 })
 
 test('unknown context menu has no entries', async () => {
-  expect(await getMenuEntries2(createDefaultState(), { menuId: -1, platform: PlatformType.Web })).toEqual([])
+  expect(await getMenuEntries2(createDefaultState(), { menuId: -1 as ContextMenuProps['menuId'], platform: PlatformType.Web })).toEqual([])
 })
 
 test('web help excludes desktop tools and updates', async () => {

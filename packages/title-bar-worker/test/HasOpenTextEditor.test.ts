@@ -86,8 +86,8 @@ test.each([
 
 test.each([-1, '42'])('hasOpenTextEditor rejects invalid fallback id %s', async (id) => {
   using _mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getOpenEditorUris': () => null,
     'GetActiveEditor.getActiveEditorId': () => id,
+    'GetActiveEditor.getOpenEditorUris': () => null,
   })
   await expect(hasOpenTextEditor()).resolves.toBe(false)
 })

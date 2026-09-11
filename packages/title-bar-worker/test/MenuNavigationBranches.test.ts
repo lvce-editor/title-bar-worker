@@ -24,7 +24,7 @@ test('navigation without a menu leaves state unchanged', async () => {
 })
 
 test('escape closes the only menu and retains title bar focus', () => {
-  const state = { ...createDefaultState(), isMenuOpen: true, focusedIndex: 0, menus: [menu] }
+  const state = { ...createDefaultState(), focusedIndex: 0, isMenuOpen: true, menus: [menu] }
   const result = handleKeyEscapeMenuOpen(state)
   expect(result.menus).toEqual([])
   expect(result.isMenuOpen).toBe(false)
@@ -33,8 +33,8 @@ test('escape closes the only menu and retains title bar focus', () => {
 
 test('up arrow starts at the last focusable menu item', () => {
   const items = [
-    { flags: MenuItemFlags.None, label: 'Run' },
-    { flags: MenuItemFlags.Separator, label: '' },
+    { command: '', flags: MenuItemFlags.None, label: 'Run' },
+    { command: '', flags: MenuItemFlags.Separator, label: '' },
   ]
   const state = { ...createDefaultState(), menus: [{ ...menu, items }] }
   expect(handleKeyArrowUpMenuOpen(state).menus[0].focusedIndex).toBe(0)
@@ -44,15 +44,11 @@ test.each([MenuItemFlags.None, MenuItemFlags.Unchecked, MenuItemFlags.Ignore, Me
   'menu click dispatches flag %s',
   async (flags) => {
     using mockRpc = RendererWorker.registerMockRpc({ 'Test.run': () => {} })
-    const state = { ...createDefaultState(), isMenuOpen: true, menus: [{ ...menu, items: [{ flags, label: 'Run', command: 'Test.run' }] }] }
+    const state = { ...createDefaultState(), isMenuOpen: true, menus: [{ ...menu, items: [{ command: 'Test.run', flags, label: 'Run' }] }] }
     const result = await handleMenuClick(state, 0, 0)
     expect(mockRpc.invocations).toEqual([['Test.run']])
-    if (flags === MenuItemFlags.Ignore) {
-      expect(result).toBe(state)
-    } else {
-      expect(result.menus).toEqual([])
-      expect(result.isMenuOpen).toBe(false)
-    }
+    const expected = flags === MenuItemFlags.Ignore ? state : { ...state, isMenuOpen: false, menus: [] }
+    expect(result).toEqual(expected)
   },
 )
 
@@ -63,8 +59,8 @@ test('menu click ignores missing, disabled and unidentified submenu items', asyn
       {
         ...menu,
         items: [
-          { flags: MenuItemFlags.Disabled, label: 'Disabled' },
-          { flags: MenuItemFlags.SubMenu, label: 'Submenu' },
+          { command: '', flags: MenuItemFlags.Disabled, label: 'Disabled' },
+          { command: '', flags: MenuItemFlags.SubMenu, label: 'Submenu' },
         ],
       },
     ],
