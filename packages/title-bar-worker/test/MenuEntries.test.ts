@@ -5,7 +5,7 @@ import { getMenuEntries } from '../src/parts/MenuEntries/MenuEntries.ts'
 
 test('requests menu worker entries over a direct connection', async () => {
   const entries = [{ command: 'Editor.undo', flags: 0, label: 'Undo' }]
-  const getEntries = jest.fn(() => entries)
+  const getEntries = jest.fn((_id: string | number, _platform: number) => entries)
   let peer: Awaited<ReturnType<typeof PlainMessagePortRpc.create>> | undefined
   using _mockRpc = RendererWorker.registerMockRpc({
     async 'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker'(port: MessagePort) {

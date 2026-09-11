@@ -8,6 +8,7 @@ import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar.ts'
 
 export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: ContextMenuProps): Promise<readonly MenuEntry[]> => {
+  const { platform } = state
   switch (props.menuId) {
     case MenuEntryId.TitleBar:
       return MenuEntriesTitleBar.getMenuEntries(props.platform)
@@ -15,6 +16,6 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     case MenuIdTitleBarContextMenu:
       return getMenuEntriesTitleBarContextMenu(state)
     default:
-      return MenuEntries.getMenuEntries(props.menuId, props.platform)
+      return MenuEntries.getMenuEntries(props.menuId, 'platform' in props ? props.platform : platform)
   }
 }
