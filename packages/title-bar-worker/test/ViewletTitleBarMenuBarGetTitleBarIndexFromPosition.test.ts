@@ -1,5 +1,10 @@
-import { expect, test } from '@jest/globals'
-import * as ViewletTitleBarMenuBarGetTitleBarIndexFromPosition from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.ts'
+import { expect, jest, test } from '@jest/globals'
+
+jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
+  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
+}))
+
+const ViewletTitleBarMenuBarGetTitleBarIndexFromPosition = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.ts')
 
 test('getTitleBarIndexFromPosition - first item', () => {
   const titleBarEntries = [

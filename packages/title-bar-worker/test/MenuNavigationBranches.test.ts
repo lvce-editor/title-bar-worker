@@ -1,16 +1,21 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-import { closeOneMenu } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarCloseOneMenu.ts'
-import { handleFocusOut } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleFocusOut.ts'
-import { handleKeyArrowLeftMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowLeftMenuOpen.ts'
-import { handleKeyArrowUpMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowUpMenuOpen.ts'
-import { handleKeyEscapeMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEscapeMenuOpen.ts'
-import { handleMenuClick } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuClick.ts'
-import { handleMenuMouseOver } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
-import { handleMouseOverMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOverMenuOpen.ts'
-import { openMenuAtIndex } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
+
+jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
+  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
+}))
+
+const { closeOneMenu } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarCloseOneMenu.ts')
+const { handleFocusOut } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleFocusOut.ts')
+const { handleKeyArrowLeftMenuOpen } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowLeftMenuOpen.ts')
+const { handleKeyArrowUpMenuOpen } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowUpMenuOpen.ts')
+const { handleKeyEscapeMenuOpen } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEscapeMenuOpen.ts')
+const { handleMenuClick } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuClick.ts')
+const { handleMenuMouseOver } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts')
+const { handleMouseOverMenuOpen } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOverMenuOpen.ts')
+const { openMenuAtIndex } = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarOpenMenuAtIndex.ts')
 
 const menu = { focusedIndex: -1, items: [], level: 0, x: 0, y: 0 }
 

@@ -1,8 +1,13 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-import * as ViewletTitleBarMenuBarHandleKeyArrowDownMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowDownMenuOpen.ts'
+
+jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
+  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
+}))
+
+const ViewletTitleBarMenuBarHandleKeyArrowDownMenuOpen = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowDownMenuOpen.ts')
 
 test('handleKeyArrowDownMenuOpen - focus next item', () => {
   const state: TitleBarMenuBarState = {

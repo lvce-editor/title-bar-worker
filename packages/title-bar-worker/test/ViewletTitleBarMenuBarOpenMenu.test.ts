@@ -1,7 +1,12 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import * as ViewletTitleBarMenuBarOpenMenu from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarOpenMenu.ts'
+
+jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
+  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
+}))
+
+const ViewletTitleBarMenuBarOpenMenu = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarOpenMenu.ts')
 
 test('openMenu with focusedIndex -1 returns same state', async () => {
   const state: TitleBarMenuBarState = createDefaultState()

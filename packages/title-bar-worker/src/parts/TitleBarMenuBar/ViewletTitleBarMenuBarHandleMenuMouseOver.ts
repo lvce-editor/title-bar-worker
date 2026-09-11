@@ -48,7 +48,7 @@ const getNewMenus = async (menus: readonly IMenu[], level: number, index: number
     if (!item.id) {
       return menus
     }
-    const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id, state.platform)
     const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
     const subMenu: IMenu = {
       focusedIndex: -1,

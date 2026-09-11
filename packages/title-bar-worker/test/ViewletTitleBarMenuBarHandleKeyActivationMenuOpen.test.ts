@@ -1,10 +1,15 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
-import * as ViewletTitleBarMenuBarHandleKeyEnterMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.ts'
-import * as ViewletTitleBarMenuBarHandleKeySpaceMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpaceMenuOpen.ts'
+
+jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
+  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
+}))
+
+const ViewletTitleBarMenuBarHandleKeyEnterMenuOpen = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.ts')
+const ViewletTitleBarMenuBarHandleKeySpaceMenuOpen = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpaceMenuOpen.ts')
 
 const handlers = [
   ['Enter', ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.handleKeyEnterMenuOpen],

@@ -1,8 +1,13 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import * as ViewletTitleBarMenuBarSelectIndexRestoreEditorFocus from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexRestoreEditorFocus.ts'
+
+jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
+  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
+}))
+
+const ViewletTitleBarMenuBarSelectIndexRestoreEditorFocus = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexRestoreEditorFocus.ts')
 
 test('selectIndexRestoreEditorFocus executes command, restores editor focus, and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({

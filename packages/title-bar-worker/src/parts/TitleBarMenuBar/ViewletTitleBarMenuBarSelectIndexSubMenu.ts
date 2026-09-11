@@ -11,7 +11,7 @@ export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMen
   if (!item.id) {
     return state
   }
-  const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id)
+  const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id, state.platform)
   const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
   const subMenu = {
     focusedIndex: -1,

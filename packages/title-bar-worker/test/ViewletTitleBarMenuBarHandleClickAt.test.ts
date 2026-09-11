@@ -1,7 +1,12 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
-import * as ViewletTitleBarMenuBarHandleClickAt from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleClickAt.ts'
+
+jest.unstable_mockModule('../src/parts/MenuEntries/MenuEntries.ts', () => ({
+  getMenuEntries: async () => [{ command: 'Editor.undo', flags: 0, id: 'undo', label: 'Undo' }],
+}))
+
+const ViewletTitleBarMenuBarHandleClickAt = await import('../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleClickAt.ts')
 
 test('handleClickAt with invalid position returns same state', async () => {
   const state: TitleBarMenuBarState = createDefaultState()

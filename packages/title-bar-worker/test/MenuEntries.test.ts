@@ -1,51 +1,22 @@
-import { expect, test } from '@jest/globals'
-import { MenuEntryId, PlatformType } from '@lvce-editor/constants'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
-import { MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup } from '../src/parts/GetMenuIds/GetMenuIds.ts'
-import { getMenuEntries } from '../src/parts/MenuEntries/MenuEntries.ts'
+import { expect, jest, test } from '@jest/globals'
 
-test('getMenuEntries - switch editor', async () => {
-  const result = await getMenuEntries(MenuIdSwitchEditor)
+const invoke = jest.fn<(...args: readonly unknown[]) => Promise<unknown>>()
+const dispose = jest.fn<() => Promise<void>>()
+jest.unstable_mockModule('../src/parts/LaunchMenuWorker/LaunchMenuWorker.ts', () => ({
+  launchMenuWorker: async () => ({ invoke, [Symbol.asyncDispose]: dispose }),
+}))
+const { getMenuEntries } = await import('../src/parts/MenuEntries/MenuEntries.ts')
 
-  expect(result).toHaveLength(10)
-  expect(result[0]).toMatchObject({
-    id: 'nextEditor',
-    label: 'Next Editor',
-  })
+test('loads submenu entries from menu worker and closes the connection', async () => {
+  const entries = [{ command: 'Editor.undo', flags: 0, label: 'Undo' }]
+  invoke.mockResolvedValueOnce(entries)
+  expect(await getMenuEntries('switchEditor', 2)).toBe(entries)
+  expect(invoke).toHaveBeenLastCalledWith('Menu.getTitleBarMenuEntries', 'switchEditor', 2)
+  expect(dispose).toHaveBeenCalledTimes(1)
 })
 
-test('getMenuEntries - switch group', async () => {
-  const result = await getMenuEntries(MenuIdSwitchGroup)
-
-  expect(result).toHaveLength(9)
-  expect(result[0]).toMatchObject({
-    id: 'nextGroup',
-    label: 'Next Group',
-  })
-})
-
-test.each([
-  [MenuEntryId.Edit, 'undo'],
-  [MenuEntryId.File, 'newFile'],
-  [MenuEntryId.Go, 'back'],
-  [MenuEntryId.Help, 'showAllCommands'],
-  [MenuEntryId.Run, undefined],
-  [MenuEntryId.Selection, 'selectAll'],
-  [MenuEntryId.Terminal, 'newTerminal'],
-  [MenuEntryId.TitleBar, MenuEntryId.File],
-  [MenuEntryId.View, 'commandPalette'],
-  [MenuIdAppearance, 'fullScreen'],
-  [MenuIdEditorLayout, 'splitUp'],
-])('getMenuEntries routes %s', async (id, firstId) => {
-  const result = await getMenuEntries(id, PlatformType.Web)
-  expect(result[0]?.id).toBe(firstId)
-})
-
-test('getMenuEntries routes recent workspaces', async () => {
-  using _mockRpc = RendererWorker.registerMockRpc({ 'RecentlyOpened.getRecentlyOpened': () => [] })
-  expect(await getMenuEntries(MenuEntryId.OpenRecent)).toEqual(expect.arrayContaining([expect.objectContaining({ id: 'more' })]))
-})
-
-test('getMenuEntries rejects unknown menus with context', async () => {
-  await expect(getMenuEntries('unknown')).rejects.toThrow('Failed to load menu entries for id unknown')
+test('closes the connection when loading fails', async () => {
+  invoke.mockRejectedValueOnce(new Error('menu unavailable'))
+  await expect(getMenuEntries('switchGroup')).rejects.toThrow('menu unavailable')
+  expect(dispose).toHaveBeenCalledTimes(2)
 })
