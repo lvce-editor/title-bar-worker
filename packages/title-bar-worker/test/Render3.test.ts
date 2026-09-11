@@ -45,6 +45,13 @@ test('render3 - should update state after rendering', async () => {
   expect(updatedOldState).toBe(updatedNewState)
 })
 
+test('render3 omits focus commands when no item is focused', async () => {
+  const uid = 7
+  const state = CreateDefaultState.createDefaultState()
+  TitleBarMenuBarStates.set(uid, state, state)
+  expect(await Render3.render3(uid, [DiffType.RenderFocusedIndex])).toEqual([])
+})
+
 test('render3 queues renderer commands and returns a lightweight commit marker', async () => {
   const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 17)
   RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
