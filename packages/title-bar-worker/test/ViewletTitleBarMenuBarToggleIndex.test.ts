@@ -1,9 +1,8 @@
-import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
-
 import { expect, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarToggleIndex from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
 
 setupMenuWorker()
 
