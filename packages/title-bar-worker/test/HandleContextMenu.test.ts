@@ -1,54 +1,46 @@
-import { expect, test } from '@jest/globals'
+/* eslint-disable jest/no-restricted-jest-methods */
+import { beforeEach, expect, jest, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
-import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { MenuIdTitleBarContextMenu } from '../src/parts/GetMenuIds/GetMenuIds.ts'
-import * as HandleContextMenu from '../src/parts/HandleContextMenu/HandleContextMenu.ts'
 
-test('handleContextMenu - calls ContextMenu.show2 with correct parameters', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
-    'ContextMenu.show2'() {},
-  })
-
-  const state: TitleBarMenuBarState = createDefaultState()
-  const button = 2
-  const eventX = 100
-  const eventY = 50
-
-  const result = await HandleContextMenu.handleContextMenu(state, button, eventX, eventY)
-
-  expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([
-    [
-      'ContextMenu.show2',
-      state.uid,
-      MenuIdTitleBarContextMenu,
-      eventX,
-      eventY,
-      {
-        menuId: MenuIdTitleBarContextMenu,
-      },
-    ],
-  ])
+const invoke = jest.fn<(...args: readonly any[]) => Promise<void>>()
+const dispose = jest.fn<() => Promise<void>>()
+const port = {} as MessagePort
+const create = jest.fn(async (options: { send: (port: MessagePort) => Promise<void> }) => {
+  await options.send(port)
+  return { invoke, dispose }
 })
 
-test('handleContextMenu - returns same state', async () => {
+await jest.unstable_mockModule('@lvce-editor/rpc', () => ({
+  TransferMessagePortRpcParent: { create },
+}))
+
+const { handleContextMenu } = await import('../src/parts/HandleContextMenu/HandleContextMenu.ts')
+
+beforeEach(() => {
+  jest.clearAllMocks()
+  invoke.mockResolvedValue()
+})
+
+test('handleContextMenu sends the request directly to the menu worker and disposes the connection', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
-    'ContextMenu.show2'() {},
+    'Menu.prepareContextMenu'() {},
   })
+  const state = { ...createDefaultState(), uid: 5 }
+  await expect(handleContextMenu(state, 2, 100, 50)).resolves.toBe(state)
+  expect(mockRpc.invocations).toEqual([['Menu.prepareContextMenu', port]])
+  expect(invoke).toHaveBeenCalledWith('Menu.show2', 5, MenuIdTitleBarContextMenu, 100, 50, { menuId: MenuIdTitleBarContextMenu })
+  expect(dispose).toHaveBeenCalledTimes(1)
+})
 
-  const state: TitleBarMenuBarState = {
-    ...createDefaultState(),
-    height: 800,
-    uid: 5,
-    width: 1200,
-  }
-  const button = 1
-  const eventX = 200
-  const eventY = 75
-
-  const result = await HandleContextMenu.handleContextMenu(state, button, eventX, eventY)
-
-  expect(result).toBe(state)
-  expect(mockRpc.invocations).toHaveLength(1)
+test('handleContextMenu restores the browser overlay and disposes the connection on failure', async () => {
+  using mockRpc = RendererWorker.registerMockRpc({
+    'Menu.prepareContextMenu'() {},
+    'Menu.hide'() {},
+  })
+  invoke.mockRejectedValue(new Error('menu failed'))
+  await expect(handleContextMenu(createDefaultState(), 2, 100, 50)).rejects.toThrow('menu failed')
+  expect(mockRpc.invocations).toEqual([['Menu.prepareContextMenu', port], ['Menu.hide']])
+  expect(dispose).toHaveBeenCalledTimes(1)
 })
