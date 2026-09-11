@@ -72,7 +72,9 @@ test('hydrate - sends menu items directly to the main process', async () => {
 
   await ElectronApplicationMenu.hydrate(state)
 
-  expect(_mainProcess.invocations).toEqual([['ElectronApplicationMenu.setItems', expect.arrayContaining([expect.objectContaining({ label: 'File' })])]])
+  expect(_mainProcess.invocations).toEqual([
+    ['ElectronApplicationMenu.setItems', expect.arrayContaining([expect.objectContaining({ label: 'File' })])],
+  ])
   expect(mockRpc.invocations.some((invocation) => invocation[0] === 'GetWindowId.getWindowId')).toBe(false)
   expect(mockRpc.invocations.some((invocation) => invocation[0] === 'WebView.compatSharedProcessInvoke')).toBe(false)
 })
