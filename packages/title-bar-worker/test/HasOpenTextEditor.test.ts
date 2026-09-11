@@ -70,3 +70,24 @@ test('hasOpenTextEditor - active text editor fallback', async () => {
   await expect(hasOpenTextEditor()).resolves.toBe(true)
   expect(mockRpc.invocations).toEqual([['GetActiveEditor.getOpenEditorUris'], ['GetActiveEditor.getActiveEditorId']])
 })
+
+test.each([
+  ['file:///image.png#preview', false],
+  ['file:///image.png?version=1#preview', false],
+  ['file:///image.png#preview?version=1', false],
+  ['file:///README', true],
+  [null, false],
+])('hasOpenTextEditor classifies %s', async (uri, expected) => {
+  using _mockRpc = RendererWorker.registerMockRpc({
+    'GetActiveEditor.getOpenEditorUris': () => [uri],
+  })
+  await expect(hasOpenTextEditor()).resolves.toBe(expected)
+})
+
+test.each([-1, '42'])('hasOpenTextEditor rejects invalid fallback id %s', async (id) => {
+  using _mockRpc = RendererWorker.registerMockRpc({
+    'GetActiveEditor.getActiveEditorId': () => id,
+    'GetActiveEditor.getOpenEditorUris': () => null,
+  })
+  await expect(hasOpenTextEditor()).resolves.toBe(false)
+})

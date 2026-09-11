@@ -4,24 +4,24 @@ import * as MenuEntriesOpenRecent from '../src/parts/MenuEntriesOpenRecent/MenuE
 import * as MenuEntrySeparator from '../src/parts/MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 
-test('getMenuEntries - abbreviates home directory in labels and keeps original args', async () => {
+test('getMenuEntries - abbreviates and decodes home directory labels while keeping original uris', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened'() {
-      return ['file:///home/user/project', 'file:///usr/lib/lvce/resources/app/playground']
+      return ['file:///home/user/workspace%20%E2%80%93%20%C3%BC', 'file:///usr/lib/lvce/resources/app/playground']
     },
   })
 
   const result = await MenuEntriesOpenRecent.getMenuEntries()
   expect(result).toEqual([
     {
-      args: ['file:///home/user/project'],
-      command: 'Workspace.setPath',
+      args: ['file:///home/user/workspace%20%E2%80%93%20%C3%BC'],
+      command: 'Workspace.setUri',
       flags: MenuItemFlags.None,
-      label: '~/project',
+      label: '~/workspace – ü',
     },
     {
       args: ['file:///usr/lib/lvce/resources/app/playground'],
-      command: 'Workspace.setPath',
+      command: 'Workspace.setUri',
       flags: MenuItemFlags.None,
       label: '/usr/lib/lvce/resources/app/playground',
     },

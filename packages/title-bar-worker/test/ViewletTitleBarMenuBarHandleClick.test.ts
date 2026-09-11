@@ -21,6 +21,7 @@ test('handleClick with left click and valid index calls toggleIndex', async () =
     titleBarEntries: [{ id: 2 }], // Edit menu ID
   }
   const result = await ViewletTitleBarMenuBarHandleClick.handleClick(state, 0, 0) // Left click on index 0
+  expect(result.focused).toBe(true)
   expect(result.isMenuOpen).toBe(true)
   expect(result.focusedIndex).toBe(0)
 })

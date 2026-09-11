@@ -6,6 +6,7 @@ import * as ViewletTitleBarMenuBarCloseMenu from '../src/parts/TitleBarMenuBar/V
 test("closeMenu - don't keep focus", () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    focused: true,
     focusedIndex: 0,
     isMenuOpen: true,
     menus: [
@@ -39,6 +40,7 @@ test("closeMenu - don't keep focus", () => {
   }
   const result = ViewletTitleBarMenuBarCloseMenu.closeMenu(state, /* keepFocus */ false)
   expect(result).toMatchObject({
+    focused: false,
     focusedIndex: -1,
     isMenuOpen: false,
     menus: [],
@@ -126,6 +128,7 @@ test('closeMenu - already closed with focus retention returns the same state', (
 test('closeMenu - already closed clears focus when requested', () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    focused: true,
     focusedIndex: 2,
     isMenuOpen: false,
     menus: [],
@@ -135,6 +138,7 @@ test('closeMenu - already closed clears focus when requested', () => {
 
   expect(result).not.toBe(state)
   expect(result).toMatchObject({
+    focused: false,
     focusedIndex: -1,
     isMenuOpen: false,
     menus: [],

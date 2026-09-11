@@ -35,3 +35,8 @@ test('applyRender - should filter out empty results', () => {
     expect(command.length).toBeGreaterThan(0)
   }
 })
+
+test('applyRender omits focus commands when no item is focused', () => {
+  const state = CreateDefaultState.createDefaultState()
+  expect(ApplyRender.applyRender(state, state, [DiffType.RenderFocusedIndex])).toEqual([])
+})

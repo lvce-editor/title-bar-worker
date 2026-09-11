@@ -1,4 +1,5 @@
 import { parseTitleTemplate } from '../ParseTitleTemplate/ParseTitleTemplate.ts'
+import { getPath } from '../PathDisplay/PathDisplay.ts'
 
 interface RemoteSshWorkspace {
   readonly host: string
@@ -51,7 +52,7 @@ export const getTitle = (workspaceUri: string, titleTemplate: string, appName: s
     return appName
   }
   const remoteSshWorkspace = getRemoteSshWorkspace(workspaceUri)
-  const workspacePath = remoteSshWorkspace?.path ?? workspaceUri
+  const workspacePath = remoteSshWorkspace?.path ?? getPath(workspaceUri)
   const title = getWorkspaceTitle(workspacePath, titleTemplate, appName)
   if (!remoteSshWorkspace) {
     return title || appName

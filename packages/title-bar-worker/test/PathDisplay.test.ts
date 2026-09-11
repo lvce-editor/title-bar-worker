@@ -31,6 +31,11 @@ test('getTitle - file uri starts with homeDir', () => {
   expect(result).toBe('~/project')
 })
 
+test('getTitle - decodes file uri path for display', () => {
+  const result = PathDisplay.getTitle('/home/user', 'file:///home/user/workspace%20with%20spaces%20%E2%80%93%20%C3%BC')
+  expect(result).toBe('~/workspace with spaces – ü')
+})
+
 test('getTitle - regular uri', () => {
   const result = PathDisplay.getTitle('/home/user', '/some/other/path')
   expect(result).toBe('/some/other/path')

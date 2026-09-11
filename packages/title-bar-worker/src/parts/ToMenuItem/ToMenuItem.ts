@@ -5,9 +5,10 @@ import * as PathDisplay from '../PathDisplay/PathDisplay.ts'
 export const toMenuItem = (folder: string): MenuEntry => {
   const homeDir = PathDisplay.getHomeDir(folder)
   const label = PathDisplay.getTitle(homeDir, folder)
+  const command = folder.includes('://') ? 'Workspace.setUri' : 'Workspace.setPath'
   return {
     args: [folder],
-    command: 'Workspace.setPath',
+    command,
     flags: MenuItemFlags.None,
     label,
   }
