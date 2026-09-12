@@ -78,8 +78,22 @@ test('setTitleTemplate - does not modify other state properties', async () => {
   expect(newState.titleBarStyleCustom).toBe(state.titleBarStyleCustom)
   expect(newState.titleBarTitleEnabled).toBe(state.titleBarTitleEnabled)
   expect(newState.uid).toBe(state.uid)
-  expect(newState.width).toBe(state.width)
   expect(newState.workspaceUri).toBe(state.workspaceUri)
   expect(newState.x).toBe(state.x)
   expect(newState.y).toBe(state.y)
+})
+
+test('setTitleTemplate - restores menu entries when the title becomes shorter without a resize', async () => {
+  const { setWidth } = await import('../src/parts/SetWidth/SetWidth.ts')
+  const { getVisibleTitleBarEntries } = await import('../src/parts/GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts')
+  const entries = ['File', 'Edit', 'Selection', 'View', 'Go', 'Run', 'Terminal', 'Help'].map((label) => ({ label, width: 45 }))
+  const longTitleState = await setTitleTemplate({ ...createDefaultState(), workspaceUri: '/project' }, 'A'.repeat(30))
+  const narrowState = setWidth(longTitleState, 900)
+  expect(getVisibleTitleBarEntries(entries, narrowState.width, -1, false).at(-1)?.label).toBe('...')
+  const shortTitleState = await setTitleTemplate(narrowState, 'A')
+  expect(getVisibleTitleBarEntries(entries, shortTitleState.width, -1, false).map((entry) => entry.label)).toEqual(
+    entries.map((entry) => entry.label),
+  )
+  const restoredState = await setTitleTemplate(shortTitleState, 'A'.repeat(30))
+  expect(restoredState.width).toBe(narrowState.width)
 })
