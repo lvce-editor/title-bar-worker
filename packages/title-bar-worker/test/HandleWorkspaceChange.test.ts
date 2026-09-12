@@ -222,7 +222,7 @@ test('handleWorkspaceChange - reclaims menu space after switching to a shorter w
   const { getVisibleTitleBarEntries } = await import('../src/parts/GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts')
   const entries = ['File', 'Edit', 'Selection', 'View', 'Go', 'Run', 'Terminal', 'Help'].map((label) => ({ label, width: 45 }))
   const longUri = `/home/user/${'A'.repeat(30)}`
-  const longState = await HandleWorkspaceChange.handleWorkspaceChange(createMockState({ titleTemplate: '${folderName}', iconWidth: 30 }), longUri)
+  const longState = await HandleWorkspaceChange.handleWorkspaceChange(createMockState({ iconWidth: 30, titleTemplate: '${folderName}' }), longUri)
   const narrowState = setWidth(longState, 900)
   expect(getVisibleTitleBarEntries(entries, narrowState.width, -1, false).at(-1)?.label).toBe('...')
   const shortState = await HandleWorkspaceChange.handleWorkspaceChange(narrowState, '/home/user/A')

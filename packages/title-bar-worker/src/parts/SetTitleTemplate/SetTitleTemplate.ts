@@ -3,7 +3,7 @@ import { getTitle } from '../GetTitle/GetTitle.ts'
 import { measureTitleWidth } from '../MeasureTitleWidth/MeasureTitleWidth.ts'
 
 export const setTitleTemplate = async (state: TitleBarMenuBarState, titleTemplate: string): Promise<TitleBarMenuBarState> => {
-  const { appName, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, workspaceUri } = state
+  const { appName, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, titleWidth: oldTitleWidth, width, workspaceUri } = state
   const title = getTitle(workspaceUri, titleTemplate, appName)
   const titleWidth = await measureTitleWidth(title, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   return {
@@ -12,6 +12,6 @@ export const setTitleTemplate = async (state: TitleBarMenuBarState, titleTemplat
     titleTemplate,
     titleWidth,
     // The title is centered, so half its width change becomes available to the menu.
-    width: state.width + (state.titleWidth - titleWidth) / 2,
+    width: width + (oldTitleWidth - titleWidth) / 2,
   }
 }
