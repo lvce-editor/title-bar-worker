@@ -31,7 +31,7 @@ export const getMenuEntries = async (platform: number, autoSave?: string, hasAct
   const entries: MenuEntry[] = [
     {
       command: 'Main.newFile',
-      flags: MenuItemFlags.None,
+      flags: MenuItemFlags.RestoreEditorFocus,
       id: 'newFile',
       label: FileStrings.newFile(),
     },
