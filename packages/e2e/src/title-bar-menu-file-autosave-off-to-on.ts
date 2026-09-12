@@ -20,8 +20,8 @@ export const test: Test = async ({ Command, Editor, expect, FileSystem, Locator,
 
   const autoSaveOnFile = `${tmpDir}/auto-save-on.txt`
   await editAndBlur(Command, Editor, FileSystem, Main, autoSaveOnFile)
-  await FileSystem.shouldHaveFile(autoSaveOnFile, 'before-after')
   await expect(selectedModifiedTab).toHaveCount(0)
+  await FileSystem.shouldHaveFile(autoSaveOnFile, 'before-after')
 
   await Command.execute('Preferences.update', {
     'files.autoSave': 'off',
