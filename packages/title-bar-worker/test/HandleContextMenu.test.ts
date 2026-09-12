@@ -9,7 +9,7 @@ const dispose = jest.fn<() => Promise<void>>()
 const port = {} as MessagePort
 const create = jest.fn(async (options: { send: (port: MessagePort) => Promise<void> }) => {
   await options.send(port)
-  return { invoke, dispose }
+  return { dispose, invoke }
 })
 
 await jest.unstable_mockModule('@lvce-editor/rpc', () => ({
@@ -36,8 +36,8 @@ test('handleContextMenu sends the request directly to the menu worker and dispos
 
 test('handleContextMenu restores the browser overlay and disposes the connection on failure', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
-    'Menu.prepareContextMenu'() {},
     'Menu.hide'() {},
+    'Menu.prepareContextMenu'() {},
   })
   invoke.mockRejectedValue(new Error('menu failed'))
   await expect(handleContextMenu(createDefaultState(), 2, 100, 50)).rejects.toThrow('menu failed')
