@@ -11,5 +11,7 @@ export const setTitleTemplate = async (state: TitleBarMenuBarState, titleTemplat
     title,
     titleTemplate,
     titleWidth,
+    // The title is centered, so half its width change becomes available to the menu.
+    width: state.width + (state.titleWidth - titleWidth) / 2,
   }
 }

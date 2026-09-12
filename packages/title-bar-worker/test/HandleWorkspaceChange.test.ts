@@ -216,3 +216,17 @@ test('handleWorkspaceChange - should handle single segment path', async () => {
   expect(result.workspaceUri).toBe('workspace')
   expect(result.title).toBe('workspace')
 })
+
+test('handleWorkspaceChange - reclaims menu space after switching to a shorter workspace title', async () => {
+  const { setWidth } = await import('../src/parts/SetWidth/SetWidth.ts')
+  const { getVisibleTitleBarEntries } = await import('../src/parts/GetVisibleTitleBarEntries/GetVisibleTitleBarEntries.ts')
+  const entries = ['File', 'Edit', 'Selection', 'View', 'Go', 'Run', 'Terminal', 'Help'].map((label) => ({ label, width: 45 }))
+  const longUri = `/home/user/${'A'.repeat(30)}`
+  const longState = await HandleWorkspaceChange.handleWorkspaceChange(createMockState({ titleTemplate: '${folderName}', iconWidth: 30 }), longUri)
+  const narrowState = setWidth(longState, 900)
+  expect(getVisibleTitleBarEntries(entries, narrowState.width, -1, false).at(-1)?.label).toBe('...')
+  const shortState = await HandleWorkspaceChange.handleWorkspaceChange(narrowState, '/home/user/A')
+  expect(getVisibleTitleBarEntries(entries, shortState.width, -1, false).map((entry) => entry.label)).toEqual(entries.map((entry) => entry.label))
+  const restoredState = await HandleWorkspaceChange.handleWorkspaceChange(shortState, longUri)
+  expect(restoredState.width).toBe(narrowState.width)
+})

@@ -11,6 +11,8 @@ export const handleWorkspaceChange = async (state: TitleBarMenuBarState, uri: st
     ...state,
     title,
     titleWidth,
+    // The title is centered, so half its width change becomes available to the menu.
+    width: state.width + (state.titleWidth - titleWidth) / 2,
     workspaceUri: uri,
   }
 }
