@@ -4,9 +4,13 @@ import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/Tit
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarSelectIndexRestoreFocus from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexRestoreFocus.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('selectIndexRestoreFocus executes command and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Editor.cut'() {},
   })
 
@@ -45,6 +49,7 @@ test('selectIndexRestoreFocus preserves state changes made by the command', asyn
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.close'() {
       const workspaceClosedState = {
         ...state,

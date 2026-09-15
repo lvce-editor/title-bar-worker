@@ -6,7 +6,7 @@ import * as Menu from '../Menu/Menu.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 
-const getNewMenus = async (menus: readonly IMenu[], level: number, index: number, flags: number): Promise<readonly any[]> => {
+const getNewMenus = async (menus: readonly IMenu[], level: number, index: number, flags: number, platform: number): Promise<readonly any[]> => {
   const menu = menus[level]
   if (!menu) {
     return menus
@@ -48,7 +48,7 @@ const getNewMenus = async (menus: readonly IMenu[], level: number, index: number
     if (!item.id) {
       return menus
     }
-    const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id, platform)
     const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
     const subMenu: IMenu = {
       focusedIndex: -1,
@@ -80,7 +80,7 @@ export const handleMenuMouseOver = async (state: TitleBarMenuBarState, level: nu
   Assert.object(state)
   Assert.number(level)
   Assert.number(index)
-  const { menus } = state
+  const { menus, platform } = state
   const menu = menus[level]
   if (!menu) {
     return state
@@ -90,7 +90,7 @@ export const handleMenuMouseOver = async (state: TitleBarMenuBarState, level: nu
   if (!item) {
     return state
   }
-  const newMenus = await getNewMenus(menus, level, index, item.flags)
+  const newMenus = await getNewMenus(menus, level, index, item.flags, platform)
   if (menus === newMenus) {
     return state
   }

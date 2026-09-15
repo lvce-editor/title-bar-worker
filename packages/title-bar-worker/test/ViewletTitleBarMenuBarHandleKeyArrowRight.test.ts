@@ -5,9 +5,13 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowRight from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowRight.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('handleKeyArrowRight - open sub menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/file-1.txt', 'file:///home/user/file-2.txt'],
   })
 
@@ -68,5 +72,8 @@ test('handleKeyArrowRight - open sub menu', async () => {
   expect(result.menus[0].focusedIndex).toBe(1)
   expect(result.menus[1].level).toBe(1)
   expect(result.menus[1].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })

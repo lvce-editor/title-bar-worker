@@ -4,9 +4,13 @@ import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/Tit
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarSelectIndexNone from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexNone.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('selectIndexNone executes command and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Editor.cut'() {},
   })
 
@@ -36,6 +40,7 @@ test('selectIndexNone closes the latest state after a workspace change', async (
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.setPath'() {
       const newWorkspaceState = {
         ...state,

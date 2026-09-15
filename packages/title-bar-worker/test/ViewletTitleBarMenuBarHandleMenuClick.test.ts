@@ -3,9 +3,13 @@ import { RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleMenuClick from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuClick.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('handleMenuClick executes checked menu item command', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Dialog.showMessage'() {},
   })
 
@@ -40,6 +44,7 @@ test('handleMenuClick executes checked menu item command', async () => {
 
 test('handleMenuClick restores editor focus for editor menu items', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Editor.selectAll'() {},
     'Main.focus'() {},
   })

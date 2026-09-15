@@ -3,9 +3,13 @@ import { MainProcess, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ElectronApplicationMenu from '../src/parts/ElectronApplicationMenu/ElectronApplicationMenu.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('hydrate - basic state with empty menu', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -31,6 +35,7 @@ test('hydrate - basic state with empty menu', async () => {
 
 test('hydrate - preserves state properties', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -56,6 +61,7 @@ test('hydrate - preserves state properties', async () => {
 
 test('hydrate - sends menu items directly to the main process', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -81,6 +87,7 @@ test('hydrate - sends menu items directly to the main process', async () => {
 
 test('hydrate - returns command map in result', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -103,6 +110,7 @@ test('hydrate - returns command map in result', async () => {
 
 test('hydrate - with different platforms', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },
@@ -127,6 +135,7 @@ test('hydrate - with different platforms', async () => {
 
 test('hydrate - merges command map into state', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'GetMenuEntries2.getMenuEntries2'() {
       return []
     },

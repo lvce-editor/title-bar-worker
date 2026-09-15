@@ -4,6 +4,9 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyEscape from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEscape.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('handleKeyEscape - close sub menu', async () => {
   const state: TitleBarMenuBarState = {

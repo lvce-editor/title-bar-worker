@@ -3,6 +3,9 @@ import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/Tit
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowRightMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowRightMenuOpen.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('handleKeyArrowRightMenuOpen - no menu returns state', async () => {
   const state: TitleBarMenuBarState = {

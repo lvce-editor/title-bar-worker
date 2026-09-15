@@ -1,51 +1,42 @@
-import { expect, test } from '@jest/globals'
-import { MenuEntryId, PlatformType } from '@lvce-editor/constants'
+import { expect, jest, test } from '@jest/globals'
+import { PlainMessagePortRpc } from '@lvce-editor/rpc'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
-import { MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup } from '../src/parts/GetMenuIds/GetMenuIds.ts'
 import { getMenuEntries } from '../src/parts/MenuEntries/MenuEntries.ts'
 
-test('getMenuEntries - switch editor', async () => {
-  const result = await getMenuEntries(MenuIdSwitchEditor)
-
-  expect(result).toHaveLength(10)
-  expect(result[0]).toMatchObject({
-    id: 'nextEditor',
-    label: 'Next Editor',
+test('requests menu worker entries over a direct connection', async () => {
+  const entries = [{ command: 'Editor.undo', flags: 0, label: 'Undo' }]
+  const getEntries = jest.fn((_id: string | number, _platform: number) => entries)
+  let peer: Awaited<ReturnType<typeof PlainMessagePortRpc.create>> | undefined
+  using _mockRpc = RendererWorker.registerMockRpc({
+    async 'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker'(port: MessagePort) {
+      peer = await PlainMessagePortRpc.create({ commandMap: { 'Menu.getTitleBarMenuEntries': getEntries }, messagePort: port })
+    },
   })
+  try {
+    expect(await getMenuEntries('switchEditor', 2)).toEqual(entries)
+    expect(getEntries).toHaveBeenCalledWith('switchEditor', 2)
+  } finally {
+    await peer?.dispose()
+  }
 })
 
-test('getMenuEntries - switch group', async () => {
-  const result = await getMenuEntries(MenuIdSwitchGroup)
-
-  expect(result).toHaveLength(9)
-  expect(result[0]).toMatchObject({
-    id: 'nextGroup',
-    label: 'Next Group',
+test('propagates a menu worker failure', async () => {
+  let peer: Awaited<ReturnType<typeof PlainMessagePortRpc.create>> | undefined
+  using _mockRpc = RendererWorker.registerMockRpc({
+    async 'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker'(port: MessagePort) {
+      peer = await PlainMessagePortRpc.create({
+        commandMap: {
+          'Menu.getTitleBarMenuEntries': () => {
+            throw new Error('menu unavailable')
+          },
+        },
+        messagePort: port,
+      })
+    },
   })
-})
-
-test.each([
-  [MenuEntryId.Edit, 'undo'],
-  [MenuEntryId.File, 'newFile'],
-  [MenuEntryId.Go, 'back'],
-  [MenuEntryId.Help, 'showAllCommands'],
-  [MenuEntryId.Run, undefined],
-  [MenuEntryId.Selection, 'selectAll'],
-  [MenuEntryId.Terminal, 'newTerminal'],
-  [MenuEntryId.TitleBar, MenuEntryId.File],
-  [MenuEntryId.View, 'commandPalette'],
-  [MenuIdAppearance, 'fullScreen'],
-  [MenuIdEditorLayout, 'splitUp'],
-])('getMenuEntries routes %s', async (id, firstId) => {
-  const result = await getMenuEntries(id, PlatformType.Web)
-  expect(result[0]?.id).toBe(firstId)
-})
-
-test('getMenuEntries routes recent workspaces', async () => {
-  using _mockRpc = RendererWorker.registerMockRpc({ 'RecentlyOpened.getRecentlyOpened': () => [] })
-  expect(await getMenuEntries(MenuEntryId.OpenRecent)).toEqual(expect.arrayContaining([expect.objectContaining({ id: 'more' })]))
-})
-
-test('getMenuEntries rejects unknown menus with context', async () => {
-  await expect(getMenuEntries('unknown')).rejects.toThrow('Failed to load menu entries for id unknown')
+  try {
+    await expect(getMenuEntries('switchGroup')).rejects.toThrow('menu unavailable')
+  } finally {
+    await peer?.dispose()
+  }
 })

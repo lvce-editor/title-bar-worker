@@ -2,6 +2,9 @@ import { expect, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarOpenMenu from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarOpenMenu.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('openMenu with focusedIndex -1 returns same state', async () => {
   const state: TitleBarMenuBarState = createDefaultState()

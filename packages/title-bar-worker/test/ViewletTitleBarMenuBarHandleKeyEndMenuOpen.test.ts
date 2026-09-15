@@ -3,6 +3,9 @@ import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/Tit
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyEndMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEndMenuOpen.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('handleKeyEndMenuOpen - focus last item', async () => {
   const state: TitleBarMenuBarState = {

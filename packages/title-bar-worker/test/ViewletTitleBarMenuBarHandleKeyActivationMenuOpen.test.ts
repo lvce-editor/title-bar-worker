@@ -5,6 +5,9 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyEnterMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.ts'
 import * as ViewletTitleBarMenuBarHandleKeySpaceMenuOpen from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpaceMenuOpen.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 const handlers = [
   ['Enter', ViewletTitleBarMenuBarHandleKeyEnterMenuOpen.handleKeyEnterMenuOpen],
@@ -34,6 +37,7 @@ const createOpenState = (): TitleBarMenuBarState => ({
 
 test.each(handlers)('%s activates the focused menu item', async (key, handleKey) => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'QuickPick.showFile'() {},
   })
   const state = createOpenState()
@@ -57,6 +61,7 @@ test.each(handlers)('%s returns the same state when no menu is open', async (key
 
 test.each(handlers)('%s activates the focused item in the deepest menu', async (key, handleKey) => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'QuickPick.showFile'() {},
   })
   const state: TitleBarMenuBarState = {
