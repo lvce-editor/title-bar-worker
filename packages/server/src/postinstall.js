@@ -34,7 +34,6 @@ const dirents = await readdir(serverStaticPath)
 const commitHash = dirents.find(isCommitHash) || ''
 const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
 
-
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 const remoteUrl = getRemoteUrl(workerPath)
 if (!content.includes('// const titleBarWorkerUrl = ')) {
