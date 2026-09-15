@@ -16,7 +16,7 @@ export const test: Test = async ({ Command, Editor, expect, FileSystem, Locator,
   await FileSystem.shouldHaveFile(autoSaveOffFile, 'before')
   await expect(selectedModifiedTab).toHaveCount(1)
 
-  await toggleAutoSave(TitleBarMenuBar, Locator)
+  await toggleAutoSave(Command, TitleBarMenuBar)
 
   const autoSaveOnFile = `${tmpDir}/auto-save-on.txt`
   await editAndBlur(Command, Editor, FileSystem, Main, autoSaveOnFile)

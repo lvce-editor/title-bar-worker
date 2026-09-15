@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-bar.open-file-menu-new-file'
 
-export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
+export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) => {
   // arrange
   const titleBarItemFile = Locator('.TitleBarTopLevelEntry', {
     hasText: 'File',
@@ -19,8 +19,7 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
 
   // act - trigger "New File"
   const menuItemNewFile = Locator('.MenuItem', { hasText: 'New File' })
-  // eslint-disable-next-line e2e/no-direct-click, e2e/no-menu-item-click -- select the menu command by its label
-  await menuItemNewFile.click()
+  await Command.execute('TitleBar.handleMenuClick', 0, 0)
 
   // assert
   await expect(menuItemNewFile).toBeHidden()
