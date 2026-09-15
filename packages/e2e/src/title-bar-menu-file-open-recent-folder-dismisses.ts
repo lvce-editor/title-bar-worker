@@ -10,6 +10,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   const tmpDir = await FileSystem.getTmpDir()
   const recentFolder = `${tmpDir}/recent-folder`
   const currentFolder = `${tmpDir}/current-folder`
+  await FileSystem.mkdir(recentFolder)
+  await FileSystem.mkdir(currentFolder)
   await Workspace.setPath(currentFolder)
   await Command.execute('RecentlyOpened.clearRecentlyOpened')
   await Command.execute('RecentlyOpened.addToRecentlyOpened', recentFolder)
@@ -31,7 +33,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   const recentFolderItem = recentMenu.locator('.MenuItem').nth(1)
   const title = Locator('.TitleBarTitle')
   await expect(recentFolderItem).toContainText(recentFolder)
-  await Command.execute('TitleBar.handleMenuClick', 1, 1)
+  // eslint-disable-next-line e2e/no-direct-click -- activate the asserted recent folder
+  await recentFolderItem.click()
 
   await expect(title).toHaveText(recentFolder.slice(recentFolder.lastIndexOf('/') + 1))
   await expect(fileMenu).toBeHidden()

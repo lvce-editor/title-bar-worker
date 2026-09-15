@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-update-title-on-close-workspace'
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   const title = Locator('.TitleBarTitle')
@@ -19,8 +19,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   await TitleBarMenuBar.handleKeyArrowDown()
   const closeFolder = Locator('.MenuItem', { hasText: 'Close Folder' })
   await expect(closeFolder).toBeVisible()
-  const closeFolderIndex = 12
-  await Command.execute('TitleBar.handleMenuClick', 0, closeFolderIndex)
+  // eslint-disable-next-line e2e/no-direct-click, e2e/no-menu-item-click -- select Close Folder independently of menu ordering
+  await closeFolder.click()
 
   // assert
   await expect(title).toHaveText('Lvce Editor')

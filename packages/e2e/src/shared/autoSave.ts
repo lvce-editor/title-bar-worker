@@ -1,11 +1,10 @@
 import type { TestApi } from '@lvce-editor/test-with-playwright'
 
-const autoSaveMenuItemIndex = 10
-
-export const toggleAutoSave = async (Command: TestApi['Command'], TitleBarMenuBar: TestApi['TitleBarMenuBar']): Promise<void> => {
+export const toggleAutoSave = async (TitleBarMenuBar: TestApi['TitleBarMenuBar'], Locator: TestApi['Locator']): Promise<void> => {
   await TitleBarMenuBar.focus()
   await TitleBarMenuBar.handleKeyArrowDown()
-  await Command.execute('TitleBar.handleMenuClick', 0, autoSaveMenuItemIndex)
+  // eslint-disable-next-line e2e/no-direct-click, e2e/no-menu-item-click -- select the menu command by its label, independently of menu ordering
+  await Locator('.MenuItem', { hasText: 'Auto Save' }).click()
 }
 
 export const editAndBlur = async (
