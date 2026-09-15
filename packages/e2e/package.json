@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "e2e": "test-with-playwright --only-extension=. --test-path=. --reuse-page",
+    "e2e:application": "test-with-playwright --only-extension=. --test-path=application --server-path=../server/src/startApplicationServer.js --headless",
     "e2e:headless": "test-with-playwright --only-extension=. --test-path=. --headless --reuse-page"
   },
   "devDependencies": {
