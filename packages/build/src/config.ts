@@ -1,8 +1,8 @@
 import { join } from 'node:path'
 import { root } from './root.js'
 
-// Includes the read-only component DOM inspection command.
-export const threshold = 537_000
+// Includes component DOM inspection and name-based title bar click dispatch.
+export const threshold = 538_000
 
 export const instantiations = 6000
 
