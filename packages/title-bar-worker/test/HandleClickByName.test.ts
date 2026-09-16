@@ -1,8 +1,9 @@
 import { expect, test } from '@jest/globals'
+import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleClickByName } from '../src/parts/HandleClickByName/HandleClickByName.ts'
 
-const createState = () => ({
+const createState = (): TitleBarMenuBarState => ({
   ...createDefaultState(),
   titleBarEntries: [
     { id: 1, label: 'File', width: 50 },
