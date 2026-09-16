@@ -8,6 +8,7 @@ import * as GetKeyBindings from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import * as GetMenuIds from '../GetMenuIds/GetMenuIds.ts'
 import * as HandleButtonsClick from '../HandleButtonsClick/HandleButtonsClick.ts'
+import { handleClickByName } from '../HandleClickByName/HandleClickByName.ts'
 import { handleClickClose } from '../HandleClickClose/HandleClickClose.ts'
 import { handleClickMinimize } from '../HandleClickMinimize/HandleClickMinimize.ts'
 import { handleClickToggleMaximize } from '../HandleClickToggleMaximize/HandleClickToggleMaximize.ts'
@@ -89,6 +90,7 @@ export const commandMap = {
   'TitleBar.handleButtonsClick': HandleButtonsClick.handleClick,
   'TitleBar.handleClick': wrapCommand(ViewletTitleBarMenuBarHandleClick.handleClick),
   'TitleBar.handleClickAt': wrapCommand(ViewletTitleBarMenuBarHandleClickAt.handleClickAt),
+  'TitleBar.handleClickByName': wrapCommand(handleClickByName),
   'TitleBar.handleClickClose': wrapCommand(handleClickClose),
   'TitleBar.handleClickMinimize': wrapCommand(handleClickMinimize),
   'TitleBar.handleClickToggleMaximize': wrapCommand(handleClickToggleMaximize),
