@@ -10,7 +10,7 @@ export const test: Test = async ({ expect, Locator }) => {
     await help.click()
     await expect(help).toHaveAttribute('aria-expanded', 'true')
     await expect(menu).toBeVisible()
-    await expect(menu.locator('.MenuItem', { hasText: 'About' })).toBeVisible()
+    await expect(Locator('#Menu-0 .MenuItem', { hasText: 'About' })).toBeVisible()
     // eslint-disable-next-line e2e/no-direct-click -- verifies clicking the focused label closes the menu
     await help.click()
     await expect(menu).toBeHidden()
