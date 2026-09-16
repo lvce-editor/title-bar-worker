@@ -38,6 +38,10 @@ const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'r
 
 await cp(quickPickWorkerSourcePath, quickPickWorkerTargetPath)
 
+const testWorkerSourcePath = require.resolve('@lvce-editor/test-worker/dist/testWorkerMain.js')
+const testWorkerTargetPath = join(serverStaticPath, commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
+await cp(testWorkerSourcePath, testWorkerTargetPath)
+
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 const remoteUrl = getRemoteUrl(workerPath)
 if (!content.includes('// const titleBarWorkerUrl = ')) {
