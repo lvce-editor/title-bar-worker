@@ -7,7 +7,7 @@ export const skip = true
 export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(`${tmpDir}/my-project`)
+  await Workspace.setUri(`${tmpDir}/my-project`)
 
   // act - set a template with a variable that doesn't exist
   await TitleBarMenuBar.setTitleTemplate('${folderName} - ${unknownVariable}')

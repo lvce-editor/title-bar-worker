@@ -8,7 +8,7 @@ export const test: Test = async ({ Command, Editor, expect, FileSystem, Locator,
     'files.autoSave': 'off',
   })
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
   const selectedModifiedTab = Locator('.MainTabSelected.MainTabModified')
 
   const autoSaveOffFile = `${tmpDir}/auto-save-off.txt`

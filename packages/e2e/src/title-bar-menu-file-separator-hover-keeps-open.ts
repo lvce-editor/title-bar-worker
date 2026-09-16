@@ -12,6 +12,7 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   await expect(newFile).toBeFocused()
 
   const separator = Locator('#Menu-0 .MenuItemSeparator').first()
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- exercises DOM hover handling; a command would bypass the event under test
   await separator.hover()
 
   await expect(menu).toBeVisible()

@@ -28,7 +28,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => 
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.txt`, 'div')
 
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   const titleBar = Locator('#TitleBar')
   await expect(titleBar).toHaveAttribute('role', 'contentinfo')

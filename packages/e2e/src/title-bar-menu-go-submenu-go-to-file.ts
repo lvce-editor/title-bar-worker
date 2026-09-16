@@ -6,7 +6,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, QuickPi
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/menu-file.txt`, 'content')
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   await TitleBarMenuBar.focus()
   await TitleBarMenuBar.handleKeyArrowRight()

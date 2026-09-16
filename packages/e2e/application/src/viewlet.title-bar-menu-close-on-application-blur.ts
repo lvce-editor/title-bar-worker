@@ -8,7 +8,7 @@ export const test: Test = async ({ Command, expect, Locator }) => {
   const menuBar = Locator('.TitleBarMenuBar')
 
   for (let iteration = 0; iteration < 3; iteration++) {
-    // eslint-disable-next-line e2e/no-direct-click -- exercises menu reopening after application blur
+    // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- exercises menu reopening after application blur
     await helpMenuItem.click()
     await expect(menu).toBeVisible()
     await expect(helpMenuItem).toHaveAttribute('aria-expanded', 'true')

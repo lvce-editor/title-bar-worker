@@ -5,7 +5,7 @@ export const name = 'title-bar-menu-go-to-file-select'
 export const test: Test = async ({ Command, expect, FileSystem, Locator, QuickPick, TitleBarMenuBar, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/menu-select-file.txt`, 'content')
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   await TitleBarMenuBar.focus()
   await TitleBarMenuBar.handleKeyArrowRight()

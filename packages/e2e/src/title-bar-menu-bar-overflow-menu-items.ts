@@ -4,7 +4,7 @@ export const name = 'title-bar-menu-bar-overflow-menu-items'
 
 export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(`${tmpDir}/my-project`)
+  await Workspace.setUri(`${tmpDir}/my-project`)
 
   await TitleBarMenuBar.setTitleTemplate('A')
   await TitleBarMenuBar.setWidth(320)

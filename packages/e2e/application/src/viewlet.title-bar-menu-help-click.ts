@@ -7,12 +7,12 @@ export const test: Test = async ({ expect, Locator }) => {
   const menu = Locator('#Menu-0')
   const about = Locator('#Menu-0 .MenuItem', { hasText: 'About' })
   for (let iteration = 0; iteration < 2; iteration++) {
-    // eslint-disable-next-line e2e/no-direct-click -- exercises the DOM mouse event rather than the index-based command
+    // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- exercises the DOM mouse event rather than the index-based command
     await help.click()
     await expect(help).toHaveAttribute('aria-expanded', 'true')
     await expect(menu).toBeVisible()
     await expect(about).toBeVisible()
-    // eslint-disable-next-line e2e/no-direct-click -- verifies clicking the focused label closes the menu
+    // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- verifies clicking the focused label closes the menu
     await help.click()
     await expect(menu).toBeHidden()
   }

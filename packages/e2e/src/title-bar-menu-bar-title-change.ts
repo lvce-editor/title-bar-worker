@@ -4,7 +4,7 @@ export const name = 'title-bar-menu-bar-title-change'
 
 export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(`${tmpDir}/my-project`)
+  await Workspace.setUri(`${tmpDir}/my-project`)
 
   const longTitle = 'A'.repeat(40)
   await TitleBarMenuBar.setTitleTemplate(longTitle)
