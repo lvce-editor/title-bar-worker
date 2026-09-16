@@ -4,13 +4,13 @@ export const name = 'title-bar-title-template-partial'
 
 export const skip = true
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await Workspace.setPath(`${tmpDir}/my-project`)
 
   // act - set a template with a variable that doesn't exist
-  await Command.execute('TitleBar.setTitleTemplate', '${folderName} - ${unknownVariable}')
+  await TitleBarMenuBar.setTitleTemplate('${folderName} - ${unknownVariable}')
 
   // assert - the unknown variable should be left as-is
   const title = Locator('.TitleBarTitle')
