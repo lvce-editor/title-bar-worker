@@ -56,3 +56,8 @@ test('renderEventListeners - should return the same result on multiple calls', (
   const result2 = RenderEventListeners.renderEventListeners()
   expect(result1).toEqual(result2)
 })
+
+test('menu clicks use the named target instead of viewport coordinates', () => {
+  const listener = RenderEventListeners.renderEventListeners().find((item) => item.name === DomEventListenerFunctions.HandleClick)
+  expect(listener?.params).toEqual(['handleClickByName', 'event.button', 'event.target.name'])
+})
