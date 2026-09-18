@@ -1,8 +1,12 @@
-/* eslint-disable jest/no-restricted-jest-methods */
 import { expect, test, jest } from '@jest/globals'
+
+setupMenuWorker()
+
+/* eslint-disable jest/no-restricted-jest-methods */
 import { PlatformType } from '@lvce-editor/constants'
 import { MainProcess, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
 
 jest.unstable_mockModule('../src/parts/AddWidths/AddWidths.ts', () => ({
   addWidths: jest.fn(async (entries: readonly any[]) => entries.map((entry: any) => ({ ...entry, width: 100 }))),
@@ -67,6 +71,7 @@ test('loadContent2 - returns state with title, buttons, and titleBarEntries', as
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -91,6 +96,7 @@ test('loadContent2 - preserves state properties', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return ''
     },
@@ -109,6 +115,7 @@ test('loadContent2 - sets iconWidth to 30', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -125,6 +132,7 @@ test('loadContent2 - titleBarEntries contains entries with widths', async () => 
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -142,6 +150,7 @@ test('loadContent2 - title is generated from workspace URI and titleTemplate', a
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/myproject'
     },
@@ -161,6 +170,7 @@ test('loadContent2 - title uses appName when in titleTemplate', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/myproject'
     },
@@ -178,6 +188,7 @@ test('loadContent2 - handles empty workspace URI', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return ''
     },
@@ -196,6 +207,7 @@ test('loadContent2 - buttons property is set', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -213,6 +225,7 @@ test('loadContent2 - titleBarButtons property is set', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -236,6 +249,7 @@ test('loadContent2 - respects controlsOverlayEnabled setting', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -255,6 +269,7 @@ test('loadContent2 - respects titleBarStyleCustom setting', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -276,6 +291,7 @@ test('loadContent2 - calls hydrate for Electron platform with titleBarStyleCusto
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened'() {
       return []
     },
@@ -303,6 +319,7 @@ test('loadContent2 - uses provided label font settings', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -322,6 +339,7 @@ test('loadContent2 - handles multiple different platforms', async () => {
   const mockWorkspaceUri = '/home/user/test'
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return mockWorkspaceUri
     },
@@ -352,6 +370,7 @@ test('loadContent2 - measures title text with configured font settings', async (
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/myproject'
     },
@@ -370,6 +389,7 @@ test('loadContent2 - returns updated state with same uid', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },
@@ -390,6 +410,7 @@ test('loadContent2 - recalculates menu bar width for initial load', async () => 
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/myproject'
     },
@@ -413,6 +434,7 @@ test('loadContent2 - preserves layout and display settings', async () => {
   })
 
   using _mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Workspace.getUri'() {
       return '/home/user/project'
     },

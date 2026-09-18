@@ -4,6 +4,9 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarOpenMenuAtIndex from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('openMenuAtIndex opens menu at specified index', async () => {
   const state: TitleBarMenuBarState = {

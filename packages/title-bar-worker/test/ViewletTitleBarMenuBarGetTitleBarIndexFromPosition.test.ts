@@ -1,5 +1,8 @@
 import { expect, test } from '@jest/globals'
 import * as ViewletTitleBarMenuBarGetTitleBarIndexFromPosition from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarGetTitleBarIndexFromPosition.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('getTitleBarIndexFromPosition - first item', () => {
   const titleBarEntries = [

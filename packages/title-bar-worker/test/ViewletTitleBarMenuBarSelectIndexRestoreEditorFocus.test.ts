@@ -3,9 +3,13 @@ import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarSelectIndexRestoreEditorFocus from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexRestoreEditorFocus.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('selectIndexRestoreEditorFocus executes command, restores editor focus, and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Editor.selectAll'() {},
     'Main.focus'() {},
   })
@@ -41,6 +45,7 @@ test('selectIndexRestoreEditorFocus executes command, restores editor focus, and
 
 test('selectIndexRestoreEditorFocus closes menu when focus restoration is unavailable', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'Editor.selectAll'() {},
     'Main.focus'() {
       throw new Error('module Main not found')

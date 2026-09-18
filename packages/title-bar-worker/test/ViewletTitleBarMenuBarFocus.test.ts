@@ -2,6 +2,9 @@ import { expect, test } from '@jest/globals'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarFocus from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarFocus.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('focus', async () => {
   const state: TitleBarMenuBarState = {

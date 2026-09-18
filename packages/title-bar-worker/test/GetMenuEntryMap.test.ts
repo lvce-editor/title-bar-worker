@@ -3,6 +3,9 @@ import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/Tit
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { getEntryMap } from '../src/parts/GetMenuEntryMap/GetMenuEntryMap.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('getEntryMap - returns empty object for empty menuIds', async () => {
   const state: TitleBarMenuBarState = createDefaultState()

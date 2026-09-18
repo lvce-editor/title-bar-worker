@@ -4,6 +4,9 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleKeyArrowLeft from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowLeft.ts'
+import { setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('handleKeyArrowLeft - close sub menu', async () => {
   const state: TitleBarMenuBarState = {

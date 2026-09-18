@@ -5,6 +5,9 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarFocusIndex from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarFocusIndex.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 test('focusIndex - when open - when same index', async () => {
   const state: TitleBarMenuBarState = {
@@ -95,6 +98,7 @@ test('focusIndex - when open - when same index', async () => {
 
 test('focusIndex - when opening different index', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => [],
   })
 
@@ -128,11 +132,15 @@ test('focusIndex - when opening different index', async () => {
   expect(result.menus).toHaveLength(1)
   expect(result.menus[0].level).toBe(0)
   expect(result.menus[0].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('focusIndex - when open - race condition', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
+    ...menuWorkerCommands,
     'RecentlyOpened.getRecentlyOpened': () => [],
   })
 
@@ -166,7 +174,10 @@ test('focusIndex - when open - race condition', async () => {
   expect(result.menus).toHaveLength(1)
   expect(result.menus[0].level).toBe(0)
   expect(result.menus[0].items.length).toBeGreaterThan(0)
-  expect(mockRpc.invocations.map(([command]) => command)).toEqual(['Layout.getKeyBindings'])
+  expect(mockRpc.invocations.map(([command]) => command)).toEqual([
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMenuWorker',
+    'Layout.getKeyBindings',
+  ])
 })
 
 test('focusIndex - when closed - when same index', async () => {

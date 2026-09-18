@@ -11,6 +11,9 @@ import { handleMenuClick } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMen
 import { handleMenuMouseOver } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
 import { handleMouseOverMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOverMenuOpen.ts'
 import { openMenuAtIndex } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarOpenMenuAtIndex.ts'
+import { menuWorkerCommands, setupMenuWorker } from '../test-support/MockMenuWorker.ts'
+
+setupMenuWorker()
 
 const menu = { focusedIndex: -1, items: [], level: 0, x: 0, y: 0 }
 
@@ -43,7 +46,10 @@ test('up arrow starts at the last focusable menu item', () => {
 test.each([MenuItemFlags.None, MenuItemFlags.Unchecked, MenuItemFlags.Ignore, MenuItemFlags.RestoreFocus])(
   'menu click dispatches flag %s',
   async (flags) => {
-    using mockRpc = RendererWorker.registerMockRpc({ 'Test.run': () => {} })
+    using mockRpc = RendererWorker.registerMockRpc({
+      ...menuWorkerCommands,
+      'Test.run': () => {},
+    })
     const state = { ...createDefaultState(), isMenuOpen: true, menus: [{ ...menu, items: [{ command: 'Test.run', flags, label: 'Run' }] }] }
     const result = await handleMenuClick(state, 0, 0)
     expect(mockRpc.invocations).toEqual([['Test.run']])
