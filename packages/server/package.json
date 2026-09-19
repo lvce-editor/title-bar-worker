@@ -12,7 +12,6 @@
   "license": "MIT",
   "dependencies": {
     "@lvce-editor/application-test-server": "npm:@lvce-editor/server@0.115.11",
-    "@lvce-editor/quick-pick-worker": "4.9.0",
     "@lvce-editor/server": "0.115.11",
     "@lvce-editor/shared-process": "0.115.11",
     "@lvce-editor/static-server": "0.115.11"
