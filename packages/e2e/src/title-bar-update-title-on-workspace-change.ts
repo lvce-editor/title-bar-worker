@@ -9,14 +9,14 @@ export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => 
   const title = Locator('.TitleBarTitle')
 
   // act
-  await Workspace.setPath(`${tmpDir1}/folder-1`)
+  await Workspace.setUri(`${tmpDir1}/folder-1`)
 
   // assert
   await expect(title).toBeVisible()
   await expect(title).toHaveText('folder-1')
 
   // act
-  await Workspace.setPath(`${tmpDir2}/folder-2/`)
+  await Workspace.setUri(`${tmpDir2}/folder-2/`)
 
   // assert
   await expect(title).toHaveText('folder-2')

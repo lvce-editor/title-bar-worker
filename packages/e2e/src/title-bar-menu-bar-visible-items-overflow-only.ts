@@ -2,12 +2,12 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'title-bar-menu-bar-visible-items-overflow-only'
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(`${tmpDir}/my-project`)
+  await Workspace.setUri(`${tmpDir}/my-project`)
 
-  await Command.execute('TitleBar.setTitleTemplate', 'A')
-  await Command.execute('TitleBar.setWidth', 140)
+  await TitleBarMenuBar.setTitleTemplate('A')
+  await TitleBarMenuBar.setWidth(140)
 
   const titleBarEntries = Locator('.TitleBarTopLevelEntry')
   await expect(titleBarEntries).toHaveCount(1)

@@ -32,11 +32,11 @@ const isCommitHash = (dirent) => {
 
 const dirents = await readdir(serverStaticPath)
 const commitHash = dirents.find(isCommitHash) || ''
-const quickPickWorkerSourcePath = require.resolve('@lvce-editor/quick-pick-worker/dist/quickPickWorkerMain.js')
-const quickPickWorkerTargetPath = join(serverStaticPath, commitHash, 'packages', 'quick-pick-worker', 'dist', 'quickPickWorkerMain.js')
 const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
 
-await cp(quickPickWorkerSourcePath, quickPickWorkerTargetPath)
+const testWorkerSourcePath = require.resolve('@lvce-editor/test-worker/dist/testWorkerMain.js')
+const testWorkerTargetPath = join(serverStaticPath, commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
+await cp(testWorkerSourcePath, testWorkerTargetPath)
 
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 const remoteUrl = getRemoteUrl(workerPath)

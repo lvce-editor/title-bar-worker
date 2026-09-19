@@ -8,7 +8,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspa
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.txt`, 'div')
 
-  await Workspace.setPath(tmpDir)
+  await Workspace.setUri(tmpDir)
 
   const titleBar = Locator('#TitleBar')
   await expect(titleBar).toHaveAttribute('role', 'contentinfo')
@@ -27,10 +27,12 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspa
   await expect(menu).toHaveCount(1)
 
   const menuItemNewWindow = menu.locator('text=New Window')
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- exercises DOM hover handling; a command would bypass the event under test
   await menuItemNewWindow.hover()
   await expect(menuItemNewWindow).toHaveClass('Focused')
 
   const menuItemOpenRecent = menu.locator('text=Open Recent')
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- exercises DOM hover handling; a command would bypass the event under test
   await menuItemOpenRecent.hover()
   await expect(menuItemOpenRecent).toHaveClass('Focused')
 
@@ -40,9 +42,11 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspa
   await expect(menuItemOpenRecent).toHaveAttribute('aria-owns', 'Menu-1')
 
   const subMenuItemClearRecentlyOpened = subMenu.locator('text=Clear Recently Opened')
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- exercises DOM hover handling; a command would bypass the event under test
   await subMenuItemClearRecentlyOpened.hover()
 
   const menuItemExit = menu.locator('text=Exit')
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- exercises DOM hover handling; a command would bypass the event under test
   await menuItemExit.hover()
 
   await expect(menu).toHaveCount(1)
