@@ -49,7 +49,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          npm run e2e:headless 2>&1 | tee e2e.log
+          npm run e2e:headless -- --filter=title-bar-menu --trace-renderer-worker --trace-focus 2>&1 | tee e2e.log
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
       - name: measure
