@@ -22,7 +22,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, TitleBarMe
   await expect(titleBarItemFile).toHaveAttribute('id', 'TitleBarEntryActive')
 
   const editorRow = Locator('.EditorRow').first()
-  // eslint-disable-next-line e2e/no-direct-click
+  // eslint-disable-next-line e2e/no-direct-click, @typescript-eslint/no-deprecated -- exercises DOM click handling and focus changes
   await editorRow.click()
 
   await expect(titleBarItemFile).toHaveAttribute('id', null)

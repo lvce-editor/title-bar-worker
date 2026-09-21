@@ -10,7 +10,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   const tmpDir = await FileSystem.getTmpDir()
   const recentFolder = `${tmpDir}/recent-folder`
   const currentFolder = `${tmpDir}/current-folder`
-  await Workspace.setPath(currentFolder)
+  await Workspace.setUri(currentFolder)
   await Command.execute('RecentlyOpened.clearRecentlyOpened')
   await Command.execute('RecentlyOpened.addToRecentlyOpened', recentFolder)
   await Command.execute('RecentlyOpened.addToRecentlyOpened', currentFolder)

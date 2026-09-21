@@ -2,7 +2,8 @@ import { join } from 'node:path'
 import { root } from './root.js'
 
 // Includes component DOM inspection and name-based title bar click dispatch.
-export const threshold = 538_000
+// Baseline measures 541,364 bytes; focus and render synchronization measures 541,684.
+export const threshold = 542_000
 
 export const instantiations = 6000
 

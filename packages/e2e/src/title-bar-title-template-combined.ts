@@ -4,13 +4,13 @@ export const name = 'title-bar-title-template-combined'
 
 export const skip = true
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(`${tmpDir}/my-project`)
+  await Workspace.setUri(`${tmpDir}/my-project`)
 
   // act
-  await Command.execute('TitleBar.setTitleTemplate', '${appName} - ${folderName}')
+  await TitleBarMenuBar.setTitleTemplate('${appName} - ${folderName}')
 
   // assert
   const title = Locator('.TitleBarTitle')
