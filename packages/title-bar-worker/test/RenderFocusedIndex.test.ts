@@ -17,7 +17,7 @@ test('renderFocusedIndex - when focusedIndex is 0', () => {
 
   const result = RenderFocusedIndex.renderFocusedIndex(oldState, newState)
 
-  expect(result).toEqual(['Viewlet.focusSelector', 41, '.ViewletTitleBarMenuBar'])
+  expect(result).toEqual(['Viewlet.focusSelector', 41, '.TitleBarMenuBar'])
 })
 
 test('renderFocusedIndex - when focusedIndex is 1', () => {
@@ -26,7 +26,7 @@ test('renderFocusedIndex - when focusedIndex is 1', () => {
 
   const result = RenderFocusedIndex.renderFocusedIndex(oldState, newState)
 
-  expect(result).toEqual(['Viewlet.focusSelector', 42, '.ViewletTitleBarMenuBar'])
+  expect(result).toEqual(['Viewlet.focusSelector', 42, '.TitleBarMenuBar'])
 })
 
 test('renderFocusedIndex - when focusedIndex is 2', () => {
@@ -35,7 +35,7 @@ test('renderFocusedIndex - when focusedIndex is 2', () => {
 
   const result = RenderFocusedIndex.renderFocusedIndex(oldState, newState)
 
-  expect(result).toEqual(['Viewlet.focusSelector', 43, '.ViewletTitleBarMenuBar'])
+  expect(result).toEqual(['Viewlet.focusSelector', 43, '.TitleBarMenuBar'])
 })
 
 test('renderFocusedIndex - when oldState focusedIndex changes from -1 to 0', () => {
@@ -44,7 +44,7 @@ test('renderFocusedIndex - when oldState focusedIndex changes from -1 to 0', () 
 
   const result = RenderFocusedIndex.renderFocusedIndex(oldState, newState)
 
-  expect(result).toEqual(['Viewlet.focusSelector', 44, '.ViewletTitleBarMenuBar'])
+  expect(result).toEqual(['Viewlet.focusSelector', 44, '.TitleBarMenuBar'])
 })
 
 test('renderFocusedIndex - when oldState focusedIndex changes from 0 to 1', () => {
@@ -53,7 +53,7 @@ test('renderFocusedIndex - when oldState focusedIndex changes from 0 to 1', () =
 
   const result = RenderFocusedIndex.renderFocusedIndex(oldState, newState)
 
-  expect(result).toEqual(['Viewlet.focusSelector', 45, '.ViewletTitleBarMenuBar'])
+  expect(result).toEqual(['Viewlet.focusSelector', 45, '.TitleBarMenuBar'])
 })
 
 test('renderFocusedIndex - when oldState focusedIndex changes from 1 to -1', () => {

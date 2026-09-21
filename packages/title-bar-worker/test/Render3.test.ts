@@ -91,6 +91,6 @@ test('render3 queues focused index commands with the view id', async () => {
 
   const result = await Render3.render3(uid, [DiffType.RenderFocusedIndex])
 
-  expect(queueCommands).toHaveBeenCalledWith(uid, [['Viewlet.focusSelector', uid, '.ViewletTitleBarMenuBar']])
+  expect(queueCommands).toHaveBeenCalledWith(uid, [['Viewlet.focusSelector', uid, '.TitleBarMenuBar']])
   expect(result).toEqual([['Viewlet.commitPending', uid, 29]])
 })
