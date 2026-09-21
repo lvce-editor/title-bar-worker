@@ -7,7 +7,7 @@ export const skip = true
 export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(`${tmpDir}/my-project`)
+  await Workspace.setUri(`${tmpDir}/my-project`)
 
   // assert - default template should be ${folderName}
   const title = Locator('.TitleBarTitle')

@@ -68,3 +68,13 @@ test('getMenuEntries - close folder command', async () => {
     label: 'Close Folder',
   })
 })
+
+test('new file restores focus to the created editor', async () => {
+  const entries = await getMenuEntries(PlatformType.Web, 'off')
+  expect(entries).toContainEqual({
+    command: 'Main.newFile',
+    flags: MenuItemFlags.RestoreEditorFocus,
+    id: 'newFile',
+    label: 'New File',
+  })
+})

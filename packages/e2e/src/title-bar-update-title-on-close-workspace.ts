@@ -8,7 +8,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   const title = Locator('.TitleBarTitle')
 
   // act
-  await Workspace.setPath(`${tmpDir}/my-project`)
+  await Workspace.setUri(`${tmpDir}/my-project`)
 
   // assert
   await expect(title).toBeVisible()

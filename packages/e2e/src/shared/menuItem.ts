@@ -154,6 +154,7 @@ export const createEscapeClosesMenuTest = (menuOffset: number, label: string): T
     await api.TitleBarMenuBar.handleKeySpace()
     await expectTopLevelMenuOpen(api, label)
     await api.TitleBarMenuBar.handleKeyEscape()
+    await api.expect(api.Locator('.TitleBarMenuBar')).toBeFocused()
     await expectTopLevelMenuClosed(api, label)
   }
 }

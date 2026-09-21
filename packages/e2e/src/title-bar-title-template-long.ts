@@ -4,14 +4,13 @@ export const name = 'title-bar-title-template-long'
 
 export const skip = true
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
-  await Workspace.setPath(`${tmpDir}/my-project`)
+  await Workspace.setUri(`${tmpDir}/my-project`)
 
   // act
-  await Command.execute(
-    'TitleBar.setTitleTemplate',
+  await TitleBarMenuBar.setTitleTemplate(
     'This is a very long title template that should still be displayed correctly in the title bar without any issues',
   )
 
