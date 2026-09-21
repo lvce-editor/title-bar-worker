@@ -97,7 +97,7 @@ test('render3 queues focused index commands with the view id', async () => {
 
 test('render3 includes changes made after the renderer requested its diff', async () => {
   const uid = 983
-  const queueCommands = jest.fn(() => 31)
+  const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 31)
   RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
   const oldState = { ...CreateDefaultState.createDefaultState(), uid }
   const currentState = { ...oldState, focusedIndex: 1 }
