@@ -62,7 +62,7 @@ import * as ViewletTitleBarMenuBarHandleMouseOut from '../TitleBarMenuBar/Viewle
 import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
 import * as ViewletTitleBarMenuBarToggleIndex from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleIndex.ts'
 import * as ViewletTitleBarMenuBarToggleMenu from '../TitleBarMenuBar/ViewletTitleBarMenuBarToggleMenu.ts'
-import { getCommandIds, wrapCommand, wrapGetter } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+import { getCommandIds, wrapCommand, wrapGetter, wrapNotification } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 import { wakeUp } from '../WakeUp/WakeUp.ts'
 
 const handleDirectMessagePort = (port: MessagePort, setAsRendererProcess = true): Promise<void> =>
@@ -117,7 +117,8 @@ export const commandMap = {
   'TitleBar.handlePointerOut': wrapCommand(HandlePointerOut.handlePointerOut),
   'TitleBar.handlePointerOver': wrapCommand(HandlePointerOver.handlePointerOver),
   'TitleBar.handleTitleBarContextMenu': wrapCommand(HandleTitleBarContextMenu.handleTitleBarContextMenu),
-  'TitleBar.handleWorkspaceChange': wrapCommand(handleWorkspaceChange),
+  // Workspace actions await this callback while holding the ordinary command queue.
+  'TitleBar.handleWorkspaceChange': wrapNotification(handleWorkspaceChange),
   'TitleBar.hideCommandCenter': wrapCommand(hideCommandCenter),
   'TitleBar.hideMenuBar': wrapCommand(hideMenuBar),
   'TitleBar.hydrateElectronApplicationMenu': wrapCommand(hydrate),
