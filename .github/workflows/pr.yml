@@ -31,8 +31,6 @@ jobs:
       - name: npm ci
         run: npm ci
         if: steps.npm-cache.outputs.cache-hit != 'true'
-      - name: Apply pending renderer fixes for diagnosis
-        run: node packages/server/src/patchWorkspaceCommandQueue.js
       - run: npm run build
       - run: npm run build:static
       - run: npm test
