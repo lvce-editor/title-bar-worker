@@ -10,5 +10,6 @@ export const test: Test = async (api) => {
   const testFile = `${tmpDir}/selection-navigation-home.txt`
   await api.FileSystem.writeFile(testFile, 'hello')
   await api.Main.openUri(testFile)
+  await api.expect(api.Locator('.EditorInput textarea')).toBeFocused()
   await testMenuNavigation(api)
 }
