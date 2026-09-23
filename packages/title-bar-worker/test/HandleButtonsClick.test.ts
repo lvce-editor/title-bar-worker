@@ -18,7 +18,7 @@ test('handleClick - Minimize button', async () => {
 
 test('handleClick - Maximize button', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
-    'ElectronWindow.maximize'() {},
+    'ElectronWindow.toggleMaximize'() {},
   })
 
   NativeHostState.setMaximized(false)
@@ -26,12 +26,12 @@ test('handleClick - Maximize button', async () => {
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
   const result = await HandleButtonsClick.handleClick(state, 'ToggleMaximize')
   expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ElectronWindow.maximize']])
+  expect(mockRpc.invocations).toEqual([['ElectronWindow.toggleMaximize']])
 })
 
 test('handleClick - Restore button', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
-    'ElectronWindow.unmaximize'() {},
+    'ElectronWindow.toggleMaximize'() {},
   })
 
   NativeHostState.setMaximized(true)
@@ -39,7 +39,7 @@ test('handleClick - Restore button', async () => {
   const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
   const result = await HandleButtonsClick.handleClick(state, 'ToggleMaximize')
   expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ElectronWindow.unmaximize']])
+  expect(mockRpc.invocations).toEqual([['ElectronWindow.toggleMaximize']])
 })
 
 test('handleClick - Close button', async () => {
@@ -72,7 +72,7 @@ test('handleClick - className-like value does not trigger minimize', async () =>
 
 test('handleClick - className-like value does not trigger toggle maximize', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
-    'ElectronWindow.maximize'() {},
+    'ElectronWindow.toggleMaximize'() {},
   })
 
   NativeHostState.setMaximized(false)
@@ -85,7 +85,7 @@ test('handleClick - className-like value does not trigger toggle maximize', asyn
 
 test('handleClick - restore label does not trigger toggle maximize', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
-    'ElectronWindow.unmaximize'() {},
+    'ElectronWindow.toggleMaximize'() {},
   })
 
   NativeHostState.setMaximized(true)
