@@ -1,5 +1,9 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 
+export const toggleMaximize = async (): Promise<void> => {
+  await RendererWorker.invoke('ElectronWindow.toggleMaximize')
+}
+
 export const maximize = async (): Promise<void> => {
   await RendererWorker.maximizeWindow()
 }

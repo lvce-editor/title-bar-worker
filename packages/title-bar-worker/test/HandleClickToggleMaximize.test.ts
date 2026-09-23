@@ -1,35 +1,18 @@
 import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
-import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as HandleClickToggleMaximize from '../src/parts/HandleClickToggleMaximize/HandleClickToggleMaximize.ts'
 import * as NativeHostState from '../src/parts/NativeHostState/NativeHostState.ts'
 
-test('handleClickToggleMaximize - calls maximize when not maximized', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
-    'ElectronWindow.maximize'() {},
+for (const maximized of [false, true]) {
+  test(`maximize button uses the native toggle even when cached state is ${maximized}`, async () => {
+    using mockRpc = RendererWorker.registerMockRpc({
+      'ElectronWindow.toggleMaximize'() {},
+    })
+    NativeHostState.setMaximized(maximized)
+    const state = createDefaultState()
+    expect(await HandleClickToggleMaximize.handleClickToggleMaximize(state)).toBe(state)
+    expect(mockRpc.invocations).toEqual([['ElectronWindow.toggleMaximize']])
+    NativeHostState.setMaximized(false)
   })
-
-  // Set the maximized state to false
-  NativeHostState.setMaximized(false)
-
-  const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
-  const result = await HandleClickToggleMaximize.handleClickToggleMaximize(state)
-  expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ElectronWindow.maximize']])
-})
-
-test('handleClickToggleMaximize - calls unmaximize when maximized', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
-    'ElectronWindow.maximize'() {},
-    'ElectronWindow.unmaximize'() {},
-  })
-
-  // Set the maximized state to true
-  NativeHostState.setMaximized(true)
-
-  const state: TitleBarMenuBarState = { ...createDefaultState(), height: 600 }
-  const result = await HandleClickToggleMaximize.handleClickToggleMaximize(state)
-  expect(result).toBe(state)
-  expect(mockRpc.invocations).toEqual([['ElectronWindow.unmaximize']])
-})
+}
