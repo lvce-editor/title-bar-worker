@@ -20,7 +20,7 @@ const closeButton = {
 }
 
 const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBarMenuBarState => ({
-  appName: 'Lvce Editor',
+  applicationName: 'Lvce Editor',
   assetDir: '/assets',
   buttons: [],
   commandCenterEnabled: false,

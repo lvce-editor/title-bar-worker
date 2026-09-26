@@ -12,6 +12,8 @@ test('gets and sets the live component state', async () => {
   TitleBarMenuBarStates.set(uid, oldState, oldState)
 
   expect(getComponentState(uid)).toBe(oldState)
+  expect(getComponentState(uid)).toHaveProperty('applicationName', 'Lvce Editor')
+  expect(getComponentState(uid)).not.toHaveProperty('appName')
   await setComponentState(uid, newState)
 
   expect(TitleBarMenuBarStates.get(uid)).toEqual({ newState, oldState, scheduledState: newState })

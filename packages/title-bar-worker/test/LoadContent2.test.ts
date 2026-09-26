@@ -20,7 +20,7 @@ jest.unstable_mockModule('../src/parts/MeasureTextWidths/MeasureTextWidths.ts', 
 const LoadContent2 = await import('../src/parts/LoadContent2/LoadContent2.ts')
 
 const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBarMenuBarState => ({
-  appName: 'Lvce Editor',
+  applicationName: 'Lvce Editor',
   assetDir: '/assets',
   buttons: [],
   commandCenterEnabled: false,
@@ -153,9 +153,9 @@ test('loadContent2 - title is generated from workspace URI and titleTemplate', a
   expect(result.titleWidth).toBe(90)
 })
 
-test('loadContent2 - title uses appName when in titleTemplate', async () => {
+test('loadContent2 - title uses applicationName when titleTemplate contains appName', async () => {
   const mockState = createMockState({
-    appName: 'Custom Editor',
+    applicationName: 'Custom Editor',
     platform: PlatformType.Web,
     titleTemplate: '${appName} - ${folderName}',
   })
