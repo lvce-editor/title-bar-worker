@@ -6,7 +6,7 @@ const DEFAULT_APP_NAME = 'Lvce Editor'
 const DEFAULT_MAIN_AREA_UID = 2
 
 export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarState => ({
-  appName: DEFAULT_APP_NAME,
+  applicationName: DEFAULT_APP_NAME,
   assetDir: '',
   buttons: [],
   commandCenterEnabled: false,

@@ -15,7 +15,7 @@ const HandleWorkspaceChange = await import('../src/parts/HandleWorkspaceChange/H
 
 const createMockState = (overrides?: Partial<TitleBarMenuBarState>): TitleBarMenuBarState => {
   const defaults: TitleBarMenuBarState = {
-    appName: 'Lvce Editor',
+    applicationName: 'Lvce Editor',
     assetDir: '/assets',
     buttons: [],
     commandCenterEnabled: false,
@@ -99,7 +99,7 @@ test('handleWorkspaceChange - should handle file protocol URIs', async () => {
 
 test('handleWorkspaceChange - should handle titleTemplate with appName', async () => {
   const initialState = createMockState({
-    appName: 'Custom Editor',
+    applicationName: 'Custom Editor',
     titleTemplate: '${appName} - ${folderName}',
   })
 
@@ -196,7 +196,7 @@ test('handleWorkspaceChange - should handle nested directory paths', async () =>
 
 test('handleWorkspaceChange - should handle titleTemplate with multiple variables', async () => {
   const initialState = createMockState({
-    appName: 'Custom Editor',
+    applicationName: 'Custom Editor',
     titleTemplate: '${appName} - ${folderName} - Project',
   })
 

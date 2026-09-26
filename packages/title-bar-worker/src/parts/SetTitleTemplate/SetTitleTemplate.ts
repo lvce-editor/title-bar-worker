@@ -3,8 +3,17 @@ import { getTitle } from '../GetTitle/GetTitle.ts'
 import { measureTitleWidth } from '../MeasureTitleWidth/MeasureTitleWidth.ts'
 
 export const setTitleTemplate = async (state: TitleBarMenuBarState, titleTemplate: string): Promise<TitleBarMenuBarState> => {
-  const { appName, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, titleWidth: oldTitleWidth, width, workspaceUri } = state
-  const title = getTitle(workspaceUri, titleTemplate, appName)
+  const {
+    applicationName,
+    labelFontFamily,
+    labelFontSize,
+    labelFontWeight,
+    labelLetterSpacing,
+    titleWidth: oldTitleWidth,
+    width,
+    workspaceUri,
+  } = state
+  const title = getTitle(workspaceUri, titleTemplate, applicationName)
   const titleWidth = await measureTitleWidth(title, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   return {
     ...state,
