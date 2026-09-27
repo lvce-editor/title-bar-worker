@@ -1,9 +1,22 @@
 import { expect, test } from '@jest/globals'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { createMockRpc } from '@lvce-editor/rpc'
+import { remove as removeRpc, RpcId, RendererWorker, set as setRpc } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarSelectIndexNone from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexNone.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+
+const registerRendererProcessMockRpc = (
+  commandMap: Record<string, (...args: any[]) => any>,
+): ReturnType<typeof createMockRpc> & { [Symbol.dispose]: () => void } => {
+  const mockRpc = createMockRpc({ commandMap })
+  setRpc(RpcId.RendererProcess, mockRpc)
+  return Object.assign(mockRpc, {
+    [Symbol.dispose]() {
+      removeRpc(RpcId.RendererProcess)
+    },
+  })
+}
 
 test('selectIndexNone executes command and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
@@ -66,4 +79,60 @@ test('selectIndexNone closes the latest state after a workspace change', async (
     workspaceUri: '/tmp/titlebar-alpha',
   })
   expect(mockRpc.invocations).toEqual([['Workspace.setPath', '/tmp/titlebar-alpha']])
+})
+
+test('selectIndexNone renders the closed menu before awaiting the selected command', async () => {
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
+    isMenuOpen: true,
+    menus: [
+      {
+        expanded: true,
+        focusedIndex: 0,
+        items: [],
+        level: 0,
+      } as any,
+    ],
+  }
+  TitleBarMenuBarStates.set(state.uid, state, state)
+  const order: string[] = []
+  let finished = false
+  const { promise: command, resolve: resolveCommand } = Promise.withResolvers<void>()
+  const { promise: commandStarted, resolve: resolveStarted } = Promise.withResolvers<void>()
+  using mockRendererProcessRpc = registerRendererProcessMockRpc({
+    'Viewlet.send'() {
+      order.push('render')
+    },
+  })
+  using mockRpc = RendererWorker.registerMockRpc({
+    'About.showAbout'() {
+      order.push('about')
+      resolveStarted()
+      return command
+    },
+  })
+  const item = {
+    command: 'About.showAbout',
+    flags: 0,
+    label: 'About',
+  }
+
+  const resultPromise = ViewletTitleBarMenuBarSelectIndexNone.selectIndexNone(state, item)
+  void resultPromise.then(() => {
+    finished = true
+  })
+  await commandStarted
+
+  expect(order).toEqual(['render', 'about'])
+  expect(TitleBarMenuBarStates.get(state.uid).newState).toMatchObject({
+    focusedIndex: -1,
+    isMenuOpen: false,
+    menus: [],
+  })
+  expect(finished).toBe(false)
+  resolveCommand()
+  const result = await resultPromise
+  expect(result.menus).toEqual([])
+  expect(mockRendererProcessRpc.invocations).toEqual([['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid]])
+  expect(mockRpc.invocations).toEqual([['About.showAbout']])
 })

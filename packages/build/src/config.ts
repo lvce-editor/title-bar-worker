@@ -3,7 +3,8 @@ import { root } from './root.js'
 
 // Includes component DOM inspection and name-based title bar click dispatch.
 // Baseline measures 541,364 bytes; focus and render synchronization measures 541,684.
-export const threshold = 542_000
+// This change measured 541,948 bytes on Linux and 542,020 on macOS; 1,000 bytes of headroom covers the macOS measurement.
+export const threshold = 543_000
 
 export const instantiations = 6000
 
