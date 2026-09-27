@@ -1,4 +1,4 @@
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { RendererProcess } from '@lvce-editor/rpc-registry'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as ExecuteMenuItemcommand from '../ExecuteMenuItemCommand/ExecuteMenuItemCommand.ts'
@@ -19,7 +19,7 @@ export const selectIndexNone = async (state: TitleBarMenuBarState, item: MenuEnt
     TitleBarMenuBarStates.set(uid, storedState.oldState, closedState, closedState)
     if (latestState.menus.length > 0) {
       const [command, ...args] = RenderMenus.renderMenus(latestState, closedState)
-      await RendererWorker.invoke(command, ...args)
+      await RendererProcess.invoke(command, ...args)
     }
   }
   await ExecuteMenuItemcommand.executeMenuItemCommand(item)

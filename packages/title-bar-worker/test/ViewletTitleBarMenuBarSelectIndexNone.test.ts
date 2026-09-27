@@ -1,9 +1,22 @@
 import { expect, test } from '@jest/globals'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { createMockRpc } from '@lvce-editor/rpc'
+import { remove as removeRpc, RpcId, RendererWorker, set as setRpc } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewletTitleBarMenuBarSelectIndexNone from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexNone.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
+
+const registerRendererProcessMockRpc = (
+  commandMap: Record<string, (...args: any[]) => any>,
+): ReturnType<typeof createMockRpc> & { [Symbol.dispose]: () => void } => {
+  const mockRpc = createMockRpc({ commandMap })
+  setRpc(RpcId.RendererProcess, mockRpc)
+  return Object.assign(mockRpc, {
+    [Symbol.dispose]() {
+      removeRpc(RpcId.RendererProcess)
+    },
+  })
+}
 
 test('selectIndexNone executes command and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
@@ -36,7 +49,6 @@ test('selectIndexNone closes the latest state after a workspace change', async (
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
   using mockRpc = RendererWorker.registerMockRpc({
-    'Viewlet.send'() {},
     'Workspace.setPath'() {
       const newWorkspaceState = {
         ...state,
@@ -87,14 +99,16 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   let finished = false
   const { promise: command, resolve: resolveCommand } = Promise.withResolvers<void>()
   const { promise: commandStarted, resolve: resolveStarted } = Promise.withResolvers<void>()
+  using mockRendererProcessRpc = registerRendererProcessMockRpc({
+    'Viewlet.send'() {
+      order.push('render')
+    },
+  })
   using mockRpc = RendererWorker.registerMockRpc({
     'About.showAbout'() {
       order.push('about')
       resolveStarted()
       return command
-    },
-    'Viewlet.send'() {
-      order.push('render')
     },
   })
   const item = {
@@ -119,5 +133,6 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   resolveCommand()
   const result = await resultPromise
   expect(result.menus).toEqual([])
-  expect(mockRpc.invocations).toEqual([['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid], ['About.showAbout']])
+  expect(mockRendererProcessRpc.invocations).toEqual([['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid]])
+  expect(mockRpc.invocations).toEqual([['About.showAbout']])
 })
