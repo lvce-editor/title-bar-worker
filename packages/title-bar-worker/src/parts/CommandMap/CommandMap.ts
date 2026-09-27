@@ -57,6 +57,7 @@ import * as ViewletTitleBarMenuBarHandleKeyEscape from '../TitleBarMenuBar/Viewl
 import * as ViewletTitleBarMenuBarHandleKeyHome from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyHome.ts'
 import * as ViewletTitleBarMenuBarHandleKeySpace from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeySpace.ts'
 import * as ViewletTitleBarMenuBarHandleMenuClick from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuClick.ts'
+import * as ViewletTitleBarMenuBarHandleMenuMouseLeave from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseLeave.ts'
 import * as ViewletTitleBarMenuBarHandleMenuMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
 import * as ViewletTitleBarMenuBarHandleMouseOut from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOut.ts'
 import * as ViewletTitleBarMenuBarHandleMouseOver from '../TitleBarMenuBar/ViewletTitleBarMenuBarHandleMouseOver.ts'
@@ -110,6 +111,7 @@ export const commandMap = {
   'TitleBar.handleKeyHome': wrapCommand(ViewletTitleBarMenuBarHandleKeyHome.handleKeyHome),
   'TitleBar.handleKeySpace': wrapCommand(ViewletTitleBarMenuBarHandleKeySpace.handleKeySpace),
   'TitleBar.handleMenuClick': wrapCommand(ViewletTitleBarMenuBarHandleMenuClick.handleMenuClick),
+  'TitleBar.handleMenuMouseLeave': wrapCommand(ViewletTitleBarMenuBarHandleMenuMouseLeave.handleMenuMouseLeave),
   'TitleBar.handleMenuMouseOver': wrapCommand(ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver),
   'TitleBar.handleMessagePort': handleDirectMessagePort,
   'TitleBar.handleMouseOut': wrapCommand(ViewletTitleBarMenuBarHandleMouseOut.handleMouseOut),
