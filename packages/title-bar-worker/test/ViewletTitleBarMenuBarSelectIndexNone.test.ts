@@ -36,6 +36,7 @@ test('selectIndexNone closes the latest state after a workspace change', async (
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
   using mockRpc = RendererWorker.registerMockRpc({
+    'Viewlet.send'() {},
     'Workspace.setPath'() {
       const newWorkspaceState = {
         ...state,
@@ -66,4 +67,57 @@ test('selectIndexNone closes the latest state after a workspace change', async (
     workspaceUri: '/tmp/titlebar-alpha',
   })
   expect(mockRpc.invocations).toEqual([['Workspace.setPath', '/tmp/titlebar-alpha']])
+})
+
+test('selectIndexNone renders the closed menu before awaiting the selected command', async () => {
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
+    isMenuOpen: true,
+    menus: [
+      {
+        expanded: true,
+        focusedIndex: 0,
+        items: [],
+        level: 0,
+      } as any,
+    ],
+  }
+  TitleBarMenuBarStates.set(state.uid, state, state)
+  const order: string[] = []
+  let finished = false
+  const { promise: command, resolve: resolveCommand } = Promise.withResolvers<void>()
+  const { promise: commandStarted, resolve: resolveStarted } = Promise.withResolvers<void>()
+  using mockRpc = RendererWorker.registerMockRpc({
+    'About.showAbout'() {
+      order.push('about')
+      resolveStarted()
+      return command
+    },
+    'Viewlet.send'() {
+      order.push('render')
+    },
+  })
+  const item = {
+    command: 'About.showAbout',
+    flags: 0,
+    label: 'About',
+  }
+
+  const resultPromise = ViewletTitleBarMenuBarSelectIndexNone.selectIndexNone(state, item)
+  void resultPromise.then(() => {
+    finished = true
+  })
+  await commandStarted
+
+  expect(order).toEqual(['render', 'about'])
+  expect(TitleBarMenuBarStates.get(state.uid).newState).toMatchObject({
+    focusedIndex: -1,
+    isMenuOpen: false,
+    menus: [],
+  })
+  expect(finished).toBe(false)
+  resolveCommand()
+  const result = await resultPromise
+  expect(result.menus).toEqual([])
+  expect(mockRpc.invocations).toEqual([['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid], ['About.showAbout']])
 })
