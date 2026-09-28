@@ -15,7 +15,9 @@ export const test: Test = async ({ TitleBarMenuBar, Locator, expect }) => {
   await expect(chevron).toBeVisible()
   await expect(chevron).toHaveCSS('width', '16px')
   await expect(chevron).toHaveCSS('height', '16px')
-  await expect(chevron).toHaveCSS('mask-image', /chevron-right\.svg/)
+  // The runtime matcher accepts a RegExp, but the test-worker declaration currently says string.
+  const chevronMaskImage = /chevron-right\.svg/ as unknown as string
+  await expect(chevron).toHaveCSS('mask-image', chevronMaskImage)
   await expect(chevron).toHaveCSS('mask-mode', 'alpha')
   await expect(menu.locator('.MenuItem').nth(0).locator('.MenuItemSubMenuArrowRight')).toHaveCount(0)
 
