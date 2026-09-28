@@ -23,9 +23,10 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   const regularMenuItemChevron = menu.locator('.MenuItem').nth(0).locator('.MenuItemSubMenuArrowRight')
   await expect(regularMenuItemChevron).toHaveCount(0)
 
-  await TitleBarMenuBar.handleKeyEnd()
-  await TitleBarMenuBar.handleKeyArrowUp()
-  await TitleBarMenuBar.handleKeyArrowUp()
+  await TitleBarMenuBar.handleKeyHome()
+  for (let i = 0; i < 4; i++) {
+    await TitleBarMenuBar.handleKeyArrowDown()
+  }
 
   const focusedOpenRecent = menu.locator('.MenuItemSubMenu.MenuItemFocused')
   const focusedChevron = focusedOpenRecent.locator('.MenuItemSubMenuArrowRight')
