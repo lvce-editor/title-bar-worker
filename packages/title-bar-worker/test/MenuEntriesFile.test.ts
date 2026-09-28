@@ -59,8 +59,18 @@ test('getMenuEntries - save is enabled with active text editor', async () => {
   )
 })
 
-test('getMenuEntries - close folder command', async () => {
+test('getMenuEntries - close folder is disabled without an open workspace', async () => {
   const entries = await getMenuEntries(PlatformType.Web, 'off')
+  expect(entries).toContainEqual({
+    command: 'Workspace.close',
+    flags: MenuItemFlags.Disabled,
+    id: 'closeFolder',
+    label: 'Close Folder',
+  })
+})
+
+test('getMenuEntries - close folder restores focus with an open workspace', async () => {
+  const entries = await getMenuEntries(PlatformType.Web, 'off', false, true)
   expect(entries).toContainEqual({
     command: 'Workspace.close',
     flags: MenuItemFlags.RestoreFocus,
