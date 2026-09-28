@@ -4,6 +4,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import { closeOneMenu } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarCloseOneMenu.ts'
 import { handleFocusOut } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleFocusOut.ts'
+import { handleKeyArrowDownMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowDownMenuOpen.ts'
 import { handleKeyArrowLeftMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowLeftMenuOpen.ts'
 import { handleKeyArrowUpMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyArrowUpMenuOpen.ts'
 import { handleKeyEscapeMenuOpen } from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleKeyEscapeMenuOpen.ts'
@@ -38,6 +39,16 @@ test('up arrow starts at the last focusable menu item', () => {
   ]
   const state = { ...createDefaultState(), menus: [{ ...menu, items }] }
   expect(handleKeyArrowUpMenuOpen(state).menus[0].focusedIndex).toBe(0)
+})
+
+test('down arrow skips disabled menu items', () => {
+  const items = [
+    { command: '', flags: MenuItemFlags.None, label: 'Auto Save' },
+    { command: 'Workspace.close', flags: MenuItemFlags.Disabled, label: 'Close Folder' },
+    { command: '', flags: MenuItemFlags.Ignore, label: 'Exit' },
+  ]
+  const state = { ...createDefaultState(), menus: [{ ...menu, focusedIndex: 0, items }] }
+  expect(handleKeyArrowDownMenuOpen(state).menus[0].focusedIndex).toBe(2)
 })
 
 test.each([MenuItemFlags.None, MenuItemFlags.Unchecked, MenuItemFlags.Ignore, MenuItemFlags.RestoreFocus])(

@@ -25,7 +25,12 @@ const getSaveFlags = (hasActiveTextEditor: boolean): number => {
   return MenuItemFlags.Disabled
 }
 
-export const getMenuEntries = async (platform: number, autoSave?: string, hasActiveTextEditor: boolean = false): Promise<readonly MenuEntry[]> => {
+export const getMenuEntries = async (
+  platform: number,
+  autoSave?: string,
+  hasActiveTextEditor: boolean = false,
+  hasOpenWorkspace: boolean = false,
+): Promise<readonly MenuEntry[]> => {
   const autoSaveValue = autoSave ?? (await getAutoSave())
   const saveFlags = getSaveFlags(hasActiveTextEditor)
   const entries: MenuEntry[] = [
@@ -83,7 +88,7 @@ export const getMenuEntries = async (platform: number, autoSave?: string, hasAct
     MenuEntrySeparator.menuEntrySeparator,
     {
       command: 'Workspace.close',
-      flags: MenuItemFlags.RestoreFocus,
+      flags: hasOpenWorkspace ? MenuItemFlags.RestoreFocus : MenuItemFlags.Disabled,
       id: 'closeFolder',
       label: FileStrings.closeFolder(),
     },

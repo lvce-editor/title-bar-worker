@@ -23,7 +23,7 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     case MenuEntryId.Edit:
       return MenuEntriesEdit.getMenuEntries()
     case MenuEntryId.File:
-      return MenuEntriesFile.getMenuEntries(props.platform, undefined, await HasOpenTextEditor.hasOpenTextEditor())
+      return MenuEntriesFile.getMenuEntries(props.platform, undefined, await HasOpenTextEditor.hasOpenTextEditor(), Boolean(state.workspaceUri))
     case MenuEntryId.Go:
       return MenuEntriesGo.getMenuEntries()
     case MenuEntryId.Help:

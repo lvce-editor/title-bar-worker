@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { PlatformType, VirtualDomElements } from '@lvce-editor/constants'
+import { MenuEntryId, PlatformType, VirtualDomElements } from '@lvce-editor/constants'
 import type { ContextMenuProps } from '../src/parts/ContextMenuProps/ContextMenuProps.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
@@ -34,6 +34,17 @@ test('focus context renderer is available through dispatch', () => {
 
 test('unknown context menu has no entries', async () => {
   expect(await getMenuEntries2(createDefaultState(), { menuId: -1 as ContextMenuProps['menuId'], platform: PlatformType.Web })).toEqual([])
+})
+
+test('file menu disables close folder when there is no workspace', async () => {
+  const entries = await getMenuEntries2(createDefaultState(), { menuId: MenuEntryId.File, platform: PlatformType.Web })
+  expect(entries).toEqual(expect.arrayContaining([expect.objectContaining({ flags: MenuItemFlags.Disabled, id: 'closeFolder' })]))
+})
+
+test('file menu enables close folder when a workspace is open', async () => {
+  const state = { ...createDefaultState(), workspaceUri: '/tmp/project' }
+  const entries = await getMenuEntries2(state, { menuId: MenuEntryId.File, platform: PlatformType.Web })
+  expect(entries).toEqual(expect.arrayContaining([expect.objectContaining({ flags: MenuItemFlags.RestoreFocus, id: 'closeFolder' })]))
 })
 
 test('web help excludes desktop tools and updates', async () => {
