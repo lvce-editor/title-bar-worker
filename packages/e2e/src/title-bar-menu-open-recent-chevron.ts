@@ -1,8 +1,11 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
+// The runtime matcher accepts a RegExp, but the test-worker declaration currently says string.
+const chevronMaskImage = /chevron-right\.svg/ as unknown as string
+
 export const name = 'title-bar-menu-open-recent-chevron'
 
-export const test: Test = async ({ TitleBarMenuBar, Locator, expect }) => {
+export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   await TitleBarMenuBar.focus()
   await TitleBarMenuBar.handleKeyArrowDown()
 
@@ -15,11 +18,10 @@ export const test: Test = async ({ TitleBarMenuBar, Locator, expect }) => {
   await expect(chevron).toBeVisible()
   await expect(chevron).toHaveCSS('width', '16px')
   await expect(chevron).toHaveCSS('height', '16px')
-  // The runtime matcher accepts a RegExp, but the test-worker declaration currently says string.
-  const chevronMaskImage = /chevron-right\.svg/ as unknown as string
   await expect(chevron).toHaveCSS('mask-image', chevronMaskImage)
   await expect(chevron).toHaveCSS('mask-mode', 'alpha')
-  await expect(menu.locator('.MenuItem').nth(0).locator('.MenuItemSubMenuArrowRight')).toHaveCount(0)
+  const regularMenuItemChevron = menu.locator('.MenuItem').nth(0).locator('.MenuItemSubMenuArrowRight')
+  await expect(regularMenuItemChevron).toHaveCount(0)
 
   await TitleBarMenuBar.handleKeyEnd()
   await TitleBarMenuBar.handleKeyArrowUp()
@@ -32,5 +34,6 @@ export const test: Test = async ({ TitleBarMenuBar, Locator, expect }) => {
 
   await TitleBarMenuBar.handleKeyArrowRight()
   await expect(focusedOpenRecent).toHaveAttribute('aria-expanded', 'true')
-  await expect(Locator('#Menu-1')).toBeVisible()
+  const openRecentSubmenu = Locator('#Menu-1')
+  await expect(openRecentSubmenu).toBeVisible()
 }
