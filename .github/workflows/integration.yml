@@ -1,0 +1,85 @@
+name: Integration
+'on':
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+jobs:
+  integration:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - macos-26
+          - windows-2025
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/checkout@v7
+        with:
+          repository: lvce-editor/lvce-editor
+          ref: 236de223cab8f9eeb72dc68a260b63f0db3b4ef9
+          path: .tmp/lvce-integration
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .tmp/lvce-integration/.nvmrc
+      - name: Install application dependencies
+        working-directory: .tmp/lvce-integration
+        run: npm ci
+      - name: Install Chromium
+        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
+        run: npx playwright install --with-deps chromium
+      - name: Prepare owned integration tests
+        run: node packages/e2e-integration/prepare.mjs .tmp/lvce-integration
+      - name: Build application static export
+        working-directory: .tmp/lvce-integration
+        run: npm run build:static:ignore-icon-theme
+        env:
+          PATH_PREFIX: /lvce-editor
+      - name: Build server and verify static export
+        working-directory: .tmp/lvce-integration
+        run: |-
+          npm run build:server
+          npm run test-static-export
+      - name: Install Linux window manager
+        if: matrix.os == 'ubuntu-24.04'
+        run: |-
+          sudo apt-get update
+          sudo apt-get install -y openbox xvfb xdotool
+      - name: Build Electron application
+        if: matrix.os == 'ubuntu-24.04'
+        working-directory: .tmp/lvce-integration
+        run: npm run build:electron:deb
+      - name: Test Linux titlebarless Electron layout
+        if: matrix.os == 'ubuntu-24.04'
+        run:
+          xvfb-run -a sh -c 'openbox & wm_pid=$!; node packages/extension-host-worker-tests/scripts/test-titlebarless.mjs; result=$?; kill "$wm_pid"; exit
+          "$result"'
+        working-directory: .tmp/lvce-integration
+        shell: bash
+      - name: Test menu highlight on mouse leave
+        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
+        run: node scripts/test-menu-mouse-leave.mjs
+        shell: bash
+      - name: Test Help menu closes before About
+        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
+        run: npm run e2e:headless -- --test-name-prefix=viewlet.title-bar-menu-help-about-closes-menu
+        shell: bash
+      - name: Test title bar after expanded browser fullscreen
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          xvfb-run -a sh -c 'openbox & wm_pid=$!; node packages/extension-host-worker-tests/scripts/test-titlebar-reference.mjs; result=$?; kill "$wm_pid"; exit "$result"'
+        working-directory: .tmp/lvce-integration
+        shell: bash

@@ -1,0 +1,20 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
+export const name = 'viewlet.title-bar-app-regions'
+
+export const test: Test = async ({ expect, Locator }) => {
+  const titleBar = Locator('.TitleBar')
+  await expect(titleBar).toHaveCSS('app-region', 'no-drag')
+
+  const titleBarIcon = Locator('.TitleBarIcon')
+  await expect(titleBarIcon).toHaveCSS('app-region', 'drag')
+
+  const titleBarMenuEntry = Locator('.TitleBarTopLevelEntry').first()
+  await expect(titleBarMenuEntry).toHaveCSS('app-region', 'no-drag')
+
+  const titleBarTitle = Locator('.TitleBarTitle')
+  await expect(titleBarTitle).toHaveCSS('app-region', 'drag')
+
+  const titleBarButtons = Locator('.TitleBarButtons')
+  await expect(titleBarButtons).toHaveCSS('app-region', 'drag')
+}

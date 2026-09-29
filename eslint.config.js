@@ -15,7 +15,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['packages/e2e/**/*.ts'],
+    files: ['packages/{e2e,e2e-integration}/**/*.ts'],
     rules: {
       'e2e/no-imports': 'off',
     },
@@ -59,5 +59,27 @@ export default defineConfig([
     rules: {
       'virtual-dom/prefer-constants': 'off',
     },
+  },
+  {
+    // The pinned application supplies its own Node runtime.
+    files: ['.github/workflows/integration.yml'],
+    rules: { 'github-actions/node-version-file': 'off', 'github-actions/on': 'off' },
+  },
+  {
+    // Preserve real DOM input events covered by the migrated application scenarios.
+    files: [
+      'packages/e2e-integration/src/viewlet.title-bar-view-license.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-menu-help-about-closes-menu.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-menu-clear-highlight-on-focus-out.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-menu-bar-keyboard-navigation.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-menu-bar-accessibility.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-file-menu-save-disabled.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-editor-layout-split-up.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-editor-layout-split-right.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-editor-layout-split-left.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-editor-layout-split-down.ts',
+      'packages/e2e-integration/src/viewlet.title-bar-accessibility.ts',
+    ],
+    rules: { '@typescript-eslint/no-deprecated': 'off' },
   },
 ])
