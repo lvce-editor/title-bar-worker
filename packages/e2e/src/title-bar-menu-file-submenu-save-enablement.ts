@@ -21,7 +21,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, TitleBarMe
   const saveItem = Locator('.MenuItem', { hasText: 'Save' })
   await expect(saveItem).toHaveAttribute('disabled', '')
   const saveAllItem = Locator('.MenuItem', { hasText: 'Save All' })
-  await expect(saveAllItem).toHaveAttribute('disabled', '')
+  await expect(saveAllItem).toHaveAttribute('disabled', null)
 
   await TitleBarMenuBar.handleKeyEscape()
 

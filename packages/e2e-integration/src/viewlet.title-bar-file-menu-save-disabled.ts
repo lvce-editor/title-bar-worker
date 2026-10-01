@@ -13,12 +13,11 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
 
   const disabledItems = menu.locator('.MenuItem[aria-disabled="true"]')
   const save = disabledItems.nth(0)
-  const saveAll = disabledItems.nth(1)
+  const saveAll = menu.locator('.MenuItem', { hasText: 'Save All' })
 
   await expect(save).toHaveClass('MenuItemDisabled')
   await expect(save).toHaveAttribute('aria-disabled', 'true')
-  await expect(saveAll).toHaveClass('MenuItemDisabled')
-  await expect(saveAll).toHaveAttribute('aria-disabled', 'true')
+  await expect(saveAll).toHaveAttribute('aria-disabled', null)
 
   await save.hover()
   await expect(save).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
