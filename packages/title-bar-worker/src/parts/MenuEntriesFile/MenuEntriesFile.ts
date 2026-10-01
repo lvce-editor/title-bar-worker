@@ -74,7 +74,7 @@ export const getMenuEntries = async (
     },
     {
       command: 'Main.saveAll',
-      flags: MenuItemFlags.Disabled,
+      flags: MenuItemFlags.None,
       id: 'saveAll',
       label: FileStrings.saveAll(),
     },
