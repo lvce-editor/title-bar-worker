@@ -27,7 +27,7 @@ test('getMenuEntries - auto save disabled', async () => {
   expect(result).toContainEqual(MenuEntrySeparator.menuEntrySeparator)
 })
 
-test('getMenuEntries - save commands are disabled by default', async () => {
+test('getMenuEntries - save requires an active editor while save all can save background tabs', async () => {
   const entries = await getMenuEntries(PlatformType.Web, 'off')
   expect(entries).toEqual(
     expect.arrayContaining([
@@ -36,7 +36,7 @@ test('getMenuEntries - save commands are disabled by default', async () => {
         id: 'save',
       }),
       expect.objectContaining({
-        flags: MenuItemFlags.Disabled,
+        flags: MenuItemFlags.None,
         id: 'saveAll',
       }),
     ]),
@@ -52,7 +52,7 @@ test('getMenuEntries - save is enabled with active text editor', async () => {
         id: 'save',
       }),
       expect.objectContaining({
-        flags: MenuItemFlags.Disabled,
+        flags: MenuItemFlags.None,
         id: 'saveAll',
       }),
     ]),
