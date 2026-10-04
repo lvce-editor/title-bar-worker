@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { MenuEntryId, PlatformType } from '@lvce-editor/constants'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
-import { MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup } from '../src/parts/GetMenuIds/GetMenuIds.ts'
+import { MenuIdAlignPanel, MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup } from '../src/parts/GetMenuIds/GetMenuIds.ts'
 import { getMenuEntries } from '../src/parts/MenuEntries/MenuEntries.ts'
 
 test('getMenuEntries - switch editor', async () => {
@@ -35,8 +35,10 @@ test.each([
   [MenuEntryId.TitleBar, MenuEntryId.File],
   [MenuEntryId.View, 'commandPalette'],
   [MenuIdAppearance, 'fullScreen'],
+  [MenuIdAlignPanel, 'alignPanelCenter'],
   [MenuIdEditorLayout, 'splitUp'],
 ])('getMenuEntries routes %s', async (id, firstId) => {
+  using _mockRpc = RendererWorker.registerMockRpc({ 'Layout.getPanelAlignment': () => 'center' })
   const result = await getMenuEntries(id, PlatformType.Web)
   expect(result[0]?.id).toBe(firstId)
 })

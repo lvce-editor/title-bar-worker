@@ -2,6 +2,7 @@ import { MenuEntryId } from '@lvce-editor/constants'
 
 export const MenuIdTitleBarContextMenu = 50
 export const MenuIdAppearance = 'appearance'
+export const MenuIdAlignPanel = 'alignPanel'
 export const MenuIdEditorLayout = 'editorLayout'
 export const MenuIdSwitchEditor = 'switchEditor'
 export const MenuIdSwitchGroup = 'switchGroup'
@@ -19,6 +20,7 @@ export const getMenuIds = (): readonly (string | number)[] => {
     MenuEntryId.TitleBar,
     MenuEntryId.View,
     MenuIdAppearance,
+    MenuIdAlignPanel,
     MenuIdEditorLayout,
     MenuIdSwitchEditor,
     MenuIdSwitchGroup,

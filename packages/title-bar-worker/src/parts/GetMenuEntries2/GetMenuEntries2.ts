@@ -3,7 +3,14 @@ import type { ContextMenuProps } from '../ContextMenuProps/ContextMenuProps.ts'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { getMenuEntriesTitleBarContextMenu } from '../GetMenuEntriesTitleBarContextMenu/GetMenuEntriesTitleBarContextMenu.ts'
-import { MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup, MenuIdTitleBarContextMenu } from '../GetMenuIds/GetMenuIds.ts'
+import {
+  MenuIdAlignPanel,
+  MenuIdAppearance,
+  MenuIdEditorLayout,
+  MenuIdSwitchEditor,
+  MenuIdSwitchGroup,
+  MenuIdTitleBarContextMenu,
+} from '../GetMenuIds/GetMenuIds.ts'
 import * as HasOpenTextEditor from '../HasOpenTextEditor/HasOpenTextEditor.ts'
 import * as MenuEntriesAppearance from '../MenuEntriesAppearance/MenuEntriesAppearance.ts'
 import * as MenuEntriesEdit from '../MenuEntriesEdit/MenuEntriesEdit.ts'
@@ -46,6 +53,8 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     // @ts-ignore
     case MenuIdAppearance:
       return MenuEntriesAppearance.getMenuEntries()
+    case MenuIdAlignPanel:
+      return MenuEntriesAppearance.getAlignPanelMenuEntries()
     // @ts-ignore
     case MenuIdEditorLayout:
       return MenuEntriesEditorLayout.getMenuEntries()

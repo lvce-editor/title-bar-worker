@@ -75,7 +75,12 @@ export const getMenuEntries = async (sideBarPosition?: number): Promise<readonly
     movePrimarySideBarEntry,
     entry('activityBarPosition', 'Activity Bar Position'),
     entry('panelPosition', 'Panel Position'),
-    entry('alignPanel', 'Align Panel'),
+    {
+      command: '',
+      flags: MenuItemFlags.SubMenu,
+      id: 'alignPanel',
+      label: 'Align Panel',
+    },
     entry('tabBar', 'Tab Bar'),
     entry('editorActionsPosition', 'Editor Actions Position'),
     MenuEntrySeparator.menuEntrySeparator,
@@ -89,4 +94,20 @@ export const getMenuEntries = async (sideBarPosition?: number): Promise<readonly
     commandEntry('zoomOut', 'Zoom Out', 'Window.zoomOut', 'Ctrl+-'),
     commandEntry('resetZoom', 'Reset Zoom', 'Window.zoomReset', 'Ctrl+NumPad0'),
   ]
+}
+
+export const getAlignPanelMenuEntries = async (): Promise<readonly MenuEntry[]> => {
+  let currentAlignment: string
+  try {
+    currentAlignment = await RendererWorker.invoke('Layout.getPanelAlignment')
+  } catch {
+    currentAlignment = 'justify'
+  }
+  return (['center', 'justify', 'left', 'right'] as const).map((alignment) => ({
+    command: 'Layout.setPanelAlignment',
+    args: [alignment],
+    flags: currentAlignment === alignment ? MenuItemFlags.Checked : MenuItemFlags.None,
+    id: `alignPanel${alignment[0].toUpperCase()}${alignment.slice(1)}`,
+    label: alignment[0].toUpperCase() + alignment.slice(1),
+  }))
 }

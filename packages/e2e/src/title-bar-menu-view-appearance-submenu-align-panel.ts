@@ -14,4 +14,9 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
 
   const menuItem = Locator('#Menu-1 .MenuItem', { hasText: 'Align Panel' })
   await expect(menuItem).toBeVisible()
+  await TitleBarMenuBar.handleKeyArrowRight()
+  await expect(Locator('#Menu-2 .MenuItem', { hasText: 'Center' })).toBeVisible()
+  await expect(Locator('#Menu-2 .MenuItem', { hasText: 'Justify' })).toBeVisible()
+  await expect(Locator('#Menu-2 .MenuItem', { hasText: 'Left' })).toBeVisible()
+  await expect(Locator('#Menu-2 .MenuItem', { hasText: 'Right' })).toBeVisible()
 }
