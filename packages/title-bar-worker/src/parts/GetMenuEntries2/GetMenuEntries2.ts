@@ -50,11 +50,11 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
       return getMenuEntriesTitleBarContextMenu(state)
     case MenuEntryId.View:
       return MenuEntriesView.getMenuEntries()
+    case MenuIdAlignPanel:
+      return MenuEntriesAppearance.getAlignPanelMenuEntries()
     // @ts-ignore
     case MenuIdAppearance:
       return MenuEntriesAppearance.getMenuEntries()
-    case MenuIdAlignPanel:
-      return MenuEntriesAppearance.getAlignPanelMenuEntries()
     // @ts-ignore
     case MenuIdEditorLayout:
       return MenuEntriesEditorLayout.getMenuEntries()

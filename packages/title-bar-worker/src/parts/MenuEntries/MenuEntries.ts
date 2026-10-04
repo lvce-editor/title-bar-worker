@@ -37,10 +37,10 @@ const getFn = (id: string | number): any => {
       return MenuEntriesTitleBar.getMenuEntries
     case MenuEntryId.View:
       return MenuEntriesView.getMenuEntries
-    case MenuIdAppearance:
-      return MenuEntriesAppearance.getMenuEntries
     case MenuIdAlignPanel:
       return MenuEntriesAppearance.getAlignPanelMenuEntries
+    case MenuIdAppearance:
+      return MenuEntriesAppearance.getMenuEntries
     case MenuIdEditorLayout:
       return MenuEntriesEditorLayout.getMenuEntries
     case MenuIdSwitchEditor:

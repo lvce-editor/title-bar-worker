@@ -185,10 +185,10 @@ test('getAlignPanelMenuEntries exposes all alignments and marks the default sele
   const { getAlignPanelMenuEntries } = await import('../src/parts/MenuEntriesAppearance/MenuEntriesAppearance.ts')
   const result = await getAlignPanelMenuEntries()
   expect(result).toEqual([
-    { command: 'Layout.setPanelAlignment', args: ['center'], flags: MenuItemFlags.None, id: 'alignPanelCenter', label: 'Center' },
-    { command: 'Layout.setPanelAlignment', args: ['justify'], flags: MenuItemFlags.Checked, id: 'alignPanelJustify', label: 'Justify' },
-    { command: 'Layout.setPanelAlignment', args: ['left'], flags: MenuItemFlags.None, id: 'alignPanelLeft', label: 'Left' },
-    { command: 'Layout.setPanelAlignment', args: ['right'], flags: MenuItemFlags.None, id: 'alignPanelRight', label: 'Right' },
+    { args: ['center'], command: 'Layout.setPanelAlignment', flags: MenuItemFlags.None, id: 'alignPanelCenter', label: 'Center' },
+    { args: ['justify'], command: 'Layout.setPanelAlignment', flags: MenuItemFlags.Checked, id: 'alignPanelJustify', label: 'Justify' },
+    { args: ['left'], command: 'Layout.setPanelAlignment', flags: MenuItemFlags.None, id: 'alignPanelLeft', label: 'Left' },
+    { args: ['right'], command: 'Layout.setPanelAlignment', flags: MenuItemFlags.None, id: 'alignPanelRight', label: 'Right' },
   ])
 })
 

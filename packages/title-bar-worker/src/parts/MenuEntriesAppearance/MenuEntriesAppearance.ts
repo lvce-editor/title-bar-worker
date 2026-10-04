@@ -104,8 +104,8 @@ export const getAlignPanelMenuEntries = async (): Promise<readonly MenuEntry[]> 
     currentAlignment = 'justify'
   }
   return (['center', 'justify', 'left', 'right'] as const).map((alignment) => ({
-    command: 'Layout.setPanelAlignment',
     args: [alignment],
+    command: 'Layout.setPanelAlignment',
     flags: currentAlignment === alignment ? MenuItemFlags.Checked : MenuItemFlags.None,
     id: `alignPanel${alignment[0].toUpperCase()}${alignment.slice(1)}`,
     label: alignment[0].toUpperCase() + alignment.slice(1),
