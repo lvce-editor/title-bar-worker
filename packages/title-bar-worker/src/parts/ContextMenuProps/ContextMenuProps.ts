@@ -51,6 +51,10 @@ export interface MenuPropsView extends MenuPropsBase {
   readonly menuId: typeof MenuEntryId.View
 }
 
+export interface MenuPropsAlignPanel extends MenuPropsBase {
+  readonly menuId: 'alignPanel'
+}
+
 export type ContextMenuProps =
   | MenuPropsContextMenu
   | MenuPropsEdit
@@ -60,6 +64,7 @@ export type ContextMenuProps =
   | MenuPropsOpenRecent
   | MenuPropsTitleBar
   | MenuPropsView
+  | MenuPropsAlignPanel
   | MenuPropsRun
   | MenuPropsGo
   | MenuPropsHelp

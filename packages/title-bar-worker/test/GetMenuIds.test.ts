@@ -25,7 +25,7 @@ test('getMenuIds contains MenuIdTitleBarContextMenu', () => {
 
 test('getMenuIds contains expected menu entries', () => {
   const result = getMenuIds()
-  expect(result).toHaveLength(16)
+  expect(result).toHaveLength(17)
 })
 
 test('getMenuIds returns numbers or strings', () => {
@@ -38,6 +38,7 @@ test('getMenuIds returns numbers or strings', () => {
 test('getMenuIds contains submenu ids', () => {
   const result = getMenuIds()
   expect(result).toContain(MenuIdAppearance)
+  expect(result).toContain('alignPanel')
   expect(result).toContain(MenuIdEditorLayout)
   expect(result).toContain(MenuIdSwitchEditor)
   expect(result).toContain(MenuIdSwitchGroup)

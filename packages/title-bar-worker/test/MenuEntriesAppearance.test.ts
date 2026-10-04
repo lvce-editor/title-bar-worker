@@ -94,11 +94,9 @@ test('getMenuEntries', async () => {
       label: 'Panel Position',
     },
     {
-      args: notImplementedArgs,
-      command: 'Dialog.showMessage',
-      flags: MenuItemFlags.None,
+      command: '',
+      flags: MenuItemFlags.SubMenu,
       id: 'alignPanel',
-      keyboardShortCut: '',
       label: 'Align Panel',
     },
     {
@@ -180,6 +178,17 @@ test('getMenuEntries', async () => {
       keyboardShortCut: 'Ctrl+NumPad0',
       label: 'Reset Zoom',
     },
+  ])
+})
+
+test('getAlignPanelMenuEntries exposes all alignments and marks the default selection', async () => {
+  const { getAlignPanelMenuEntries } = await import('../src/parts/MenuEntriesAppearance/MenuEntriesAppearance.ts')
+  const result = await getAlignPanelMenuEntries()
+  expect(result).toEqual([
+    { args: ['center'], command: 'Layout.setPanelAlignment', flags: MenuItemFlags.None, id: 'alignPanelCenter', label: 'Center' },
+    { args: ['justify'], command: 'Layout.setPanelAlignment', flags: MenuItemFlags.Checked, id: 'alignPanelJustify', label: 'Justify' },
+    { args: ['left'], command: 'Layout.setPanelAlignment', flags: MenuItemFlags.None, id: 'alignPanelLeft', label: 'Left' },
+    { args: ['right'], command: 'Layout.setPanelAlignment', flags: MenuItemFlags.None, id: 'alignPanelRight', label: 'Right' },
   ])
 })
 
