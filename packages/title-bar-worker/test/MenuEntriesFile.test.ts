@@ -88,3 +88,14 @@ test('new file restores focus to the created editor', async () => {
     label: 'New File',
   })
 })
+
+test('Open Folder does not restore focus over the warning dialog', async () => {
+  const entries = await getMenuEntries(PlatformType.Web, 'off')
+
+  expect(entries).toContainEqual({
+    command: 'Dialog.openFolder',
+    flags: MenuItemFlags.None,
+    id: 'openFolder',
+    label: 'Open Folder',
+  })
+})
