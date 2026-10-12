@@ -1,10 +1,13 @@
 version: 1
 pages:
-  build_type: workflow
+  build_type: legacy
 requiredStatusChecks:
   - pr (ubuntu-24.04)
   - pr (macos-15)
   - pr (windows-2025)
+  - integration (ubuntu-24.04)
+  - integration (macos-26)
+  - integration (windows-2025)
 settings:
   description: 'Title Bar Worker'
   homepage: 'https://lvce-editor.github.io/title-bar-worker/'
