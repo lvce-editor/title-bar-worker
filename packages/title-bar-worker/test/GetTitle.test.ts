@@ -97,3 +97,43 @@ test('getTitle - malformed remote ssh workspace without host', () => {
   const result: string = GetTitle.getTitle('remote-ssh:///home/user/project', '${folderName}', APP_NAME)
   expect(result).toBe('project')
 })
+
+test('getTitle - devcontainer workspace', () => {
+  const result: string = GetTitle.getTitle('/workspaces/about-view!', '${folderName}', APP_NAME)
+  expect(result).toBe('about-view [devcontainer]')
+})
+
+test('getTitle - decodes devcontainer folder name', () => {
+  const result: string = GetTitle.getTitle('devcontainers:///workspaces/about%20view!', '${folderName}', APP_NAME)
+  expect(result).toBe('about view [devcontainer]')
+})
+
+test('getTitle - keeps a literal encoded exclamation mark in a devcontainer folder name', () => {
+  const result: string = GetTitle.getTitle('devcontainers:///workspaces/about-view%21!', '${folderName}', APP_NAME)
+  expect(result).toBe('about-view! [devcontainer]')
+})
+
+test('getTitle - adds devcontainer suffix for URI workspace', () => {
+  const result: string = GetTitle.getTitle('devcontainers:///workspaces/about-view!', '${folderName}', APP_NAME)
+  expect(result).toBe('about-view [devcontainer]')
+})
+
+test('getTitle - handles devcontainer URI without a marker', () => {
+  const result: string = GetTitle.getTitle('devcontainers:///workspaces/about-view', '${folderName}', APP_NAME)
+  expect(result).toBe('about-view [devcontainer]')
+})
+
+test('getTitle - displays devcontainer suffix for workspace without a folder name', () => {
+  const result: string = GetTitle.getTitle('/!', '${folderName}', APP_NAME)
+  expect(result).toBe('[devcontainer]')
+})
+
+test('getTitle - applies devcontainer suffix after custom title template', () => {
+  const result: string = GetTitle.getTitle('devcontainers:///workspaces/about-view!', '${appName} - ${folderName}', APP_NAME)
+  expect(result).toBe('Lvce Editor - about-view [devcontainer]')
+})
+
+test('getTitle - keeps malformed encoded devcontainer folder name visible', () => {
+  const result: string = GetTitle.getTitle('devcontainers:///workspaces/project%XX!', '${folderName}', APP_NAME)
+  expect(result).toBe('project%XX [devcontainer]')
+})
