@@ -1,10 +1,9 @@
 import { join } from 'node:path'
 import { root } from './root.js'
 
-// Includes component DOM inspection and name-based title bar click dispatch.
-// Baseline measures 541,364 bytes; focus and render synchronization measures 541,684.
-// This change measured 541,948 bytes on Linux and 542,020 on macOS; 1,000 bytes of headroom covers the macOS measurement.
-export const threshold = 543_000
+// Baseline measures 542,624 bytes on Linux; devcontainer title formatting measures 543,216 (+592 bytes, 0.11%).
+// CI measured 543,216 bytes on Linux and Windows and 543,288 on macOS; 1,012 bytes of headroom covers the highest measurement.
+export const threshold = 544_300
 
 export const instantiations = 6000
 
