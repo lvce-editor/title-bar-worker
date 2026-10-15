@@ -22,6 +22,7 @@ export interface TitleBarMenuBarState {
   readonly mainAreaUid?: number
   readonly menus: readonly IMenu[]
   readonly platform: number
+  readonly showSideBarThings?: boolean
   readonly title: string
   readonly titleBarButtons: readonly TitleBarButton[]
   readonly titleBarButtonsEnabled: boolean
