@@ -25,6 +25,7 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
     focusedIndex,
     isMenuOpen,
     platform,
+    showSideBarThings,
     title,
     titleBarButtons,
     titleBarButtonsEnabled,
@@ -41,11 +42,12 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
   const iconSrc = getIcon(assetDir)
   const visibleEntries = getVisibleTitleBarEntries(titleBarEntries, width, focusedIndex, isMenuOpen)
   const titleEnabled = titleBarTitleEnabled && !commandCenterEnabled
+  const showSideBar = showSideBarThings !== false
   const childCount =
-    Number(titleBarIconEnabled) +
-    Number(titleBarMenuBarEnabled) +
-    Number(commandCenterEnabled) +
-    Number(titleEnabled) +
+    Number(showSideBar && titleBarIconEnabled) +
+    Number(showSideBar && titleBarMenuBarEnabled) +
+    Number(showSideBar && commandCenterEnabled) +
+    Number(showSideBar && titleEnabled) +
     Number(titleBarButtonsEnabled)
 
   return [
@@ -58,10 +60,10 @@ export const getTitleBarVirtualDom = (state: TitleBarMenuBarState): readonly Vir
       role: AriaRoles.ContentInfo,
       type: VirtualDomElements.Div,
     },
-    ...getTitleBarIconVirtualDom(titleBarIconEnabled, iconSrc),
-    ...GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(titleBarMenuBarEnabled, visibleEntries, focusedIndex),
-    ...getCommandCenterVirtualDom(commandCenterEnabled),
-    ...getTitleVirtualDom(titleEnabled, title),
+    ...getTitleBarIconVirtualDom(showSideBar && titleBarIconEnabled, iconSrc),
+    ...GetTitleBarMenuBarVirtualDom.getTitleBarMenuBarVirtualDom(showSideBar && titleBarMenuBarEnabled, visibleEntries, focusedIndex),
+    ...getCommandCenterVirtualDom(showSideBar && commandCenterEnabled),
+    ...getTitleVirtualDom(showSideBar && titleEnabled, title),
     ...GetTitleBarButtonsVirtualDom.getTitleBarButtonsVirtualDom(titleBarButtonsEnabled, titleBarButtons),
   ]
 }
