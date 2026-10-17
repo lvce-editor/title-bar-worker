@@ -3,7 +3,7 @@ import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/Tit
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as HandlePointerOut from '../src/parts/HandlePointerOut/HandlePointerOut.ts'
 
-test('handlePointerOut - should return state unchanged when index is -1', () => {
+test('handlePointerOut - does not change state when no menu entry is focused', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     iconWidth: 30,
@@ -17,14 +17,16 @@ test('handlePointerOut - should return state unchanged when index is -1', () => 
     ],
     x: 0,
   }
-  const result = HandlePointerOut.handlePointerOut(state, 0, 0)
+  const result = await HandlePointerOut.handlePointerOut(state, 0, 0)
   expect(result).toBe(state)
 })
 
-test('handlePointerOut - should return state unchanged when pointer is outside menu area', () => {
+test('handlePointerOut - keeps an open menu focused after pointer leaves menu area', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    focusedIndex: 1,
     iconWidth: 30,
+    isMenuOpen: true,
     titleBarEntries: [
       {
         width: 100,
@@ -35,8 +37,29 @@ test('handlePointerOut - should return state unchanged when pointer is outside m
     ],
     x: 0,
   }
-  const result = HandlePointerOut.handlePointerOut(state, 1000, 1000)
+  const result = await HandlePointerOut.handlePointerOut(state, 1000, 1000)
   expect(result).toBe(state)
+})
+
+test('handlePointerOut - should clear focus when pointer leaves menu area', async () => {
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
+    focusedIndex: 1,
+    iconWidth: 30,
+    isMenuOpen: false,
+    titleBarEntries: [
+      {
+        width: 100,
+      },
+      {
+        width: 80,
+      },
+    ],
+    x: 0,
+  }
+  const result = await HandlePointerOut.handlePointerOut(state, 1000, 1000)
+  expect(result.focusedIndex).toBe(-1)
+  expect(result).not.toBe(state)
 })
 
 test('handlePointerOut - should unfocus when menu is closed and pointer is over entry', async () => {
@@ -101,14 +124,14 @@ test('handlePointerOut - should unfocus when menu is closed and pointer is over 
   expect(result).not.toBe(state)
 })
 
-test('handlePointerOut - should work with empty titleBarEntries', () => {
+test('handlePointerOut - should work with empty titleBarEntries', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     iconWidth: 30,
     titleBarEntries: [],
     x: 0,
   }
-  const result = HandlePointerOut.handlePointerOut(state, 50, 15)
+  const result = await HandlePointerOut.handlePointerOut(state, 50, 15)
   expect(result).toBe(state)
 })
 
