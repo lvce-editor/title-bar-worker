@@ -59,6 +59,15 @@ test('measureTextWidths2 measures text when reading the cache fails', async () =
   expect(invoke).toHaveBeenCalled()
 })
 
+test('measureTextWidths2 measures text when cache reads never settle', async () => {
+  getWidths.mockImplementation(() => new Promise<readonly number[] | undefined>(() => {}))
+  invoke.mockResolvedValue([24])
+
+  await expect(MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)).resolves.toEqual([24])
+
+  expect(invoke).toHaveBeenCalled()
+})
+
 test('measureTextWidths2 measures text when creating the cache key fails', async () => {
   getCacheKey.mockRejectedValue(new Error('Cache unavailable'))
   invoke.mockResolvedValue([24])
@@ -72,6 +81,13 @@ test('measureTextWidths2 measures text when creating the cache key fails', async
 
 test('measureTextWidths2 keeps measurement failures when caching is unavailable', async () => {
   setWidths.mockRejectedValue(new Error('Cache unavailable'))
+  invoke.mockResolvedValue([24])
+
+  await expect(MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)).resolves.toEqual([24])
+})
+
+test('measureTextWidths2 does not wait for cache writes', async () => {
+  setWidths.mockImplementation(() => new Promise<void>(() => {}))
   invoke.mockResolvedValue([24])
 
   await expect(MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)).resolves.toEqual([24])
