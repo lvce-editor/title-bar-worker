@@ -5,16 +5,12 @@ const getCacheStorageItem = jest.fn<(...args: readonly [string, string]) => Prom
 const setCacheStorageItem = jest.fn<
   (...args: readonly [string, string, string, Readonly<Record<string, string>>]) => Promise<{ readonly success: true }>
 >(async () => ({ success: true }))
-const launchCacheWorker = jest.fn(async () => {})
 
 await jest.unstable_mockModule('@lvce-editor/rpc-registry', () => ({
   CacheWorker: {
     getCacheStorageItem,
     setCacheStorageItem,
   },
-}))
-await jest.unstable_mockModule('../src/parts/LaunchCacheWorker/LaunchCacheWorker.ts', () => ({
-  launchCacheWorker,
 }))
 
 const TitleBarMeasurementCache = await import('../src/parts/TitleBarMeasurementCache/TitleBarMeasurementCache.ts')
@@ -38,7 +34,6 @@ test('title bar measurement cache reads and writes widths as persistent JSON', a
 
   await TitleBarMeasurementCache.setWidths('/title-bar-measurements/v1/key', [24, 40])
 
-  expect(launchCacheWorker).toHaveBeenCalledTimes(2)
   expect(getCacheStorageItem).toHaveBeenCalledWith('/title-bar-measurements/v1/key', 'lvce-title-bar-measurements-v1')
   expect(setCacheStorageItem).toHaveBeenCalledWith('/title-bar-measurements/v1/key', '[24,40]', 'lvce-title-bar-measurements-v1', {
     'content-type': 'application/json',
