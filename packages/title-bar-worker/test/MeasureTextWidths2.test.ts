@@ -26,6 +26,7 @@ const MeasureTextWidths2 = await import('../src/parts/MeasureTextWidths2/Measure
 
 beforeEach(() => {
   jest.clearAllMocks()
+  getCacheKey.mockResolvedValue('/title-bar-measurements/v1/key')
   getWidths.mockResolvedValue(undefined)
 })
 
@@ -73,6 +74,43 @@ test('measureTextWidths2 waits for cache reads beyond the former timeout', async
     await expect(measurePromise).resolves.toEqual([24])
 
     expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+  } finally {
+    jest.useRealTimers()
+  }
+})
+
+test('measureTextWidths2 waits for a late cache key and uses it for cache writes', async () => {
+  jest.useFakeTimers()
+  const cacheKey = Promise.withResolvers<string>()
+  const measurement = Promise.withResolvers<readonly number[]>()
+  getCacheKey.mockImplementation(() => cacheKey.promise)
+  invoke.mockImplementation(() => measurement.promise)
+
+  try {
+    const result = MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)
+    await jest.advanceTimersByTimeAsync(501)
+    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+    expect(getWidths).not.toHaveBeenCalled()
+    cacheKey.resolve('/title-bar-measurements/v1/late-key')
+    await Promise.resolve()
+    await Promise.resolve()
+    measurement.resolve([24])
+    await expect(result).resolves.toEqual([24])
+
+    expect(setWidths).toHaveBeenCalledWith('/title-bar-measurements/v1/late-key', [24])
+  } finally {
+    jest.useRealTimers()
+  }
+})
+
+test('measureTextWidths2 does not schedule a timeout for a cache miss', async () => {
+  jest.useFakeTimers()
+  invoke.mockResolvedValue([24])
+
+  try {
+    await expect(MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)).resolves.toEqual([24])
+
+    expect(jest.getTimerCount()).toBe(0)
   } finally {
     jest.useRealTimers()
   }

@@ -1,3 +1,4 @@
+import { getCachedWidths } from '../GetCachedWidths/GetCachedWidths.ts'
 import { launchTextMeasurementWorker } from '../LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts'
 import * as TitleBarMeasurementCache from '../TitleBarMeasurementCache/TitleBarMeasurementCache.ts'
 
@@ -12,14 +13,11 @@ export const measureTextWidths2 = async (
     throw new TypeError('letterSpacing must be of type number')
   }
   let cacheKey: string | undefined
-  try {
-    cacheKey = await TitleBarMeasurementCache.getCacheKey(texts, fontWeight, fontSize, fontFamily, letterSpacing)
-    const cachedWidths = await TitleBarMeasurementCache.getWidths(cacheKey, texts.length)
-    if (cachedWidths) {
-      return cachedWidths
-    }
-  } catch {
-    // Cache failures must not prevent title bar rendering.
+  const cachedWidths = await getCachedWidths(texts, fontWeight, fontSize, fontFamily, letterSpacing, (key) => {
+    cacheKey = key
+  })
+  if (cachedWidths) {
+    return cachedWidths
   }
   const rpc = await launchTextMeasurementWorker()
   try {

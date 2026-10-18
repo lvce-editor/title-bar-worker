@@ -38,8 +38,8 @@ for (const [from, to] of config.artifacts) {
 const bundlePath = join(application, config.artifacts[0][1], 'dist/titleBarWorkerMain.js')
 let bundle = await readFile(bundlePath, 'utf8')
 for (const boundary of [
-  'cacheKey = await getCacheKey(texts, fontWeight, fontSize, fontFamily, letterSpacing);',
-  'const cachedWidths = await getWidths(cacheKey, texts.length);',
+  'const cacheKey = await getCacheKey(texts, fontWeight, fontSize, fontFamily, letterSpacing);',
+  'const item = await getCacheStorageItem(key, cacheName);',
   'await sendMessagePortToCacheWorker(port);',
 ]) {
   if (!bundle.includes(boundary)) throw new Error(`Missing diagnostic boundary: ${boundary}`)
