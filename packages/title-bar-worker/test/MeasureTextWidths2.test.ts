@@ -60,16 +60,26 @@ test('measureTextWidths2 measures text when reading the cache fails', async () =
   expect(invoke).toHaveBeenCalled()
 })
 
-test('measureTextWidths2 measures text when cache reads never settle', async () => {
-  getWidths.mockImplementation(() => new Promise<readonly number[] | undefined>(() => {}))
-  invoke.mockResolvedValue([24])
+test('measureTextWidths2 waits for cache reads beyond the former timeout', async () => {
+  jest.useFakeTimers()
+  try {
+    const { promise: cachedWidths, resolve: resolveWidths } = Promise.withResolvers<readonly number[] | undefined>()
+    getWidths.mockReturnValue(cachedWidths)
+    const measurePromise = MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)
 
-  await expect(MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)).resolves.toEqual([24])
+    await jest.advanceTimersByTimeAsync(501)
+    expect(getWidths).toHaveBeenCalled()
+    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+    resolveWidths([24])
+    await expect(measurePromise).resolves.toEqual([24])
 
-  expect(invoke).toHaveBeenCalled()
+    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+  } finally {
+    jest.useRealTimers()
+  }
 })
 
-test('measureTextWidths2 writes with a cache key that resolves after the cache read times out', async () => {
+test('measureTextWidths2 waits for a late cache key and uses it for cache writes', async () => {
   jest.useFakeTimers()
   const cacheKey = Promise.withResolvers<string>()
   const measurement = Promise.withResolvers<readonly number[]>()
@@ -78,8 +88,9 @@ test('measureTextWidths2 writes with a cache key that resolves after the cache r
 
   try {
     const result = MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)
-    await jest.advanceTimersByTimeAsync(500)
-    await Promise.resolve()
+    await jest.advanceTimersByTimeAsync(501)
+    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+    expect(getWidths).not.toHaveBeenCalled()
     cacheKey.resolve('/title-bar-measurements/v1/late-key')
     await Promise.resolve()
     await Promise.resolve()
@@ -92,7 +103,7 @@ test('measureTextWidths2 writes with a cache key that resolves after the cache r
   }
 })
 
-test('measureTextWidths2 clears the cache read timeout after a cache miss', async () => {
+test('measureTextWidths2 does not schedule a timeout for a cache miss', async () => {
   jest.useFakeTimers()
   invoke.mockResolvedValue([24])
 

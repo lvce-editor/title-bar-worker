@@ -40,14 +40,17 @@ await cp(testWorkerSourcePath, testWorkerTargetPath)
 
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 const remoteUrl = getRemoteUrl(workerPath)
-if (!content.includes('// const titleBarWorkerUrl = ')) {
+const candidates = [
+  '`' + '${assetDir}/packages/renderer-worker/node_modules/@lvce-editor/title-bar-worker/dist/titleBarWorkerMain.js' + '`',
+  '`' + '${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js' + '`',
+]
+const occurrence = candidates.find((candidate) => content.includes(candidate))
+const replacement = '`' + remoteUrl + '`'
+if (occurrence) {
   await cp(rendererWorkerMainPath, rendererWorkerMainPath + '.original')
-  const occurrence = `const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\``
-  const replacement = `// const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\`
-const titleBarWorkerUrl = \`${remoteUrl}\``
-
-  const newContent = content.replace(occurrence, replacement)
-  await writeFile(rendererWorkerMainPath, newContent)
+  await writeFile(rendererWorkerMainPath, content.replace(occurrence, replacement))
+} else if (!content.includes(replacement)) {
+  throw new Error('Title bar worker URL not found in test runtime')
 }
 
 await cp(staticServerConfigPath, sharedProcessConfigPath)
