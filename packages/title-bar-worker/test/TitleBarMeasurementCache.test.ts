@@ -18,6 +18,7 @@ await jest.unstable_mockModule('../src/parts/LaunchCacheWorker/LaunchCacheWorker
 }))
 
 const TitleBarMeasurementCache = await import('../src/parts/TitleBarMeasurementCache/TitleBarMeasurementCache.ts')
+const cacheKeyPattern = /^\/title-bar-measurements\/v2\/[0-9a-f]{28}$/
 
 test('title bar measurement cache keys include ordered labels and typography', async () => {
   const base = await TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 14, 'Arial', 0)
@@ -28,6 +29,10 @@ test('title bar measurement cache keys include ordered labels and typography', a
   await expect(TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 16, 'Arial', 0)).resolves.not.toBe(base)
   await expect(TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 14, 'Helvetica', 0)).resolves.not.toBe(base)
   await expect(TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 14, 'Arial', 1)).resolves.not.toBe(base)
+  await expect(TitleBarMeasurementCache.getCacheKey([], 400, 14, 'Arial', 0)).resolves.toMatch(cacheKeyPattern)
+  const unicodeKey = await TitleBarMeasurementCache.getCacheKey(['😀', 'ファイル'], 400, 14, 'Arial', 0)
+  await expect(TitleBarMeasurementCache.getCacheKey(['😀', 'ファイル'], 400, 14, 'Arial', 0)).resolves.toBe(unicodeKey)
+  expect(unicodeKey).not.toBe(base)
 })
 
 test('title bar measurement cache reads and writes widths as persistent JSON', async () => {
