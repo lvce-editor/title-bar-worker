@@ -1,4 +1,4 @@
-import { cp, mkdir, readdir, readFile, realpath, rm, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readdir, readFile, realpath, rm } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -32,35 +32,4 @@ for (const [from, to] of config.artifacts) {
     return join(application, to)
   })
   await cp(join(owner, from), target, { recursive: true })
-}
-
-// Temporary startup probes for the uncapped cache-read regression.
-const bundlePath = join(application, config.artifacts[0][1], 'dist/titleBarWorkerMain.js')
-let bundle = await readFile(bundlePath, 'utf8')
-for (const boundary of [
-  'const cacheKey = await getCacheKey(texts, fontWeight, fontSize, fontFamily, letterSpacing);',
-  'const item = await getCacheStorageItem(key, cacheName);',
-  'await sendMessagePortToCacheWorker(port);',
-  'const rpc = await launchTextMeasurementWorker();',
-  "const result = await rpc.invoke('TextMeasurement.measureTextWidths', texts, fontWeight, fontSize, fontFamily, letterSpacing, isMonospaceFont, charWidth);",
-  'await rpc[Symbol.asyncDispose]();',
-]) {
-  if (!bundle.includes(boundary)) throw new Error(`Missing diagnostic boundary: ${boundary}`)
-  bundle = bundle.replace(
-    boundary,
-    `console.log(${JSON.stringify('[DEBUG-cache] start: ' + boundary)});\n${boundary}\nconsole.log(${JSON.stringify('[DEBUG-cache] done: ' + boundary)});`,
-  )
-}
-await writeFile(bundlePath, bundle)
-for (const relative of [
-  'packages/renderer-worker/src/parts/SendMessagePortToExtensionHostWorker/SendMessagePortToExtensionHostWorker.js',
-  'packages/renderer-worker/src/parts/LaunchCacheWorker/LaunchCacheWorker.js',
-]) {
-  const path = join(application, relative)
-  const source = await readFile(path, 'utf8')
-  const boundary = relative.includes('LaunchCacheWorker')
-    ? 'return ipc'
-    : "await CacheWorker.invokeAndTransfer('CacheWorker.handleMessagePort', port)"
-  if (!source.includes(boundary)) throw new Error(`Missing diagnostic boundary: ${relative}`)
-  await writeFile(path, source.replace(boundary, `console.log('[DEBUG-cache] ${relative}');\n${boundary}`))
 }

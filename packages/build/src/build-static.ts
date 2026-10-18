@@ -1,6 +1,6 @@
-import { cp, readFile, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
-import { join } from 'node:path'
+import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { root } from './root.js'
 
@@ -48,6 +48,7 @@ const titleBarWorkerPath = join(
   'dist',
   'titleBarWorkerMain.js',
 )
+await mkdir(dirname(titleBarWorkerPath), { recursive: true })
 await cp(workerPath, titleBarWorkerPath)
 
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })
