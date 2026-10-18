@@ -1,9 +1,9 @@
 import { join } from 'node:path'
 import { root } from './root.js'
 
-// Baseline CI memory is 543,216 bytes on Linux and Windows and 543,288 on macOS.
-// The title bar measurement cache measures 546,988 bytes on Linux (+3,772, 0.69%); 1,512 bytes of headroom covers this measurement.
-export const threshold = 548_500
+// Linux CI: baseline 546,988 bytes; eager registration of the lazy cache RPC uses 549,412 (+2,424, 0.44%).
+// Keep 1,588 bytes of headroom for the registered RPC while retaining the memory gate.
+export const threshold = 551_000
 
 export const instantiations = 6000
 
