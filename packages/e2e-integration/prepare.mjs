@@ -41,9 +41,15 @@ for (const boundary of [
   'const cacheKey = await getCacheKey(texts, fontWeight, fontSize, fontFamily, letterSpacing);',
   'const item = await getCacheStorageItem(key, cacheName);',
   'await sendMessagePortToCacheWorker(port);',
+  'const rpc = await launchTextMeasurementWorker();',
+  "const result = await rpc.invoke('TextMeasurement.measureTextWidths', texts, fontWeight, fontSize, fontFamily, letterSpacing, isMonospaceFont, charWidth);",
+  'await rpc[Symbol.asyncDispose]();',
 ]) {
   if (!bundle.includes(boundary)) throw new Error(`Missing diagnostic boundary: ${boundary}`)
-  bundle = bundle.replace(boundary, `console.log('[DEBUG-cache] start: ${boundary}');\n${boundary}\nconsole.log('[DEBUG-cache] done: ${boundary}');`)
+  bundle = bundle.replace(
+    boundary,
+    `console.log(${JSON.stringify('[DEBUG-cache] start: ' + boundary)});\n${boundary}\nconsole.log(${JSON.stringify('[DEBUG-cache] done: ' + boundary)});`,
+  )
 }
 await writeFile(bundlePath, bundle)
 for (const relative of [

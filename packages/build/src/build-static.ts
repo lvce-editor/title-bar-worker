@@ -28,16 +28,26 @@ const content = await readFile(rendererWorkerPath, 'utf8')
 const workerPath = join(root, '.tmp/dist/dist/titleBarWorkerMain.js')
 const remoteUrl = getRemoteUrl(workerPath)
 
-const occurrence = `// const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\`
-const titleBarWorkerUrl = \`${remoteUrl}\``
-const replacement = `const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\``
+const occurrence = '`' + remoteUrl + '`'
+const replacement = '`' + '${assetDir}/packages/renderer-worker/node_modules/@lvce-editor/title-bar-worker/dist/titleBarWorkerMain.js' + '`'
 if (!content.includes(occurrence)) {
   throw new Error('occurrence not found')
 }
 const newContent = content.replace(occurrence, replacement)
 await writeFile(rendererWorkerPath, newContent)
 
-const titleBarWorkerPath = join(root, 'dist', commitHash, 'packages', 'title-bar-worker', 'dist', 'titleBarWorkerMain.js')
+const titleBarWorkerPath = join(
+  root,
+  'dist',
+  commitHash,
+  'packages',
+  'renderer-worker',
+  'node_modules',
+  '@lvce-editor',
+  'title-bar-worker',
+  'dist',
+  'titleBarWorkerMain.js',
+)
 await cp(workerPath, titleBarWorkerPath)
 
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })
