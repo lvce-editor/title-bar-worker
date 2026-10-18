@@ -1,6 +1,6 @@
+import { getCachedWidths } from '../GetCachedWidths/GetCachedWidths.ts'
 import { launchTextMeasurementWorker } from '../LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts'
 import * as TitleBarMeasurementCache from '../TitleBarMeasurementCache/TitleBarMeasurementCache.ts'
-import { getCachedWidths } from '../GetCachedWidths/GetCachedWidths.ts'
 
 export const measureTextWidths2 = async (
   texts: readonly string[],

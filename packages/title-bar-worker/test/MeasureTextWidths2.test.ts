@@ -71,29 +71,19 @@ test('measureTextWidths2 measures text when cache reads never settle', async () 
 
 test('measureTextWidths2 writes with a cache key that resolves after the cache read times out', async () => {
   jest.useFakeTimers()
-  let resolveCacheKey: ((cacheKey: string) => void) | undefined
-  let resolveMeasurement: ((widths: readonly number[]) => void) | undefined
-  getCacheKey.mockImplementation(
-    () =>
-      new Promise<string>((resolve) => {
-        resolveCacheKey = resolve
-      }),
-  )
-  invoke.mockImplementation(
-    () =>
-      new Promise<readonly number[]>((resolve) => {
-        resolveMeasurement = resolve
-      }),
-  )
+  const cacheKey = Promise.withResolvers<string>()
+  const measurement = Promise.withResolvers<readonly number[]>()
+  getCacheKey.mockImplementation(() => cacheKey.promise)
+  invoke.mockImplementation(() => measurement.promise)
 
   try {
     const result = MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)
     await jest.advanceTimersByTimeAsync(500)
     await Promise.resolve()
-    resolveCacheKey?.('/title-bar-measurements/v1/late-key')
+    cacheKey.resolve('/title-bar-measurements/v1/late-key')
     await Promise.resolve()
     await Promise.resolve()
-    resolveMeasurement?.([24])
+    measurement.resolve([24])
     await expect(result).resolves.toEqual([24])
 
     expect(setWidths).toHaveBeenCalledWith('/title-bar-measurements/v1/late-key', [24])
