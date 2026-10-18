@@ -62,19 +62,14 @@ test('measureTextWidths2 measures text when reading the cache fails', async () =
 test('measureTextWidths2 waits for cache reads beyond the former timeout', async () => {
   jest.useFakeTimers()
   try {
-    let resolveWidths: ((widths: readonly number[] | undefined) => void) | undefined
-    getWidths.mockImplementation(
-      () =>
-        new Promise((resolve) => {
-          resolveWidths = resolve
-        }),
-    )
+    const { promise: cachedWidths, resolve: resolveWidths } = Promise.withResolvers<readonly number[] | undefined>()
+    getWidths.mockReturnValue(cachedWidths)
     const measurePromise = MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)
 
     await jest.advanceTimersByTimeAsync(501)
     expect(getWidths).toHaveBeenCalled()
     expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
-    resolveWidths?.([24])
+    resolveWidths([24])
     await expect(measurePromise).resolves.toEqual([24])
 
     expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
