@@ -1,8 +1,6 @@
-import type { Test } from '@lvce-editor/test-with-playwright'
-
 export const name = 'viewlet.title-bar-menu-help-about-closes-menu'
 
-export const test: Test = async ({ expect, KeyBoard, Locator, TitleBarMenuBar }) => {
+export const test = async ({ expect, KeyBoard, Locator, TitleBarMenuBar }) => {
   const menu = Locator('#Menu-0')
   const aboutDialog = Locator('[role="dialog"]')
   const aboutButton = Locator('[role="dialog"] button[name="Ok"]')

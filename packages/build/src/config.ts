@@ -1,9 +1,9 @@
 import { join } from 'node:path'
 import { root } from './root.js'
 
-// Baseline measures 542,624 bytes on Linux; devcontainer title formatting measures 543,216 (+592 bytes, 0.11%).
-// CI measured 543,216 bytes on Linux and Windows and 543,288 on macOS; 1,012 bytes of headroom covers the highest measurement.
-export const threshold = 544_300
+// Baseline CI memory is 543,216 bytes on Linux and Windows and 543,288 on macOS.
+// The title bar measurement cache measures 546,988 bytes on Linux (+3,772, 0.69%); 1,512 bytes of headroom covers this measurement.
+export const threshold = 548_500
 
 export const instantiations = 6000
 
