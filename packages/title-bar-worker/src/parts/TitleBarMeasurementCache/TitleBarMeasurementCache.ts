@@ -2,7 +2,6 @@ import { CacheWorker } from '@lvce-editor/rpc-registry'
 import * as LaunchCacheWorker from '../LaunchCacheWorker/LaunchCacheWorker.ts'
 
 const cacheName = 'lvce-title-bar-measurements-v1'
-const cacheHeaders = { 'content-type': 'application/json' }
 
 export const getCacheKey = async (
   labels: readonly string[],
@@ -24,15 +23,14 @@ const isValidWidths = (value: unknown, count: number): value is readonly number[
 
 export const getWidths = async (key: string, count: number): Promise<readonly number[] | undefined> => {
   await LaunchCacheWorker.launchCacheWorker()
-  const item = await CacheWorker.getCacheStorageItem(key, cacheName)
+  const item = await CacheWorker.getCacheStorageJsonItem(key, cacheName)
   if (!item) {
     return undefined
   }
-  const value: unknown = JSON.parse(new TextDecoder().decode(item.body))
-  return isValidWidths(value, count) ? value : undefined
+  return isValidWidths(item.value, count) ? item.value : undefined
 }
 
 export const setWidths = async (key: string, widths: readonly number[]): Promise<void> => {
   await LaunchCacheWorker.launchCacheWorker()
-  await CacheWorker.setCacheStorageItem(key, JSON.stringify(widths), cacheName, cacheHeaders)
+  await CacheWorker.setCacheStorageJsonItem(key, widths, cacheName)
 }

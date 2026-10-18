@@ -1,13 +1,13 @@
 /* eslint-disable jest/no-restricted-jest-methods */
 import { expect, jest, test } from '@jest/globals'
 
-const cacheEntries = new Map<string, ArrayBuffer>()
-const getCacheStorageItem = jest.fn(async (key: string) => {
-  const body = cacheEntries.get(key)
-  return body ? { body } : null
+const cacheEntries = new Map<string, unknown>()
+const getCacheStorageJsonItem = jest.fn(async (key: string) => {
+  const value = cacheEntries.get(key)
+  return cacheEntries.has(key) ? { value } : null
 })
-const setCacheStorageItem = jest.fn(async (key: string, body: string) => {
-  cacheEntries.set(key, new TextEncoder().encode(body).buffer)
+const setCacheStorageJsonItem = jest.fn(async (key: string, value: unknown) => {
+  cacheEntries.set(key, value)
   return { success: true as const }
 })
 const invoke = jest.fn(async () => [24, 40])
@@ -20,8 +20,8 @@ const launchTextMeasurementWorker = async (): Promise<{ readonly invoke: typeof 
 
 await jest.unstable_mockModule('@lvce-editor/rpc-registry', () => ({
   CacheWorker: {
-    getCacheStorageItem,
-    setCacheStorageItem,
+    getCacheStorageJsonItem,
+    setCacheStorageJsonItem,
   },
 }))
 await jest.unstable_mockModule('../src/parts/LaunchCacheWorker/LaunchCacheWorker.ts', () => ({
@@ -40,9 +40,9 @@ test('reuses persisted text widths after a title bar reload', async () => {
 
   await expect(MeasureTextWidths2.measureTextWidths2(['File', 'Edit'], 400, 14, 'Arial', 0)).resolves.toEqual([24, 40])
 
-  expect(getCacheStorageItem).toHaveBeenCalledTimes(2)
+  expect(getCacheStorageJsonItem).toHaveBeenCalledTimes(2)
   expect(invoke).toHaveBeenCalledTimes(1)
-  expect(setCacheStorageItem).toHaveBeenCalledTimes(1)
+  expect(setCacheStorageJsonItem).toHaveBeenCalledTimes(1)
 })
 
 test('measures again when title bar items or typography change', async () => {
