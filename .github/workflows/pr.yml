@@ -68,6 +68,7 @@ jobs:
     timeout-minutes: 60
     env:
       PLAYWRIGHT_BROWSERS_PATH: 0
+      DIAGNOSTIC_ATTEMPT: ${{ matrix.attempt }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
@@ -91,6 +92,8 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Prepare owned integration tests
         run: node packages/e2e-integration/prepare.mjs .tmp/lvce-integration
+      - name: Instrument disposable integration runner
+        run: node packages/e2e-integration/diagnose-startup.mjs .tmp/lvce-integration
       - name: Build application static export
         working-directory: .tmp/lvce-integration
         run: npm run build:static:ignore-icon-theme
@@ -142,7 +145,7 @@ jobs:
         shell: bash
       - name: Upload integration artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: help-about-startup-${{ matrix.attempt }}
           include-hidden-files: true
