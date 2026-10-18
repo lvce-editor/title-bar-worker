@@ -12,7 +12,6 @@ const setCacheStorageItem = jest.fn(async (key: string, body: string) => {
 })
 const invoke = jest.fn(async () => [24, 40])
 const dispose = jest.fn(async () => {})
-const launchCacheWorker = async (): Promise<void> => {}
 const launchTextMeasurementWorker = async (): Promise<{ readonly invoke: typeof invoke; readonly [Symbol.asyncDispose]: typeof dispose }> => ({
   invoke,
   [Symbol.asyncDispose]: dispose,
@@ -23,9 +22,6 @@ await jest.unstable_mockModule('@lvce-editor/rpc-registry', () => ({
     getCacheStorageItem,
     setCacheStorageItem,
   },
-}))
-await jest.unstable_mockModule('../src/parts/LaunchCacheWorker/LaunchCacheWorker.ts', () => ({
-  launchCacheWorker,
 }))
 await jest.unstable_mockModule('../src/parts/LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts', () => ({
   launchTextMeasurementWorker,
