@@ -59,13 +59,28 @@ test('measureTextWidths2 measures text when reading the cache fails', async () =
   expect(invoke).toHaveBeenCalled()
 })
 
-test('measureTextWidths2 measures text when cache reads never settle', async () => {
-  getWidths.mockImplementation(() => new Promise<readonly number[] | undefined>(() => {}))
-  invoke.mockResolvedValue([24])
+test('measureTextWidths2 waits for cache reads beyond the former timeout', async () => {
+  jest.useFakeTimers()
+  try {
+    let resolveWidths: ((widths: readonly number[] | undefined) => void) | undefined
+    getWidths.mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveWidths = resolve
+        }),
+    )
+    const measurePromise = MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)
 
-  await expect(MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)).resolves.toEqual([24])
+    await jest.advanceTimersByTimeAsync(501)
+    expect(getWidths).toHaveBeenCalled()
+    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+    resolveWidths?.([24])
+    await expect(measurePromise).resolves.toEqual([24])
 
-  expect(invoke).toHaveBeenCalled()
+    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+  } finally {
+    jest.useRealTimers()
+  }
 })
 
 test('measureTextWidths2 measures text when creating the cache key fails', async () => {

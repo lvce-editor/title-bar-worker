@@ -1,22 +1,6 @@
 import { launchTextMeasurementWorker } from '../LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts'
 import * as TitleBarMeasurementCache from '../TitleBarMeasurementCache/TitleBarMeasurementCache.ts'
 
-const cacheReadTimeoutMs = 500
-
-const withCacheReadTimeout = async <T>(promise: Promise<T>): Promise<T | undefined> => {
-  let timeoutId: ReturnType<typeof setTimeout> | undefined
-  const timeout = new Promise<undefined>((resolve) => {
-    timeoutId = setTimeout(resolve, cacheReadTimeoutMs, undefined)
-  })
-  try {
-    return await Promise.race([promise, timeout])
-  } finally {
-    if (timeoutId) {
-      clearTimeout(timeoutId)
-    }
-  }
-}
-
 export const measureTextWidths2 = async (
   texts: readonly string[],
   fontWeight: number,
@@ -29,12 +13,8 @@ export const measureTextWidths2 = async (
   }
   let cacheKey: string | undefined
   try {
-    const cachedWidths = await withCacheReadTimeout(
-      (async (): Promise<readonly number[] | undefined> => {
-        cacheKey = await TitleBarMeasurementCache.getCacheKey(texts, fontWeight, fontSize, fontFamily, letterSpacing)
-        return TitleBarMeasurementCache.getWidths(cacheKey, texts.length)
-      })(),
-    )
+    cacheKey = await TitleBarMeasurementCache.getCacheKey(texts, fontWeight, fontSize, fontFamily, letterSpacing)
+    const cachedWidths = await TitleBarMeasurementCache.getWidths(cacheKey, texts.length)
     if (cachedWidths) {
       return cachedWidths
     }
