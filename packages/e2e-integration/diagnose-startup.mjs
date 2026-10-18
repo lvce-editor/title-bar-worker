@@ -79,3 +79,25 @@ const instrumented = testSource
   })
   .join('\n')
 await writeFile(testPath, instrumented)
+
+const patchApplication = async (relativePath, before, after) => {
+  const path = resolve(process.argv[2], relativePath)
+  const source = await readFile(path, 'utf8')
+  if (source.split(before).length !== 2) throw new Error(`Expected one application fragment in ${path}: ${before}`)
+  await writeFile(path, source.replace(before, after))
+}
+await patchApplication(
+  'packages/renderer-worker/src/parts/About/About.js',
+  "  await AboutViewWorker.invoke('About.showAbout', Platform.getPlatform())",
+  "  console.info('about parent start')\n  await AboutViewWorker.invoke('About.showAbout', Platform.getPlatform())\n  console.info('about parent end')",
+)
+await patchApplication(
+  'packages/renderer-worker/src/parts/Viewlet/Viewlet.js',
+  "  await RendererProcess.invoke('Viewlet.executeCommands', commands)",
+  "  console.info('widget render start', moduleId, childUid)\n  await RendererProcess.invoke('Viewlet.executeCommands', commands)\n  console.info('widget render end', moduleId, childUid)",
+)
+await patchApplication(
+  'node_modules/@lvce-editor/about-view/dist/aboutWorkerMain.js',
+  '  await openWidget(About$1);',
+  "  console.info('about worker start');\n  await openWidget(About$1);\n  console.info('about worker end');",
+)
