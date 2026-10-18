@@ -1,4 +1,5 @@
 import { launchTextMeasurementWorker } from '../LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts'
+import * as TitleBarMeasurementCache from '../TitleBarMeasurementCache/TitleBarMeasurementCache.ts'
 
 export const measureTextWidths2 = async (
   texts: readonly string[],
@@ -9,6 +10,16 @@ export const measureTextWidths2 = async (
 ): Promise<readonly number[]> => {
   if (typeof letterSpacing !== 'number') {
     throw new TypeError('letterSpacing must be of type number')
+  }
+  let cacheKey: string | undefined
+  try {
+    cacheKey = await TitleBarMeasurementCache.getCacheKey(texts, fontWeight, fontSize, fontFamily, letterSpacing)
+    const cachedWidths = await TitleBarMeasurementCache.getWidths(cacheKey, texts.length)
+    if (cachedWidths) {
+      return cachedWidths
+    }
+  } catch {
+    // Cache failures must not prevent title bar rendering.
   }
   const rpc = await launchTextMeasurementWorker()
   try {
@@ -24,6 +35,13 @@ export const measureTextWidths2 = async (
       isMonospaceFont,
       charWidth,
     )
+    if (cacheKey) {
+      try {
+        await TitleBarMeasurementCache.setWidths(cacheKey, result)
+      } catch {
+        // Cache failures must not prevent title bar rendering.
+      }
+    }
     return result
   } finally {
     await rpc[Symbol.asyncDispose]()
