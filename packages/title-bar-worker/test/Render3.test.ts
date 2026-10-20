@@ -2,6 +2,7 @@ import { expect, jest, test } from '@jest/globals'
 import { WhenExpression } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as Create3 from '../src/parts/Create3/Create3.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
 import * as Render3 from '../src/parts/Render3/Render3.ts'
@@ -112,4 +113,11 @@ test('menu declarations stay visible to layout and advance the revision across c
   TitleBarMenuBarStates.set(uid, initial, initial)
   expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([['Viewlet.setWidgets', uid, 21, []]])
   expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([['Viewlet.setWidgets', uid, 22, []]])
+})
+
+test('recreating a title bar declares no menus to remove a root left by worker reload', async () => {
+  const uid = 989
+  Create3.create3(uid, '', 0, 0, 800, 30, 1, false, true, '', 990, 100)
+  expect(await Render3.render3(uid, [])).toContainEqual(['Viewlet.setWidgets', uid, 101, []])
+  expect(await Render3.render3(uid, [])).toEqual([])
 })

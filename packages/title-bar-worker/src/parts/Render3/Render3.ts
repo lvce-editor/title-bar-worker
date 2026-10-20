@@ -17,7 +17,9 @@ export const render3 = async (uid: number, diffResult: readonly number[]): Promi
   // State may change between the renderer worker's diff and render RPCs.
   const pendingDiffs = new Set([...diffResult, ...Diff3.diff3(uid)])
   const { newState: currentState, oldState } = TitleBarMenuBarStates.get(uid)
-  const newState = pendingDiffs.has(DiffType.RenderMenus) ? { ...currentState, menuRevision: (currentState.menuRevision ?? 0) + 1 } : currentState
+  const newState = pendingDiffs.has(DiffType.RenderMenus)
+    ? { ...currentState, menuRevision: (currentState.menuRevision ?? 0) + 1, menuWidgetInitialized: true }
+    : currentState
   TitleBarMenuBarStates.set(uid, newState, newState)
   const commands: any[] = []
   for (const item of DiffModules3.numbers) {
