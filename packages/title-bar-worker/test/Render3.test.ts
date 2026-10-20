@@ -59,9 +59,9 @@ test('render3 queues renderer commands and returns a lightweight commit marker',
   const state = { ...CreateDefaultState.createDefaultState(), uid }
   TitleBarMenuBarStates.set(uid, state, state)
 
-  const result = await Render3.render3(uid, [DiffType.RenderMenus])
+  const result = await Render3.render3(uid, [DiffType.RenderEntries])
 
-  expect(queueCommands).toHaveBeenCalledWith(uid, [['Viewlet.send', uid, 'setMenus', [], uid]])
+  expect(queueCommands).toHaveBeenCalledWith(uid, expect.arrayContaining([expect.arrayContaining(['Viewlet.setDom2', uid])]))
   expect(result).toEqual([['Viewlet.commitPending', uid, 17]])
 })
 
@@ -104,4 +104,12 @@ test('render3 includes changes made after the renderer requested its diff', asyn
   TitleBarMenuBarStates.set(uid, oldState, currentState)
   await Render3.render3(uid, [])
   expect(queueCommands).toHaveBeenCalledWith(uid, expect.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
+})
+
+test('menu declarations stay visible to layout and advance the revision across close and reopen', async () => {
+  const uid = 987
+  const initial = { ...CreateDefaultState.createDefaultState(uid), menuRevision: 20, menuUid: 988 }
+  TitleBarMenuBarStates.set(uid, initial, initial)
+  expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([['Viewlet.setWidgets', uid, 21, []]])
+  expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([['Viewlet.setWidgets', uid, 22, []]])
 })

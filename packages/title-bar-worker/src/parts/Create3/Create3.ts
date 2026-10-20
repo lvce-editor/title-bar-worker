@@ -14,6 +14,8 @@ export const create3 = (
   controlsOverlayEnabled: boolean,
   titleBarStyleCustom: boolean,
   assetDir: string,
+  menuUid = 0,
+  menuRevision = 0,
 ): void => {
   const titleBarButtons = GetTitleBarButtons.getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
 
@@ -34,7 +36,9 @@ export const create3 = (
     labelLetterSpacing: 0,
     labelPadding: 8,
     layoutControlsEnabled: false,
+    menuRevision,
     menus: [],
+    menuUid,
     platform,
     titleBarButtons,
     titleBarEntries: [],
