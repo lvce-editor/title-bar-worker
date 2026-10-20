@@ -60,8 +60,12 @@ test('recent filesystem paths use the path command', () => {
 
 test('renderMenus preserves unchanged menus and accepts omitted expanded state', () => {
   const menu = { focusedIndex: -1, items: [], level: 0, x: 0, y: 0 }
-  const state = { ...createDefaultState(), menus: [menu] }
-  expect(renderMenus(state, state)[3]).toEqual([])
-  expect(renderMenus(createDefaultState(), state)[3][0][0]).toBe('addMenu')
-  expect(renderMenus(state, { ...state, menus: [{ ...menu, focusedIndex: 0 }] })[3][0][0]).toBe('updateMenu')
+  const state = { ...createDefaultState(), menus: [menu], menuUid: 202 }
+  expect(renderMenus(state, state)).toContainEqual(['Viewlet.setWidgets', state.uid, 0, [202]])
+  expect(renderMenus(createDefaultState(), state)).toContainEqual(['Viewlet.createFunctionalRoot', 'TitleBarMenu', 202, true, undefined, state.uid])
+  expect(renderMenus(state, { ...state, menus: [{ ...menu, focusedIndex: 0 }] })).toContainEqual([
+    'Viewlet.focusSelector',
+    202,
+    '#Menu-0 > :nth-child(1)',
+  ])
 })
