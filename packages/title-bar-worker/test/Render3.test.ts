@@ -4,6 +4,7 @@ import { createMockRpc } from '@lvce-editor/rpc'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import * as Create3 from '../src/parts/Create3/Create3.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as Diff3 from '../src/parts/Diff3/Diff3.ts'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
 import * as Render3 from '../src/parts/Render3/Render3.ts'
 import * as RendererProcess from '../src/parts/RendererProcess/RendererProcess.ts'
@@ -119,5 +120,5 @@ test('recreating a title bar declares no menus to remove a root left by worker r
   const uid = 989
   Create3.create3(uid, '', 0, 0, 800, 30, 1, false, true, '', 990, 100)
   expect(await Render3.render3(uid, [])).toContainEqual(['Viewlet.setWidgets', uid, 101, []])
-  expect(await Render3.render3(uid, [])).toEqual([])
+  expect(Diff3.diff3(uid)).toEqual([])
 })
