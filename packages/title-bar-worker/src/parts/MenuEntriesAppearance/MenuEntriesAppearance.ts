@@ -9,6 +9,12 @@ import * as UiStrings from '../UiStrings/UiStrings.ts'
 const notImplementedArgs = [{ message: 'not implemented' }]
 const sideBarLeft = 1
 const sideBarRight = 2
+const panelAlignmentStrings = {
+  center: UiStrings.Center,
+  justify: UiStrings.Justify,
+  left: UiStrings.Left,
+  right: UiStrings.Right,
+}
 
 const getSideBarPosition = async (): Promise<number> => {
   try {
@@ -110,6 +116,6 @@ export const getAlignPanelMenuEntries = async (): Promise<readonly MenuEntry[]> 
     command: 'Layout.setPanelAlignment',
     flags: currentAlignment === alignment ? MenuItemFlags.Checked : MenuItemFlags.None,
     id: `alignPanel${alignment[0].toUpperCase()}${alignment.slice(1)}`,
-    label: I18NString.i18nString(UiStrings[(alignment[0].toUpperCase() + alignment.slice(1)) as 'Center' | 'Justify' | 'Left' | 'Right']),
+    label: I18NString.i18nString(panelAlignmentStrings[alignment]),
   }))
 }
