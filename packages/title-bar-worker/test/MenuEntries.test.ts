@@ -60,15 +60,21 @@ test('getMenuEntries2 uses the recent-entry limit from state', async () => {
 })
 
 test('getMenuEntries2 queries the main area for File and Selection menus', async () => {
-  using mockRpc = MainAreaWorker.registerMockRpc({ 'Viewlet.executeViewletCommand': () => true })
+  using renderer = RendererWorker.registerMockRpc({ 'Preferences.get': () => 'off', 'Viewlet.getMainAreaUid': () => 42 })
+  using mockRpc = MainAreaWorker.registerMockRpc({ 'MainArea.hasOpenTextEditor': () => true })
   const state = createDefaultState()
 
   await GetMenuEntries2.getMenuEntries2(state, { menuId: MenuEntryId.File, platform: PlatformType.Web })
   await GetMenuEntries2.getMenuEntries2(state, { menuId: MenuEntryId.Selection })
 
+  expect(renderer.invocations).toEqual([
+    ['Viewlet.getMainAreaUid', state.uid],
+    ['Preferences.get', 'files.autoSave'],
+    ['Viewlet.getMainAreaUid', state.uid],
+  ])
   expect(mockRpc.invocations).toEqual([
-    ['Viewlet.executeViewletCommand', state.mainAreaUid, 'hasOpenTextEditor'],
-    ['Viewlet.executeViewletCommand', state.mainAreaUid, 'hasOpenTextEditor'],
+    ['MainArea.hasOpenTextEditor', 42],
+    ['MainArea.hasOpenTextEditor', 42],
   ])
 })
 

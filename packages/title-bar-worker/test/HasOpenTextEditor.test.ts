@@ -1,34 +1,35 @@
 import { expect, test } from '@jest/globals'
-import { MainAreaWorker } from '@lvce-editor/rpc-registry'
+import { MainAreaWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { hasOpenTextEditor } from '../src/parts/HasOpenTextEditor/HasOpenTextEditor.ts'
 
-test('hasOpenTextEditor queries the main area worker', async () => {
-  using mockRpc = MainAreaWorker.registerMockRpc({
-    'Viewlet.executeViewletCommand'(_uid: number, command: string) {
-      return command === 'hasOpenTextEditor'
-    },
-  })
-
-  await expect(hasOpenTextEditor(42)).resolves.toBe(true)
-  expect(mockRpc.invocations).toEqual([['Viewlet.executeViewletCommand', 42, 'hasOpenTextEditor']])
+test('queries the getter directly using the owning application MainArea uid', async () => {
+  using renderer = RendererWorker.registerMockRpc({ 'Viewlet.getMainAreaUid': () => 42 })
+  using main = MainAreaWorker.registerMockRpc({ 'MainArea.hasOpenTextEditor': () => true })
+  await expect(hasOpenTextEditor(8)).resolves.toBe(true)
+  expect(renderer.invocations).toEqual([['Viewlet.getMainAreaUid', 8]])
+  expect(main.invocations).toEqual([['MainArea.hasOpenTextEditor', 42]])
 })
 
-test('hasOpenTextEditor returns false when the main area is unavailable', async () => {
-  using _mockRpc = MainAreaWorker.registerMockRpc({})
-
-  await expect(hasOpenTextEditor(42)).resolves.toBe(false)
+test('preserves a false getter result', async () => {
+  using _renderer = RendererWorker.registerMockRpc({ 'Viewlet.getMainAreaUid': () => 42 })
+  using _main = MainAreaWorker.registerMockRpc({ 'MainArea.hasOpenTextEditor': () => false })
+  await expect(hasOpenTextEditor(8)).resolves.toBe(false)
 })
 
-test('hasOpenTextEditor returns false when the main area query fails', async () => {
-  using _mockRpc = MainAreaWorker.registerMockRpc({
-    'Viewlet.executeViewletCommand'() {
-      throw new Error('unavailable')
-    },
-  })
-
-  await expect(hasOpenTextEditor(42)).resolves.toBe(false)
+test('returns false when the application MainArea is unavailable', async () => {
+  using _renderer = RendererWorker.registerMockRpc({ 'Viewlet.getMainAreaUid': () => undefined })
+  using main = MainAreaWorker.registerMockRpc({})
+  await expect(hasOpenTextEditor(8)).resolves.toBe(false)
+  expect(main.invocations).toEqual([])
 })
 
-test('hasOpenTextEditor returns false without a main area uid', async () => {
-  await expect(hasOpenTextEditor(undefined)).resolves.toBe(false)
+test('returns false when resolving the application fails', async () => {
+  using _renderer = RendererWorker.registerMockRpc({})
+  await expect(hasOpenTextEditor(8)).resolves.toBe(false)
+})
+
+test('returns false when the direct query fails', async () => {
+  using _renderer = RendererWorker.registerMockRpc({ 'Viewlet.getMainAreaUid': () => 42 })
+  using _main = MainAreaWorker.registerMockRpc({})
+  await expect(hasOpenTextEditor(8)).resolves.toBe(false)
 })

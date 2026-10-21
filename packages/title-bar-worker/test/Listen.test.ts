@@ -22,8 +22,8 @@ const connect = async (port: MessagePort): Promise<void> => {
     commandMap: {
       'Cache.getCacheStorageItem': (): null => null,
       'Cache.setCacheStorageItem': (): { readonly success: true } => ({ success: true }),
+      'MainArea.hasOpenTextEditor': (): boolean => true,
       'TextMeasurement.measureTextWidths': (): readonly number[] => [24],
-      'Viewlet.executeViewletCommand': (_uid: number, command: string): boolean => command === 'hasOpenTextEditor',
     },
     messagePort: port,
   })
@@ -88,7 +88,7 @@ test('registers a lazy main area connection for direct editor state queries', as
   })
 
   expect(renderer.invocations).toEqual([])
-  await expect(MainAreaWorker.invoke('Viewlet.executeViewletCommand', 1, 'hasOpenTextEditor')).resolves.toBe(true)
+  await expect(MainAreaWorker.invoke('MainArea.hasOpenTextEditor', 1)).resolves.toBe(true)
   expect(renderer.invocations).toHaveLength(1)
   await MainAreaWorker.dispose()
 })
@@ -103,8 +103,8 @@ test('allows the next main area query to retry after a failed handoff', async ()
     'SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker': send,
   })
 
-  await expect(MainAreaWorker.invoke('Viewlet.executeViewletCommand', 1, 'hasOpenTextEditor')).rejects.toThrow('Main area worker unavailable')
-  await expect(MainAreaWorker.invoke('Viewlet.executeViewletCommand', 1, 'hasOpenTextEditor')).resolves.toBe(true)
+  await expect(MainAreaWorker.invoke('MainArea.hasOpenTextEditor', 1)).rejects.toThrow('Main area worker unavailable')
+  await expect(MainAreaWorker.invoke('MainArea.hasOpenTextEditor', 1)).resolves.toBe(true)
   expect(send).toHaveBeenCalledTimes(2)
   expect(renderer.invocations).toHaveLength(2)
   await MainAreaWorker.dispose()
