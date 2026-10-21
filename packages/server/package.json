@@ -11,10 +11,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@lvce-editor/application-test-server": "npm:@lvce-editor/server@0.118.25",
-    "@lvce-editor/server": "0.118.25",
-    "@lvce-editor/shared-process": "0.118.25",
-    "@lvce-editor/static-server": "0.118.25"
+    "@lvce-editor/application-test-server": "npm:@lvce-editor/server@0.124.16",
+    "@lvce-editor/server": "0.124.16",
+    "@lvce-editor/shared-process": "0.124.16",
+    "@lvce-editor/static-server": "0.124.16"
   },
   "devDependencies": {
     "@types/node": "^26.0.0"
