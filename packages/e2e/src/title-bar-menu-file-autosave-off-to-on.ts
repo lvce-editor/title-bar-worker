@@ -12,14 +12,14 @@ export const test: Test = async ({ Command, Editor, expect, FileSystem, Locator,
   const selectedModifiedTab = Locator('.MainTabSelected.MainTabModified')
 
   const autoSaveOffFile = `${tmpDir}/auto-save-off.txt`
-  await editAndBlur(Command, Editor, FileSystem, Main, autoSaveOffFile)
+  await editAndBlur(Editor, FileSystem, Main, autoSaveOffFile)
   await FileSystem.shouldHaveFile(autoSaveOffFile, 'before')
   await expect(selectedModifiedTab).toHaveCount(1)
 
   await toggleAutoSave(Command, TitleBarMenuBar)
 
   const autoSaveOnFile = `${tmpDir}/auto-save-on.txt`
-  await editAndBlur(Command, Editor, FileSystem, Main, autoSaveOnFile)
+  await editAndBlur(Editor, FileSystem, Main, autoSaveOnFile)
   await expect(selectedModifiedTab).toHaveCount(0)
   await FileSystem.shouldHaveFile(autoSaveOnFile, 'before-after')
 
