@@ -150,6 +150,7 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   expect(renderUid).toBe(state.uid)
   const [, domUid, renderedDom] = queuedCommands[0]
   expect(domUid).toBe(state.uid)
+  expect(renderedDom[0].className).toBe('Viewlet TitleBar')
   const menuBar = renderedDom.find((node: any) => node.className?.includes('TitleBarMenuBar'))
   expect(menuBar?.ariaActivedescendant).toBe('')
   expect(renderedDom.find((node: any) => node.id === 'TitleBarEntryActive')).toBeUndefined()
