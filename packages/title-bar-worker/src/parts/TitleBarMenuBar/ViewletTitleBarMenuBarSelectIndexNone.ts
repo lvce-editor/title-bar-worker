@@ -23,7 +23,7 @@ export const selectIndexNone = async (state: TitleBarMenuBarState, item: MenuEnt
       await RendererProcess.invoke(command, ...args)
       const [renderEntriesCommand, ...renderEntriesArgs] = RenderEntries.renderEntries(latestState, closedState)
       const transactionId = await RendererProcess.invoke('Viewlet.queueCommands', uid, [[renderEntriesCommand, ...renderEntriesArgs]])
-      await RendererProcess.invoke('Viewlet.commitPending', uid, transactionId)
+      await RendererProcess.invoke('Viewlet.executeCommands', [['Viewlet.commitPending', uid, transactionId]])
     }
   }
   await ExecuteMenuItemcommand.executeMenuItemCommand(item)

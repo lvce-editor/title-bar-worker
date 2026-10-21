@@ -102,7 +102,8 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   const { promise: command, resolve: resolveCommand } = Promise.withResolvers<void>()
   const { promise: commandStarted, resolve: resolveStarted } = Promise.withResolvers<void>()
   using mockRendererProcessRpc = registerRendererProcessMockRpc({
-    'Viewlet.commitPending'() {
+    'Viewlet.executeCommands'(commands: readonly any[]) {
+      expect(commands).toEqual([['Viewlet.commitPending', state.uid, 7]])
       order.push('commit')
     },
     'Viewlet.queueCommands'() {
@@ -152,6 +153,6 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   const menuBar = renderedDom.find((node: any) => node.className?.includes('TitleBarMenuBar'))
   expect(menuBar?.ariaActivedescendant).toBe('')
   expect(renderedDom.find((node: any) => node.id === 'TitleBarEntryActive')).toBeUndefined()
-  expect(mockRendererProcessRpc.invocations[2]).toEqual(['Viewlet.commitPending', state.uid, 7])
+  expect(mockRendererProcessRpc.invocations[2]).toEqual(['Viewlet.executeCommands', [['Viewlet.commitPending', state.uid, 7]]])
   expect(mockRpc.invocations).toEqual([['About.showAbout']])
 })
