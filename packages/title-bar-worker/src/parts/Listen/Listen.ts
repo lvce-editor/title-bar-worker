@@ -1,23 +1,8 @@
 import { LazyTransferMessagePortRpcParent, WebWorkerRpcClient } from '@lvce-editor/rpc'
-import { CacheWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
+import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import * as CommandMap from '../CommandMap/CommandMap.ts'
+import * as RegisterCacheWorker from '../RegisterCacheWorker/RegisterCacheWorker.ts'
 import { registerCommands } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
-
-const registerCacheWorker = async (): Promise<void> => {
-  const lazyRpc = await LazyTransferMessagePortRpcParent.create({
-    commandMap: {},
-    async send(port): Promise<void> {
-      try {
-        await RendererWorker.sendMessagePortToCacheWorker(port)
-      } catch (error) {
-        // The lazy RPC retains a failed connection promise. Let the next cache operation retry.
-        await registerCacheWorker()
-        throw error
-      }
-    },
-  })
-  CacheWorker.set(lazyRpc)
-}
 
 const registerTextMeasurementWorker = async (): Promise<void> => {
   const lazyRpc = await LazyTransferMessagePortRpcParent.create({
@@ -41,6 +26,6 @@ export const listen = async (): Promise<void> => {
     commandMap: CommandMap.commandMap,
   })
   RendererWorker.set(rpc)
-  await registerCacheWorker()
+  await RegisterCacheWorker.registerCacheWorker()
   await registerTextMeasurementWorker()
 }
