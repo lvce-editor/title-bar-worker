@@ -1,42 +1,44 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as I18NString from '../I18NString/I18NString.ts'
+import * as UiStrings from '../UiStrings/UiStrings.ts'
 
-const commandCenterItems = [
+const getCommandCenterItems = (): Array<{ args?: string[]; command: string; label: string }> => [
   {
     command: 'QuickPick.showFile',
-    label: 'Go to File',
+    label: I18NString.i18nString(UiStrings.GoToFile),
   },
   {
     command: 'QuickPick.showCommands',
-    label: 'Show and Run Commands',
+    label: I18NString.i18nString(UiStrings.ShowAndRunCommands),
   },
   {
     args: ['Search'],
     command: 'Layout.openSideBarViewlet',
-    label: 'Search for Text',
+    label: I18NString.i18nString(UiStrings.SearchForText),
   },
   {
     args: ['symbol'],
     command: 'QuickPick.show',
-    label: 'Go to Symbol in Editor',
+    label: I18NString.i18nString(UiStrings.GoToSymbolInEditor),
   },
   {
     args: ['Run And Debug'],
     command: 'Layout.openSideBarViewlet',
-    label: 'Start Debugging',
+    label: I18NString.i18nString(UiStrings.StartDebugging),
   },
   {
     command: 'QuickPick.showCommands',
-    label: 'Run Task',
+    label: I18NString.i18nString(UiStrings.RunTask),
   },
   {
     command: 'QuickPick.showEverything',
-    label: 'More',
+    label: I18NString.i18nString(UiStrings.MoreCommandCenterItems),
   },
 ]
 
 export const handleCommandCenterClick = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
-  await RendererWorker.invoke('QuickPick.show', 'custom', commandCenterItems, undefined, {
+  await RendererWorker.invoke('QuickPick.show', 'custom', getCommandCenterItems(), undefined, {
     executeItemCommand: true,
     mode: 'quickPick',
     placeholder: 'Search files by name (append : to go to line or @ to go to symbol)',
