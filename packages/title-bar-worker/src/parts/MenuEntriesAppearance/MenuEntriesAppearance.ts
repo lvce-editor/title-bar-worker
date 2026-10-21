@@ -1,12 +1,20 @@
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { MenuEntry } from '../MenuEntry/MenuEntry.ts'
+import * as I18NString from '../I18NString/I18NString.ts'
 import * as MenuEntrySeparator from '../MenuEntrySeparator/MenuEntrySeparator.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as TitleBarStrings from '../TitleBarStrings/TitleBarStrings.ts'
+import * as UiStrings from '../UiStrings/UiStrings.ts'
 
 const notImplementedArgs = [{ message: 'not implemented' }]
 const sideBarLeft = 1
 const sideBarRight = 2
+const panelAlignmentStrings = {
+  center: UiStrings.Center,
+  justify: UiStrings.Justify,
+  left: UiStrings.Left,
+  right: UiStrings.Right,
+}
 
 const getSideBarPosition = async (): Promise<number> => {
   try {
@@ -52,8 +60,8 @@ export const getMenuEntries = async (sideBarPosition?: number): Promise<readonly
   const currentSideBarPosition = sideBarPosition ?? (await getSideBarPosition())
   const movePrimarySideBarEntry =
     currentSideBarPosition === sideBarLeft
-      ? commandEntry('movePrimarySideBarRight', 'Move Primary Side Bar Right', 'Layout.moveSideBarRight')
-      : commandEntry('movePrimarySideBarLeft', 'Move Primary Side Bar Left', 'Layout.moveSideBarLeft')
+      ? commandEntry('movePrimarySideBarRight', I18NString.i18nString(UiStrings.MovePrimarySideBarRight), 'Layout.moveSideBarRight')
+      : commandEntry('movePrimarySideBarLeft', I18NString.i18nString(UiStrings.MovePrimarySideBarLeft), 'Layout.moveSideBarLeft')
 
   return [
     {
@@ -63,36 +71,36 @@ export const getMenuEntries = async (sideBarPosition?: number): Promise<readonly
       keyboardShortCut: 'F11',
       label: TitleBarStrings.fullScreen(),
     },
-    entry('zenMode', 'Zen Mode', 'Ctrl+K Z'),
-    entry('centeredLayout', 'Centered Layout'),
+    entry('zenMode', I18NString.i18nString(UiStrings.ZenMode), 'Ctrl+K Z'),
+    entry('centeredLayout', I18NString.i18nString(UiStrings.CenteredLayout)),
     MenuEntrySeparator.menuEntrySeparator,
-    checkedEntry('menuBar', 'Menu Bar'),
-    commandEntry('primarySideBar', 'Primary Side Bar', 'Layout.toggleSideBar', 'Ctrl+B'),
-    commandEntry('secondarySideBar', 'Secondary Side Bar', 'Layout.toggleSecondarySideBar', 'Ctrl+Alt+B'),
-    commandEntry('statusBar', 'Status Bar', 'Layout.toggleStatusBar', '', MenuItemFlags.Checked),
-    commandEntry('panel', 'Panel', 'Layout.togglePanel', 'Ctrl+J', MenuItemFlags.Checked),
+    checkedEntry('menuBar', I18NString.i18nString(UiStrings.MenuBar)),
+    commandEntry('primarySideBar', I18NString.i18nString(UiStrings.PrimarySideBar), 'Layout.toggleSideBar', 'Ctrl+B'),
+    commandEntry('secondarySideBar', I18NString.i18nString(UiStrings.SecondarySideBar), 'Layout.toggleSecondarySideBar', 'Ctrl+Alt+B'),
+    commandEntry('statusBar', I18NString.i18nString(UiStrings.StatusBar), 'Layout.toggleStatusBar', '', MenuItemFlags.Checked),
+    commandEntry('panel', I18NString.i18nString(UiStrings.Panel), 'Layout.togglePanel', 'Ctrl+J', MenuItemFlags.Checked),
     MenuEntrySeparator.menuEntrySeparator,
     movePrimarySideBarEntry,
-    entry('activityBarPosition', 'Activity Bar Position'),
-    entry('panelPosition', 'Panel Position'),
+    entry('activityBarPosition', I18NString.i18nString(UiStrings.ActivityBarPosition)),
+    entry('panelPosition', I18NString.i18nString(UiStrings.PanelPosition)),
     {
       command: '',
       flags: MenuItemFlags.SubMenu,
       id: 'alignPanel',
-      label: 'Align Panel',
+      label: I18NString.i18nString(UiStrings.AlignPanel),
     },
-    entry('tabBar', 'Tab Bar'),
-    entry('editorActionsPosition', 'Editor Actions Position'),
+    entry('tabBar', I18NString.i18nString(UiStrings.TabBar)),
+    entry('editorActionsPosition', I18NString.i18nString(UiStrings.EditorActionsPosition)),
     MenuEntrySeparator.menuEntrySeparator,
-    entry('minimap', 'Minimap'),
-    entry('breadcrumbs', 'Breadcrumbs'),
-    entry('stickyScroll', 'Sticky Scroll'),
-    entry('renderWhitespace', 'Render Whitespace'),
-    checkedEntry('renderControlCharacters', 'Render Control Characters'),
+    entry('minimap', I18NString.i18nString(UiStrings.Minimap)),
+    entry('breadcrumbs', I18NString.i18nString(UiStrings.Breadcrumbs)),
+    entry('stickyScroll', I18NString.i18nString(UiStrings.StickyScroll)),
+    entry('renderWhitespace', I18NString.i18nString(UiStrings.RenderWhitespace)),
+    checkedEntry('renderControlCharacters', I18NString.i18nString(UiStrings.RenderControlCharacters)),
     MenuEntrySeparator.menuEntrySeparator,
-    commandEntry('zoomIn', 'Zoom In', 'Window.zoomIn', 'Ctrl+='),
-    commandEntry('zoomOut', 'Zoom Out', 'Window.zoomOut', 'Ctrl+-'),
-    commandEntry('resetZoom', 'Reset Zoom', 'Window.zoomReset', 'Ctrl+NumPad0'),
+    commandEntry('zoomIn', I18NString.i18nString(UiStrings.ZoomIn), 'Window.zoomIn', 'Ctrl+='),
+    commandEntry('zoomOut', I18NString.i18nString(UiStrings.ZoomOut), 'Window.zoomOut', 'Ctrl+-'),
+    commandEntry('resetZoom', I18NString.i18nString(UiStrings.ResetZoom), 'Window.zoomReset', 'Ctrl+NumPad0'),
   ]
 }
 
@@ -108,6 +116,6 @@ export const getAlignPanelMenuEntries = async (): Promise<readonly MenuEntry[]> 
     command: 'Layout.setPanelAlignment',
     flags: currentAlignment === alignment ? MenuItemFlags.Checked : MenuItemFlags.None,
     id: `alignPanel${alignment[0].toUpperCase()}${alignment.slice(1)}`,
-    label: alignment[0].toUpperCase() + alignment.slice(1),
+    label: I18NString.i18nString(panelAlignmentStrings[alignment]),
   }))
 }
