@@ -2,6 +2,8 @@ export const name = 'viewlet.title-bar-menu-help-about-closes-menu'
 
 export const test = async ({ expect, KeyBoard, Locator, TitleBarMenuBar }) => {
   const menu = Locator('#Menu-0')
+  const aboutDialog = Locator('[role="dialog"]')
+  const aboutButton = Locator('[role="dialog"] button[name="Ok"]')
   const titleBarMenuBar = Locator('.TitleBarMenuBar')
   const helpEntry = Locator('.TitleBarTopLevelEntry', { hasText: 'Help' })
 
@@ -11,6 +13,9 @@ export const test = async ({ expect, KeyBoard, Locator, TitleBarMenuBar }) => {
   const aboutItem = Locator('.MenuItem', { hasText: 'About' })
   await aboutItem.click()
   await expect(menu).toBeHidden()
+  await expect(aboutDialog).toBeVisible()
+  await aboutButton.click()
+  await expect(aboutDialog).toBeHidden()
   await expect(helpEntry).toHaveAttribute('id', null)
   await expect(titleBarMenuBar).toHaveAttribute('aria-activedescendant', null)
 
@@ -32,6 +37,9 @@ export const test = async ({ expect, KeyBoard, Locator, TitleBarMenuBar }) => {
   await expect(aboutItem).toBeFocused()
   await KeyBoard.press('Enter')
   await expect(menu).toBeHidden()
+  await expect(aboutDialog).toBeVisible()
+  await aboutButton.click()
+  await expect(aboutDialog).toBeHidden()
   await expect(helpEntry).toHaveAttribute('id', null)
   await expect(titleBarMenuBar).toHaveAttribute('aria-activedescendant', null)
 }
