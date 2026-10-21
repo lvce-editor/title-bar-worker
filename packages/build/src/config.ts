@@ -1,9 +1,9 @@
 import { join } from 'node:path'
 import { root } from './root.js'
 
-// Same Linux/Chromium harness: baseline 549,204 bytes; worker-owned menus 551,300 (+2,096, 0.38%).
-// macOS CI measured 551,368; retain 632 bytes of headroom with the gate enabled.
-export const threshold = 552_000
+// Same Linux/Chromium harness: baseline 550,960 bytes; lazy measurement RPC 552,392 (+1,432, 0.26%).
+// CI measured 552,464 on macOS; retain 536 bytes of headroom with the gate enabled.
+export const threshold = 553_000
 
 export const instantiations = 6000
 
