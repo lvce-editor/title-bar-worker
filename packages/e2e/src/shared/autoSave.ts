@@ -9,7 +9,6 @@ export const toggleAutoSave = async (Command: TestApi['Command'], TitleBarMenuBa
 }
 
 export const editAndBlur = async (
-  Command: TestApi['Command'],
   Editor: TestApi['Editor'],
   FileSystem: TestApi['FileSystem'],
   Main: TestApi['Main'],
@@ -17,8 +16,8 @@ export const editAndBlur = async (
 ): Promise<void> => {
   await FileSystem.writeFile(filePath, 'before')
   await Main.openUri(filePath)
-  await Command.execute('Editor.handleFocus')
+  await Editor.handleFocus()
   await Editor.setCursor(0, 6)
   await Editor.type('-after')
-  await Command.execute('Editor.handleBlur')
+  await Editor.handleBlur()
 }
