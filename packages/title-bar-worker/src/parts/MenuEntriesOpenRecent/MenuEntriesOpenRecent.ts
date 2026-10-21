@@ -5,11 +5,9 @@ import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import * as TitleBarMenuBarStrings from '../TitleBarMenuBarStrings/TitleBarMenuBarStrings.ts'
 import * as ToMenuItem from '../ToMenuItem/ToMenuItem.ts'
 
-const MAX_MENU_RECENT_ENTRIES = 10
-
-export const getMenuEntries = async (): Promise<readonly MenuEntry[]> => {
+export const getMenuEntries = async (maxMenuRecentEntries: number): Promise<readonly MenuEntry[]> => {
   const allItems = await GetRecentlyOpened.getRecentlyOpened()
-  const itemsToShow = allItems.slice(0, MAX_MENU_RECENT_ENTRIES)
+  const itemsToShow = allItems.slice(0, maxMenuRecentEntries)
   const items = []
   if (itemsToShow.length > 0) {
     items.push(...itemsToShow.map(ToMenuItem.toMenuItem), MenuEntrySeparator.menuEntrySeparator)

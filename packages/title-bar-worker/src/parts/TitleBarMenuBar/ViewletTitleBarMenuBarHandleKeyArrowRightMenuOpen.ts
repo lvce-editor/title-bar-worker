@@ -7,7 +7,7 @@ import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import { focusNext } from './ViewletTitleBarMenuBarFocusNext.ts'
 
 export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
-  const { menus } = state
+  const { maxMenuRecentEntries, menus } = state
   // if menu can open sub menu to the right -> do that
   const menu = menus.at(-1)
   if (!menu) {
@@ -19,7 +19,7 @@ export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): 
   }
   const item = items[focusedIndex]
   if (item.flags === MenuItemFlags.SubMenu && item.id !== undefined) {
-    const rawSubMenuEntries = await MenuEntries.getMenuEntries(item.id)
+    const rawSubMenuEntries = await MenuEntries.getMenuEntriesWithRecentLimit(item.id, maxMenuRecentEntries)
     const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
     const subMenu = {
       focusedIndex: 0,

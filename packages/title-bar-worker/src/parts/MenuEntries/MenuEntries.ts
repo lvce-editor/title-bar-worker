@@ -55,9 +55,19 @@ const getFn = (id: string | number): any => {
 export const getMenuEntries = async (id: string | number, ...args: readonly unknown[]): Promise<readonly MenuEntry[]> => {
   try {
     const fn = getFn(id)
+    if (id === MenuEntryId.OpenRecent) {
+      return fn(args[0])
+    }
     // @ts-ignore
     return fn(...args)
   } catch (error) {
     throw new VError(error, `Failed to load menu entries for id ${id}`)
   }
+}
+
+export const getMenuEntriesWithRecentLimit = async (id: string | number, maxMenuRecentEntries: number): Promise<readonly MenuEntry[]> => {
+  if (id === MenuEntryId.OpenRecent) {
+    return getMenuEntries(id, maxMenuRecentEntries)
+  }
+  return getMenuEntries(id)
 }

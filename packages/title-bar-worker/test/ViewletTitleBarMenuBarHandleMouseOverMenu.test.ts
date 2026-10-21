@@ -1052,3 +1052,24 @@ test('handleMouseOverMenu - close submenu and preserve menu properties when upda
   expect(result.menus[0].y).toBe(100)
   expect(result.menus[0].focusedIndex).toBe(0)
 })
+
+test('handleMouseOverMenu passes the recent-entry limit from state', async () => {
+  using _mockRpc = RendererWorker.registerMockRpc({
+    'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/first.txt', 'file:///home/user/second.txt'],
+  })
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(),
+    maxMenuRecentEntries: 1,
+    menus: [
+      {
+        focusedIndex: -1,
+        items: [{ command: '', flags: MenuItemFlags.SubMenu, id: MenuEntryId.OpenRecent, label: 'Open Recent' }],
+        level: 0,
+        x: 0,
+        y: 0,
+      },
+    ],
+  }
+  const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 0)
+  expect(result.menus[1].items.filter((entry) => entry.command === 'Workspace.setUri')).toHaveLength(1)
+})

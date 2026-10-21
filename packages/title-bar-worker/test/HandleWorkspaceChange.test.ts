@@ -32,6 +32,7 @@ const createMockState = (overrides?: Partial<TitleBarMenuBarState>): TitleBarMen
     labelLetterSpacing: 0,
     labelPadding: 0,
     layoutControlsEnabled: false,
+    maxMenuRecentEntries: 10,
     menus: [],
     platform: 0,
     title: 'Old Title',

@@ -15,6 +15,7 @@ test('handleKeyArrowRight - open sub menu', async () => {
     ...createDefaultState(),
     focusedIndex: 0,
     isMenuOpen: true,
+    maxMenuRecentEntries: 1,
     menus: [
       {
         focusedIndex: 1,
@@ -68,5 +69,6 @@ test('handleKeyArrowRight - open sub menu', async () => {
   expect(result.menus[0].focusedIndex).toBe(1)
   expect(result.menus[1].level).toBe(1)
   expect(result.menus[1].items.length).toBeGreaterThan(0)
+  expect(result.menus[1].items.filter((entry) => entry.command === 'Workspace.setUri')).toHaveLength(1)
   expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
