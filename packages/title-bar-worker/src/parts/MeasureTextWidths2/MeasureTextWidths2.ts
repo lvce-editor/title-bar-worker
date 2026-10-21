@@ -1,5 +1,5 @@
+import { TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { getCachedWidths } from '../GetCachedWidths/GetCachedWidths.ts'
-import { launchTextMeasurementWorker } from '../LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts'
 import * as TitleBarMeasurementCache from '../TitleBarMeasurementCache/TitleBarMeasurementCache.ts'
 
 export const measureTextWidths2 = async (
@@ -19,25 +19,20 @@ export const measureTextWidths2 = async (
   if (cachedWidths) {
     return cachedWidths
   }
-  const rpc = await launchTextMeasurementWorker()
-  try {
-    const isMonospaceFont = false
-    const charWidth = 0
-    const result = await rpc.invoke(
-      'TextMeasurement.measureTextWidths',
-      texts,
-      fontWeight,
-      fontSize,
-      fontFamily,
-      letterSpacing,
-      isMonospaceFont,
-      charWidth,
-    )
-    if (cacheKey) {
-      void TitleBarMeasurementCache.setWidths(cacheKey, result).catch(() => {})
-    }
-    return result
-  } finally {
-    await rpc[Symbol.asyncDispose]()
+  const isMonospaceFont = false
+  const charWidth = 0
+  const result = await TextMeasurementWorker.invoke(
+    'TextMeasurement.measureTextWidths',
+    texts,
+    fontWeight,
+    fontSize,
+    fontFamily,
+    letterSpacing,
+    isMonospaceFont,
+    charWidth,
+  )
+  if (cacheKey) {
+    void TitleBarMeasurementCache.setWidths(cacheKey, result).catch(() => {})
   }
+  return result
 }

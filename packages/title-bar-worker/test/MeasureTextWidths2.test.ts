@@ -2,19 +2,14 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
 
 const invoke = jest.fn<(...args: readonly any[]) => Promise<readonly number[]>>()
-const dispose = jest.fn<() => Promise<void>>()
-const launchTextMeasurementWorker = jest.fn(async () => ({
-  invoke,
-  [Symbol.asyncDispose]: dispose,
-}))
 const getCacheKey = jest.fn<(...args: readonly [readonly string[], number, number, string, number]) => Promise<string>>(
   async () => '/title-bar-measurements/v1/key',
 )
 const getWidths = jest.fn<(...args: readonly [string, number]) => Promise<readonly number[] | undefined>>(async () => undefined)
 const setWidths = jest.fn<(...args: readonly [string, readonly number[]]) => Promise<void>>(async () => {})
 
-await jest.unstable_mockModule('../src/parts/LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts', () => ({
-  launchTextMeasurementWorker,
+await jest.unstable_mockModule('@lvce-editor/rpc-registry', () => ({
+  TextMeasurementWorker: { invoke },
 }))
 await jest.unstable_mockModule('../src/parts/TitleBarMeasurementCache/TitleBarMeasurementCache.ts', () => ({
   getCacheKey,
@@ -30,7 +25,7 @@ beforeEach(() => {
   getWidths.mockResolvedValue(undefined)
 })
 
-test('measureTextWidths2 measures text and disposes the worker', async () => {
+test('measureTextWidths2 measures text through the registered worker', async () => {
   invoke.mockResolvedValue([24, 40])
 
   await expect(MeasureTextWidths2.measureTextWidths2(['foo', 'hello'], 400, 14, 'Arial', 0)).resolves.toEqual([24, 40])
@@ -39,7 +34,6 @@ test('measureTextWidths2 measures text and disposes the worker', async () => {
   expect(getWidths).toHaveBeenCalledWith('/title-bar-measurements/v1/key', 2)
   expect(setWidths).toHaveBeenCalledWith('/title-bar-measurements/v1/key', [24, 40])
   expect(invoke).toHaveBeenCalledWith('TextMeasurement.measureTextWidths', ['foo', 'hello'], 400, 14, 'Arial', 0, false, 0)
-  expect(dispose).toHaveBeenCalledTimes(1)
 })
 
 test('measureTextWidths2 reuses valid cached widths without launching the measurement worker', async () => {
@@ -47,7 +41,7 @@ test('measureTextWidths2 reuses valid cached widths without launching the measur
 
   await expect(MeasureTextWidths2.measureTextWidths2(['foo', 'hello'], 400, 14, 'Arial', 0)).resolves.toEqual([24, 40])
 
-  expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+  expect(invoke).not.toHaveBeenCalled()
   expect(setWidths).not.toHaveBeenCalled()
 })
 
@@ -69,11 +63,11 @@ test('measureTextWidths2 waits for cache reads beyond the former timeout', async
 
     await jest.advanceTimersByTimeAsync(501)
     expect(getWidths).toHaveBeenCalled()
-    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+    expect(invoke).not.toHaveBeenCalled()
     resolveWidths([24])
     await expect(measurePromise).resolves.toEqual([24])
 
-    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+    expect(invoke).not.toHaveBeenCalled()
   } finally {
     jest.useRealTimers()
   }
@@ -89,7 +83,7 @@ test('measureTextWidths2 waits for a late cache key and uses it for cache writes
   try {
     const result = MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)
     await jest.advanceTimersByTimeAsync(501)
-    expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+    expect(invoke).not.toHaveBeenCalled()
     expect(getWidths).not.toHaveBeenCalled()
     cacheKey.resolve('/title-bar-measurements/v1/late-key')
     await Promise.resolve()
@@ -141,12 +135,12 @@ test('measureTextWidths2 does not wait for cache writes', async () => {
   await expect(MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)).resolves.toEqual([24])
 })
 
-test('measureTextWidths2 disposes the worker when measurement fails', async () => {
+test('measureTextWidths2 propagates measurement failures without disposing the shared worker', async () => {
   invoke.mockRejectedValue(new Error('Failed to measure text'))
 
   await expect(MeasureTextWidths2.measureTextWidths2(['foo'], 400, 14, 'Arial', 0)).rejects.toThrow('Failed to measure text')
 
-  expect(dispose).toHaveBeenCalledTimes(1)
+  expect(invoke).toHaveBeenCalledTimes(1)
 })
 
 test('measureTextWidths2 rejects an invalid letter spacing', async () => {
@@ -154,5 +148,5 @@ test('measureTextWidths2 rejects an invalid letter spacing', async () => {
     'letterSpacing must be of type number',
   )
 
-  expect(launchTextMeasurementWorker).not.toHaveBeenCalled()
+  expect(invoke).not.toHaveBeenCalled()
 })

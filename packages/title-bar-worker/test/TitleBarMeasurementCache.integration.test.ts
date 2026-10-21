@@ -11,20 +11,13 @@ const setCacheStorageJsonItem = jest.fn(async (key: string, value: unknown) => {
   return { success: true as const }
 })
 const invoke = jest.fn(async () => [24, 40])
-const dispose = jest.fn(async () => {})
-const launchTextMeasurementWorker = async (): Promise<{ readonly invoke: typeof invoke; readonly [Symbol.asyncDispose]: typeof dispose }> => ({
-  invoke,
-  [Symbol.asyncDispose]: dispose,
-})
 
 await jest.unstable_mockModule('@lvce-editor/rpc-registry', () => ({
   CacheWorker: {
     getCacheStorageJsonItem,
     setCacheStorageJsonItem,
   },
-}))
-await jest.unstable_mockModule('../src/parts/LaunchTextMeasurementWorker/LaunchTextMeasurementWorker.ts', () => ({
-  launchTextMeasurementWorker,
+  TextMeasurementWorker: { invoke },
 }))
 
 const MeasureTextWidths2 = await import('../src/parts/MeasureTextWidths2/MeasureTextWidths2.ts')
