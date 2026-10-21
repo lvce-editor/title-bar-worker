@@ -24,7 +24,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'viewlet.title-bar-accessibility'
 
-export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, TitleBarMenuBar, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/test.txt`, 'div')
 
@@ -35,8 +35,17 @@ export const test: Test = async ({ expect, FileSystem, Locator, Workspace }) => 
   const titleBarMenuBar = Locator('.TitleBarMenuBar')
   await expect(titleBarMenuBar).toBeVisible()
   await expect(titleBarMenuBar).toHaveAttribute('role', 'menubar')
-  const menuItemFile = Locator('.TitleBarTopLevelEntry[name="File"]')
+  await expect(titleBarMenuBar).toHaveAttribute('tabindex', '0')
+  const menuItemFile = Locator('.TitleBarTopLevelEntry', { hasText: 'File' })
+  const menu0 = Locator('#Menu-0')
   await expect(menuItemFile).toHaveAttribute('aria-haspopup', 'true')
   await expect(menuItemFile).toHaveAttribute('aria-expanded', 'false')
   await expect(menuItemFile).toHaveAttribute('role', 'menuitem')
+  await TitleBarMenuBar.focus()
+  await expect(titleBarMenuBar).toHaveAttribute('aria-activedescendant', 'TitleBarEntryActive')
+  await expect(menuItemFile).toHaveAttribute('id', 'TitleBarEntryActive')
+  await TitleBarMenuBar.handleKeyArrowDown()
+  await expect(menuItemFile).toHaveAttribute('aria-expanded', 'true')
+  await expect(menuItemFile).toHaveAttribute('aria-owns', 'Menu-0')
+  await expect(menu0).toBeVisible()
 }

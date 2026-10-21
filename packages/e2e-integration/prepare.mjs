@@ -1,6 +1,5 @@
-import { cp, mkdir, readdir, readFile, realpath, rm, writeFile } from 'node:fs/promises'
+import { cp, mkdir, readFile, realpath } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
-import { stripTypeScriptTypes } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -11,18 +10,8 @@ const manifest = JSON.parse(await readFile(join(application, 'package.json'), 'u
 if (manifest.name !== 'lvce-editor') throw new Error('Expected an LVCE application checkout')
 const config = JSON.parse(await readFile(join(here, 'config.json'), 'utf8'))
 const tests = join(application, 'packages/extension-host-worker-tests')
-// Keep the application's runner and replace only its test inventory.
-for (const name of await readdir(join(tests, 'src'))) {
-  if (name !== '_all.js') await rm(join(tests, 'src', name), { recursive: true })
-}
-await cp(join(here, 'src'), join(tests, 'src'), { recursive: true })
-await rm(join(tests, 'fixtures'), { recursive: true, force: true })
-await mkdir(join(tests, 'fixtures'), { recursive: true })
-try {
-  await cp(join(here, 'fixtures'), join(tests, 'fixtures'), { recursive: true })
-} catch (error) {
-  if (error.code !== 'ENOENT') throw error
-}
+await mkdir(join(tests, 'scripts'), { recursive: true })
+await cp(join(here, 'src/viewlet.title-bar-open-folder-unsupported.js'), join(tests, 'src/viewlet.title-bar-open-folder-unsupported.js'))
 for (const path of config.scripts) {
   await cp(join(here, 'scripts', path.split('/').at(-1)), join(application, path))
 }
@@ -33,11 +22,4 @@ for (const [from, to] of config.artifacts) {
     return join(application, to)
   })
   await cp(join(owner, from), target, { recursive: true })
-}
-
-// Keep the owning suite's exact assertions when validating the runtime prerequisite.
-for (const name of ['title-bar-menu-file-search-space', 'title-bar-menu-close-on-click-outside', 'title-bar-menu-root-lifecycle']) {
-  const source = await readFile(join(owner, 'packages/e2e/src', `${name}.ts`), 'utf8')
-  const javascript = stripTypeScriptTypes(source).replace(`export const name = '${name}'`, `export const name = 'viewlet.${name}'`)
-  await writeFile(join(tests, 'src', `viewlet.${name}.js`), javascript)
 }

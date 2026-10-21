@@ -4,6 +4,6 @@
     "packages/extension-host-worker-tests/scripts/test-help-about-dialog.mjs",
     "packages/extension-host-worker-tests/scripts/test-titlebarless.mjs",
     "packages/extension-host-worker-tests/scripts/test-titlebar-reference.mjs",
-    "packages/extension-host-worker-tests/scripts/test-menu-mouse-leave.mjs"
+    "packages/extension-host-worker-tests/scripts/test-titlebar-app-regions.mjs"
   ]
 }

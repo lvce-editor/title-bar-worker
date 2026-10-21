@@ -48,10 +48,9 @@ jobs:
         run: npm run build:static:ignore-icon-theme
         env:
           PATH_PREFIX: /lvce-editor
-      - name: Include title bar browser test module in static export
-        if: matrix.os == 'ubuntu-24.04'
+      - name: Include unsupported-folder browser test in static export
         run: |
-          test_module=packages/e2e-integration/src/viewlet.title-bar-menu-help-about-closes-menu.js
+          test_module=packages/e2e-integration/src/viewlet.title-bar-open-folder-unsupported.js
           export_dir=.tmp/lvce-integration/packages/build/.tmp/export-test/dist/packages/extension-host-worker-tests/src
           mkdir -p "$export_dir"
           cp "$test_module" "$export_dir/"
@@ -60,6 +59,14 @@ jobs:
         run: |-
           npm run build:server
           npm run test-static-export
+      - name: Test menu highlight on mouse leave
+        run: node packages/e2e/scripts/test-menu-mouse-leave.mjs .tmp/lvce-integration
+        shell: bash
+      - name: Test unsupported local folder dialog
+        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
+        run: npm run e2e:headless -- --filter=viewlet.title-bar-open-folder-unsupported
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
       - name: Install Linux window manager
         if: matrix.os == 'ubuntu-24.04'
         run: |-
@@ -81,24 +88,21 @@ jobs:
           "$result"'
         working-directory: .tmp/lvce-integration
         shell: bash
-      - name: Test menu highlight on mouse leave
-        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
-        run: node scripts/test-menu-mouse-leave.mjs
-        shell: bash
-      - name: Test Help menu closes before About
-        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
-        run: npm run e2e:headless -- --test-name-prefix=viewlet.title-bar-menu-help-about-closes-menu
-        shell: bash
       - name: Test menu widgets with active editor content
         working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
         run: |
-          npm run e2e:headless -- --test-name-prefix=viewlet.title-bar-menu-file-search-space
-          npm run e2e:headless -- --test-name-prefix=viewlet.title-bar-menu-close-on-click-outside
-          npm run e2e:headless -- --test-name-prefix=viewlet.title-bar-menu-root-lifecycle
+          npm run e2e:headless -- --filter=title-bar-menu-file-search-space
+          npm run e2e:headless -- --filter=title-bar-menu-close-on-click-outside
+          npm run e2e:headless -- --filter=title-bar-menu-root-lifecycle
         shell: bash
       - name: Test title bar after expanded browser fullscreen
         if: matrix.os == 'ubuntu-24.04'
         run: |
           xvfb-run -a sh -c 'openbox & wm_pid=$!; node packages/extension-host-worker-tests/scripts/test-titlebar-reference.mjs; result=$?; kill "$wm_pid"; exit "$result"'
+        working-directory: .tmp/lvce-integration
+        shell: bash
+      - name: Test Electron app-region styles
+        if: matrix.os == 'ubuntu-24.04'
+        run: xvfb-run -a sh -c 'openbox & wm_pid=$!; node packages/extension-host-worker-tests/scripts/test-titlebar-app-regions.mjs; result=$?; kill "$wm_pid"; exit "$result"'
         working-directory: .tmp/lvce-integration
         shell: bash

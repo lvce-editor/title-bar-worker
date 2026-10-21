@@ -1,8 +1,6 @@
-import type { Test } from '@lvce-editor/test-with-playwright'
-
 export const name = 'viewlet.title-bar-open-folder-unsupported'
 
-export const test: Test = async ({ Command, expect, Locator, Workspace }) => {
+export const test = async ({ Command, expect, Locator, Workspace }) => {
   await Workspace.setUri('')
   await Command.execute('FilePicker.setOpenFolderSupported', false)
   await Command.execute('Dialog.openFolder')
