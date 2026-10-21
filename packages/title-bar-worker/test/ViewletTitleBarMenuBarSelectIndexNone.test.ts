@@ -84,6 +84,7 @@ test('selectIndexNone closes the latest state after a workspace change', async (
 test('selectIndexNone renders the closed menu before awaiting the selected command', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    focusedIndex: 0,
     isMenuOpen: true,
     menus: [
       {
@@ -93,6 +94,7 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
         level: 0,
       } as any,
     ],
+    titleBarEntries: [{ label: 'Help', width: 100 }],
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
   const order: string[] = []
@@ -100,6 +102,14 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   const { promise: command, resolve: resolveCommand } = Promise.withResolvers<void>()
   const { promise: commandStarted, resolve: resolveStarted } = Promise.withResolvers<void>()
   using mockRendererProcessRpc = registerRendererProcessMockRpc({
+    'Viewlet.executeCommands'(commands: readonly any[]) {
+      expect(commands).toEqual([['Viewlet.commitPending', state.uid, 7]])
+      order.push('commit')
+    },
+    'Viewlet.queueCommands'() {
+      order.push('render entries')
+      return 7
+    },
     'Viewlet.send'() {
       order.push('render')
     },
@@ -123,7 +133,7 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   })
   await commandStarted
 
-  expect(order).toEqual(['render', 'about'])
+  expect(order).toEqual(['render', 'render entries', 'commit', 'about'])
   expect(TitleBarMenuBarStates.get(state.uid).newState).toMatchObject({
     focusedIndex: -1,
     isMenuOpen: false,
@@ -133,6 +143,17 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   resolveCommand()
   const result = await resultPromise
   expect(result.menus).toEqual([])
-  expect(mockRendererProcessRpc.invocations).toEqual([['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid]])
+  expect(mockRendererProcessRpc.invocations).toHaveLength(3)
+  expect(mockRendererProcessRpc.invocations[0]).toEqual(['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid])
+  const [queueCommand, renderUid, queuedCommands] = mockRendererProcessRpc.invocations[1]
+  expect(queueCommand).toBe('Viewlet.queueCommands')
+  expect(renderUid).toBe(state.uid)
+  const [, domUid, renderedDom] = queuedCommands[0]
+  expect(domUid).toBe(state.uid)
+  expect(renderedDom[0].className).toBe('Viewlet TitleBar')
+  const menuBar = renderedDom.find((node: any) => node.className?.includes('TitleBarMenuBar'))
+  expect(menuBar?.ariaActivedescendant).toBe('')
+  expect(renderedDom.find((node: any) => node.id === 'TitleBarEntryActive')).toBeUndefined()
+  expect(mockRendererProcessRpc.invocations[2]).toEqual(['Viewlet.executeCommands', [['Viewlet.commitPending', state.uid, 7]]])
   expect(mockRpc.invocations).toEqual([['About.showAbout']])
 })
