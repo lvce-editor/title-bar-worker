@@ -4,13 +4,13 @@ import { hasOpenTextEditor } from '../src/parts/HasOpenTextEditor/HasOpenTextEdi
 
 test('hasOpenTextEditor queries the main area worker', async () => {
   using mockRpc = MainAreaWorker.registerMockRpc({
-    'MainArea.hasOpenTextEditor'() {
-      return true
+    'Viewlet.executeViewletCommand'(_uid: number, command: string) {
+      return command === 'hasOpenTextEditor'
     },
   })
 
   await expect(hasOpenTextEditor(42)).resolves.toBe(true)
-  expect(mockRpc.invocations).toEqual([['MainArea.hasOpenTextEditor', 42]])
+  expect(mockRpc.invocations).toEqual([['Viewlet.executeViewletCommand', 42, 'hasOpenTextEditor']])
 })
 
 test('hasOpenTextEditor returns false when the main area is unavailable', async () => {
@@ -21,7 +21,7 @@ test('hasOpenTextEditor returns false when the main area is unavailable', async 
 
 test('hasOpenTextEditor returns false when the main area query fails', async () => {
   using _mockRpc = MainAreaWorker.registerMockRpc({
-    'MainArea.hasOpenTextEditor'() {
+    'Viewlet.executeViewletCommand'() {
       throw new Error('unavailable')
     },
   })

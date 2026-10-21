@@ -5,7 +5,7 @@ export const hasOpenTextEditor = async (mainAreaUid: number | undefined): Promis
     return false
   }
   try {
-    return await MainAreaWorker.invoke('MainArea.hasOpenTextEditor', mainAreaUid)
+    return await MainAreaWorker.invoke('Viewlet.executeViewletCommand', mainAreaUid, 'hasOpenTextEditor')
   } catch {
     return false
   }
