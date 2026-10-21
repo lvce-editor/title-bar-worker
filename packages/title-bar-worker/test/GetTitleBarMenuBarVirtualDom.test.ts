@@ -9,6 +9,11 @@ test('getTitleBarMenuBarVirtualDom - disabled', () => {
   expect(getTitleBarMenuBarVirtualDom(false, [], -1)).toEqual([])
 })
 
+test('getTitleBarMenuBarVirtualDom - focused item', () => {
+  const [menuBar] = getTitleBarMenuBarVirtualDom(true, [], 0)
+  expect(menuBar.ariaActivedescendant).toBe('TitleBarEntryActive')
+})
+
 test('getTitleBarMenuBarVirtualDom - adds context menu listener', () => {
   expect(getTitleBarMenuBarVirtualDom(true, [], -1)).toEqual([
     {
