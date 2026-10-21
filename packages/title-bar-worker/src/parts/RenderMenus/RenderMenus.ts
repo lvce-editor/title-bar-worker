@@ -21,7 +21,7 @@ export const renderMenus = (oldState: TitleBarMenuBarState, newState: TitleBarMe
         [
           { name: DomEventListenerFunctions.HandleMenuItemClick, params: ['handleMenuItemClick', 'event.target.name'] },
           { name: DomEventListenerFunctions.HandleMenuItemHover, params: ['handleMenuItemHover', 'event.target.name'] },
-          { name: DomEventListenerFunctions.HandleMenuRootLeave, params: ['handleMenuMouseLeave'] },
+          { name: DomEventListenerFunctions.HandleMenuRootLeave, params: ['handleMenuMouseLeave', 'event.clientX', 'event.clientY'] },
         ],
       ])
     }

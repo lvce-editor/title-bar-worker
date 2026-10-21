@@ -37,7 +37,7 @@ export const getMenuRootVirtualDom = (menus: readonly IMenu[]): readonly Virtual
   {
     childCount: menus.length,
     className: 'TitleBarMenuRoot',
-    onMouseLeave: DomEventListenerFunctions.HandleMenuRootLeave,
+    onMouseOut: DomEventListenerFunctions.HandleMenuRootLeave,
     type: VirtualDomElements.Div,
   },
   ...menus.flatMap(getMenuDom),
