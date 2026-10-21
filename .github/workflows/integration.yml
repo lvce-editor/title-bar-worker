@@ -27,6 +27,9 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci
       - run: npm run build
+      - name: Install title-bar browser
+        working-directory: packages/e2e
+        run: npx playwright install chromium
       - uses: actions/checkout@v7
         with:
           repository: lvce-editor/lvce-editor
@@ -54,6 +57,7 @@ jobs:
           export_dir=.tmp/lvce-integration/packages/build/.tmp/export-test/dist/packages/extension-host-worker-tests/src
           mkdir -p "$export_dir"
           cp "$test_module" "$export_dir/"
+        shell: bash
       - name: Build server and verify static export
         working-directory: .tmp/lvce-integration
         run: |-
