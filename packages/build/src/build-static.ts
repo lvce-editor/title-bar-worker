@@ -2,7 +2,7 @@ import { cp, mkdir } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { root } from './root.js'
+import { root } from './root.ts'
 
 const require = createRequire(join(root, 'packages', 'server', 'package.json'))
 
