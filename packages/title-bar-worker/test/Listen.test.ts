@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-restricted-jest-methods */
 import { afterEach, expect, jest, test } from '@jest/globals'
 import * as Rpc from '@lvce-editor/rpc'
-import { CacheWorker, RendererWorker } from '@lvce-editor/rpc-registry'
+import { CacheWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 
 const rendererRpc = Rpc.createMockRpc({})
 const create = jest.fn(async (_options: { readonly commandMap: Readonly<Record<string, unknown>> }) => rendererRpc)
@@ -22,6 +22,7 @@ const connect = async (port: MessagePort): Promise<void> => {
     commandMap: {
       'Cache.getCacheStorageItem': (): null => null,
       'Cache.setCacheStorageItem': (): { readonly success: true } => ({ success: true }),
+      'TextMeasurement.measureTextWidths': (): readonly number[] => [24],
     },
     messagePort: port,
   })
@@ -58,6 +59,49 @@ test('shares the first cache connection between concurrent reads and writes', as
   ).resolves.toEqual([null, { success: true }])
   expect(renderer.invocations).toHaveLength(1)
   await CacheWorker.dispose()
+})
+
+test('registers a lazy text measurement connection and shares concurrent first use', async () => {
+  await listen()
+  using renderer = RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToTextMeasurementWorker': connect,
+  })
+
+  expect(renderer.invocations).toEqual([])
+  await expect(
+    Promise.all([
+      TextMeasurementWorker.invoke('TextMeasurement.measureTextWidths', ['foo']),
+      TextMeasurementWorker.invoke('TextMeasurement.measureTextWidths', ['bar']),
+    ]),
+  ).resolves.toEqual([[24], [24]])
+  expect(renderer.invocations).toHaveLength(1)
+  await expect(TextMeasurementWorker.invoke('TextMeasurement.measureTextWidths', ['baz'])).resolves.toEqual([24])
+  expect(renderer.invocations).toHaveLength(1)
+  await TextMeasurementWorker.dispose()
+})
+
+test('allows the next measurement to retry after a failed shared handoff', async () => {
+  await listen()
+  const send = jest.fn(connect).mockImplementationOnce(async (port) => {
+    port.close()
+    throw new Error('Text measurement worker unavailable')
+  })
+  using renderer = RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToTextMeasurementWorker': send,
+  })
+
+  const results = await Promise.allSettled([
+    TextMeasurementWorker.invoke('TextMeasurement.measureTextWidths', ['foo']),
+    TextMeasurementWorker.invoke('TextMeasurement.measureTextWidths', ['bar']),
+  ])
+  expect(results).toEqual([
+    { reason: expect.objectContaining({ message: expect.stringContaining('Text measurement worker unavailable') }), status: 'rejected' },
+    { reason: expect.objectContaining({ message: expect.stringContaining('Text measurement worker unavailable') }), status: 'rejected' },
+  ])
+  await expect(TextMeasurementWorker.invoke('TextMeasurement.measureTextWidths', ['baz'])).resolves.toEqual([24])
+  expect(send).toHaveBeenCalledTimes(2)
+  expect(renderer.invocations).toHaveLength(2)
+  await TextMeasurementWorker.dispose()
 })
 
 test('allows the next cache operation to retry after a failed shared handoff', async () => {
