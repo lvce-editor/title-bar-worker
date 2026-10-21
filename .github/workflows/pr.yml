@@ -30,6 +30,8 @@ jobs:
       - name: npm ci
         run: npm ci
         if: steps.npm-cache.outputs.cache-hit != 'true'
+      - name: Prepare server static assets
+        run: npm run postinstall --workspace @lvce-editor/title-bar-worker-server
       - run: npm run build
       - run: npm run build:static
       - run: npm test
