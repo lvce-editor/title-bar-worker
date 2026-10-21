@@ -9,8 +9,6 @@ import { _electron as electron, expect } from '@playwright/test'
 const root = fileURLToPath(new URL('../../../', import.meta.url))
 const executablePath = process.env.LVCE_TEST_EXECUTABLE || join(root, 'packages/build/.tmp/linux/deb/amd64/app/usr/lib/lvce-oss/lvce-oss')
 const profile = await mkdtemp(join(tmpdir(), 'lvce-help-about-dialog-'))
-const lvceWindowPattern = /^Lvce Editor$/
-const whitespacePattern = /\s+/
 const env = {
   ...process.env,
   XDG_CONFIG_HOME: join(profile, 'config'),
@@ -18,14 +16,8 @@ const env = {
   XDG_CACHE_HOME: join(profile, 'cache'),
   XDG_STATE_HOME: join(profile, 'state'),
 }
-const visibleAppWindows = () => {
-  try {
-    return execFileSync('xdotool', ['search', '--onlyvisible', '--name', lvceWindowPattern.source], { encoding: 'utf8' })
-      .trim()
-      .split(whitespacePattern).length
-  } catch {
-    return 0
-  }
+const activeWindowId = () => {
+  return execFileSync('xdotool', ['getactivewindow'], { encoding: 'utf8' }).trim()
 }
 
 let app
@@ -41,6 +33,8 @@ try {
   const page = await app.firstWindow()
   await expect(page.locator('.Main')).toBeVisible({ timeout: 30_000 })
   await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setSize(1900, 1000))
+  await expect.poll(() => app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].isFocused())).toBe(true)
+  const mainWindowId = activeWindowId()
 
   const helpEntry = page.locator('.TitleBarTopLevelEntry', { hasText: 'Help' })
   const titleBarMenuBar = page.locator('.TitleBarMenuBar')
@@ -49,11 +43,11 @@ try {
   await expect(menu).toBeVisible()
   await page.locator('#Menu-0 .MenuItem', { hasText: 'About' }).click()
   await expect(menu).toHaveCount(0)
-  await expect.poll(visibleAppWindows).toBeGreaterThan(1)
+  await expect.poll(activeWindowId).not.toBe(mainWindowId)
 
   // The native Electron dialog owns focus here; send Escape through X11 rather than the page.
   execFileSync('xdotool', ['key', '--clearmodifiers', 'Escape'])
-  await expect.poll(visibleAppWindows).toBe(1)
+  await expect.poll(activeWindowId).toBe(mainWindowId)
   await expect.poll(() => app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].isFocused())).toBe(true)
   await expect(helpEntry).not.toHaveAttribute('id', 'TitleBarEntryActive')
   await expect(titleBarMenuBar).not.toHaveAttribute('aria-activedescendant', 'TitleBarEntryActive')
