@@ -1,4 +1,5 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as DiffType from '../DiffType/DiffType.ts'
 import * as GetRenderer from '../GetRenderer/GetRenderer.ts'
 
 export const applyRender = (oldState: TitleBarMenuBarState, newState: TitleBarMenuBarState, diffResult: readonly number[]): readonly any[] => {
@@ -7,7 +8,11 @@ export const applyRender = (oldState: TitleBarMenuBarState, newState: TitleBarMe
     const fn = GetRenderer.getRenderer(item)
     const result = fn(oldState, newState)
     if (result.length > 0) {
-      commands.push(result)
+      if (item === DiffType.RenderMenus) {
+        commands.push(...result)
+      } else {
+        commands.push(result)
+      }
     }
   }
   return commands

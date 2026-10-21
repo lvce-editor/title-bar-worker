@@ -8,5 +8,5 @@ export const test: Test = async (api) => {
   await selectViewMenuItem(api, 12, 'Chat')
 
   await api.expect(api.Locator('.SecondarySideBar')).toBeVisible()
-  await api.expect(api.Locator('.SecondarySideBar .Chat')).toBeVisible()
+  await api.expect(api.Locator('.SecondarySideBar .ChatView')).toBeVisible()
 }

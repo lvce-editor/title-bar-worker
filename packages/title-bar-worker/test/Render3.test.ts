@@ -2,7 +2,9 @@ import { expect, jest, test } from '@jest/globals'
 import { WhenExpression } from '@lvce-editor/constants'
 import { createMockRpc } from '@lvce-editor/rpc'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
+import * as Create3 from '../src/parts/Create3/Create3.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as Diff3 from '../src/parts/Diff3/Diff3.ts'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
 import * as Render3 from '../src/parts/Render3/Render3.ts'
 import * as RendererProcess from '../src/parts/RendererProcess/RendererProcess.ts'
@@ -59,9 +61,9 @@ test('render3 queues renderer commands and returns a lightweight commit marker',
   const state = { ...CreateDefaultState.createDefaultState(), uid }
   TitleBarMenuBarStates.set(uid, state, state)
 
-  const result = await Render3.render3(uid, [DiffType.RenderMenus])
+  const result = await Render3.render3(uid, [DiffType.RenderEntries])
 
-  expect(queueCommands).toHaveBeenCalledWith(uid, [['Viewlet.send', uid, 'setMenus', [], uid]])
+  expect(queueCommands).toHaveBeenCalledWith(uid, expect.arrayContaining([expect.arrayContaining(['Viewlet.setDom2', uid])]))
   expect(result).toEqual([['Viewlet.commitPending', uid, 17]])
 })
 
@@ -81,7 +83,7 @@ test('render3 leaves focus context management with the renderer worker', async (
   ])
 })
 
-test('render3 queues focused index commands with the view id', async () => {
+test('render3 leaves focus commands visible to layout so they run after widget reconciliation', async () => {
   const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 29)
   RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
   const uid = 6
@@ -91,8 +93,11 @@ test('render3 queues focused index commands with the view id', async () => {
 
   const result = await Render3.render3(uid, [DiffType.RenderFocusedIndex])
 
-  expect(queueCommands).toHaveBeenCalledWith(uid, expect.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
-  expect(result).toEqual([['Viewlet.commitPending', uid, 29]])
+  expect(queueCommands).toHaveBeenCalledWith(uid, expect.not.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
+  expect(result).toEqual([
+    ['Viewlet.focusSelector', uid, '.TitleBarMenuBar'],
+    ['Viewlet.commitPending', uid, 29],
+  ])
 })
 
 test('render3 includes changes made after the renderer requested its diff', async () => {
@@ -102,6 +107,38 @@ test('render3 includes changes made after the renderer requested its diff', asyn
   const oldState = { ...CreateDefaultState.createDefaultState(), uid }
   const currentState = { ...oldState, focusedIndex: 1 }
   TitleBarMenuBarStates.set(uid, oldState, currentState)
-  await Render3.render3(uid, [])
-  expect(queueCommands).toHaveBeenCalledWith(uid, expect.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
+  const commands = await Render3.render3(uid, [])
+  expect(commands).toContainEqual(['Viewlet.focusSelector', uid, '.TitleBarMenuBar'])
+  expect(queueCommands).toHaveBeenCalledWith(uid, expect.not.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
+})
+
+test('menu declarations stay visible to layout and advance the revision across close and reopen', async () => {
+  const uid = 987
+  const initial = { ...CreateDefaultState.createDefaultState(uid), menuRevision: 20, menuUid: 988 }
+  const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 41)
+  RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
+  TitleBarMenuBarStates.set(uid, initial, initial)
+  expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([
+    ['Viewlet.setWidgets', uid, 21, []],
+    ['Viewlet.commitPending', uid, 41],
+  ])
+  expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([
+    ['Viewlet.setWidgets', uid, 22, []],
+    ['Viewlet.commitPending', uid, 41],
+  ])
+  expect(queueCommands).toHaveBeenNthCalledWith(1, uid, [])
+  expect(queueCommands).toHaveBeenNthCalledWith(2, uid, [])
+})
+
+test('recreating a title bar declares no menus to remove a root left by worker reload', async () => {
+  const uid = 989
+  const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 43)
+  RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
+  Create3.create3(uid, '', 0, 0, 800, 30, 1, false, true, '', 990, 100)
+  expect(await Render3.render3(uid, [])).toEqual([
+    ['Viewlet.setWidgets', uid, 101, []],
+    ['Viewlet.commitPending', uid, 43],
+  ])
+  expect(queueCommands).toHaveBeenCalledWith(uid, [])
+  expect(Diff3.diff3(uid)).toEqual([])
 })

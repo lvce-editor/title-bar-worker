@@ -5,18 +5,19 @@
   "type": "module",
   "scripts": {
     "postinstall": "node src/postinstall.js",
-    "dev": "node ../../node_modules/@lvce-editor/server/bin/server.js --test-path=../e2e"
+    "dev": "node src/startApplicationServer.js --test-path=../e2e"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@lvce-editor/application-test-server": "npm:@lvce-editor/server@0.118.25",
-    "@lvce-editor/server": "0.118.25",
-    "@lvce-editor/shared-process": "0.118.25",
-    "@lvce-editor/static-server": "0.118.25"
+    "@lvce-editor/application-test-server": "npm:@lvce-editor/server@0.124.20",
+    "@lvce-editor/server": "0.124.20",
+    "@lvce-editor/shared-process": "0.124.20",
+    "@lvce-editor/static-server": "0.124.20"
   },
   "devDependencies": {
-    "@types/node": "^26.0.0"
+    "@types/node": "^26.0.0",
+    "tar-fs": "^3.1.3"
   }
 }

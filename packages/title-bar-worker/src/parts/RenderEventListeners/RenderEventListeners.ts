@@ -39,14 +39,6 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleFocus'],
     },
     {
-      name: DomEventListenerFunctions.HandleMenuClick,
-      params: ['handleMenuClick', EventExpression.ClientX, EventExpression.ClientY],
-    },
-    {
-      name: DomEventListenerFunctions.HandleMenuMouseOver,
-      params: ['handleMenuMouseOver', EventExpression.ClientX, EventExpression.ClientY],
-    },
-    {
       name: DomEventListenerFunctions.HandleClick,
       params: ['handleClickByName', EventExpression.Button, EventExpression.TargetName],
     },

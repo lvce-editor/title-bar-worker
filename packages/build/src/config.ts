@@ -1,9 +1,9 @@
 import { join } from 'node:path'
 import { root } from './root.js'
 
-// Linux CI: baseline 546,988 bytes; eager registration of the lazy cache RPC uses 549,412 (+2,424, 0.44%).
-// Keep 1,588 bytes of headroom for the registered RPC while retaining the memory gate.
-export const threshold = 551_000
+// Same Linux/Chromium harness: baseline 549,204 bytes; worker-owned menus 551,300 (+2,096, 0.38%).
+// macOS CI measured 551,368; retain 632 bytes of headroom with the gate enabled.
+export const threshold = 552_000
 
 export const instantiations = 6000
 

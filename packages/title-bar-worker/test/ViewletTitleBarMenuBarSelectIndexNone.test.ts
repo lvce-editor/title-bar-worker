@@ -1,22 +1,11 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import { createMockRpc } from '@lvce-editor/rpc'
-import { remove as removeRpc, RpcId, RendererWorker, set as setRpc } from '@lvce-editor/rpc-registry'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as RendererProcess from '../src/parts/RendererProcess/RendererProcess.ts'
 import * as ViewletTitleBarMenuBarSelectIndexNone from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexNone.ts'
 import * as TitleBarMenuBarStates from '../src/parts/TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
-
-const registerRendererProcessMockRpc = (
-  commandMap: Record<string, (...args: any[]) => any>,
-): ReturnType<typeof createMockRpc> & { [Symbol.dispose]: () => void } => {
-  const mockRpc = createMockRpc({ commandMap })
-  setRpc(RpcId.RendererProcess, mockRpc)
-  return Object.assign(mockRpc, {
-    [Symbol.dispose]() {
-      removeRpc(RpcId.RendererProcess)
-    },
-  })
-}
 
 test('selectIndexNone executes command and closes menu', async () => {
   using mockRpc = RendererWorker.registerMockRpc({
@@ -81,7 +70,7 @@ test('selectIndexNone closes the latest state after a workspace change', async (
   expect(mockRpc.invocations).toEqual([['Workspace.setPath', '/tmp/titlebar-alpha']])
 })
 
-test('selectIndexNone renders the closed menu before awaiting the selected command', async () => {
+test('selectIndexNone commits closed menu and title bar before the selected command', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
     focusedIndex: 0,
@@ -94,6 +83,7 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
         level: 0,
       } as any,
     ],
+    menuUid: 202,
     titleBarEntries: [{ label: 'Help', width: 100 }],
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
@@ -101,24 +91,24 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   let finished = false
   const { promise: command, resolve: resolveCommand } = Promise.withResolvers<void>()
   const { promise: commandStarted, resolve: resolveStarted } = Promise.withResolvers<void>()
-  using mockRendererProcessRpc = registerRendererProcessMockRpc({
-    'Viewlet.executeCommands'(commands: readonly any[]) {
-      expect(commands).toEqual([['Viewlet.commitPending', state.uid, 7]])
-      order.push('commit')
-    },
-    'Viewlet.queueCommands'() {
-      order.push('render entries')
-      return 7
-    },
-    'Viewlet.send'() {
-      order.push('render')
-    },
+  const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => {
+    order.push('queue')
+    return 7
   })
+  const mockRendererProcessRpc = createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } })
+  RendererProcess.set(mockRendererProcessRpc)
   using mockRpc = RendererWorker.registerMockRpc({
     'About.showAbout'() {
       order.push('about')
       resolveStarted()
       return command
+    },
+    'Viewlet.applyCommands'(commands: readonly unknown[]) {
+      expect(commands).toEqual([
+        ['Viewlet.setWidgets', state.uid, 1, []],
+        ['Viewlet.commitPending', state.uid, 7],
+      ])
+      order.push('render')
     },
   })
   const item = {
@@ -133,7 +123,7 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   })
   await commandStarted
 
-  expect(order).toEqual(['render', 'render entries', 'commit', 'about'])
+  expect(order).toEqual(['queue', 'render', 'about'])
   expect(TitleBarMenuBarStates.get(state.uid).newState).toMatchObject({
     focusedIndex: -1,
     isMenuOpen: false,
@@ -143,17 +133,25 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   resolveCommand()
   const result = await resultPromise
   expect(result.menus).toEqual([])
-  expect(mockRendererProcessRpc.invocations).toHaveLength(3)
-  expect(mockRendererProcessRpc.invocations[0]).toEqual(['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid])
-  const [queueCommand, renderUid, queuedCommands] = mockRendererProcessRpc.invocations[1]
-  expect(queueCommand).toBe('Viewlet.queueCommands')
+  expect(mockRendererProcessRpc.invocations).toHaveLength(1)
+  expect(mockRendererProcessRpc.invocations[0][0]).toBe('Viewlet.queueCommands')
+  const [, renderUid, queuedCommands] = mockRendererProcessRpc.invocations[0]
   expect(renderUid).toBe(state.uid)
-  const [, domUid, renderedDom] = queuedCommands[0]
+  const widgetCommands = queuedCommands as readonly any[]
+  expect(widgetCommands).not.toContainEqual(['Viewlet.setWidgets', state.uid, 1, []])
+  const [, domUid, renderedDom] = widgetCommands.find((entry) => entry[0] === 'Viewlet.setDom2')
   expect(domUid).toBe(state.uid)
-  expect(renderedDom[0].className).toBe('Viewlet TitleBar')
   const menuBar = renderedDom.find((node: any) => node.className?.includes('TitleBarMenuBar'))
   expect(menuBar?.ariaActivedescendant).toBe('')
   expect(renderedDom.find((node: any) => node.id === 'TitleBarEntryActive')).toBeUndefined()
-  expect(mockRendererProcessRpc.invocations[2]).toEqual(['Viewlet.executeCommands', [['Viewlet.commitPending', state.uid, 7]]])
-  expect(mockRpc.invocations).toEqual([['About.showAbout']])
+  expect(mockRpc.invocations).toEqual([
+    [
+      'Viewlet.applyCommands',
+      [
+        ['Viewlet.setWidgets', state.uid, 1, []],
+        ['Viewlet.commitPending', state.uid, 7],
+      ],
+    ],
+    ['About.showAbout'],
+  ])
 })
