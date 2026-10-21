@@ -1,7 +1,6 @@
 export const name = 'viewlet.title-bar-open-folder-unsupported'
 
-export const test = async ({ Command, expect, Locator, Workspace }) => {
-  await Workspace.setUri('')
+export const test = async ({ Command, expect, Locator }) => {
   await Command.execute('FilePicker.setOpenFolderSupported', false)
   await Command.execute('Dialog.openFolder')
 
