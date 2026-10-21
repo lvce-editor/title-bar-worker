@@ -37,7 +37,7 @@ export const render3 = async (uid: number, diffResult: readonly number[]): Promi
     }
   }
   // Widget declarations and their focus commands must be reconciled by layout.
-  if (RendererProcess.isConnected() && !pendingDiffs.has(DiffType.RenderMenus)) {
+  if (RendererProcess.isConnected()) {
     return renderDirect(uid, commands)
   }
   return commands
