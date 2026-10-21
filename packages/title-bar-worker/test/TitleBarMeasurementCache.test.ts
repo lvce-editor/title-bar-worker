@@ -14,19 +14,20 @@ await jest.unstable_mockModule('@lvce-editor/rpc-registry', () => ({
 }))
 
 const TitleBarMeasurementCache = await import('../src/parts/TitleBarMeasurementCache/TitleBarMeasurementCache.ts')
-const cacheKeyPattern = /^\/title-bar-measurements\/v2\/[0-9a-f]{28}$/
 
 test('title bar measurement cache keys include ordered labels and typography', async () => {
   const base = await TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 14, 'Arial', 0)
 
+  expect(base).toBe('/title-bar-measurements/v2/13ede2acd4f49b1bfa3d7b0589ef')
   await expect(TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 14, 'Arial', 0)).resolves.toBe(base)
   await expect(TitleBarMeasurementCache.getCacheKey(['Edit', 'File'], 400, 14, 'Arial', 0)).resolves.not.toBe(base)
   await expect(TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 700, 14, 'Arial', 0)).resolves.not.toBe(base)
   await expect(TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 16, 'Arial', 0)).resolves.not.toBe(base)
   await expect(TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 14, 'Helvetica', 0)).resolves.not.toBe(base)
   await expect(TitleBarMeasurementCache.getCacheKey(['File', 'Edit'], 400, 14, 'Arial', 1)).resolves.not.toBe(base)
-  await expect(TitleBarMeasurementCache.getCacheKey([], 400, 14, 'Arial', 0)).resolves.toMatch(cacheKeyPattern)
+  await expect(TitleBarMeasurementCache.getCacheKey([], 400, 14, 'Arial', 0)).resolves.toBe('/title-bar-measurements/v2/0d84511f1eb9ac10eb4b2d0aba9a')
   const unicodeKey = await TitleBarMeasurementCache.getCacheKey(['😀', 'ファイル'], 400, 14, 'Arial', 0)
+  expect(unicodeKey).toBe('/title-bar-measurements/v2/01b3a6c43a1cbc0bddea6810766b')
   await expect(TitleBarMeasurementCache.getCacheKey(['😀', 'ファイル'], 400, 14, 'Arial', 0)).resolves.toBe(unicodeKey)
   expect(unicodeKey).not.toBe(base)
 })
