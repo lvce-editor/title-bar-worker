@@ -11,7 +11,6 @@ if (manifest.name !== 'lvce-editor') throw new Error('Expected an LVCE applicati
 const config = JSON.parse(await readFile(join(here, 'config.json'), 'utf8'))
 const tests = join(application, 'packages/extension-host-worker-tests')
 await mkdir(join(tests, 'scripts'), { recursive: true })
-await cp(join(here, 'src/viewlet.title-bar-open-folder-unsupported.js'), join(tests, 'src/viewlet.title-bar-open-folder-unsupported.js'))
 for (const path of config.scripts) {
   await cp(join(here, 'scripts', path.split('/').at(-1)), join(application, path))
 }
