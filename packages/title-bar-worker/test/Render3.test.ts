@@ -83,7 +83,7 @@ test('render3 leaves focus context management with the renderer worker', async (
   ])
 })
 
-test('render3 queues focused index commands with the view id', async () => {
+test('render3 leaves focus commands visible to layout so they run after widget reconciliation', async () => {
   const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 29)
   RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
   const uid = 6
@@ -93,8 +93,11 @@ test('render3 queues focused index commands with the view id', async () => {
 
   const result = await Render3.render3(uid, [DiffType.RenderFocusedIndex])
 
-  expect(queueCommands).toHaveBeenCalledWith(uid, expect.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
-  expect(result).toEqual([['Viewlet.commitPending', uid, 29]])
+  expect(queueCommands).toHaveBeenCalledWith(uid, expect.not.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
+  expect(result).toEqual([
+    ['Viewlet.focusSelector', uid, '.TitleBarMenuBar'],
+    ['Viewlet.commitPending', uid, 29],
+  ])
 })
 
 test('render3 includes changes made after the renderer requested its diff', async () => {
@@ -104,8 +107,9 @@ test('render3 includes changes made after the renderer requested its diff', asyn
   const oldState = { ...CreateDefaultState.createDefaultState(), uid }
   const currentState = { ...oldState, focusedIndex: 1 }
   TitleBarMenuBarStates.set(uid, oldState, currentState)
-  await Render3.render3(uid, [])
-  expect(queueCommands).toHaveBeenCalledWith(uid, expect.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
+  const commands = await Render3.render3(uid, [])
+  expect(commands).toContainEqual(['Viewlet.focusSelector', uid, '.TitleBarMenuBar'])
+  expect(queueCommands).toHaveBeenCalledWith(uid, expect.not.arrayContaining([['Viewlet.focusSelector', uid, '.TitleBarMenuBar']]))
 })
 
 test('menu declarations stay visible to layout and advance the revision across close and reopen', async () => {

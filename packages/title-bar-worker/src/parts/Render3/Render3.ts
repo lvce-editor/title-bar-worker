@@ -6,7 +6,8 @@ import * as GetRenderer3 from '../GetRenderer3/GetRenderer3.ts'
 import * as RendererProcess from '../RendererProcess/RendererProcess.ts'
 import * as TitleBarMenuBarStates from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
-const isLayoutCommand = (command: any): boolean => command[0] === ViewletCommand.SetFocusContext || command[0] === 'Viewlet.setWidgets'
+const isLayoutCommand = (command: any): boolean =>
+  [ViewletCommand.SetFocusContext, ViewletCommand.FocusSelector, 'Viewlet.setWidgets'].includes(command[0])
 
 const renderDirect = async (uid: number, commands: readonly any[]): Promise<readonly any[]> => {
   const rendererWorkerCommands = commands.filter(isLayoutCommand)
