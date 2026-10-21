@@ -1,5 +1,6 @@
-import { cp, mkdir, readdir, readFile, realpath, rm } from 'node:fs/promises'
+import { cp, mkdir, readdir, readFile, realpath, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
+import { stripTypeScriptTypes } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
 const here = dirname(fileURLToPath(import.meta.url))
@@ -32,4 +33,11 @@ for (const [from, to] of config.artifacts) {
     return join(application, to)
   })
   await cp(join(owner, from), target, { recursive: true })
+}
+
+// Keep the owning suite's exact assertions when validating the runtime prerequisite.
+for (const name of ['title-bar-menu-file-search-space', 'title-bar-menu-close-on-click-outside', 'title-bar-menu-root-lifecycle']) {
+  const source = await readFile(join(owner, 'packages/e2e/src', `${name}.ts`), 'utf8')
+  const javascript = stripTypeScriptTypes(source).replace(`export const name = '${name}'`, `export const name = 'viewlet.${name}'`)
+  await writeFile(join(tests, 'src', `viewlet.${name}.js`), javascript)
 }

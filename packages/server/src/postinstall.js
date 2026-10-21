@@ -1,19 +1,9 @@
-import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
+import { cp, readdir } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
-import { fileURLToPath, pathToFileURL } from 'node:url'
+import { prepareChatExtension } from './prepareChatExtension.js'
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(import.meta.url)
-
-const root = join(__dirname, '..', '..', '..')
-
-export const getRemoteUrl = (path) => {
-  const url = pathToFileURL(path).toString().slice(8)
-  return `/remote/${url}`
-}
-
-const workerPath = join(root, '.tmp', 'dist', 'dist', 'titleBarWorkerMain.js')
 
 const staticServerPath = dirname(require.resolve('@lvce-editor/static-server/package.json'))
 
@@ -32,25 +22,11 @@ const isCommitHash = (dirent) => {
 
 const dirents = await readdir(serverStaticPath)
 const commitHash = dirents.find(isCommitHash) || ''
-const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
 
 const testWorkerSourcePath = require.resolve('@lvce-editor/test-worker/dist/testWorkerMain.js')
 const testWorkerTargetPath = join(serverStaticPath, commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
 await cp(testWorkerSourcePath, testWorkerTargetPath)
 
-const content = await readFile(rendererWorkerMainPath, 'utf-8')
-const remoteUrl = getRemoteUrl(workerPath)
-const candidates = [
-  '`' + '${assetDir}/packages/renderer-worker/node_modules/@lvce-editor/title-bar-worker/dist/titleBarWorkerMain.js' + '`',
-  '`' + '${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js' + '`',
-]
-const occurrence = candidates.find((candidate) => content.includes(candidate))
-const replacement = '`' + remoteUrl + '`'
-if (occurrence) {
-  await cp(rendererWorkerMainPath, rendererWorkerMainPath + '.original')
-  await writeFile(rendererWorkerMainPath, content.replace(occurrence, replacement))
-} else if (!content.includes(replacement)) {
-  throw new Error('Title bar worker URL not found in test runtime')
-}
-
 await cp(staticServerConfigPath, sharedProcessConfigPath)
+
+await prepareChatExtension()

@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, writeFile } from 'node:fs/promises'
+import { cp, mkdir } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -14,40 +14,14 @@ process.env.PATH_PREFIX = '/explorer-view'
 const { commitHash } = await sharedProcess.exportStatic({
   root,
   extensionPath: '',
+  extensionPaths: ['.tmp/chat-view-2'],
   testPath: 'packages/e2e',
 })
 
-const rendererWorkerPath = join(root, 'dist', commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
-
-export const getRemoteUrl = (path: string): string => {
-  const url = pathToFileURL(path).toString().slice(8)
-  return `/remote/${url}`
-}
-
-const content = await readFile(rendererWorkerPath, 'utf8')
+// The runtime HTML points at the production worker path. Replace the shipped
+// worker there so the static suite exercises this checkout too.
 const workerPath = join(root, '.tmp/dist/dist/titleBarWorkerMain.js')
-const remoteUrl = getRemoteUrl(workerPath)
-
-const occurrence = '`' + remoteUrl + '`'
-const replacement = '`' + '${assetDir}/packages/renderer-worker/node_modules/@lvce-editor/title-bar-worker/dist/titleBarWorkerMain.js' + '`'
-if (!content.includes(occurrence)) {
-  throw new Error('occurrence not found')
-}
-const newContent = content.replace(occurrence, replacement)
-await writeFile(rendererWorkerPath, newContent)
-
-const titleBarWorkerPath = join(
-  root,
-  'dist',
-  commitHash,
-  'packages',
-  'renderer-worker',
-  'node_modules',
-  '@lvce-editor',
-  'title-bar-worker',
-  'dist',
-  'titleBarWorkerMain.js',
-)
+const titleBarWorkerPath = join(root, 'dist', commitHash, 'packages', 'title-bar-worker', 'dist', 'titleBarWorkerMain.js')
 await mkdir(dirname(titleBarWorkerPath), { recursive: true })
 await cp(workerPath, titleBarWorkerPath)
 

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "node src/postinstall.js",
-    "dev": "node ../../node_modules/@lvce-editor/server/bin/server.js --test-path=../e2e"
+    "dev": "node src/startApplicationServer.js --test-path=../e2e"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "@lvce-editor/static-server": "0.124.16"
   },
   "devDependencies": {
-    "@types/node": "^26.0.0"
+    "@types/node": "^26.0.0",
+    "tar-fs": "^3.1.3"
   }
 }
