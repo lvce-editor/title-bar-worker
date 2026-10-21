@@ -114,10 +114,16 @@ test('menu declarations stay visible to layout and advance the revision across c
   const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 41)
   RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
   TitleBarMenuBarStates.set(uid, initial, initial)
-  expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([['Viewlet.commitPending', uid, 41]])
-  expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([['Viewlet.commitPending', uid, 41]])
-  expect(queueCommands).toHaveBeenNthCalledWith(1, uid, [['Viewlet.setWidgets', uid, 21, []]])
-  expect(queueCommands).toHaveBeenNthCalledWith(2, uid, [['Viewlet.setWidgets', uid, 22, []]])
+  expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([
+    ['Viewlet.setWidgets', uid, 21, []],
+    ['Viewlet.commitPending', uid, 41],
+  ])
+  expect(await Render3.render3(uid, [DiffType.RenderMenus])).toEqual([
+    ['Viewlet.setWidgets', uid, 22, []],
+    ['Viewlet.commitPending', uid, 41],
+  ])
+  expect(queueCommands).toHaveBeenNthCalledWith(1, uid, [])
+  expect(queueCommands).toHaveBeenNthCalledWith(2, uid, [])
 })
 
 test('recreating a title bar declares no menus to remove a root left by worker reload', async () => {
@@ -125,7 +131,10 @@ test('recreating a title bar declares no menus to remove a root left by worker r
   const queueCommands = jest.fn((_uid: number, _commands: readonly unknown[]) => 43)
   RendererProcess.set(createMockRpc({ commandMap: { 'Viewlet.queueCommands': queueCommands } }))
   Create3.create3(uid, '', 0, 0, 800, 30, 1, false, true, '', 990, 100)
-  expect(await Render3.render3(uid, [])).toEqual([['Viewlet.commitPending', uid, 43]])
-  expect(queueCommands).toHaveBeenCalledWith(uid, [['Viewlet.setWidgets', uid, 101, []]])
+  expect(await Render3.render3(uid, [])).toEqual([
+    ['Viewlet.setWidgets', uid, 101, []],
+    ['Viewlet.commitPending', uid, 43],
+  ])
+  expect(queueCommands).toHaveBeenCalledWith(uid, [])
   expect(Diff3.diff3(uid)).toEqual([])
 })

@@ -7,8 +7,9 @@ import * as RendererProcess from '../RendererProcess/RendererProcess.ts'
 import * as TitleBarMenuBarStates from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
 
 const renderDirect = async (uid: number, commands: readonly any[]): Promise<readonly any[]> => {
-  const rendererWorkerCommands = commands.filter((command) => command[0] === ViewletCommand.SetFocusContext)
-  const rendererProcessCommands = commands.filter((command) => command[0] !== ViewletCommand.SetFocusContext)
+  const isLayoutCommand = (command: any): boolean => command[0] === ViewletCommand.SetFocusContext || command[0] === 'Viewlet.setWidgets'
+  const rendererWorkerCommands = commands.filter(isLayoutCommand)
+  const rendererProcessCommands = commands.filter((command) => !isLayoutCommand(command))
   const transactionId = await RendererProcess.invoke('Viewlet.queueCommands', uid, rendererProcessCommands)
   return [...rendererWorkerCommands, ['Viewlet.commitPending', uid, transactionId]]
 }

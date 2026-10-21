@@ -104,7 +104,10 @@ test('selectIndexNone commits closed menu and title bar before the selected comm
       return command
     },
     'Viewlet.applyCommands'(commands: readonly unknown[]) {
-      expect(commands).toEqual([['Viewlet.commitPending', state.uid, 7]])
+      expect(commands).toEqual([
+        ['Viewlet.setWidgets', state.uid, 1, []],
+        ['Viewlet.commitPending', state.uid, 7],
+      ])
       order.push('render')
     },
   })
@@ -135,11 +138,20 @@ test('selectIndexNone commits closed menu and title bar before the selected comm
   const [, renderUid, queuedCommands] = mockRendererProcessRpc.invocations[0]
   expect(renderUid).toBe(state.uid)
   const widgetCommands = queuedCommands as readonly any[]
-  expect(widgetCommands).toContainEqual(['Viewlet.setWidgets', state.uid, 1, []])
+  expect(widgetCommands).not.toContainEqual(['Viewlet.setWidgets', state.uid, 1, []])
   const [, domUid, renderedDom] = widgetCommands.find((entry) => entry[0] === 'Viewlet.setDom2')
   expect(domUid).toBe(state.uid)
   const menuBar = renderedDom.find((node: any) => node.className?.includes('TitleBarMenuBar'))
   expect(menuBar?.ariaActivedescendant).toBe('')
   expect(renderedDom.find((node: any) => node.id === 'TitleBarEntryActive')).toBeUndefined()
-  expect(mockRpc.invocations).toEqual([['Viewlet.applyCommands', [['Viewlet.commitPending', state.uid, 7]]], ['About.showAbout']])
+  expect(mockRpc.invocations).toEqual([
+    [
+      'Viewlet.applyCommands',
+      [
+        ['Viewlet.setWidgets', state.uid, 1, []],
+        ['Viewlet.commitPending', state.uid, 7],
+      ],
+    ],
+    ['About.showAbout'],
+  ])
 })
