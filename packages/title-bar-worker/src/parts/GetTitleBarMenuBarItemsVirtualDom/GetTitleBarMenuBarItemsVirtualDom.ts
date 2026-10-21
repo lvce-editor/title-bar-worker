@@ -35,7 +35,7 @@ const getItemVirtualDom = (item: RenderedTitleBarEntry): readonly VirtualDomNode
       ariaOwns: isOpen ? 'Menu-0' : undefined,
       childCount: 1,
       className,
-      id: isFocused ? 'TitleBarEntryActive' : undefined,
+      id: isFocused ? ClassNames.TitleBarEntryActiveId : undefined,
       name: label, // TODO have separate name attribute
       role: AriaRoles.MenuItem,
       type: VirtualDomElements.Button,

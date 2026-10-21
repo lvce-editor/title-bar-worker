@@ -6,8 +6,6 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import * as GetTitleBarMenubarItemsVirtualDom from '../GetTitleBarMenuBarItemsVirtualDom/GetTitleBarMenuBarItemsVirtualDom.ts'
 import * as MergeClassNames from '../MergeClassNames/MergeClassNames.ts'
 
-const activeId = 'TitleBarEntryActive'
-
 export const getTitleBarMenuBarVirtualDom = (
   menuBarEnabled: boolean,
   visibleItems: readonly ComputedTitleBarEntry[],
@@ -18,7 +16,7 @@ export const getTitleBarMenuBarVirtualDom = (
   }
   return [
     {
-      ariaActivedescendant: focusedIndex === -1 ? '' : activeId,
+      ariaActivedescendant: focusedIndex === -1 ? '' : ClassNames.TitleBarEntryActiveId,
       childCount: visibleItems.length,
       className: MergeClassNames.mergeClassNames(ClassNames.Viewlet, ClassNames.TitleBarMenuBar),
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
