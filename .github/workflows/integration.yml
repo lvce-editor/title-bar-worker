@@ -51,26 +51,14 @@ jobs:
         run: npm run build:static:ignore-icon-theme
         env:
           PATH_PREFIX: /lvce-editor
-      - name: Include unsupported-folder browser test in static export
-        run: |
-          test_module=packages/e2e-integration/src/viewlet.title-bar-open-folder-unsupported.js
-          export_dir=.tmp/lvce-integration/packages/build/.tmp/export-test/dist/packages/extension-host-worker-tests/src
-          mkdir -p "$export_dir"
-          cp "$test_module" "$export_dir/"
-        shell: bash
       - name: Build server and verify static export
         working-directory: .tmp/lvce-integration
         run: |-
           npm run build:server
           npm run test-static-export
       - name: Test menu highlight on mouse leave
-        run: node packages/e2e/scripts/test-menu-mouse-leave.mjs .tmp/lvce-integration
+        run: node packages/e2e/scripts/test-title-bar-browser-behavior.mjs .tmp/lvce-integration
         shell: bash
-      - name: Test unsupported local folder dialog
-        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
-        run: npm run e2e:headless -- --filter=viewlet.title-bar-open-folder-unsupported
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: 0
       - name: Install Linux window manager
         if: matrix.os == 'ubuntu-24.04'
         run: |-

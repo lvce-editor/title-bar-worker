@@ -49,8 +49,24 @@ if (!address || typeof address === 'string') {
 const browser = await chromium.launch({ headless: true })
 try {
   const page = await browser.newPage()
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'showDirectoryPicker', {
+      configurable: true,
+      value: undefined,
+    })
+  })
   await page.goto(`http://127.0.0.1:${address.port}/index.html`)
 
+  const fileMenuItem = page.locator('.TitleBarTopLevelEntry', { hasText: 'File' })
+  await fileMenuItem.click()
+  const openFolderItem = page.locator('#Menu-0 .MenuItem', { hasText: 'Open Folder' })
+  await openFolderItem.click()
+  const dialog = page.locator('.DialogContent')
+  await expect(dialog).toBeVisible()
+  await expect(dialog.locator('.DialogHeading')).toHaveText('Opening Local Folders is Unsupported')
+  await expect(dialog.locator('.DialogMessage')).toHaveText("Your browser doesn't support opening local folders.")
+
+  await page.reload()
   const helpMenuItem = page.locator('.TitleBarTopLevelEntry', { hasText: 'Help' })
   await helpMenuItem.click()
 
