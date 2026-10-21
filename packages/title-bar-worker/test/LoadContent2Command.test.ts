@@ -37,6 +37,7 @@ const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBa
   labelLetterSpacing: 0,
   labelPadding: 10,
   layoutControlsEnabled: false,
+  maxMenuRecentEntries: 10,
   menus: [],
   platform: PlatformType.Web,
   title: '',

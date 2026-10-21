@@ -36,7 +36,7 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     case MenuEntryId.Help:
       return MenuEntriesHelp.getMenuEntries(props.platform)
     case MenuEntryId.OpenRecent:
-      return MenuEntriesOpenRecent.getMenuEntries()
+      return MenuEntriesOpenRecent.getMenuEntries(state.maxMenuRecentEntries)
     case MenuEntryId.Run:
       return MenuEntriesRun.getMenuEntries()
     case MenuEntryId.Selection:

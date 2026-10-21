@@ -1,6 +1,8 @@
 import { expect, test } from '@jest/globals'
 import { MenuEntryId, PlatformType } from '@lvce-editor/constants'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as GetMenuEntries2 from '../src/parts/GetMenuEntries2/GetMenuEntries2.ts'
 import { MenuIdAlignPanel, MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup } from '../src/parts/GetMenuIds/GetMenuIds.ts'
 import { getMenuEntries } from '../src/parts/MenuEntries/MenuEntries.ts'
 
@@ -45,7 +47,16 @@ test.each([
 
 test('getMenuEntries routes recent workspaces', async () => {
   using _mockRpc = RendererWorker.registerMockRpc({ 'RecentlyOpened.getRecentlyOpened': () => [] })
-  expect(await getMenuEntries(MenuEntryId.OpenRecent)).toEqual(expect.arrayContaining([expect.objectContaining({ id: 'more' })]))
+  expect(await getMenuEntries(MenuEntryId.OpenRecent, 10)).toEqual(expect.arrayContaining([expect.objectContaining({ id: 'more' })]))
+})
+
+test('getMenuEntries2 uses the recent-entry limit from state', async () => {
+  using _mockRpc = RendererWorker.registerMockRpc({
+    'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/first.txt', 'file:///home/user/second.txt'],
+  })
+  const state = { ...createDefaultState(), maxMenuRecentEntries: 1 }
+  const result = await GetMenuEntries2.getMenuEntries2(state, { menuId: MenuEntryId.OpenRecent })
+  expect(result.filter((entry) => entry.command === 'Workspace.setUri')).toHaveLength(1)
 })
 
 test('getMenuEntries rejects unknown menus with context', async () => {

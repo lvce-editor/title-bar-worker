@@ -20,6 +20,7 @@ export interface TitleBarMenuBarState {
   readonly labelPadding: number
   readonly layoutControlsEnabled: boolean
   readonly mainAreaUid?: number
+  readonly maxMenuRecentEntries: number
   readonly menuRevision?: number
   readonly menus: readonly IMenu[]
   readonly menuUid?: number

@@ -24,6 +24,7 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   labelPadding: 8,
   layoutControlsEnabled: false,
   mainAreaUid: DEFAULT_MAIN_AREA_UID,
+  maxMenuRecentEntries: 10,
   menus: [],
   platform: PlatformType.Electron,
   showSideBarThings: true,

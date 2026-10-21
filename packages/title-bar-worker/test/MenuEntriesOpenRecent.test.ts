@@ -5,13 +5,13 @@ import * as MenuEntrySeparator from '../src/parts/MenuEntrySeparator/MenuEntrySe
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 
 test('getMenuEntries - abbreviates and decodes home directory labels while keeping original uris', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
+  using _mockRpc = RendererWorker.registerMockRpc({
     'RecentlyOpened.getRecentlyOpened'() {
       return ['file:///home/user/workspace%20%E2%80%93%20%C3%BC', 'file:///usr/lib/lvce/resources/app/playground']
     },
   })
 
-  const result = await MenuEntriesOpenRecent.getMenuEntries()
+  const result = await MenuEntriesOpenRecent.getMenuEntries(10)
   expect(result).toEqual([
     {
       args: ['file:///home/user/workspace%20%E2%80%93%20%C3%BC'],
@@ -40,5 +40,25 @@ test('getMenuEntries - abbreviates and decodes home directory labels while keepi
       label: 'Clear Recently Opened',
     },
   ])
-  expect(mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
+  expect(_mockRpc.invocations).toEqual([['RecentlyOpened.getRecentlyOpened']])
+})
+
+test.each([
+  [0, 0],
+  [1, 1],
+  [3, 3],
+])('getMenuEntries - limits recent entries to %s', async (limit, expectedCount) => {
+  using _mockRpc = RendererWorker.registerMockRpc({
+    'RecentlyOpened.getRecentlyOpened'() {
+      return ['file:///home/user/first.txt', 'file:///home/user/second.txt', 'file:///home/user/third.txt', 'file:///home/user/fourth.txt']
+    },
+  })
+
+  const result = await MenuEntriesOpenRecent.getMenuEntries(limit)
+  const recentEntries = result.filter((entry) => entry.command === 'Workspace.setUri')
+  expect(recentEntries).toHaveLength(expectedCount)
+  expect(recentEntries.map((entry) => entry.args?.[0])).toEqual(
+    ['file:///home/user/first.txt', 'file:///home/user/second.txt', 'file:///home/user/third.txt'].slice(0, expectedCount),
+  )
+  expect(result).toEqual(expect.arrayContaining([expect.objectContaining({ id: 'more' }), expect.objectContaining({ id: 'clearRecentlyOpened' })]))
 })
