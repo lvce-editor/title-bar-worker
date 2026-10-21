@@ -33,7 +33,6 @@ export default defineConfig([
   {
     files: [
       'packages/title-bar-worker/src/parts/GetMenuEntries2/GetMenuEntries2.ts',
-      'packages/title-bar-worker/src/parts/LoadContent/LoadContent.ts',
       'packages/title-bar-worker/src/parts/LoadContent2/LoadContent2.ts',
       'packages/title-bar-worker/src/parts/NativeHostState/NativeHostState.ts',
       'packages/title-bar-worker/src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarSelectIndexRestoreFocus.ts',
