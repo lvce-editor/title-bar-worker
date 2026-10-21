@@ -12,4 +12,10 @@ export const test: Test = async ({ Command, expect, Locator, TitleBarMenuBar }) 
 
   const item = Locator('#Menu-1 .MenuItem', { hasText: 'Split Down' })
   await expect(item).toBeVisible()
+  await Command.execute('TitleBar.handleMenuClick', 1, 1)
+  await expect(item).toBeHidden()
+  const editorGroups = Locator('.EditorGroup')
+  const horizontalGroups = Locator('.EditorGroupsHorizontal')
+  await expect(editorGroups).toHaveCount(2)
+  await expect(horizontalGroups).toHaveCount(1)
 }
