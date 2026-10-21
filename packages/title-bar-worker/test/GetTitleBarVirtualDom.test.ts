@@ -26,3 +26,31 @@ test('getTitleBarVirtualDom - shows command center instead of title', () => {
   expect(dom).toContainEqual(expect.objectContaining({ className: 'TitleBarCommandCenter' }))
   expect(dom).not.toContainEqual(expect.objectContaining({ className: 'TitleBarTitle' }))
 })
+
+test('getTitleBarVirtualDom - omits sidebar content when hidden but keeps window buttons', () => {
+  const state = {
+    ...createDefaultState(),
+    showSideBarThings: false,
+  }
+
+  const dom = getTitleBarVirtualDom(state)
+
+  expect(dom[0].childCount).toBe(1)
+  expect(dom).toHaveLength(2)
+  expect(dom).toContainEqual(expect.objectContaining({ className: expect.stringContaining('TitleBarButtons') }))
+  expect(dom).not.toContainEqual(expect.objectContaining({ className: expect.stringContaining('TitleBarMenuBar') }))
+  expect(dom).not.toContainEqual(expect.objectContaining({ className: 'TitleBarTitle' }))
+})
+
+test('getTitleBarVirtualDom - restores configured sidebar content when shown again', () => {
+  const state = {
+    ...createDefaultState(),
+    showSideBarThings: true,
+  }
+
+  const dom = getTitleBarVirtualDom(state)
+
+  expect(dom[0].childCount).toBe(4)
+  expect(dom).toContainEqual(expect.objectContaining({ className: expect.stringContaining('TitleBarMenuBar') }))
+  expect(dom).toContainEqual(expect.objectContaining({ className: 'TitleBarTitle' }))
+})

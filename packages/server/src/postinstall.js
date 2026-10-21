@@ -32,22 +32,36 @@ const isCommitHash = (dirent) => {
 
 const dirents = await readdir(serverStaticPath)
 const commitHash = dirents.find(isCommitHash) || ''
-const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist', 'rendererWorkerMain.js')
+const rendererWorkerDirectory = join(serverStaticPath, commitHash, 'packages', 'renderer-worker', 'dist')
 
 const testWorkerSourcePath = require.resolve('@lvce-editor/test-worker/dist/testWorkerMain.js')
 const testWorkerTargetPath = join(serverStaticPath, commitHash, 'packages', 'test-worker', 'dist', 'testWorkerMain.js')
 await cp(testWorkerSourcePath, testWorkerTargetPath)
 
-const content = await readFile(rendererWorkerMainPath, 'utf-8')
 const remoteUrl = getRemoteUrl(workerPath)
-if (!content.includes('// const titleBarWorkerUrl = ')) {
+const candidates = [
+  '`' + '${assetDir}/packages/renderer-worker/node_modules/@lvce-editor/title-bar-worker/dist/titleBarWorkerMain.js' + '`',
+  '`' + '${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js' + '`',
+]
+const replacement = '`' + remoteUrl + '`'
+let rendererWorkerMainPath = ''
+let content = ''
+for (const name of await readdir(rendererWorkerDirectory)) {
+  if (!name.endsWith('.js')) continue
+  const path = join(rendererWorkerDirectory, name)
+  const source = await readFile(path, 'utf8')
+  if (candidates.some((candidate) => source.includes(candidate)) || source.includes(replacement)) {
+    rendererWorkerMainPath = path
+    content = source
+    break
+  }
+}
+const occurrence = candidates.find((candidate) => content.includes(candidate))
+if (occurrence) {
   await cp(rendererWorkerMainPath, rendererWorkerMainPath + '.original')
-  const occurrence = `const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\``
-  const replacement = `// const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\`
-const titleBarWorkerUrl = \`${remoteUrl}\``
-
-  const newContent = content.replace(occurrence, replacement)
-  await writeFile(rendererWorkerMainPath, newContent)
+  await writeFile(rendererWorkerMainPath, content.replace(occurrence, replacement))
+} else if (!content.includes(replacement)) {
+  throw new Error('Title bar worker URL not found in test runtime')
 }
 
 await cp(staticServerConfigPath, sharedProcessConfigPath)

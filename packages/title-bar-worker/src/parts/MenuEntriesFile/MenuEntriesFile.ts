@@ -55,7 +55,7 @@ export const getMenuEntries = async (
     },
     {
       command: 'Dialog.openFolder',
-      flags: MenuItemFlags.RestoreFocus,
+      flags: MenuItemFlags.None,
       id: 'openFolder',
       label: FileStrings.openFolder(),
     },
