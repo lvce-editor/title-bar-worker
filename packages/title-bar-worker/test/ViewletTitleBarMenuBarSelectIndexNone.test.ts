@@ -84,6 +84,7 @@ test('selectIndexNone closes the latest state after a workspace change', async (
 test('selectIndexNone renders the closed menu before awaiting the selected command', async () => {
   const state: TitleBarMenuBarState = {
     ...createDefaultState(),
+    focusedIndex: 0,
     isMenuOpen: true,
     menus: [
       {
@@ -93,6 +94,7 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
         level: 0,
       } as any,
     ],
+    titleBarEntries: [{ label: 'Help', width: 100 }],
   }
   TitleBarMenuBarStates.set(state.uid, state, state)
   const order: string[] = []
@@ -102,6 +104,9 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   using mockRendererProcessRpc = registerRendererProcessMockRpc({
     'Viewlet.send'() {
       order.push('render')
+    },
+    'Viewlet.setDom2'() {
+      order.push('render entries')
     },
   })
   using mockRpc = RendererWorker.registerMockRpc({
@@ -123,7 +128,7 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   })
   await commandStarted
 
-  expect(order).toEqual(['render', 'about'])
+  expect(order).toEqual(['render', 'render entries', 'about'])
   expect(TitleBarMenuBarStates.get(state.uid).newState).toMatchObject({
     focusedIndex: -1,
     isMenuOpen: false,
@@ -133,6 +138,13 @@ test('selectIndexNone renders the closed menu before awaiting the selected comma
   resolveCommand()
   const result = await resultPromise
   expect(result.menus).toEqual([])
-  expect(mockRendererProcessRpc.invocations).toEqual([['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid]])
+  expect(mockRendererProcessRpc.invocations).toHaveLength(2)
+  expect(mockRendererProcessRpc.invocations[0]).toEqual(['Viewlet.send', state.uid, 'setMenus', [['closeMenus', 0]], state.uid])
+  const [renderCommand, renderUid, renderedDom] = mockRendererProcessRpc.invocations[1]
+  expect(renderCommand).toBe('Viewlet.setDom2')
+  expect(renderUid).toBe(state.uid)
+  const menuBar = renderedDom.find((node: any) => node.className?.includes('TitleBarMenuBar'))
+  expect(menuBar?.ariaActivedescendant).toBe('')
+  expect(renderedDom.find((node: any) => node.id === 'TitleBarEntryActive')).toBeUndefined()
   expect(mockRpc.invocations).toEqual([['About.showAbout']])
 })

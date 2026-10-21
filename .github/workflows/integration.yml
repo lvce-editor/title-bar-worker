@@ -76,6 +76,11 @@ jobs:
           "$result"'
         working-directory: .tmp/lvce-integration
         shell: bash
+      - name: Test native About dialog dismissal clears menu highlight
+        if: matrix.os == 'ubuntu-24.04'
+        run: xvfb-run -a -s '-screen 0 1920x1080x24' sh -c 'openbox & wm_pid=$!; node packages/extension-host-worker-tests/scripts/test-help-about-dialog.mjs; result=$?; kill "$wm_pid"; exit "$result"'
+        working-directory: .tmp/lvce-integration
+        shell: bash
       - name: Test menu highlight on mouse leave
         working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
         run: node scripts/test-menu-mouse-leave.mjs
