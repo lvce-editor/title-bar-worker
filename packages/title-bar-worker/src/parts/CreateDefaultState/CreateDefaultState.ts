@@ -26,6 +26,7 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   mainAreaUid: DEFAULT_MAIN_AREA_UID,
   menus: [],
   platform: PlatformType.Electron,
+  showSideBarThings: true,
   title: '',
   titleBarButtons: [],
   titleBarButtonsEnabled: true,

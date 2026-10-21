@@ -5,9 +5,11 @@ import cors from 'cors'
 import express from 'express'
 
 const root = resolve(import.meta.dirname, '../../..')
+const staticRoot = resolve(root, 'packages/build/.tmp/export-test/dist')
 const app = express()
 app.use(cors({}))
-app.use(express.static(resolve(root, 'packages/build/.tmp/export-test/dist')))
+app.use('/test', express.static(staticRoot))
+app.use(express.static(staticRoot))
 
 const server = app.listen(0, '127.0.0.1')
 await new Promise((resolve, reject) => {

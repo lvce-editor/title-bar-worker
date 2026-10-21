@@ -1,10 +1,9 @@
 import { join } from 'node:path'
 import { root } from './root.js'
 
-// Includes component DOM inspection and name-based title bar click dispatch.
-// Baseline measures 541,364 bytes; focus and render synchronization measures 541,684.
-// This change measured 541,948 bytes on Linux and 542,020 on macOS; 1,000 bytes of headroom covers the macOS measurement.
-export const threshold = 543_000
+// Linux CI: baseline 546,988 bytes; eager registration of the lazy cache RPC uses 549,412 (+2,424, 0.44%).
+// Keep 1,588 bytes of headroom for the registered RPC while retaining the memory gate.
+export const threshold = 551_000
 
 export const instantiations = 6000
 

@@ -23,6 +23,39 @@ test('closeMenu updates the registered title bar state', async () => {
   })
 })
 
+test('setShowSideBarThings hides and restores title bar content while clearing an open menu', async () => {
+  const uid = 42
+  const state: TitleBarMenuBarState = {
+    ...createDefaultState(uid),
+    focused: true,
+    focusedIndex: 1,
+    isMenuOpen: true,
+    menus: [{ focusedIndex: 0, id: 'menu', items: [], level: 0, x: 0, y: 0 }],
+  }
+  TitleBarMenuBarStates.set(uid, state, state)
+
+  await commandMap['TitleBar.setShowSideBarThings'](uid, false)
+
+  expect(TitleBarMenuBarStates.get(uid).newState).toMatchObject({
+    focused: false,
+    focusedIndex: -1,
+    isMenuOpen: false,
+    menus: [],
+    showSideBarThings: false,
+  })
+
+  await commandMap['TitleBar.setShowSideBarThings'](uid, false)
+  await commandMap['TitleBar.setShowSideBarThings'](uid, true)
+
+  expect(TitleBarMenuBarStates.get(uid).newState).toMatchObject({
+    focused: false,
+    focusedIndex: -1,
+    isMenuOpen: false,
+    menus: [],
+    showSideBarThings: true,
+  })
+})
+
 test('getMenuEntries2 reads the registered title bar state', async () => {
   const uid = 42
   const state: TitleBarMenuBarState = {
