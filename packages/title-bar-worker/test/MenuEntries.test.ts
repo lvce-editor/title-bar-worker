@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { MenuEntryId, PlatformType } from '@lvce-editor/constants'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { MainAreaWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as GetMenuEntries2 from '../src/parts/GetMenuEntries2/GetMenuEntries2.ts'
 import { MenuIdAlignPanel, MenuIdAppearance, MenuIdEditorLayout, MenuIdSwitchEditor, MenuIdSwitchGroup } from '../src/parts/GetMenuIds/GetMenuIds.ts'
@@ -57,6 +57,19 @@ test('getMenuEntries2 uses the recent-entry limit from state', async () => {
   const state = { ...createDefaultState(), maxMenuRecentEntries: 1 }
   const result = await GetMenuEntries2.getMenuEntries2(state, { menuId: MenuEntryId.OpenRecent })
   expect(result.filter((entry) => entry.command === 'Workspace.setUri')).toHaveLength(1)
+})
+
+test('getMenuEntries2 queries the main area for File and Selection menus', async () => {
+  using mockRpc = MainAreaWorker.registerMockRpc({ 'MainArea.hasOpenTextEditor': () => true })
+  const state = createDefaultState()
+
+  await GetMenuEntries2.getMenuEntries2(state, { menuId: MenuEntryId.File, platform: PlatformType.Web })
+  await GetMenuEntries2.getMenuEntries2(state, { menuId: MenuEntryId.Selection })
+
+  expect(mockRpc.invocations).toEqual([
+    ['MainArea.hasOpenTextEditor', state.mainAreaUid],
+    ['MainArea.hasOpenTextEditor', state.mainAreaUid],
+  ])
 })
 
 test('getMenuEntries rejects unknown menus with context', async () => {
