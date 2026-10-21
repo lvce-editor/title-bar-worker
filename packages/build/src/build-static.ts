@@ -1,6 +1,6 @@
-import { cp, mkdir, readFile, writeFile } from 'node:fs/promises'
+import { cp, readFile, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
-import { dirname, join } from 'node:path'
+import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { root } from './root.js'
 
@@ -28,27 +28,26 @@ const content = await readFile(rendererWorkerPath, 'utf8')
 const workerPath = join(root, '.tmp/dist/dist/titleBarWorkerMain.js')
 const remoteUrl = getRemoteUrl(workerPath)
 
-const occurrence = '`' + remoteUrl + '`'
-const replacement = '`' + '${assetDir}/packages/renderer-worker/node_modules/@lvce-editor/title-bar-worker/dist/titleBarWorkerMain.js' + '`'
-if (!content.includes(occurrence)) {
+const occurrence = `// const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\`
+const titleBarWorkerUrl = \`${remoteUrl}\``
+const replacement = `const titleBarWorkerUrl = \`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\``
+const runtimeOccurrence = `\`\${assetDir}/packages/renderer-worker/node_modules/@lvce-editor/title-bar-worker/dist/titleBarWorkerMain.js\``
+const runtimeReplacement = `\`\${assetDir}/packages/title-bar-worker/dist/titleBarWorkerMain.js\``
+const remoteRuntimeOccurrence = `\`${remoteUrl}\``
+if (content.includes(occurrence)) {
+  const newContent = content.replace(occurrence, replacement)
+  await writeFile(rendererWorkerPath, newContent)
+} else if (content.includes(runtimeOccurrence)) {
+  const newContent = content.replace(runtimeOccurrence, runtimeReplacement)
+  await writeFile(rendererWorkerPath, newContent)
+} else if (content.includes(remoteRuntimeOccurrence)) {
+  const newContent = content.replace(remoteRuntimeOccurrence, runtimeReplacement)
+  await writeFile(rendererWorkerPath, newContent)
+} else {
   throw new Error('occurrence not found')
 }
-const newContent = content.replace(occurrence, replacement)
-await writeFile(rendererWorkerPath, newContent)
 
-const titleBarWorkerPath = join(
-  root,
-  'dist',
-  commitHash,
-  'packages',
-  'renderer-worker',
-  'node_modules',
-  '@lvce-editor',
-  'title-bar-worker',
-  'dist',
-  'titleBarWorkerMain.js',
-)
-await mkdir(dirname(titleBarWorkerPath), { recursive: true })
+const titleBarWorkerPath = join(root, 'dist', commitHash, 'packages', 'title-bar-worker', 'dist', 'titleBarWorkerMain.js')
 await cp(workerPath, titleBarWorkerPath)
 
 await cp(join(root, 'dist'), join(root, '.tmp', 'static'), { recursive: true })
