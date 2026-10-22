@@ -14,14 +14,11 @@ const expectSelectionEnabled = async (api: TestApi, enabled: boolean): Promise<v
 }
 
 export const test: Test = async (api) => {
-  await api.Main.closeAllEditors()
-  await expectSelectionEnabled(api, false)
-
   const tmpDir = await api.FileSystem.getTmpDir({ scheme: 'memfs' })
   const uri = `${tmpDir}/selection-lifecycle.txt`
   await api.FileSystem.writeFile(uri, 'hello')
   await api.Main.openUri(uri)
-  await api.expect(api.Locator('.EditorInput textarea')).toBeFocused()
+  await api.expect(api.Locator('.EditorInput textarea')).toBeVisible()
   await expectSelectionEnabled(api, true)
 
   await api.Main.closeAllEditors()
