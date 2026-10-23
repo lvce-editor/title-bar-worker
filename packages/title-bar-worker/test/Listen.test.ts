@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-restricted-jest-methods */
 import { afterEach, expect, jest, test } from '@jest/globals'
 import * as Rpc from '@lvce-editor/rpc'
-import { CacheWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
+import { CacheWorker, MainAreaWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 
 const rendererRpc = Rpc.createMockRpc({})
 const create = jest.fn(async (_options: { readonly commandMap: Readonly<Record<string, unknown>> }) => rendererRpc)
@@ -22,6 +22,7 @@ const connect = async (port: MessagePort): Promise<void> => {
     commandMap: {
       'Cache.getCacheStorageItem': (): null => null,
       'Cache.setCacheStorageItem': (): { readonly success: true } => ({ success: true }),
+      'MainArea.hasOpenTextEditor': (): boolean => true,
       'TextMeasurement.measureTextWidths': (): readonly number[] => [24],
     },
     messagePort: port,
@@ -78,6 +79,35 @@ test('registers a lazy text measurement connection and shares concurrent first u
   await expect(TextMeasurementWorker.invoke('TextMeasurement.measureTextWidths', ['baz'])).resolves.toEqual([24])
   expect(renderer.invocations).toHaveLength(1)
   await TextMeasurementWorker.dispose()
+})
+
+test('registers a lazy main area connection for direct editor state queries', async () => {
+  await listen()
+  using renderer = RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker': connect,
+  })
+
+  expect(renderer.invocations).toEqual([])
+  await expect(MainAreaWorker.invoke('MainArea.hasOpenTextEditor', 1)).resolves.toBe(true)
+  expect(renderer.invocations).toHaveLength(1)
+  await MainAreaWorker.dispose()
+})
+
+test('allows the next main area query to retry after a failed handoff', async () => {
+  await listen()
+  const send = jest.fn(connect).mockImplementationOnce(async (port) => {
+    port.close()
+    throw new Error('Main area worker unavailable')
+  })
+  using renderer = RendererWorker.registerMockRpc({
+    'SendMessagePortToExtensionHostWorker.sendMessagePortToMainAreaWorker': send,
+  })
+
+  await expect(MainAreaWorker.invoke('MainArea.hasOpenTextEditor', 1)).rejects.toThrow('Main area worker unavailable')
+  await expect(MainAreaWorker.invoke('MainArea.hasOpenTextEditor', 1)).resolves.toBe(true)
+  expect(send).toHaveBeenCalledTimes(2)
+  expect(renderer.invocations).toHaveLength(2)
+  await MainAreaWorker.dispose()
 })
 
 test('allows the next measurement to retry after a failed shared handoff', async () => {

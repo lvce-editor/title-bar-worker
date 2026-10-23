@@ -1,5 +1,5 @@
 import { LazyTransferMessagePortRpcParent, WebWorkerRpcClient } from '@lvce-editor/rpc'
-import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
+import { MainAreaWorker, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import * as CommandMap from '../CommandMap/CommandMap.ts'
 import * as RegisterCacheWorker from '../RegisterCacheWorker/RegisterCacheWorker.ts'
 import { registerCommands } from '../TitleBarMenuBarStates/TitleBarMenuBarStates.ts'
@@ -20,6 +20,22 @@ const registerTextMeasurementWorker = async (): Promise<void> => {
   TextMeasurementWorker.set(lazyRpc)
 }
 
+const registerMainAreaWorker = async (): Promise<void> => {
+  const lazyRpc = await LazyTransferMessagePortRpcParent.create({
+    commandMap: {},
+    async send(port): Promise<void> {
+      try {
+        // @ts-ignore
+        await RendererWorker.sendMessagePortToMainAreaWorker(port)
+      } catch (error) {
+        await registerMainAreaWorker()
+        throw error
+      }
+    },
+  })
+  MainAreaWorker.set(lazyRpc)
+}
+
 export const listen = async (): Promise<void> => {
   registerCommands(CommandMap.commandMap)
   const rpc = await WebWorkerRpcClient.create({
@@ -28,4 +44,5 @@ export const listen = async (): Promise<void> => {
   RendererWorker.set(rpc)
   await RegisterCacheWorker.registerCacheWorker()
   await registerTextMeasurementWorker()
+  await registerMainAreaWorker()
 }
