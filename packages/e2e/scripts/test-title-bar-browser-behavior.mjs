@@ -73,8 +73,18 @@ try {
   const menu = page.locator('#Menu-0')
   await expect(menu).toBeVisible()
 
+  const viewLicenseItem = page.locator('#Menu-0 .MenuItem', { hasText: 'View License' })
+  await viewLicenseItem.hover()
+  await expect(viewLicenseItem).toHaveClass(/MenuItemFocused/)
+
   const aboutItem = page.locator('#Menu-0 .MenuItem', { hasText: 'About' })
   await aboutItem.hover()
+  const [aboutBackground, viewLicenseBackground] = await Promise.all([
+    aboutItem.evaluate((element) => getComputedStyle(element).backgroundColor),
+    viewLicenseItem.evaluate((element) => getComputedStyle(element).backgroundColor),
+  ])
+  assert.notEqual(aboutBackground, 'rgba(0, 0, 0, 0)')
+  assert.equal(viewLicenseBackground, 'rgba(0, 0, 0, 0)')
   await expect(aboutItem).toHaveClass(/MenuItemFocused/)
 
   await page.locator('.Main').hover()
