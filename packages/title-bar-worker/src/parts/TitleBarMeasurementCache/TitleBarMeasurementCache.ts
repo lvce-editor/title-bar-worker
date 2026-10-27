@@ -12,7 +12,7 @@ export const getCacheKey = async (
 ): Promise<string> => {
   const input = JSON.stringify([labels, fontWeight, fontSize, fontFamily, letterSpacing])
   const hash = hash53(input, 0).toString(16).padStart(14, '0') + hash53(input, 1).toString(16).padStart(14, '0')
-  return `/title-bar-measurements/v2/${hash}`
+  return `https://cache.invalid/title-bar-measurements/v2/${hash}`
 }
 
 const isValidWidths = (value: unknown, count: number): value is readonly number[] => {
