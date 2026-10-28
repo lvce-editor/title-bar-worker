@@ -49,7 +49,7 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     case MenuEntryId.Terminal:
       return MenuEntriesTerminal.getMenuEntries()
     case MenuEntryId.TitleBar:
-      return MenuEntriesTitleBar.getMenuEntries(props.platform)
+      return MenuEntriesTitleBar.getMenuEntries(props.platform, state.workspaceUri)
     case MenuEntryId.TitleBarContextMenu:
     case MenuIdTitleBarContextMenu:
       return getMenuEntriesTitleBarContextMenu(state)

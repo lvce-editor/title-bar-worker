@@ -1,5 +1,6 @@
 /* eslint-disable jest/no-restricted-jest-methods */
 import { expect, jest, test } from '@jest/globals'
+import { MenuEntryId, PlatformType } from '@lvce-editor/constants'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
 const mockMeasureTextWidths = jest.fn(
@@ -67,6 +68,22 @@ test('handleWorkspaceChange - should update workspaceUri and title with folder n
   expect(result.workspaceUri).toBe('/home/user/my-project')
   expect(result.title).toBe('my-project')
   expect(result.titleWidth).toBe(100)
+})
+
+test('handleWorkspaceChange - shows terminal menu for a web remote ssh workspace', async () => {
+  const initialState = createMockState({ platform: PlatformType.Web })
+
+  const result = await HandleWorkspaceChange.handleWorkspaceChange(initialState, 'remote-ssh://host/home/user/project')
+
+  expect(result.titleBarEntries.map((entry) => entry.id)).toContain(MenuEntryId.Terminal)
+})
+
+test('handleWorkspaceChange - hides terminal menu for a standalone web workspace', async () => {
+  const initialState = createMockState({ platform: PlatformType.Web })
+
+  const result = await HandleWorkspaceChange.handleWorkspaceChange(initialState, 'file:///home/user/project')
+
+  expect(result.titleBarEntries.map((entry) => entry.id)).not.toContain(MenuEntryId.Terminal)
 })
 
 test('handleWorkspaceChange - should preserve other state properties', async () => {
