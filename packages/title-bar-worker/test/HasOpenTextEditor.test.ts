@@ -1,93 +1,35 @@
 import { expect, test } from '@jest/globals'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { MainAreaWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { hasOpenTextEditor } from '../src/parts/HasOpenTextEditor/HasOpenTextEditor.ts'
 
-test('hasOpenTextEditor - no open editor', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getOpenEditorUris'() {
-      return []
-    },
-  })
-
-  await expect(hasOpenTextEditor()).resolves.toBe(false)
-  expect(mockRpc.invocations).toEqual([['GetActiveEditor.getOpenEditorUris']])
+test('queries the getter directly using the owning application MainArea uid', async () => {
+  using renderer = RendererWorker.registerMockRpc({ 'Viewlet.getMainAreaUid': () => 42 })
+  using main = MainAreaWorker.registerMockRpc({ 'MainArea.hasOpenTextEditor': () => true })
+  await expect(hasOpenTextEditor(8)).resolves.toBe(true)
+  expect(renderer.invocations).toEqual([['Viewlet.getMainAreaUid', 8]])
+  expect(main.invocations).toEqual([['MainArea.hasOpenTextEditor', 42]])
 })
 
-test('hasOpenTextEditor - empty editor URI', async () => {
-  using _mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getOpenEditorUris'() {
-      return ['']
-    },
-  })
-
-  await expect(hasOpenTextEditor()).resolves.toBe(false)
+test('preserves a false getter result', async () => {
+  using _renderer = RendererWorker.registerMockRpc({ 'Viewlet.getMainAreaUid': () => 42 })
+  using _main = MainAreaWorker.registerMockRpc({ 'MainArea.hasOpenTextEditor': () => false })
+  await expect(hasOpenTextEditor(8)).resolves.toBe(false)
 })
 
-test('hasOpenTextEditor - text editor', async () => {
-  using _mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getOpenEditorUris'() {
-      return ['memfs:///test/file.txt']
-    },
-  })
-
-  await expect(hasOpenTextEditor()).resolves.toBe(true)
+test('returns false when the application MainArea is unavailable', async () => {
+  using _renderer = RendererWorker.registerMockRpc({ 'Viewlet.getMainAreaUid': () => undefined })
+  using main = MainAreaWorker.registerMockRpc({})
+  await expect(hasOpenTextEditor(8)).resolves.toBe(false)
+  expect(main.invocations).toEqual([])
 })
 
-test('hasOpenTextEditor - extension detail', async () => {
-  using _mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getOpenEditorUris'() {
-      return ['extension-detail://builtin.cobalt2']
-    },
-  })
-
-  await expect(hasOpenTextEditor()).resolves.toBe(false)
+test('returns false when resolving the application fails', async () => {
+  using _renderer = RendererWorker.registerMockRpc({})
+  await expect(hasOpenTextEditor(8)).resolves.toBe(false)
 })
 
-test('hasOpenTextEditor - image editor', async () => {
-  using _mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getOpenEditorUris'() {
-      return ['file:///test/image.PNG?version=1']
-    },
-  })
-
-  await expect(hasOpenTextEditor()).resolves.toBe(false)
-})
-
-test('hasOpenTextEditor - unavailable getter', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({})
-
-  await expect(hasOpenTextEditor()).resolves.toBe(false)
-  expect(mockRpc.invocations).toEqual([['GetActiveEditor.getOpenEditorUris'], ['GetActiveEditor.getActiveEditorId']])
-})
-
-test('hasOpenTextEditor - active text editor fallback', async () => {
-  using mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getActiveEditorId'() {
-      return 42
-    },
-  })
-
-  await expect(hasOpenTextEditor()).resolves.toBe(true)
-  expect(mockRpc.invocations).toEqual([['GetActiveEditor.getOpenEditorUris'], ['GetActiveEditor.getActiveEditorId']])
-})
-
-test.each([
-  ['file:///image.png#preview', false],
-  ['file:///image.png?version=1#preview', false],
-  ['file:///image.png#preview?version=1', false],
-  ['file:///README', true],
-  [null, false],
-])('hasOpenTextEditor classifies %s', async (uri, expected) => {
-  using _mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getOpenEditorUris': () => [uri],
-  })
-  await expect(hasOpenTextEditor()).resolves.toBe(expected)
-})
-
-test.each([-1, '42'])('hasOpenTextEditor rejects invalid fallback id %s', async (id) => {
-  using _mockRpc = RendererWorker.registerMockRpc({
-    'GetActiveEditor.getActiveEditorId': () => id,
-    'GetActiveEditor.getOpenEditorUris': () => null,
-  })
-  await expect(hasOpenTextEditor()).resolves.toBe(false)
+test('returns false when the direct query fails', async () => {
+  using _renderer = RendererWorker.registerMockRpc({ 'Viewlet.getMainAreaUid': () => 42 })
+  using _main = MainAreaWorker.registerMockRpc({})
+  await expect(hasOpenTextEditor(8)).resolves.toBe(false)
 })

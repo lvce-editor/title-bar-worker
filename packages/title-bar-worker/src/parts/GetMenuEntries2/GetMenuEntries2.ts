@@ -30,7 +30,12 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     case MenuEntryId.Edit:
       return MenuEntriesEdit.getMenuEntries()
     case MenuEntryId.File:
-      return MenuEntriesFile.getMenuEntries(props.platform, undefined, await HasOpenTextEditor.hasOpenTextEditor(), Boolean(state.workspaceUri))
+      return MenuEntriesFile.getMenuEntries(
+        props.platform,
+        undefined,
+        await HasOpenTextEditor.hasOpenTextEditor(state.uid),
+        Boolean(state.workspaceUri),
+      )
     case MenuEntryId.Go:
       return MenuEntriesGo.getMenuEntries()
     case MenuEntryId.Help:
@@ -40,7 +45,7 @@ export const getMenuEntries2 = async (state: TitleBarMenuBarState, props: Contex
     case MenuEntryId.Run:
       return MenuEntriesRun.getMenuEntries()
     case MenuEntryId.Selection:
-      return MenuEntriesSelection.getMenuEntries(await HasOpenTextEditor.hasOpenTextEditor())
+      return MenuEntriesSelection.getMenuEntries(await HasOpenTextEditor.hasOpenTextEditor(state.uid))
     case MenuEntryId.Terminal:
       return MenuEntriesTerminal.getMenuEntries()
     case MenuEntryId.TitleBar:
