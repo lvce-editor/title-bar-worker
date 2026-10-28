@@ -12,19 +12,21 @@ export const handleWorkspaceChange = async (state: TitleBarMenuBarState, uri: st
     labelFontSize,
     labelFontWeight,
     labelLetterSpacing,
+    labelPadding,
+    platform,
     titleTemplate,
     titleWidth: oldTitleWidth,
     width,
   } = state
   const title = getTitle(uri, titleTemplate, applicationName)
   const titleWidth = await measureTitleWidth(title, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
-  const titleBarEntries = await MenuEntriesTitleBar.getMenuEntries(state.platform, uri)
-  const withWidths = await AddWidths.addWidths(titleBarEntries, state.labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
+  const titleBarEntries = await MenuEntriesTitleBar.getMenuEntries(platform, uri)
+  const withWidths = await AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   return {
     ...state,
     title,
-    titleWidth,
     titleBarEntries: withWidths,
+    titleWidth,
     // The title is centered, so half its width change becomes available to the menu.
     width: width + (oldTitleWidth - titleWidth) / 2,
     workspaceUri: uri,
