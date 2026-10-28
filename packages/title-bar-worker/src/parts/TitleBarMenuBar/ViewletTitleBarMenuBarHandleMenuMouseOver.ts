@@ -1,23 +1,16 @@
 import type { IMenu } from '../IMenu/IMenu.ts'
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
-import * as AddMenuEntryKeyBindings from '../AddMenuEntryKeyBindings/AddMenuEntryKeyBindings.ts'
 import * as Assert from '../Assert/Assert.ts'
-import * as Menu from '../Menu/Menu.ts'
-import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
+import { selectIndexSubMenu } from './ViewletTitleBarMenuBarSelectIndexSubMenu.ts'
 
-const getNewMenus = async (
-  menus: readonly IMenu[],
-  level: number,
-  index: number,
-  flags: number,
-  maxMenuRecentEntries: number,
-): Promise<readonly any[]> => {
+const getNewMenus = async (state: TitleBarMenuBarState, level: number, index: number, flags: number): Promise<readonly IMenu[]> => {
+  const { menus } = state
   const menu = menus[level]
   if (!menu) {
     return menus
   }
-  const { focusedIndex, items, x, y } = menu
+  const { focusedIndex, items } = menu
   if (flags === MenuItemFlags.Separator) {
     return menus
   }
@@ -50,26 +43,8 @@ const getNewMenus = async (
     return newMenus
   }
   if (item.flags === MenuItemFlags.SubMenu) {
-    const item = items[index]
-    if (!item.id) {
-      return menus
-    }
-    const rawSubMenuEntries = await MenuEntries.getMenuEntriesWithRecentLimit(item.id, maxMenuRecentEntries)
-    const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
-    const subMenu: IMenu = {
-      focusedIndex: -1,
-      items: subMenuEntries,
-      level: level + 1,
-      x: x + Menu.MENU_WIDTH,
-      y: y + index * 25,
-    }
-    const newParentMenu = {
-      ...menu,
-      expanded: true,
-      focusedIndex: index,
-    }
-    const newMenus = [...menus.slice(0, level), newParentMenu, subMenu]
-    return newMenus
+    const newState = await selectIndexSubMenu(state, menu, index)
+    return newState.menus
   }
   const newMenus = [
     ...menus.slice(0, level),
@@ -86,7 +61,7 @@ export const handleMenuMouseOver = async (state: TitleBarMenuBarState, level: nu
   Assert.object(state)
   Assert.number(level)
   Assert.number(index)
-  const { maxMenuRecentEntries, menus } = state
+  const { menus } = state
   const menu = menus[level]
   if (!menu) {
     return state
@@ -96,7 +71,7 @@ export const handleMenuMouseOver = async (state: TitleBarMenuBarState, level: nu
   if (!item) {
     return state
   }
-  const newMenus = await getNewMenus(menus, level, index, item.flags, maxMenuRecentEntries)
+  const newMenus = await getNewMenus(state, level, index, item.flags)
   if (menus === newMenus) {
     return state
   }
