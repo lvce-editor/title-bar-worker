@@ -7,16 +7,27 @@ interface Handler {
   (): readonly any[]
 }
 
-const getFn = (platform: number): Handler => {
+const isRemoteWorkspace = (workspaceUri: string): boolean => {
+  try {
+    return new URL(workspaceUri).protocol === 'remote-ssh:'
+  } catch {
+    return false
+  }
+}
+
+const getFn = (platform: number, workspaceUri: string): Handler => {
   switch (platform) {
     case PlatformType.Web:
+      if (isRemoteWorkspace(workspaceUri)) {
+        return MenuEntriesTitleBarRemote.getMenuEntries
+      }
       return MenuEntriesTitleBarWeb.getMenuEntries
     default:
       return MenuEntriesTitleBarRemote.getMenuEntries
   }
 }
 
-export const getMenuEntries = async (platform: number): Promise<readonly MenuEntry[]> => {
-  const fn = getFn(platform)
+export const getMenuEntries = async (platform: number, workspaceUri = ''): Promise<readonly MenuEntry[]> => {
+  const fn = getFn(platform, workspaceUri)
   return fn()
 }

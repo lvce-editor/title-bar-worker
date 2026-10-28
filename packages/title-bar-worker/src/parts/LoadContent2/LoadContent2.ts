@@ -12,10 +12,10 @@ import * as MenuEntriesTitleBar from '../MenuEntriesTitleBar/MenuEntriesTitleBar
 export const loadContent2 = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
   const { controlsOverlayEnabled, labelFontFamily, labelFontSize, labelFontWeight, labelLetterSpacing, labelPadding, platform, titleBarStyleCustom } =
     state
-  const titleBarEntries = await MenuEntriesTitleBar.getMenuEntries(platform)
+  const workspaceUri = await getWorkspaceUri()
+  const titleBarEntries = await MenuEntriesTitleBar.getMenuEntries(platform, workspaceUri)
   const withWidths = await AddWidths.addWidths(titleBarEntries, labelPadding, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const buttons = getTitleBarButtons(platform, controlsOverlayEnabled, titleBarStyleCustom)
-  const workspaceUri = await getWorkspaceUri()
   const title = getTitle(workspaceUri, state.titleTemplate, state.applicationName)
   const titleWidth = await measureTitleWidth(title, labelFontWeight, labelFontSize, labelFontFamily, labelLetterSpacing)
   const iconWidth = 30

@@ -5,6 +5,7 @@ export const name = 'title-bar-remote-ssh-workspace'
 export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   // arrange
   const title = Locator('.TitleBarTitle')
+  const terminalMenu = Locator('.TitleBarTopLevelEntry', { hasText: 'Terminal' })
 
   // act
   await TitleBarMenuBar.handleWorkspaceChange('remote-ssh://user@example.com/home/user/my-project')
@@ -12,4 +13,5 @@ export const test: Test = async ({ expect, Locator, TitleBarMenuBar }) => {
   // assert
   await expect(title).toBeVisible()
   await expect(title).toHaveText('my-project [SSH: example.com]')
+  await expect(terminalMenu).toBeVisible()
 }
