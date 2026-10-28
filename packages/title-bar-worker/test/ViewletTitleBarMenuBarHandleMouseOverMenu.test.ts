@@ -1,10 +1,18 @@
-import { expect, test } from '@jest/globals'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { beforeEach, afterEach, expect, test } from '@jest/globals'
+import { RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as MenuEntryId from '../src/parts/MenuEntryId/MenuEntryId.ts'
 import * as MenuItemFlags from '../src/parts/MenuItemFlags/MenuItemFlags.ts'
 import * as ViewletTitleBarMenuBarHandleMenuMouseOver from '../src/parts/TitleBarMenuBar/ViewletTitleBarMenuBarHandleMenuMouseOver.ts'
+
+const mocks: { measurement?: Disposable } = {}
+beforeEach(() => {
+  mocks.measurement = TextMeasurementWorker.registerMockRpc({
+    'TextMeasurement.measureTextWidths': (labels: readonly string[]) => labels.map((label) => label.length * 7),
+  })
+})
+afterEach(() => mocks.measurement?.[Symbol.dispose]())
 
 test('handleMouseOverMenu - focus item', async () => {
   const state: TitleBarMenuBarState = {
@@ -845,7 +853,7 @@ test('handleMouseOverMenu - multiple level submenu navigation', async () => {
   expect(result.menus).toHaveLength(2)
   expect(result.menus[0].focusedIndex).toBe(0)
   expect(result.menus[1].level).toBe(1)
-  expect(result.menus[1].x).toBe(150)
+  expect(result.menus[1].x).toBe(250)
   expect(result.menus[1].y).toBe(0)
   expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
@@ -880,8 +888,8 @@ test('handleMouseOverMenu - submenu position calculation', async () => {
     ],
   }
   const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 1)
-  expect(result.menus[1].x).toBe(250)
-  expect(result.menus[1].y).toBe(225)
+  expect(result.menus[1].x).toBe(350)
+  expect(result.menus[1].y).toBe(226)
 })
 
 test('handleMouseOverMenu - hover over index -1 when already -1', async () => {
@@ -1012,7 +1020,7 @@ test('handleMouseOverMenu - retain ancestors when opening a nested submenu', asy
   expect(result.menus).toHaveLength(3)
   expect(result.menus[0]).toBe(rootMenu)
   expect(result.menus[1]).toMatchObject({ expanded: true, focusedIndex: 0, level: 1 })
-  expect(result.menus[2]).toMatchObject({ focusedIndex: -1, level: 2, x: 300, y: 0 })
+  expect(result.menus[2]).toMatchObject({ focusedIndex: -1, level: 2, x: 400, y: 0 })
   expect(mockRpc.invocations.map(([command]) => command)).toEqual(['RecentlyOpened.getRecentlyOpened', 'Layout.getKeyBindings'])
 })
 
@@ -1072,4 +1080,20 @@ test('handleMouseOverMenu passes the recent-entry limit from state', async () =>
   }
   const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 0)
   expect(result.menus[1].items.filter((entry) => entry.command === 'Workspace.setUri')).toHaveLength(1)
+})
+
+test('hover sizes long recent paths using the same bounds as keyboard navigation', async () => {
+  using _recent = RendererWorker.registerMockRpc({ 'RecentlyOpened.getRecentlyOpened': () => ['file:///home/user/' + 'long-folder/'.repeat(10)] })
+  const parent = {
+    focusedIndex: -1,
+    items: [{ command: '', flags: MenuItemFlags.SubMenu, id: MenuEntryId.OpenRecent, label: 'Open Recent' }],
+    level: 0,
+    width: 250,
+    x: 30,
+    y: 30,
+  }
+  const state = { ...createDefaultState(), menus: [parent], viewportWidth: 1920 }
+  const result = await ViewletTitleBarMenuBarHandleMenuMouseOver.handleMenuMouseOver(state, 0, 0)
+  expect(result.menus[1].width).toBeGreaterThan(800)
+  expect(result.menus[1].x).toBe(280)
 })

@@ -31,4 +31,14 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   await expect(item).toBeFocused()
   await TitleBarMenuBar.handleKeyEscape()
   await expect(menu).toBeHidden()
+
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- reset the hovered parent item
+  await Locator('#Menu-0 .MenuItem').nth(0).dispatchEvent('mousemove', { bubbles: true } as unknown as string)
+
+  // Exercise the mousemove event too: it previously had a separate fixed-width path.
+  // eslint-disable-next-line @typescript-eslint/no-deprecated -- verifies the DOM mouse event
+  await Locator('#Menu-0 .MenuItemSubMenu').dispatchEvent('mousemove', { bubbles: true } as unknown as string)
+  await expect(menu).toBeVisible()
+  await expect(menu).toHaveCSS('width', expandedMenuWidth)
+  await expect(item).toHaveAttribute('title', recent)
 }
