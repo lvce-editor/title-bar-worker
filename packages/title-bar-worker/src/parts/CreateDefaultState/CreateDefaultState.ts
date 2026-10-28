@@ -42,6 +42,7 @@ export const createDefaultState = (uid: number = DEFAULT_UID): TitleBarMenuBarSt
   titleTemplate: '${folderName}',
   titleWidth: 0,
   uid,
+  viewportWidth: 800,
   width: 800,
   workspaceUri: '',
   x: 0,

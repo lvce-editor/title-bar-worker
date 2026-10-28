@@ -15,6 +15,10 @@ const getMenuDom = (menu: IMenu): readonly VirtualDomNode[] => {
     return [
       {
         ...root,
+        ...(items[index].command === 'Workspace.setUri' && {
+          style: 'display:block;line-height:26px;overflow:hidden;text-overflow:ellipsis',
+          title: items[index].label,
+        }),
         name: `${level}:${index}`,
         onClick: DomEventListenerFunctions.HandleMenuItemClick,
         onMouseMove: DomEventListenerFunctions.HandleMenuItemHover,

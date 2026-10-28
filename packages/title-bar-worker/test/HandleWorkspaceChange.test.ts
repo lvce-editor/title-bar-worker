@@ -50,6 +50,7 @@ const createMockState = (overrides?: Partial<TitleBarMenuBarState>): TitleBarMen
     titleTemplate: '${folderName}',
     titleWidth: 0,
     uid: 0,
+    viewportWidth: 0,
     width: 0,
     workspaceUri: '/old/workspace',
     x: 0,

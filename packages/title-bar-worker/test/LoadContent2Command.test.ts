@@ -54,6 +54,7 @@ const createMockState = (overrides: Partial<TitleBarMenuBarState> = {}): TitleBa
   titleTemplate: '${folderName}',
   titleWidth: 0,
   uid: 1,
+  viewportWidth: 800,
   width: 800,
   workspaceUri: '',
   x: 0,

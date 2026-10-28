@@ -15,6 +15,7 @@ test('resize - basic resize with default state', async () => {
   const result = await Resize.resize(state, dimensions)
 
   expect(result.height).toBe(40)
+  expect(result.viewportWidth).toBe(1000)
   expect(result.width).toBe(420) // 1000 / 2 - 0 / 2 - 50 - 30
   expect(result.x).toBe(50)
   expect(result.y).toBe(10)
