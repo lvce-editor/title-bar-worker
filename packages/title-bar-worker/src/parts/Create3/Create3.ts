@@ -45,6 +45,7 @@ export const create3 = (
     titleBarHeight: height,
     titleBarStyleCustom,
     uid: id,
+    viewportWidth: width,
     width,
     workspaceUri: '',
     x,

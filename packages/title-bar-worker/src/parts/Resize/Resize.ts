@@ -18,6 +18,7 @@ export const resize = async (state: TitleBarMenuBarState, dimensions: Dimensions
     ...state,
     ...dimensions,
     height: menuBarHeight,
+    viewportWidth: dimensions.width,
     width: menuBarWidth,
     x: menuBarX,
     y: menuBarY,
