@@ -15,6 +15,12 @@ test('getMenuEntries - web workspace connected through remote ssh', async () => 
   expect(entries.map((entry) => entry.id)).toContain(MenuEntryId.Terminal)
 })
 
+test('getMenuEntries - web workspace connected through remote server', async () => {
+  const entries = await MenuEntriesTitleBar.getMenuEntries(PlatformType.Web, 'remote-server://host/home/user/project')
+
+  expect(entries.map((entry) => entry.id)).toContain(MenuEntryId.Terminal)
+})
+
 test('getMenuEntries - remote platform includes terminal', async () => {
   const entries = await MenuEntriesTitleBar.getMenuEntries(PlatformType.Remote)
 

@@ -9,7 +9,8 @@ interface Handler {
 
 const isRemoteWorkspace = (workspaceUri: string): boolean => {
   try {
-    return new URL(workspaceUri).protocol === 'remote-ssh:'
+    const { protocol } = new URL(workspaceUri)
+    return protocol === 'remote-ssh:' || protocol === 'remote-server:'
   } catch {
     return false
   }

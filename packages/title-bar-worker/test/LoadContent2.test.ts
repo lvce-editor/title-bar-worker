@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-restricted-jest-methods */
 import { expect, test, jest } from '@jest/globals'
-import { PlatformType } from '@lvce-editor/constants'
+import { MenuEntryId, PlatformType } from '@lvce-editor/constants'
 import { MainProcess, RendererWorker } from '@lvce-editor/rpc-registry'
 import type { TitleBarMenuBarState } from '../src/parts/TitleBarMenuBarState/TitleBarMenuBarState.ts'
 
@@ -82,6 +82,20 @@ test('loadContent2 - returns state with title, buttons, and titleBarEntries', as
   expect(result).toHaveProperty('titleBarEntries')
   expect(result).toHaveProperty('iconWidth', 30)
   expect(Array.isArray(result.titleBarButtons)).toBe(true)
+})
+
+test('loadContent2 - shows terminal menu for remote server workspace', async () => {
+  const mockState = createMockState({ platform: PlatformType.Web })
+
+  using _mockRpc = RendererWorker.registerMockRpc({
+    'Workspace.getUri'() {
+      return 'remote-server://host/home/user/project'
+    },
+  })
+
+  const result = await LoadContent2.loadContent2(mockState)
+
+  expect(result.titleBarEntries.map((entry) => entry.id)).toContain(MenuEntryId.Terminal)
 })
 
 test('loadContent2 - preserves state properties', async () => {
