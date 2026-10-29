@@ -4,7 +4,12 @@ import * as AddMenuEntryKeyBindings from '../AddMenuEntryKeyBindings/AddMenuEntr
 import { getSubMenuBounds } from '../GetSubMenuBounds/GetSubMenuBounds.ts'
 import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 
-export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMenu, index: number): Promise<TitleBarMenuBarState> => {
+export const selectIndexSubMenu = async (
+  state: TitleBarMenuBarState,
+  menu: IMenu,
+  index: number,
+  shouldBeFocused = false,
+): Promise<TitleBarMenuBarState> => {
   const { maxMenuRecentEntries, menus } = state
   const { items, level } = menu
   const item = items[index]
@@ -16,7 +21,7 @@ export const selectIndexSubMenu = async (state: TitleBarMenuBarState, menu: IMen
   const bounds = await getSubMenuBounds(state, menu, index, subMenuEntries)
   const subMenu = {
     ...bounds,
-    focusedIndex: -1,
+    focusedIndex: shouldBeFocused ? 0 : -1,
     items: subMenuEntries,
     level: level + 1,
   }

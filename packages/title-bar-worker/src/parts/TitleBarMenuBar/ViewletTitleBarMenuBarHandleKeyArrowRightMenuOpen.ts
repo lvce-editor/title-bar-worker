@@ -1,42 +1,23 @@
 import type { TitleBarMenuBarState } from '../TitleBarMenuBarState/TitleBarMenuBarState.ts'
 // TODO menu should not be needed initially, only when item is selected and menu is opened
-import * as AddMenuEntryKeyBindings from '../AddMenuEntryKeyBindings/AddMenuEntryKeyBindings.ts'
-import * as Menu from '../Menu/Menu.ts'
-import * as MenuEntries from '../MenuEntries/MenuEntries.ts'
 import * as MenuItemFlags from '../MenuItemFlags/MenuItemFlags.ts'
 import { focusNext } from './ViewletTitleBarMenuBarFocusNext.ts'
+import { selectIndexSubMenu } from './ViewletTitleBarMenuBarSelectIndexSubMenu.ts'
 
 export const handleKeyArrowRightMenuOpen = async (state: TitleBarMenuBarState): Promise<TitleBarMenuBarState> => {
-  const { maxMenuRecentEntries, menus } = state
+  const { menus } = state
   // if menu can open sub menu to the right -> do that
   const menu = menus.at(-1)
   if (!menu) {
     return state
   }
-  const { focusedIndex, items, x, y } = menu
+  const { focusedIndex, items } = menu
   if (focusedIndex === -1) {
     return focusNext(state)
   }
   const item = items[focusedIndex]
   if (item.flags === MenuItemFlags.SubMenu && item.id !== undefined) {
-    const rawSubMenuEntries = await MenuEntries.getMenuEntriesWithRecentLimit(item.id, maxMenuRecentEntries)
-    const subMenuEntries = await AddMenuEntryKeyBindings.addMenuEntryKeyBindings(rawSubMenuEntries)
-    const subMenu = {
-      focusedIndex: 0,
-      items: subMenuEntries,
-      level: menus.length,
-      x: x + Menu.MENU_WIDTH,
-      y: y + focusedIndex * 25,
-    }
-    const newParentMenu = {
-      ...menu,
-      expanded: true,
-    }
-    const newMenus = [...menus.slice(0, -1), newParentMenu, subMenu]
-    return {
-      ...state,
-      menus: newMenus,
-    }
+    return selectIndexSubMenu(state, menu, focusedIndex, true)
   }
   return focusNext(state)
 }

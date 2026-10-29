@@ -17,7 +17,10 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   await Command.execute('RecentlyOpened.addToRecentlyOpened', recent)
   await TitleBarMenuBar.focus()
   await TitleBarMenuBar.handleKeyArrowDown()
-  await Command.execute('TitleBar.handleMenuClick', 0, 5)
+  for (let index = 0; index < 4; index++) {
+    await TitleBarMenuBar.handleKeyArrowDown()
+  }
+  await TitleBarMenuBar.handleKeyArrowRight()
 
   const menu = Locator('#Menu-1')
   const item = menu.locator('.MenuItem').nth(0)
@@ -27,7 +30,6 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   await expect(item).toContainText(recent)
   await expect(item).toHaveAttribute('title', recent)
   await expect(item).toHaveCSS('text-overflow', 'ellipsis')
-  await TitleBarMenuBar.handleKeyArrowDown()
   await expect(item).toBeFocused()
   await TitleBarMenuBar.handleKeyEscape()
   await expect(menu).toBeHidden()
@@ -42,4 +44,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, TitleBa
   await expect(menu).toBeVisible()
   await expect(menu).toHaveCSS('width', expandedMenuWidth)
   await expect(item).toHaveAttribute('title', recent)
+
+  await Command.execute('TitleBar.handleMenuClick', 0, 5)
+  await expect(menu).toBeVisible()
+  await expect(menu).toHaveCSS('width', expandedMenuWidth)
 }
