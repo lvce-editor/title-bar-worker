@@ -2,6 +2,7 @@ import { CacheWorker } from '@lvce-editor/rpc-registry'
 import { hash53 } from '../Hash53/Hash53.ts'
 
 const cacheName = 'lvce-title-bar-measurements-v1'
+const cacheDuration = 90 * 24 * 60 * 60 * 1000
 
 export const getCacheKey = async (
   labels: readonly string[],
@@ -28,5 +29,10 @@ export const getWidths = async (key: string, count: number): Promise<readonly nu
 }
 
 export const setWidths = async (key: string, widths: readonly number[]): Promise<void> => {
-  await CacheWorker.setCacheStorageJsonItem(key, widths, cacheName)
+  const body = JSON.stringify(widths)
+  await CacheWorker.setCacheStorageItem(key, body, cacheName, {
+    'Content-Length': String(new TextEncoder().encode(body).byteLength),
+    'Content-Type': 'application/json',
+    Expires: new Date(Date.now() + cacheDuration).toUTCString(),
+  })
 }

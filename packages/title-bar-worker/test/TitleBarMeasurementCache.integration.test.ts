@@ -1,13 +1,13 @@
 /* eslint-disable jest/no-restricted-jest-methods */
 import { expect, jest, test } from '@jest/globals'
 
-const cacheEntries = new Map<string, unknown>()
+const cacheEntries = new Map<string, Response>()
 const getCacheStorageJsonItem = jest.fn(async (key: string) => {
-  const value = cacheEntries.get(key)
-  return cacheEntries.has(key) ? { value } : null
+  const response = cacheEntries.get(key)
+  return response ? { value: await response.clone().json() } : null
 })
-const setCacheStorageJsonItem = jest.fn(async (key: string, value: unknown) => {
-  cacheEntries.set(key, value)
+const setCacheStorageItem = jest.fn(async (key: string, body: string, _cacheName: string, headers: Readonly<Record<string, string>>) => {
+  cacheEntries.set(key, new Response(body, { headers }))
   return { success: true as const }
 })
 const invoke = jest.fn(async () => [24, 40])
@@ -15,7 +15,7 @@ const invoke = jest.fn(async () => [24, 40])
 await jest.unstable_mockModule('@lvce-editor/rpc-registry', () => ({
   CacheWorker: {
     getCacheStorageJsonItem,
-    setCacheStorageJsonItem,
+    setCacheStorageItem,
   },
   TextMeasurementWorker: { invoke },
 }))
@@ -31,7 +31,7 @@ test('reuses persisted text widths after a title bar reload', async () => {
 
   expect(getCacheStorageJsonItem).toHaveBeenCalledTimes(2)
   expect(invoke).toHaveBeenCalledTimes(1)
-  expect(setCacheStorageJsonItem).toHaveBeenCalledTimes(1)
+  expect(setCacheStorageItem).toHaveBeenCalledTimes(1)
 })
 
 test('measures again when title bar items or typography change', async () => {
