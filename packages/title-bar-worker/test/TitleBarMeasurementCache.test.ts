@@ -2,14 +2,16 @@
 import { expect, jest, test } from '@jest/globals'
 
 const getCacheStorageJsonItem = jest.fn<(...args: readonly [string, string]) => Promise<null | { readonly value: unknown }>>(async () => null)
-const setCacheStorageJsonItem = jest.fn<(...args: readonly [string, unknown, string]) => Promise<{ readonly success: true }>>(async () => ({
+const setCacheStorageItem = jest.fn<
+  (...args: readonly [string, string, string, Readonly<Record<string, string>>]) => Promise<{ readonly success: true }>
+>(async () => ({
   success: true,
 }))
 
 await jest.unstable_mockModule('@lvce-editor/rpc-registry', () => ({
   CacheWorker: {
     getCacheStorageJsonItem,
-    setCacheStorageJsonItem,
+    setCacheStorageItem,
   },
 }))
 
@@ -42,8 +44,32 @@ test('title bar measurement cache reads and writes widths as persistent JSON', a
   await TitleBarMeasurementCache.setWidths('/title-bar-measurements/v1/key', [24, 40])
 
   expect(getCacheStorageJsonItem).toHaveBeenCalledWith('/title-bar-measurements/v1/key', 'lvce-title-bar-measurements-v1')
-  expect(setCacheStorageJsonItem).toHaveBeenCalledWith('/title-bar-measurements/v1/key', [24, 40], 'lvce-title-bar-measurements-v1')
+  expect(setCacheStorageItem).toHaveBeenCalledWith('/title-bar-measurements/v1/key', '[24,40]', 'lvce-title-bar-measurements-v1', {
+    'Content-Length': '7',
+    'Content-Type': 'application/json',
+    Expires: expect.any(String),
+  })
 })
+
+test.each([{ widths: [] }, { widths: [0, 24.5, 1000] }])(
+  'title bar measurement responses have their body length and a 90-day expiry: %j',
+  async ({ widths }) => {
+    const now = jest.spyOn(Date, 'now').mockReturnValue(Date.parse('2026-11-08T12:00:00Z'))
+    try {
+      await TitleBarMeasurementCache.setWidths('/title-bar-measurements/v2/key', widths)
+
+      const [, body, , headers] = setCacheStorageItem.mock.calls.at(-1)!
+      const response = new Response(body, { headers })
+      const bytes = await response.clone().arrayBuffer()
+      expect(response.headers.get('content-length')).toBe(String(bytes.byteLength))
+      expect(response.headers.get('content-type')).toBe('application/json')
+      expect(response.headers.get('expires')).toBe('Sat, 06 Feb 2027 12:00:00 GMT')
+      await expect(response.json()).resolves.toEqual(widths)
+    } finally {
+      now.mockRestore()
+    }
+  },
+)
 
 test('title bar measurement cache ignores invalid width payloads', async () => {
   getCacheStorageJsonItem.mockResolvedValue({ value: [24, '40'] })
