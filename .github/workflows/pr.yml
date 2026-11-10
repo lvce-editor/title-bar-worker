@@ -58,3 +58,105 @@ jobs:
         run: npm run e2e:application
         env:
           PLAYWRIGHT_BROWSERS_PATH: 0
+  startup-reproduction:
+    name: macOS startup attempt ${{ matrix.attempt }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-26
+        attempt: [1, 2, 3, 4, 5]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: 0
+      DIAGNOSTIC_ATTEMPT: ${{ matrix.attempt }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Instrument title bar command queues
+        run: node packages/e2e-integration/diagnose-queue.mjs
+      - run: npm run build
+      - uses: actions/checkout@v7
+        with:
+          repository: lvce-editor/lvce-editor
+          ref: 05117c82cca40a07b4758f0a82d5a17cf08c30eb
+          path: .tmp/lvce-integration
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .tmp/lvce-integration/.nvmrc
+      - name: Install application dependencies
+        working-directory: .tmp/lvce-integration
+        run: npm ci
+      - name: Install Chromium
+        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
+        run: npx playwright install --with-deps chromium
+      - name: Prepare owned integration tests
+        run: node packages/e2e-integration/prepare.mjs .tmp/lvce-integration
+      - name: Instrument disposable integration runner
+        run: node packages/e2e-integration/diagnose-startup.mjs .tmp/lvce-integration
+      - name: Build application static export
+        working-directory: .tmp/lvce-integration
+        run: npm run build:static:ignore-icon-theme
+        env:
+          PATH_PREFIX: /lvce-editor
+      - name: Include title bar browser test module in static export
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          test_module=packages/e2e-integration/src/viewlet.title-bar-menu-help-about-closes-menu.js
+          export_dir=.tmp/lvce-integration/packages/build/.tmp/export-test/dist/packages/extension-host-worker-tests/src
+          mkdir -p "$export_dir"
+          cp "$test_module" "$export_dir/"
+      - name: Build server and verify static export
+        working-directory: .tmp/lvce-integration
+        run: |-
+          npm run build:server
+          npm run test-static-export
+      - name: Install Linux window manager
+        if: matrix.os == 'ubuntu-24.04'
+        run: |-
+          sudo apt-get update
+          sudo apt-get install -y openbox xvfb xdotool
+      - name: Build Electron application
+        if: matrix.os == 'ubuntu-24.04'
+        working-directory: .tmp/lvce-integration
+        run: npm run build:electron:deb
+      - name: Test Linux titlebarless Electron layout
+        if: matrix.os == 'ubuntu-24.04'
+        run:
+          xvfb-run -a sh -c 'openbox & wm_pid=$!; node packages/extension-host-worker-tests/scripts/test-titlebarless.mjs; result=$?; kill "$wm_pid"; exit
+          "$result"'
+        working-directory: .tmp/lvce-integration
+        shell: bash
+      - name: Test menu highlight on mouse leave
+        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
+        run: node scripts/test-menu-mouse-leave.mjs
+        shell: bash
+      - name: Test Help menu closes before About
+        working-directory: .tmp/lvce-integration/packages/extension-host-worker-tests
+        run: |
+          mkdir -p .e2e-artifacts
+          npm run e2e:headless -- --test-name-prefix=viewlet.title-bar-menu-help-about-closes-menu 2>&1 | tee .e2e-artifacts/help-about.log
+        shell: bash
+      - name: Test title bar after expanded browser fullscreen
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          xvfb-run -a sh -c 'openbox & wm_pid=$!; node packages/extension-host-worker-tests/scripts/test-titlebar-reference.mjs; result=$?; kill "$wm_pid"; exit "$result"'
+        working-directory: .tmp/lvce-integration
+        shell: bash
+      - name: Upload integration artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: help-about-startup-${{ matrix.attempt }}
+          include-hidden-files: true
+          path: |
+            .tmp/lvce-integration/packages/extension-host-worker-tests/.e2e-artifacts/**
+            .tmp/lvce-integration/packages/extension-host-worker-tests/.tmp/**
+            .tmp/lvce-integration/packages/extension-host-worker-tests/screenshots/**
+            .tmp/lvce-integration/packages/extension-host-worker-tests/renderer-worker-traces/**
+            .tmp/lvce-integration/packages/extension-host-worker-tests/test-results/**
+          if-no-files-found: warn

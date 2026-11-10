@@ -65,6 +65,11 @@ export default defineConfig([
     rules: { 'github-actions/node-version-file': 'off', 'github-actions/on': 'off' },
   },
   {
+    // The reproduction uses the same pinned application runtime.
+    files: ['.github/workflows/pr.yml'],
+    rules: { 'github-actions/node-version-file': 'off' },
+  },
+  {
     // Preserve real DOM input events covered by the migrated application scenarios.
     files: [
       'packages/e2e-integration/src/viewlet.title-bar-view-license.ts',
